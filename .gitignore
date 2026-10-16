@@ -1,0 +1,12 @@
+# Environment
+.venv/
+.env
+.cache/
+data/raw/
+data/backups/
+data/sandbox*.json
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+*.log
