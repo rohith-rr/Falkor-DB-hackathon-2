@@ -1,0 +1,1170 @@
+{
+  "synthetic": true,
+  "projects": [
+    {
+      "id": "runtime",
+      "name": "Node Runtime",
+      "members": [
+        {
+          "id": "ada",
+          "display_name": "Ada Chen"
+        },
+        {
+          "id": "ben",
+          "display_name": "Ben Ortiz"
+        },
+        {
+          "id": "cy",
+          "display_name": "Cy Rao"
+        }
+      ],
+      "work_items": [
+        {
+          "id": "w1",
+          "name": "Bound graceful shutdown",
+          "sequence_id": 1,
+          "state_id": "open",
+          "state_name": "Open",
+          "created_by_id": "ada",
+          "assignee_ids": [
+            "ben"
+          ],
+          "created_at": "2026-10-15T09:00:00+00:00",
+          "updated_at": "2026-10-15T09:00:00+00:00",
+          "description_html": "<p>Bound graceful shutdown. Fictional engineering evaluation task.</p>",
+          "comments": [
+            {
+              "id": "pc1",
+              "actor_id": "ada",
+              "comment_html": "<p>I am concerned that shutdown can exceed the five second deadline.</p>",
+              "created_at": "2026-10-15T09:00:00+00:00",
+              "updated_at": "2026-10-15T09:00:00+00:00"
+            },
+            {
+              "id": "pc13",
+              "actor_id": "ada",
+              "comment_html": "<p>The five second deadline is the accepted target for this experiment.</p>",
+              "created_at": "2026-10-15T09:12:00+00:00",
+              "updated_at": "2026-10-15T09:12:00+00:00"
+            }
+          ]
+        },
+        {
+          "id": "w2",
+          "name": "Measure cancellation overhead",
+          "sequence_id": 2,
+          "state_id": "open",
+          "state_name": "Open",
+          "created_by_id": "ben",
+          "assignee_ids": [
+            "cy"
+          ],
+          "created_at": "2026-10-15T09:00:00+00:00",
+          "updated_at": "2026-10-15T09:00:00+00:00",
+          "description_html": "<p>Measure cancellation overhead. Fictional engineering evaluation task.</p>",
+          "comments": [
+            {
+              "id": "pc2",
+              "actor_id": "ben",
+              "comment_html": "<p>The cancellation prototype claims to address the shutdown deadline concern.</p>",
+              "created_at": "2026-10-15T09:01:00+00:00",
+              "updated_at": "2026-10-15T09:01:00+00:00"
+            },
+            {
+              "id": "pc14",
+              "actor_id": "ben",
+              "comment_html": "<p>Use a staged rollout with a manual rollback checkpoint.</p>",
+              "created_at": "2026-10-15T09:13:00+00:00",
+              "updated_at": "2026-10-15T09:13:00+00:00"
+            }
+          ]
+        },
+        {
+          "id": "w3",
+          "name": "Document rollback",
+          "sequence_id": 3,
+          "state_id": "open",
+          "state_name": "Open",
+          "created_by_id": "cy",
+          "assignee_ids": [
+            "dee"
+          ],
+          "created_at": "2026-10-15T09:00:00+00:00",
+          "updated_at": "2026-10-15T09:00:00+00:00",
+          "description_html": "<p>Document rollback. Fictional engineering evaluation task.</p>",
+          "comments": [
+            {
+              "id": "pc3",
+              "actor_id": "ada",
+              "comment_html": "<p>I confirm the shutdown deadline concern is resolved after the bounded cancellation test.</p>",
+              "created_at": "2026-10-15T09:02:00+00:00",
+              "updated_at": "2026-10-15T09:02:00+00:00"
+            },
+            {
+              "id": "pc15",
+              "actor_id": "cy",
+              "comment_html": "<p>The API approval does not cover operational readiness.</p>",
+              "created_at": "2026-10-15T09:14:00+00:00",
+              "updated_at": "2026-10-15T09:14:00+00:00"
+            }
+          ]
+        },
+        {
+          "id": "w4",
+          "name": "Verify shutdown deadline",
+          "sequence_id": 4,
+          "state_id": "open",
+          "state_name": "Open",
+          "created_by_id": "dee",
+          "assignee_ids": [
+            "eli"
+          ],
+          "created_at": "2026-10-15T09:00:00+00:00",
+          "updated_at": "2026-10-15T09:00:00+00:00",
+          "description_html": "<p>Verify shutdown deadline. Fictional engineering evaluation task.</p>",
+          "comments": [
+            {
+              "id": "pc4",
+              "actor_id": "dee",
+              "comment_html": "<p>I approve only the API naming; the reliability question remains open.</p>",
+              "created_at": "2026-10-15T09:03:00+00:00",
+              "updated_at": "2026-10-15T09:03:00+00:00"
+            },
+            {
+              "id": "pc16",
+              "actor_id": "dee",
+              "comment_html": "<p>The runtime runbook now records the cancellation timeout.</p>",
+              "created_at": "2026-10-15T09:15:00+00:00",
+              "updated_at": "2026-10-15T09:15:00+00:00"
+            }
+          ]
+        },
+        {
+          "id": "w5",
+          "name": "Audit runtime owner routing",
+          "sequence_id": 5,
+          "state_id": "open",
+          "state_name": "Open",
+          "created_by_id": "eli",
+          "assignee_ids": [
+            "faye"
+          ],
+          "created_at": "2026-10-15T09:00:00+00:00",
+          "updated_at": "2026-10-15T09:00:00+00:00",
+          "description_html": "<p>Audit runtime owner routing. Fictional engineering evaluation task.</p>",
+          "comments": [
+            {
+              "id": "pc5",
+              "actor_id": "eli",
+              "comment_html": "<p>Please request a peer review; authorship does not grant reviewer authorization.</p>",
+              "created_at": "2026-10-15T09:04:00+00:00",
+              "updated_at": "2026-10-15T09:04:00+00:00"
+            },
+            {
+              "id": "pc17",
+              "actor_id": "eli",
+              "comment_html": "<p>Capacity testing needs a reservation fairness case.</p>",
+              "created_at": "2026-10-15T09:16:00+00:00",
+              "updated_at": "2026-10-15T09:16:00+00:00"
+            }
+          ]
+        },
+        {
+          "id": "w6",
+          "name": "Track phased rollout",
+          "sequence_id": 6,
+          "state_id": "open",
+          "state_name": "Open",
+          "created_by_id": "faye",
+          "assignee_ids": [
+            "ada"
+          ],
+          "created_at": "2026-10-15T09:00:00+00:00",
+          "updated_at": "2026-10-15T09:00:00+00:00",
+          "description_html": "<p>Track phased rollout. Fictional engineering evaluation task.</p>",
+          "comments": [
+            {
+              "id": "pc6",
+              "actor_id": "faye",
+              "comment_html": "<p>The rollout is paused until the rollback runbook is complete.</p>",
+              "created_at": "2026-10-15T09:05:00+00:00",
+              "updated_at": "2026-10-15T09:05:00+00:00"
+            },
+            {
+              "id": "pc18",
+              "actor_id": "faye",
+              "comment_html": "<p>No completed test result has been supplied for starvation.</p>",
+              "created_at": "2026-10-15T09:17:00+00:00",
+              "updated_at": "2026-10-15T09:17:00+00:00"
+            }
+          ]
+        }
+      ],
+      "pages": [
+        {
+          "id": "ownership",
+          "name": "Component ownership",
+          "description_html": "<h1>Component ownership</h1><p>Node Runtime is owned by Ada and Ben. Resource Allocation is owned by Dee and Eli.</p>",
+          "created_at": "2026-10-15T09:00:00+00:00",
+          "updated_at": "2026-10-15T09:00:00+00:00"
+        },
+        {
+          "id": "adr-runtime",
+          "name": "ADR: bounded cancellation",
+          "description_html": "<h1>ADR: bounded cancellation</h1><p>Decision: use bounded cancellation with a five second shutdown deadline.</p>",
+          "created_at": "2026-10-15T09:00:00+00:00",
+          "updated_at": "2026-10-15T09:00:00+00:00"
+        },
+        {
+          "id": "runbook-runtime",
+          "name": "Runtime rollback runbook",
+          "description_html": "<h1>Runtime rollback runbook</h1><p>Rollback when shutdown latency exceeds five seconds in the canary.</p>",
+          "created_at": "2026-10-15T09:00:00+00:00",
+          "updated_at": "2026-10-15T09:00:00+00:00"
+        }
+      ]
+    },
+    {
+      "id": "allocation",
+      "name": "Resource Allocation",
+      "members": [
+        {
+          "id": "dee",
+          "display_name": "Dee Park"
+        },
+        {
+          "id": "eli",
+          "display_name": "Eli Moss"
+        },
+        {
+          "id": "faye",
+          "display_name": "Faye Lin"
+        }
+      ],
+      "work_items": [
+        {
+          "id": "w7",
+          "name": "Bound resize retry",
+          "sequence_id": 7,
+          "state_id": "open",
+          "state_name": "Open",
+          "created_by_id": "ada",
+          "assignee_ids": [
+            "ben"
+          ],
+          "created_at": "2026-10-15T09:00:00+00:00",
+          "updated_at": "2026-10-15T09:00:00+00:00",
+          "description_html": "<p>Bound resize retry. Fictional engineering evaluation task.</p>",
+          "comments": [
+            {
+              "id": "pc7",
+              "actor_id": "ada",
+              "comment_html": "<p>I am concerned that resize retry can starve existing reservations.</p>",
+              "created_at": "2026-10-15T09:06:00+00:00",
+              "updated_at": "2026-10-15T09:06:00+00:00"
+            },
+            {
+              "id": "pc19",
+              "actor_id": "ada",
+              "comment_html": "<p>The alternative remains under consideration pending measurements.</p>",
+              "created_at": "2026-10-15T09:18:00+00:00",
+              "updated_at": "2026-10-15T09:18:00+00:00"
+            }
+          ]
+        },
+        {
+          "id": "w8",
+          "name": "Measure reservation drift",
+          "sequence_id": 8,
+          "state_id": "open",
+          "state_name": "Open",
+          "created_by_id": "ben",
+          "assignee_ids": [
+            "cy"
+          ],
+          "created_at": "2026-10-15T09:00:00+00:00",
+          "updated_at": "2026-10-15T09:00:00+00:00",
+          "description_html": "<p>Measure reservation drift. Fictional engineering evaluation task.</p>",
+          "comments": [
+            {
+              "id": "pc8",
+              "actor_id": "ben",
+              "comment_html": "<p>The retry patch is proposed, but no starvation test result exists.</p>",
+              "created_at": "2026-10-15T09:07:00+00:00",
+              "updated_at": "2026-10-15T09:07:00+00:00"
+            },
+            {
+              "id": "pc20",
+              "actor_id": "ben",
+              "comment_html": "<p>The release task must include links to the decision and runbook.</p>",
+              "created_at": "2026-10-15T09:19:00+00:00",
+              "updated_at": "2026-10-15T09:19:00+00:00"
+            }
+          ]
+        },
+        {
+          "id": "w9",
+          "name": "Document allocation rollback",
+          "sequence_id": 9,
+          "state_id": "open",
+          "state_name": "Open",
+          "created_by_id": "cy",
+          "assignee_ids": [
+            "dee"
+          ],
+          "created_at": "2026-10-15T09:00:00+00:00",
+          "updated_at": "2026-10-15T09:00:00+00:00",
+          "description_html": "<p>Document allocation rollback. Fictional engineering evaluation task.</p>",
+          "comments": [
+            {
+              "id": "pc9",
+              "actor_id": "cy",
+              "comment_html": "<p>We considered immediate retry; this is not a rejection decision.</p>",
+              "created_at": "2026-10-15T09:08:00+00:00",
+              "updated_at": "2026-10-15T09:08:00+00:00"
+            }
+          ]
+        },
+        {
+          "id": "w10",
+          "name": "Verify resource isolation",
+          "sequence_id": 10,
+          "state_id": "open",
+          "state_name": "Open",
+          "created_by_id": "dee",
+          "assignee_ids": [
+            "eli"
+          ],
+          "created_at": "2026-10-15T09:00:00+00:00",
+          "updated_at": "2026-10-15T09:00:00+00:00",
+          "description_html": "<p>Verify resource isolation. Fictional engineering evaluation task.</p>",
+          "comments": [
+            {
+              "id": "pc10",
+              "actor_id": "dee",
+              "comment_html": "<p>The runbook still requires a documented rollback trigger.</p>",
+              "created_at": "2026-10-15T09:09:00+00:00",
+              "updated_at": "2026-10-15T09:09:00+00:00"
+            }
+          ]
+        },
+        {
+          "id": "w11",
+          "name": "Audit capacity owner routing",
+          "sequence_id": 11,
+          "state_id": "open",
+          "state_name": "Open",
+          "created_by_id": "eli",
+          "assignee_ids": [
+            "faye"
+          ],
+          "created_at": "2026-10-15T09:00:00+00:00",
+          "updated_at": "2026-10-15T09:00:00+00:00",
+          "description_html": "<p>Audit capacity owner routing. Fictional engineering evaluation task.</p>",
+          "comments": [
+            {
+              "id": "pc11",
+              "actor_id": "eli",
+              "comment_html": "<p>Ownership comes from the declared component page, not this assignment.</p>",
+              "created_at": "2026-10-15T09:10:00+00:00",
+              "updated_at": "2026-10-15T09:10:00+00:00"
+            }
+          ]
+        },
+        {
+          "id": "w12",
+          "name": "Track allocation rollout",
+          "sequence_id": 12,
+          "state_id": "open",
+          "state_name": "Open",
+          "created_by_id": "faye",
+          "assignee_ids": [
+            "ada"
+          ],
+          "created_at": "2026-10-15T09:00:00+00:00",
+          "updated_at": "2026-10-15T09:00:00+00:00",
+          "description_html": "<p>Track allocation rollout. Fictional engineering evaluation task.</p>",
+          "comments": [
+            {
+              "id": "pc12",
+              "actor_id": "faye",
+              "comment_html": "<p>The task is marked done, but the remaining concern is not resolved.</p>",
+              "created_at": "2026-10-15T09:11:00+00:00",
+              "updated_at": "2026-10-15T09:11:00+00:00"
+            }
+          ]
+        }
+      ],
+      "pages": [
+        {
+          "id": "adr-allocation",
+          "name": "ADR: reservation fairness",
+          "description_html": "<h1>ADR: reservation fairness</h1><p>Decision: preserve existing reservations before retrying resize.</p>",
+          "created_at": "2026-10-15T09:00:00+00:00",
+          "updated_at": "2026-10-15T09:00:00+00:00"
+        },
+        {
+          "id": "runbook-allocation",
+          "name": "Allocation rollback runbook",
+          "description_html": "<h1>Allocation rollback runbook</h1><p>Rollback resize if reservation starvation is observed.</p>",
+          "created_at": "2026-10-15T09:00:00+00:00",
+          "updated_at": "2026-10-15T09:00:00+00:00"
+        },
+        {
+          "id": "rfc-retry",
+          "name": "RFC: retry alternatives",
+          "description_html": "<h1>RFC: retry alternatives</h1><p>We considered immediate retry. We rejected unlimited retry because it can starve reservations.</p>",
+          "created_at": "2026-10-15T09:00:00+00:00",
+          "updated_at": "2026-10-15T09:00:00+00:00"
+        }
+      ]
+    }
+  ],
+  "channels": [
+    {
+      "id": "CDEMO",
+      "name": "engineering-sandbox",
+      "threads": [
+        {
+          "ts": "1792058400.000001",
+          "messages": [
+            {
+              "ts": "1792058400.000001",
+              "user": "ada",
+              "text": "Which decision sets the shutdown deadline?",
+              "url": "https://app.slack.com/archives/CDEMO/p1792058400000001"
+            },
+            {
+              "ts": "1792058430.000001",
+              "user": "ben",
+              "text": "The bounded cancellation ADR sets five seconds.",
+              "url": "https://app.slack.com/archives/CDEMO/p1792058430000001"
+            },
+            {
+              "ts": "1792058460.000001",
+              "user": "cy",
+              "text": "The runtime rollback runbook names the canary trigger.",
+              "url": "https://app.slack.com/archives/CDEMO/p1792058460000001"
+            },
+            {
+              "ts": "1792058490.000001",
+              "user": "dee",
+              "text": "The runtime owner is Ada; Ben is the second declared owner.",
+              "url": "https://app.slack.com/archives/CDEMO/p1792058490000001"
+            },
+            {
+              "ts": "1792058520.000001",
+              "user": "eli",
+              "text": "A test request is not a completed test result.",
+              "url": "https://app.slack.com/archives/CDEMO/p1792058520000001"
+            }
+          ],
+          "complete": true,
+          "url": "https://app.slack.com/archives/CDEMO/p1792058400000001"
+        },
+        {
+          "ts": "1792059000.000001",
+          "messages": [
+            {
+              "ts": "1792059000.000001",
+              "user": "ben",
+              "text": "Can we treat the API approval as full approval?",
+              "url": "https://app.slack.com/archives/CDEMO/p1792059000000001"
+            },
+            {
+              "ts": "1792059030.000001",
+              "user": "cy",
+              "text": "No, the approval covers API naming only.",
+              "url": "https://app.slack.com/archives/CDEMO/p1792059030000001"
+            },
+            {
+              "ts": "1792059060.000001",
+              "user": "dee",
+              "text": "Reliability requires separate evidence.",
+              "url": "https://app.slack.com/archives/CDEMO/p1792059060000001"
+            },
+            {
+              "ts": "1792059090.000001",
+              "user": "eli",
+              "text": "The deadline concern has an explicit resolution by Ada.",
+              "url": "https://app.slack.com/archives/CDEMO/p1792059090000001"
+            },
+            {
+              "ts": "1792059120.000001",
+              "user": "faye",
+              "text": "Retain the source quote in the review brief.",
+              "url": "https://app.slack.com/archives/CDEMO/p1792059120000001"
+            }
+          ],
+          "complete": true,
+          "url": "https://app.slack.com/archives/CDEMO/p1792059000000001"
+        },
+        {
+          "ts": "1792059600.000001",
+          "messages": [
+            {
+              "ts": "1792059600.000001",
+              "user": "cy",
+              "text": "Why preserve reservations during resize?",
+              "url": "https://app.slack.com/archives/CDEMO/p1792059600000001"
+            },
+            {
+              "ts": "1792059630.000001",
+              "user": "dee",
+              "text": "The allocation ADR prioritizes existing reservations.",
+              "url": "https://app.slack.com/archives/CDEMO/p1792059630000001"
+            },
+            {
+              "ts": "1792059660.000001",
+              "user": "eli",
+              "text": "The starvation concern is still open.",
+              "url": "https://app.slack.com/archives/CDEMO/p1792059660000001"
+            },
+            {
+              "ts": "1792059690.000001",
+              "user": "faye",
+              "text": "The retry proposal only claims to address it.",
+              "url": "https://app.slack.com/archives/CDEMO/p1792059690000001"
+            },
+            {
+              "ts": "1792059720.000001",
+              "user": "ada",
+              "text": "Dee and Eli own Resource Allocation.",
+              "url": "https://app.slack.com/archives/CDEMO/p1792059720000001"
+            }
+          ],
+          "complete": true,
+          "url": "https://app.slack.com/archives/CDEMO/p1792059600000001"
+        },
+        {
+          "ts": "1792060200.000001",
+          "messages": [
+            {
+              "ts": "1792060200.000001",
+              "user": "dee",
+              "text": "Should immediate retry be described as rejected?",
+              "url": "https://app.slack.com/archives/CDEMO/p1792060200000001"
+            },
+            {
+              "ts": "1792060230.000001",
+              "user": "eli",
+              "text": "The RFC says immediate retry was considered.",
+              "url": "https://app.slack.com/archives/CDEMO/p1792060230000001"
+            },
+            {
+              "ts": "1792060260.000001",
+              "user": "faye",
+              "text": "Unlimited retry was rejected because it can starve reservations.",
+              "url": "https://app.slack.com/archives/CDEMO/p1792060260000001"
+            },
+            {
+              "ts": "1792060290.000001",
+              "user": "ada",
+              "text": "These are two different alternatives.",
+              "url": "https://app.slack.com/archives/CDEMO/p1792060290000001"
+            },
+            {
+              "ts": "1792060320.000001",
+              "user": "ben",
+              "text": "The agent must not confuse consideration with rejection.",
+              "url": "https://app.slack.com/archives/CDEMO/p1792060320000001"
+            }
+          ],
+          "complete": true,
+          "url": "https://app.slack.com/archives/CDEMO/p1792060200000001"
+        },
+        {
+          "ts": "1792060800.000001",
+          "messages": [
+            {
+              "ts": "1792060800.000001",
+              "user": "eli",
+              "text": "Who can review the rollback plan?",
+              "url": "https://app.slack.com/archives/CDEMO/p1792060800000001"
+            },
+            {
+              "ts": "1792060830.000001",
+              "user": "faye",
+              "text": "Use declared owners, then inspect actual peer review evidence.",
+              "url": "https://app.slack.com/archives/CDEMO/p1792060830000001"
+            },
+            {
+              "ts": "1792060860.000001",
+              "user": "ada",
+              "text": "Ticket assignments are not component ownership.",
+              "url": "https://app.slack.com/archives/CDEMO/p1792060860000001"
+            },
+            {
+              "ts": "1792060890.000001",
+              "user": "ben",
+              "text": "Chat volume is not a code expertise score.",
+              "url": "https://app.slack.com/archives/CDEMO/p1792060890000001"
+            },
+            {
+              "ts": "1792060920.000001",
+              "user": "cy",
+              "text": "If evidence is absent, say unknown.",
+              "url": "https://app.slack.com/archives/CDEMO/p1792060920000001"
+            }
+          ],
+          "complete": true,
+          "url": "https://app.slack.com/archives/CDEMO/p1792060800000001"
+        },
+        {
+          "ts": "1792061400.000001",
+          "messages": [
+            {
+              "ts": "1792061400.000001",
+              "user": "faye",
+              "text": "Is the knowledge current?",
+              "url": "https://app.slack.com/archives/CDEMO/p1792061400000001"
+            },
+            {
+              "ts": "1792061430.000001",
+              "user": "ada",
+              "text": "This conversation is fictional and imported from a fixture.",
+              "url": "https://app.slack.com/archives/CDEMO/p1792061430000001"
+            },
+            {
+              "ts": "1792061460.000001",
+              "user": "ben",
+              "text": "No complete company activity coverage is established.",
+              "url": "https://app.slack.com/archives/CDEMO/p1792061460000001"
+            },
+            {
+              "ts": "1792061490.000001",
+              "user": "cy",
+              "text": "Refresh Plane before creating the follow-up task.",
+              "url": "https://app.slack.com/archives/CDEMO/p1792061490000001"
+            },
+            {
+              "ts": "1792061520.000001",
+              "user": "dee",
+              "text": "Only create the exact task after explicit human approval.",
+              "url": "https://app.slack.com/archives/CDEMO/p1792061520000001"
+            }
+          ],
+          "complete": true,
+          "url": "https://app.slack.com/archives/CDEMO/p1792061400000001"
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "id": "company:northstar:claim:pc1",
+      "source": "plane:northstar:comment:pc1",
+      "label": "Argument",
+      "kind": "concern",
+      "summary": "I am concerned that shutdown can exceed the five second deadline.",
+      "quote": "I am concerned that shutdown can exceed the five second deadline.",
+      "at": "2026-10-15T09:00:00+00:00",
+      "author": "ada",
+      "target": "company:northstar:component:node-runtime",
+      "relationship": "RAISES_CONCERN_ON"
+    },
+    {
+      "id": "company:northstar:claim:pc13",
+      "source": "plane:northstar:comment:pc13",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "The five second deadline is the accepted target for this experiment.",
+      "quote": "The five second deadline is the accepted target for this experiment.",
+      "at": "2026-10-15T09:12:00+00:00",
+      "author": "ada"
+    },
+    {
+      "id": "company:northstar:claim:pc2",
+      "source": "plane:northstar:comment:pc2",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "The cancellation prototype claims to address the shutdown deadline concern.",
+      "quote": "The cancellation prototype claims to address the shutdown deadline concern.",
+      "at": "2026-10-15T09:01:00+00:00",
+      "author": "ben",
+      "target": "company:northstar:claim:pc1",
+      "relationship": "ADDRESSES"
+    },
+    {
+      "id": "company:northstar:claim:pc14",
+      "source": "plane:northstar:comment:pc14",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "Use a staged rollout with a manual rollback checkpoint.",
+      "quote": "Use a staged rollout with a manual rollback checkpoint.",
+      "at": "2026-10-15T09:13:00+00:00",
+      "author": "ben"
+    },
+    {
+      "id": "company:northstar:claim:pc3",
+      "source": "plane:northstar:comment:pc3",
+      "label": "Argument",
+      "kind": "resolution",
+      "summary": "I confirm the shutdown deadline concern is resolved after the bounded cancellation test.",
+      "quote": "I confirm the shutdown deadline concern is resolved after the bounded cancellation test.",
+      "at": "2026-10-15T09:02:00+00:00",
+      "author": "ada",
+      "target": "company:northstar:claim:pc1",
+      "relationship": "RESOLVES"
+    },
+    {
+      "id": "company:northstar:claim:pc15",
+      "source": "plane:northstar:comment:pc15",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "The API approval does not cover operational readiness.",
+      "quote": "The API approval does not cover operational readiness.",
+      "at": "2026-10-15T09:14:00+00:00",
+      "author": "cy"
+    },
+    {
+      "id": "company:northstar:claim:pc4",
+      "source": "plane:northstar:comment:pc4",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "I approve only the API naming; the reliability question remains open.",
+      "quote": "I approve only the API naming; the reliability question remains open.",
+      "at": "2026-10-15T09:03:00+00:00",
+      "author": "dee"
+    },
+    {
+      "id": "company:northstar:claim:pc16",
+      "source": "plane:northstar:comment:pc16",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "The runtime runbook now records the cancellation timeout.",
+      "quote": "The runtime runbook now records the cancellation timeout.",
+      "at": "2026-10-15T09:15:00+00:00",
+      "author": "dee"
+    },
+    {
+      "id": "company:northstar:claim:pc5",
+      "source": "plane:northstar:comment:pc5",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "Please request a peer review; authorship does not grant reviewer authorization.",
+      "quote": "Please request a peer review; authorship does not grant reviewer authorization.",
+      "at": "2026-10-15T09:04:00+00:00",
+      "author": "eli"
+    },
+    {
+      "id": "company:northstar:claim:pc17",
+      "source": "plane:northstar:comment:pc17",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "Capacity testing needs a reservation fairness case.",
+      "quote": "Capacity testing needs a reservation fairness case.",
+      "at": "2026-10-15T09:16:00+00:00",
+      "author": "eli"
+    },
+    {
+      "id": "company:northstar:claim:pc6",
+      "source": "plane:northstar:comment:pc6",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "The rollout is paused until the rollback runbook is complete.",
+      "quote": "The rollout is paused until the rollback runbook is complete.",
+      "at": "2026-10-15T09:05:00+00:00",
+      "author": "faye"
+    },
+    {
+      "id": "company:northstar:claim:pc18",
+      "source": "plane:northstar:comment:pc18",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "No completed test result has been supplied for starvation.",
+      "quote": "No completed test result has been supplied for starvation.",
+      "at": "2026-10-15T09:17:00+00:00",
+      "author": "faye"
+    },
+    {
+      "id": "company:northstar:claim:pc7",
+      "source": "plane:northstar:comment:pc7",
+      "label": "Argument",
+      "kind": "concern",
+      "summary": "I am concerned that resize retry can starve existing reservations.",
+      "quote": "I am concerned that resize retry can starve existing reservations.",
+      "at": "2026-10-15T09:06:00+00:00",
+      "author": "ada",
+      "target": "company:northstar:component:resource-allocation",
+      "relationship": "RAISES_CONCERN_ON"
+    },
+    {
+      "id": "company:northstar:claim:pc19",
+      "source": "plane:northstar:comment:pc19",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "The alternative remains under consideration pending measurements.",
+      "quote": "The alternative remains under consideration pending measurements.",
+      "at": "2026-10-15T09:18:00+00:00",
+      "author": "ada"
+    },
+    {
+      "id": "company:northstar:claim:pc8",
+      "source": "plane:northstar:comment:pc8",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "The retry patch is proposed, but no starvation test result exists.",
+      "quote": "The retry patch is proposed, but no starvation test result exists.",
+      "at": "2026-10-15T09:07:00+00:00",
+      "author": "ben"
+    },
+    {
+      "id": "company:northstar:claim:pc20",
+      "source": "plane:northstar:comment:pc20",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "The release task must include links to the decision and runbook.",
+      "quote": "The release task must include links to the decision and runbook.",
+      "at": "2026-10-15T09:19:00+00:00",
+      "author": "ben"
+    },
+    {
+      "id": "company:northstar:claim:pc9",
+      "source": "plane:northstar:comment:pc9",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "We considered immediate retry; this is not a rejection decision.",
+      "quote": "We considered immediate retry; this is not a rejection decision.",
+      "at": "2026-10-15T09:08:00+00:00",
+      "author": "cy"
+    },
+    {
+      "id": "company:northstar:claim:pc10",
+      "source": "plane:northstar:comment:pc10",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "The runbook still requires a documented rollback trigger.",
+      "quote": "The runbook still requires a documented rollback trigger.",
+      "at": "2026-10-15T09:09:00+00:00",
+      "author": "dee"
+    },
+    {
+      "id": "company:northstar:claim:pc11",
+      "source": "plane:northstar:comment:pc11",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "Ownership comes from the declared component page, not this assignment.",
+      "quote": "Ownership comes from the declared component page, not this assignment.",
+      "at": "2026-10-15T09:10:00+00:00",
+      "author": "eli"
+    },
+    {
+      "id": "company:northstar:claim:pc12",
+      "source": "plane:northstar:comment:pc12",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "The task is marked done, but the remaining concern is not resolved.",
+      "quote": "The task is marked done, but the remaining concern is not resolved.",
+      "at": "2026-10-15T09:11:00+00:00",
+      "author": "faye"
+    },
+    {
+      "id": "company:northstar:claim:ownership",
+      "source": "plane:northstar:page:ownership",
+      "label": "Rationale",
+      "kind": "goal",
+      "summary": "Node Runtime is owned by Ada and Ben. Resource Allocation is owned by Dee and Eli.",
+      "quote": "Node Runtime is owned by Ada and Ben. Resource Allocation is owned by Dee and Eli.",
+      "at": "2026-10-15T09:00:00+00:00",
+      "target": "company:northstar:component:node-runtime",
+      "relationship": "ABOUT"
+    },
+    {
+      "id": "company:northstar:claim:adr-runtime",
+      "source": "plane:northstar:page:adr-runtime",
+      "label": "Decision",
+      "kind": "goal",
+      "summary": "Decision: use bounded cancellation with a five second shutdown deadline.",
+      "quote": "Decision: use bounded cancellation with a five second shutdown deadline.",
+      "at": "2026-10-15T09:00:00+00:00",
+      "target": "company:northstar:component:node-runtime",
+      "relationship": "ABOUT"
+    },
+    {
+      "id": "company:northstar:claim:runbook-runtime",
+      "source": "plane:northstar:page:runbook-runtime",
+      "label": "Rationale",
+      "kind": "goal",
+      "summary": "Rollback when shutdown latency exceeds five seconds in the canary.",
+      "quote": "Rollback when shutdown latency exceeds five seconds in the canary.",
+      "at": "2026-10-15T09:00:00+00:00",
+      "target": "company:northstar:component:node-runtime",
+      "relationship": "ABOUT"
+    },
+    {
+      "id": "company:northstar:claim:adr-allocation",
+      "source": "plane:northstar:page:adr-allocation",
+      "label": "Decision",
+      "kind": "goal",
+      "summary": "Decision: preserve existing reservations before retrying resize.",
+      "quote": "Decision: preserve existing reservations before retrying resize.",
+      "at": "2026-10-15T09:00:00+00:00",
+      "target": "company:northstar:component:resource-allocation",
+      "relationship": "ABOUT"
+    },
+    {
+      "id": "company:northstar:claim:runbook-allocation",
+      "source": "plane:northstar:page:runbook-allocation",
+      "label": "Rationale",
+      "kind": "goal",
+      "summary": "Rollback resize if reservation starvation is observed.",
+      "quote": "Rollback resize if reservation starvation is observed.",
+      "at": "2026-10-15T09:00:00+00:00",
+      "target": "company:northstar:component:resource-allocation",
+      "relationship": "ABOUT"
+    },
+    {
+      "id": "company:northstar:claim:rfc-retry",
+      "source": "plane:northstar:page:rfc-retry",
+      "label": "Rationale",
+      "kind": "alternative_considered",
+      "summary": "We considered immediate retry.",
+      "quote": "We considered immediate retry.",
+      "at": "2026-10-15T09:00:00+00:00",
+      "target": "company:northstar:component:resource-allocation",
+      "relationship": "ABOUT"
+    },
+    {
+      "id": "company:northstar:claim:chat-0-0",
+      "source": "slack:northstar:comment:CDEMO:1792058400.000001",
+      "label": "Question",
+      "kind": "explanation",
+      "summary": "Which decision sets the shutdown deadline?",
+      "quote": "Which decision sets the shutdown deadline?",
+      "at": "2026-10-15T10:00:00+00:00",
+      "author": "ada"
+    },
+    {
+      "id": "company:northstar:claim:chat-0-1",
+      "source": "slack:northstar:comment:CDEMO:1792058430.000001",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "The bounded cancellation ADR sets five seconds.",
+      "quote": "The bounded cancellation ADR sets five seconds.",
+      "at": "2026-10-15T10:01:00+00:00",
+      "author": "ben"
+    },
+    {
+      "id": "company:northstar:claim:chat-0-2",
+      "source": "slack:northstar:comment:CDEMO:1792058460.000001",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "The runtime rollback runbook names the canary trigger.",
+      "quote": "The runtime rollback runbook names the canary trigger.",
+      "at": "2026-10-15T10:02:00+00:00",
+      "author": "cy"
+    },
+    {
+      "id": "company:northstar:claim:chat-0-3",
+      "source": "slack:northstar:comment:CDEMO:1792058490.000001",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "The runtime owner is Ada; Ben is the second declared owner.",
+      "quote": "The runtime owner is Ada; Ben is the second declared owner.",
+      "at": "2026-10-15T10:03:00+00:00",
+      "author": "dee"
+    },
+    {
+      "id": "company:northstar:claim:chat-0-4",
+      "source": "slack:northstar:comment:CDEMO:1792058520.000001",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "A test request is not a completed test result.",
+      "quote": "A test request is not a completed test result.",
+      "at": "2026-10-15T10:04:00+00:00",
+      "author": "eli"
+    },
+    {
+      "id": "company:northstar:claim:chat-1-0",
+      "source": "slack:northstar:comment:CDEMO:1792059000.000001",
+      "label": "Question",
+      "kind": "explanation",
+      "summary": "Can we treat the API approval as full approval?",
+      "quote": "Can we treat the API approval as full approval?",
+      "at": "2026-10-15T10:05:00+00:00",
+      "author": "ben"
+    },
+    {
+      "id": "company:northstar:claim:chat-1-1",
+      "source": "slack:northstar:comment:CDEMO:1792059030.000001",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "No, the approval covers API naming only.",
+      "quote": "No, the approval covers API naming only.",
+      "at": "2026-10-15T10:06:00+00:00",
+      "author": "cy"
+    },
+    {
+      "id": "company:northstar:claim:chat-1-2",
+      "source": "slack:northstar:comment:CDEMO:1792059060.000001",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "Reliability requires separate evidence.",
+      "quote": "Reliability requires separate evidence.",
+      "at": "2026-10-15T10:07:00+00:00",
+      "author": "dee"
+    },
+    {
+      "id": "company:northstar:claim:chat-1-3",
+      "source": "slack:northstar:comment:CDEMO:1792059090.000001",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "The deadline concern has an explicit resolution by Ada.",
+      "quote": "The deadline concern has an explicit resolution by Ada.",
+      "at": "2026-10-15T10:08:00+00:00",
+      "author": "eli"
+    },
+    {
+      "id": "company:northstar:claim:chat-1-4",
+      "source": "slack:northstar:comment:CDEMO:1792059120.000001",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "Retain the source quote in the review brief.",
+      "quote": "Retain the source quote in the review brief.",
+      "at": "2026-10-15T10:09:00+00:00",
+      "author": "faye"
+    },
+    {
+      "id": "company:northstar:claim:chat-2-0",
+      "source": "slack:northstar:comment:CDEMO:1792059600.000001",
+      "label": "Question",
+      "kind": "explanation",
+      "summary": "Why preserve reservations during resize?",
+      "quote": "Why preserve reservations during resize?",
+      "at": "2026-10-15T10:10:00+00:00",
+      "author": "cy"
+    },
+    {
+      "id": "company:northstar:claim:chat-2-1",
+      "source": "slack:northstar:comment:CDEMO:1792059630.000001",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "The allocation ADR prioritizes existing reservations.",
+      "quote": "The allocation ADR prioritizes existing reservations.",
+      "at": "2026-10-15T10:11:00+00:00",
+      "author": "dee"
+    },
+    {
+      "id": "company:northstar:claim:chat-2-2",
+      "source": "slack:northstar:comment:CDEMO:1792059660.000001",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "The starvation concern is still open.",
+      "quote": "The starvation concern is still open.",
+      "at": "2026-10-15T10:12:00+00:00",
+      "author": "eli"
+    },
+    {
+      "id": "company:northstar:claim:chat-2-3",
+      "source": "slack:northstar:comment:CDEMO:1792059690.000001",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "The retry proposal only claims to address it.",
+      "quote": "The retry proposal only claims to address it.",
+      "at": "2026-10-15T10:13:00+00:00",
+      "author": "faye"
+    },
+    {
+      "id": "company:northstar:claim:chat-2-4",
+      "source": "slack:northstar:comment:CDEMO:1792059720.000001",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "Dee and Eli own Resource Allocation.",
+      "quote": "Dee and Eli own Resource Allocation.",
+      "at": "2026-10-15T10:14:00+00:00",
+      "author": "ada"
+    },
+    {
+      "id": "company:northstar:claim:chat-3-0",
+      "source": "slack:northstar:comment:CDEMO:1792060200.000001",
+      "label": "Question",
+      "kind": "explanation",
+      "summary": "Should immediate retry be described as rejected?",
+      "quote": "Should immediate retry be described as rejected?",
+      "at": "2026-10-15T10:15:00+00:00",
+      "author": "dee"
+    },
+    {
+      "id": "company:northstar:claim:chat-3-1",
+      "source": "slack:northstar:comment:CDEMO:1792060230.000001",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "The RFC says immediate retry was considered.",
+      "quote": "The RFC says immediate retry was considered.",
+      "at": "2026-10-15T10:16:00+00:00",
+      "author": "eli"
+    },
+    {
+      "id": "company:northstar:claim:chat-3-2",
+      "source": "slack:northstar:comment:CDEMO:1792060260.000001",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "Unlimited retry was rejected because it can starve reservations.",
+      "quote": "Unlimited retry was rejected because it can starve reservations.",
+      "at": "2026-10-15T10:17:00+00:00",
+      "author": "faye"
+    },
+    {
+      "id": "company:northstar:claim:chat-3-3",
+      "source": "slack:northstar:comment:CDEMO:1792060290.000001",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "These are two different alternatives.",
+      "quote": "These are two different alternatives.",
+      "at": "2026-10-15T10:18:00+00:00",
+      "author": "ada"
+    },
+    {
+      "id": "company:northstar:claim:chat-3-4",
+      "source": "slack:northstar:comment:CDEMO:1792060320.000001",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "The agent must not confuse consideration with rejection.",
+      "quote": "The agent must not confuse consideration with rejection.",
+      "at": "2026-10-15T10:19:00+00:00",
+      "author": "ben"
+    },
+    {
+      "id": "company:northstar:claim:chat-4-0",
+      "source": "slack:northstar:comment:CDEMO:1792060800.000001",
+      "label": "Question",
+      "kind": "explanation",
+      "summary": "Who can review the rollback plan?",
+      "quote": "Who can review the rollback plan?",
+      "at": "2026-10-15T10:20:00+00:00",
+      "author": "eli"
+    },
+    {
+      "id": "company:northstar:claim:chat-4-1",
+      "source": "slack:northstar:comment:CDEMO:1792060830.000001",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "Use declared owners, then inspect actual peer review evidence.",
+      "quote": "Use declared owners, then inspect actual peer review evidence.",
+      "at": "2026-10-15T10:21:00+00:00",
+      "author": "faye"
+    },
+    {
+      "id": "company:northstar:claim:chat-4-2",
+      "source": "slack:northstar:comment:CDEMO:1792060860.000001",
+      "label": "Argument",
+      "kind": "explanation",
+      "summary": "Ticket assignments are not component ownership.",
+      "quote": "Ticket assignments are not component ownership.",
+      "at": "2026-10-15T10:22:00+00:00",
+      "author": "ada"
+    },
+    {
+      "id": "company:northstar:claim:rfc-unlimited",
+      "source": "plane:northstar:page:rfc-retry",
+      "label": "Rationale",
+      "kind": "alternative_rejected",
+      "summary": "Unlimited retry was rejected because it can starve reservations.",
+      "quote": "We rejected unlimited retry because it can starve reservations.",
+      "at": "2026-10-15T09:00:00+00:00",
+      "target": "company:northstar:component:resource-allocation",
+      "relationship": "ABOUT"
+    }
+  ]
+}

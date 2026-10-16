@@ -1,0 +1,219 @@
+{
+  "organization_id": "northstar",
+  "name": "Northstar Demo Company",
+  "synthetic": true,
+  "source_url": "https://example.org/wayfinder-synthetic/northstar",
+  "plane": {
+    "workspace": "northstar-demo",
+    "project_ids": [
+      "runtime",
+      "allocation"
+    ],
+    "sandbox_project_id": "runtime"
+  },
+  "slack": {
+    "channel_ids": [
+      "CDEMO"
+    ]
+  },
+  "people": [
+    {
+      "id": "ada",
+      "name": "Ada Chen"
+    },
+    {
+      "id": "ben",
+      "name": "Ben Ortiz"
+    },
+    {
+      "id": "cy",
+      "name": "Cy Rao"
+    },
+    {
+      "id": "dee",
+      "name": "Dee Park"
+    },
+    {
+      "id": "eli",
+      "name": "Eli Moss"
+    },
+    {
+      "id": "faye",
+      "name": "Faye Lin"
+    }
+  ],
+  "identities": {
+    "plane:ada": "ada",
+    "plane:ben": "ben",
+    "plane:cy": "cy",
+    "plane:dee": "dee",
+    "plane:eli": "eli",
+    "plane:faye": "faye",
+    "slack:ada": "ada",
+    "slack:ben": "ben",
+    "slack:cy": "cy",
+    "slack:dee": "dee",
+    "slack:eli": "eli",
+    "slack:faye": "faye"
+  },
+  "teams": [
+    {
+      "id": "platform",
+      "name": "Platform",
+      "members": [
+        "ada",
+        "ben",
+        "cy"
+      ]
+    },
+    {
+      "id": "capacity",
+      "name": "Capacity",
+      "members": [
+        "dee",
+        "eli",
+        "faye"
+      ]
+    }
+  ],
+  "components": [
+    {
+      "id": "node-runtime",
+      "name": "Node Runtime",
+      "owners": [
+        "ada",
+        "ben"
+      ]
+    },
+    {
+      "id": "resource-allocation",
+      "name": "Resource Allocation",
+      "owners": [
+        "dee",
+        "eli"
+      ]
+    }
+  ],
+  "bindings": [
+    {
+      "source": "plane:northstar:issue:w1",
+      "target": "company:northstar:component:node-runtime",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "plane:northstar:issue:w2",
+      "target": "company:northstar:component:node-runtime",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "plane:northstar:issue:w3",
+      "target": "company:northstar:component:node-runtime",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "plane:northstar:issue:w4",
+      "target": "company:northstar:component:node-runtime",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "plane:northstar:issue:w5",
+      "target": "company:northstar:component:node-runtime",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "plane:northstar:issue:w6",
+      "target": "company:northstar:component:node-runtime",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "plane:northstar:issue:w7",
+      "target": "company:northstar:component:resource-allocation",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "plane:northstar:issue:w8",
+      "target": "company:northstar:component:resource-allocation",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "plane:northstar:issue:w9",
+      "target": "company:northstar:component:resource-allocation",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "plane:northstar:issue:w10",
+      "target": "company:northstar:component:resource-allocation",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "plane:northstar:issue:w11",
+      "target": "company:northstar:component:resource-allocation",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "plane:northstar:issue:w12",
+      "target": "company:northstar:component:resource-allocation",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "plane:northstar:page:ownership",
+      "target": "company:northstar:component:node-runtime",
+      "relationship": "DESCRIBES"
+    },
+    {
+      "source": "plane:northstar:page:adr-runtime",
+      "target": "company:northstar:component:node-runtime",
+      "relationship": "DESCRIBES"
+    },
+    {
+      "source": "plane:northstar:page:runbook-runtime",
+      "target": "company:northstar:component:node-runtime",
+      "relationship": "DESCRIBES"
+    },
+    {
+      "source": "plane:northstar:page:adr-allocation",
+      "target": "company:northstar:component:resource-allocation",
+      "relationship": "DESCRIBES"
+    },
+    {
+      "source": "plane:northstar:page:runbook-allocation",
+      "target": "company:northstar:component:resource-allocation",
+      "relationship": "DESCRIBES"
+    },
+    {
+      "source": "plane:northstar:page:rfc-retry",
+      "target": "company:northstar:component:resource-allocation",
+      "relationship": "DESCRIBES"
+    },
+    {
+      "source": "slack:northstar:thread:CDEMO:1792058400.000001",
+      "target": "company:northstar:component:node-runtime",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar:thread:CDEMO:1792059000.000001",
+      "target": "company:northstar:component:node-runtime",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar:thread:CDEMO:1792059600.000001",
+      "target": "company:northstar:component:resource-allocation",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar:thread:CDEMO:1792060200.000001",
+      "target": "company:northstar:component:resource-allocation",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar:thread:CDEMO:1792060800.000001",
+      "target": "company:northstar:component:node-runtime",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar:thread:CDEMO:1792061400.000001",
+      "target": "company:northstar:component:resource-allocation",
+      "relationship": "CONCERNS_COMPONENT"
+    }
+  ]
+}

@@ -1,0 +1,240 @@
+{
+  "frozen_at": "2026-10-15",
+  "development": [
+    {
+      "id": "dev-1",
+      "question": "Resolve the runtime component ID.",
+      "component": "company:northstar:component:node-runtime"
+    },
+    {
+      "id": "dev-2",
+      "question": "List allocation work item IDs.",
+      "component": "company:northstar:component:resource-allocation"
+    },
+    {
+      "id": "dev-3",
+      "question": "Find runtime documentation page IDs.",
+      "component": "company:northstar:component:node-runtime"
+    },
+    {
+      "id": "dev-4",
+      "question": "Find allocation discussion thread IDs.",
+      "component": "company:northstar:component:resource-allocation"
+    },
+    {
+      "id": "dev-5",
+      "question": "Retrieve the runtime ownership relationship evidence.",
+      "component": "company:northstar:component:node-runtime"
+    },
+    {
+      "id": "dev-6",
+      "question": "Read allocation source revisions.",
+      "component": "company:northstar:component:resource-allocation"
+    },
+    {
+      "id": "dev-7",
+      "question": "Show runtime coverage records.",
+      "component": "company:northstar:component:node-runtime"
+    },
+    {
+      "id": "dev-8",
+      "question": "Explain allocation fixture provenance.",
+      "component": "company:northstar:component:resource-allocation"
+    },
+    {
+      "id": "dev-9",
+      "question": "Find runtime source timestamps.",
+      "component": "company:northstar:component:node-runtime"
+    },
+    {
+      "id": "dev-10",
+      "question": "Inspect allocation schema and relationship types.",
+      "component": "company:northstar:component:resource-allocation"
+    }
+  ],
+  "held_out": [
+    {
+      "id": "held-1",
+      "question": "Who owns Node Runtime?",
+      "component": "company:northstar:component:node-runtime",
+      "expected_concepts": [
+        "ada",
+        "ben"
+      ],
+      "manual_semantic_pass": null
+    },
+    {
+      "id": "held-2",
+      "question": "Who owns Resource Allocation?",
+      "component": "company:northstar:component:resource-allocation",
+      "expected_concepts": [
+        "dee",
+        "eli"
+      ],
+      "manual_semantic_pass": null
+    },
+    {
+      "id": "held-3",
+      "question": "What is the runtime decision?",
+      "component": "company:northstar:component:node-runtime",
+      "expected_concepts": [
+        "five second"
+      ],
+      "manual_semantic_pass": null
+    },
+    {
+      "id": "held-4",
+      "question": "What triggers runtime rollback?",
+      "component": "company:northstar:component:node-runtime",
+      "expected_concepts": [
+        "canary"
+      ],
+      "manual_semantic_pass": null
+    },
+    {
+      "id": "held-5",
+      "question": "What concern is resolved?",
+      "component": "company:northstar:component:node-runtime",
+      "expected_concepts": [
+        "resolved"
+      ],
+      "manual_semantic_pass": null
+    },
+    {
+      "id": "held-6",
+      "question": "Does API approval cover reliability?",
+      "component": "company:northstar:component:node-runtime",
+      "expected_concepts": [
+        "API naming"
+      ],
+      "manual_semantic_pass": null
+    },
+    {
+      "id": "held-7",
+      "question": "Is the starvation concern resolved?",
+      "component": "company:northstar:component:resource-allocation",
+      "expected_concepts": [
+        "open"
+      ],
+      "manual_semantic_pass": null
+    },
+    {
+      "id": "held-8",
+      "question": "Which retry alternative was considered?",
+      "component": "company:northstar:component:resource-allocation",
+      "expected_concepts": [
+        "immediate retry"
+      ],
+      "manual_semantic_pass": null
+    },
+    {
+      "id": "held-9",
+      "question": "Which retry alternative was rejected?",
+      "component": "company:northstar:component:resource-allocation",
+      "expected_concepts": [
+        "unlimited retry"
+      ],
+      "manual_semantic_pass": null
+    },
+    {
+      "id": "held-10",
+      "question": "What does allocation prioritize?",
+      "component": "company:northstar:component:resource-allocation",
+      "expected_concepts": [
+        "existing reservations"
+      ],
+      "manual_semantic_pass": null
+    },
+    {
+      "id": "held-11",
+      "question": "Who can be an authorized runtime reviewer?",
+      "component": "company:northstar:component:node-runtime",
+      "expected_concepts": [
+        "unknown"
+      ],
+      "manual_semantic_pass": null
+    },
+    {
+      "id": "held-12",
+      "question": "Does assignment prove ownership?",
+      "component": "company:northstar:component:node-runtime",
+      "expected_concepts": [
+        "not"
+      ],
+      "manual_semantic_pass": null
+    },
+    {
+      "id": "held-13",
+      "question": "Can chat volume prove code expertise?",
+      "component": "company:northstar:component:resource-allocation",
+      "expected_concepts": [
+        "not"
+      ],
+      "manual_semantic_pass": null
+    },
+    {
+      "id": "held-14",
+      "question": "Are these live observations?",
+      "component": "company:northstar:component:node-runtime",
+      "expected_concepts": [
+        "fixture"
+      ],
+      "manual_semantic_pass": null
+    },
+    {
+      "id": "held-15",
+      "question": "Is full company coverage proven?",
+      "component": "company:northstar:component:resource-allocation",
+      "expected_concepts": [
+        "not"
+      ],
+      "manual_semantic_pass": null
+    },
+    {
+      "id": "held-16",
+      "question": "Should a done task close a concern?",
+      "component": "company:northstar:component:resource-allocation",
+      "expected_concepts": [
+        "not"
+      ],
+      "manual_semantic_pass": null
+    },
+    {
+      "id": "held-17",
+      "question": "Can a test request prove success?",
+      "component": "company:northstar:component:node-runtime",
+      "expected_concepts": [
+        "not"
+      ],
+      "manual_semantic_pass": null
+    },
+    {
+      "id": "held-18",
+      "question": "Which source justifies runtime rollback?",
+      "component": "company:northstar:component:node-runtime",
+      "expected_concepts": [
+        "runbook"
+      ],
+      "manual_semantic_pass": null
+    },
+    {
+      "id": "held-19",
+      "question": "What follow-up should allocation have?",
+      "component": "company:northstar:component:resource-allocation",
+      "expected_concepts": [
+        "starvation"
+      ],
+      "manual_semantic_pass": null
+    },
+    {
+      "id": "held-20",
+      "question": "Can the agent create an unapproved task?",
+      "component": "company:northstar:component:node-runtime",
+      "expected_concepts": [
+        "approval"
+      ],
+      "manual_semantic_pass": null
+    }
+  ],
+  "note": "Structural checks are automated. Semantic answers must be independently hand-reviewed; no accuracy is inferred from quote presence."
+}

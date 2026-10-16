@@ -1,0 +1,402 @@
+[
+  {
+    "claim_id": "company:northstar:claim:pc1",
+    "source_id": "plane:northstar:comment:pc1",
+    "quote": "I am concerned that shutdown can exceed the five second deadline.",
+    "expected_label": "Argument",
+    "expected_kind": "concern",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:pc13",
+    "source_id": "plane:northstar:comment:pc13",
+    "quote": "The five second deadline is the accepted target for this experiment.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:pc2",
+    "source_id": "plane:northstar:comment:pc2",
+    "quote": "The cancellation prototype claims to address the shutdown deadline concern.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:pc14",
+    "source_id": "plane:northstar:comment:pc14",
+    "quote": "Use a staged rollout with a manual rollback checkpoint.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:pc3",
+    "source_id": "plane:northstar:comment:pc3",
+    "quote": "I confirm the shutdown deadline concern is resolved after the bounded cancellation test.",
+    "expected_label": "Argument",
+    "expected_kind": "resolution",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:pc15",
+    "source_id": "plane:northstar:comment:pc15",
+    "quote": "The API approval does not cover operational readiness.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:pc4",
+    "source_id": "plane:northstar:comment:pc4",
+    "quote": "I approve only the API naming; the reliability question remains open.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:pc16",
+    "source_id": "plane:northstar:comment:pc16",
+    "quote": "The runtime runbook now records the cancellation timeout.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:pc5",
+    "source_id": "plane:northstar:comment:pc5",
+    "quote": "Please request a peer review; authorship does not grant reviewer authorization.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:pc17",
+    "source_id": "plane:northstar:comment:pc17",
+    "quote": "Capacity testing needs a reservation fairness case.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:pc6",
+    "source_id": "plane:northstar:comment:pc6",
+    "quote": "The rollout is paused until the rollback runbook is complete.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:pc18",
+    "source_id": "plane:northstar:comment:pc18",
+    "quote": "No completed test result has been supplied for starvation.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:pc7",
+    "source_id": "plane:northstar:comment:pc7",
+    "quote": "I am concerned that resize retry can starve existing reservations.",
+    "expected_label": "Argument",
+    "expected_kind": "concern",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:pc19",
+    "source_id": "plane:northstar:comment:pc19",
+    "quote": "The alternative remains under consideration pending measurements.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:pc8",
+    "source_id": "plane:northstar:comment:pc8",
+    "quote": "The retry patch is proposed, but no starvation test result exists.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:pc20",
+    "source_id": "plane:northstar:comment:pc20",
+    "quote": "The release task must include links to the decision and runbook.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:pc9",
+    "source_id": "plane:northstar:comment:pc9",
+    "quote": "We considered immediate retry; this is not a rejection decision.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:pc10",
+    "source_id": "plane:northstar:comment:pc10",
+    "quote": "The runbook still requires a documented rollback trigger.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:pc11",
+    "source_id": "plane:northstar:comment:pc11",
+    "quote": "Ownership comes from the declared component page, not this assignment.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:pc12",
+    "source_id": "plane:northstar:comment:pc12",
+    "quote": "The task is marked done, but the remaining concern is not resolved.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:ownership",
+    "source_id": "plane:northstar:page:ownership",
+    "quote": "Node Runtime is owned by Ada and Ben. Resource Allocation is owned by Dee and Eli.",
+    "expected_label": "Rationale",
+    "expected_kind": "goal",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:adr-runtime",
+    "source_id": "plane:northstar:page:adr-runtime",
+    "quote": "Decision: use bounded cancellation with a five second shutdown deadline.",
+    "expected_label": "Decision",
+    "expected_kind": "goal",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:runbook-runtime",
+    "source_id": "plane:northstar:page:runbook-runtime",
+    "quote": "Rollback when shutdown latency exceeds five seconds in the canary.",
+    "expected_label": "Rationale",
+    "expected_kind": "goal",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:adr-allocation",
+    "source_id": "plane:northstar:page:adr-allocation",
+    "quote": "Decision: preserve existing reservations before retrying resize.",
+    "expected_label": "Decision",
+    "expected_kind": "goal",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:runbook-allocation",
+    "source_id": "plane:northstar:page:runbook-allocation",
+    "quote": "Rollback resize if reservation starvation is observed.",
+    "expected_label": "Rationale",
+    "expected_kind": "goal",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:rfc-retry",
+    "source_id": "plane:northstar:page:rfc-retry",
+    "quote": "We considered immediate retry.",
+    "expected_label": "Rationale",
+    "expected_kind": "alternative_considered",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:chat-0-0",
+    "source_id": "slack:northstar:comment:CDEMO:1792058400.000001",
+    "quote": "Which decision sets the shutdown deadline?",
+    "expected_label": "Question",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:chat-0-1",
+    "source_id": "slack:northstar:comment:CDEMO:1792058430.000001",
+    "quote": "The bounded cancellation ADR sets five seconds.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:chat-0-2",
+    "source_id": "slack:northstar:comment:CDEMO:1792058460.000001",
+    "quote": "The runtime rollback runbook names the canary trigger.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:chat-0-3",
+    "source_id": "slack:northstar:comment:CDEMO:1792058490.000001",
+    "quote": "The runtime owner is Ada; Ben is the second declared owner.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:chat-0-4",
+    "source_id": "slack:northstar:comment:CDEMO:1792058520.000001",
+    "quote": "A test request is not a completed test result.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:chat-1-0",
+    "source_id": "slack:northstar:comment:CDEMO:1792059000.000001",
+    "quote": "Can we treat the API approval as full approval?",
+    "expected_label": "Question",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:chat-1-1",
+    "source_id": "slack:northstar:comment:CDEMO:1792059030.000001",
+    "quote": "No, the approval covers API naming only.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:chat-1-2",
+    "source_id": "slack:northstar:comment:CDEMO:1792059060.000001",
+    "quote": "Reliability requires separate evidence.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:chat-1-3",
+    "source_id": "slack:northstar:comment:CDEMO:1792059090.000001",
+    "quote": "The deadline concern has an explicit resolution by Ada.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:chat-1-4",
+    "source_id": "slack:northstar:comment:CDEMO:1792059120.000001",
+    "quote": "Retain the source quote in the review brief.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:chat-2-0",
+    "source_id": "slack:northstar:comment:CDEMO:1792059600.000001",
+    "quote": "Why preserve reservations during resize?",
+    "expected_label": "Question",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:chat-2-1",
+    "source_id": "slack:northstar:comment:CDEMO:1792059630.000001",
+    "quote": "The allocation ADR prioritizes existing reservations.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:chat-2-2",
+    "source_id": "slack:northstar:comment:CDEMO:1792059660.000001",
+    "quote": "The starvation concern is still open.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:chat-2-3",
+    "source_id": "slack:northstar:comment:CDEMO:1792059690.000001",
+    "quote": "The retry proposal only claims to address it.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:chat-2-4",
+    "source_id": "slack:northstar:comment:CDEMO:1792059720.000001",
+    "quote": "Dee and Eli own Resource Allocation.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:chat-3-0",
+    "source_id": "slack:northstar:comment:CDEMO:1792060200.000001",
+    "quote": "Should immediate retry be described as rejected?",
+    "expected_label": "Question",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:chat-3-1",
+    "source_id": "slack:northstar:comment:CDEMO:1792060230.000001",
+    "quote": "The RFC says immediate retry was considered.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:chat-3-2",
+    "source_id": "slack:northstar:comment:CDEMO:1792060260.000001",
+    "quote": "Unlimited retry was rejected because it can starve reservations.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:chat-3-3",
+    "source_id": "slack:northstar:comment:CDEMO:1792060290.000001",
+    "quote": "These are two different alternatives.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:chat-3-4",
+    "source_id": "slack:northstar:comment:CDEMO:1792060320.000001",
+    "quote": "The agent must not confuse consideration with rejection.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:chat-4-0",
+    "source_id": "slack:northstar:comment:CDEMO:1792060800.000001",
+    "quote": "Who can review the rollback plan?",
+    "expected_label": "Question",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:chat-4-1",
+    "source_id": "slack:northstar:comment:CDEMO:1792060830.000001",
+    "quote": "Use declared owners, then inspect actual peer review evidence.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:chat-4-2",
+    "source_id": "slack:northstar:comment:CDEMO:1792060860.000001",
+    "quote": "Ticket assignments are not component ownership.",
+    "expected_label": "Argument",
+    "expected_kind": "explanation",
+    "origin": "manually_authored_fixture_label"
+  },
+  {
+    "claim_id": "company:northstar:claim:rfc-unlimited",
+    "source_id": "plane:northstar:page:rfc-retry",
+    "quote": "We rejected unlimited retry because it can starve reservations.",
+    "expected_label": "Rationale",
+    "expected_kind": "alternative_rejected",
+    "origin": "manually_authored_fixture_label"
+  }
+]
