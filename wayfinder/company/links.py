@@ -42,6 +42,9 @@ def normalize_url(url):
 
 def link_manifest(store):
     desired={}
+    # Text that only quotes an identifier as an example (and can't be edited, e.g. a merged
+    # commit message) is excluded explicitly; the existing link then retires like a removed URL.
+    excluded={(e['source'],e['target']) for e in store.manifest.get('link_exclusions',[])}
     for binding in store.manifest.get('bindings',[]):
         source,target,rel=binding['source'],binding['target'],binding['relationship']
         if rel not in {'CONCERNS_COMPONENT','DESCRIBES','REFERENCES','ABOUT','DEPENDS_ON'}:
@@ -89,13 +92,13 @@ def link_manifest(store):
             if not target: continue
             tid,tl,target_system=target
             # GitHub-to-GitHub references are the activity parser's; only cross-source links are resolved here.
-            if tid==ident or system==target_system=='github': continue
+            if tid==ident or system==target_system=='github' or (ident,tid) in excluded: continue
             store.edge(label,ident,tl,tid,'REFERENCES',system,url,link_method=method)
             desired.setdefault(ident,set()).add(f'{ident}->REFERENCES->{tid}')
     links=store.db.graph.ro_query('MATCH (n:SourceLink) WHERE n.organization_id=$org AND n.valid_to IS NULL '
         'RETURN n.linked_from,n.source_url',params={'org':store.org}).result_set
     for source,url in links:
-        if url and normalize_url(url) in by_url:
+        if url and normalize_url(url) in by_url and (source,by_url[normalize_url(url)][0]) not in excluded:
             target,label,_=by_url[normalize_url(url)]
             store.edge('Issue',source,label,target,'REFERENCES','plane',url)
             desired.setdefault(source,set()).add(f'{source}->REFERENCES->{target}')

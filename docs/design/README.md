@@ -54,4 +54,4 @@ The dashboard serves the graph chosen with `--graph`; its `/graph` view draws th
 - **Evaluation target** means a proposed or configured acceptance criterion, not an achieved result.
 - **Limitation** means the reviewer should not infer a capability from a nearby feature.
 
-The original [Graph Ontology and Population Design](../history/ontology-and-population-design-2026-10-12.md) remains a record of the initial design, including aspirations and earlier rules. This pack documents current behavior where those descriptions differ. Existing [company operations](../COMPANY.md), [MCP setup](../MCP.md), and [expertise operations](../EXPERTISE.md) guides cover running the application separately.
+Existing [company operations](../COMPANY.md), [MCP setup](../MCP.md), and [expertise operations](../EXPERTISE.md) guides cover running the application separately.

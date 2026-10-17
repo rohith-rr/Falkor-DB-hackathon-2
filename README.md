@@ -20,7 +20,6 @@ The Plane/Slack content in the live graph is a staged scenario. Extraction there
 - [Verified implementation status and what remains](docs/IMPLEMENTATION-STATUS.md).
 - [Live workspace: connectors, refresh, freshness and replay](docs/LIVE-WORKSPACE.md).
 - [MCP setup and the live agent-path view](docs/MCP.md).
-- [Original October 12 ontology proposal](docs/history/ontology-and-population-design-2026-10-12.md), kept for history.
 
 ## Local setup
 
