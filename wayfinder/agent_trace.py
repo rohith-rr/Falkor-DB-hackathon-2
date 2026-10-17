@@ -84,12 +84,14 @@ def read(graph,session=None,after=0,folder=None):
     path=Path(folder or FOLDER)/f'{graph}.jsonl'
     if not path.exists(): return {'sessions':[],'session':None,'entries':[]}
     sessions={}; rows=[]
-    for line in path.read_text(encoding='utf-8').splitlines():
+    for order,line in enumerate(path.read_text(encoding='utf-8').splitlines()):
         try: row=json.loads(line)
         except ValueError: continue
         info=sessions.setdefault(row['session'],{'session':row['session'],'started':row['at'],'calls':0,'last':row['at']})
-        info['calls']+=1; info['last']=row['at']; rows.append(row)
-    ordered=sorted(sessions.values(),key=lambda s:s['last'],reverse=True)
+        info['calls']+=1; info['last']=row['at']; info['order']=order; rows.append(row)
+    # Clock ticks can be coarse (two calls, one timestamp); the file's append order breaks ties.
+    ordered=sorted(sessions.values(),key=lambda s:(s['last'],s['order']),reverse=True)
+    for info in ordered: info.pop('order')
     chosen=session if session in sessions else (ordered[0]['session'] if ordered else None)
     return {'sessions':ordered,'session':chosen,
             'entries':[r for r in rows if r['session']==chosen and r['seq']>after]}

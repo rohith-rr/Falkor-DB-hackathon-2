@@ -400,11 +400,13 @@ class BrainGraph:
         return {"coverage_records": rows, "expertise_snapshots":score_state,"review_thread_coverage":review_coverage,"requested_repository": repository, "requested_component": component,
                 "limitations": ["Capped pilots do not prove complete activity coverage.",
                     "The date window filters updated issues/PRs; their discussions may contain older comments.",
-                    "Structured KEP, OWNERS and document imports are not restricted to the activity window.",
+                    "Structured OWNERS and document imports are not restricted to the activity window.",
                     "Absence of an entity or contribution is not evidence that it does not exist.",
                     "Coverage records describe configured ingestion scope, not all repository activity."],
-                "configured_scope": {"activity": "kubernetes/kubernetes issues/PRs labeled sig/node", "owners_files": settings.owners_scope,
-                    "document_paths": settings.docs_scope, "expertise_window_days": settings.expertise_window_days},
+                # Scope comes from what this graph actually recorded, not from a fixed import configuration.
+                "source_scopes": self.rows("MATCH (c:SourceCoverage) RETURN c.source_system AS source, c.scope AS scope, "
+                    "c.status AS status, c.record_count AS records, c.mode AS mode ORDER BY source, scope LIMIT 50"),
+                "expertise_window_days": settings.expertise_window_days,
                 "structured_sources": self.rows("MATCH (n:SyncSource) RETURN count(n) AS retained_sources, max(n.observed_at) AS latest_observation"),
                 "observations": self.rows("MATCH (n) RETURN min(n.observed_at) AS first_observed, max(n.observed_at) AS last_observed")}
 

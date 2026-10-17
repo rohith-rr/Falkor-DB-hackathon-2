@@ -188,7 +188,7 @@ The runner saves actual proposed model results, validation diagnostics, request 
 
 **Later extraction.** Further units are extracted with `refresh --extract N` (pending units, pages first) or `extract --unit-id`, under the model configured at the time:
 
-- A three-unit run on Plane comments, before the model change, accepted 1 Question.
+- A three-unit run on Plane comments, with `deepseek/deepseek-v4-flash`, accepted 1 Question.
 - The product-brief page, with `deepseek/deepseek-v4-flash`, gave 5 accepted claims: 2 ownership Arguments and 3 Rationales (problem, goal, non-goal).
 
 As of October 18, the graph holds 10 current extracted claims (1 Decision, 3 Rationales, 2 Arguments, 4 Questions) from 10 units. The review checklist and runbook pages are still pending. Since October 18, claims record `llm_model`; earlier claims don't, and the [AI use disclosure](AI-USE-DISCLOSURE.md) lists which model produced them.
