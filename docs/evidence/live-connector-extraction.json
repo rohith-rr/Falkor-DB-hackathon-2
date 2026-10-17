@@ -1,0 +1,197 @@
+{
+  "at": "2026-10-17T15:19:58.900356+00:00",
+  "graph": "wayfinder_company_live_demo",
+  "mode": "live_connector_sources_real_model_extraction",
+  "model": "mistralai/mistral-nemo",
+  "embedding_model": "perplexity/pplx-embed-v1-0.6b",
+  "embedding_dim": 1024,
+  "generation_requests": 8,
+  "embedding_requests": 20,
+  "diagnostics": {
+    "total_proposed": 6,
+    "accepted": 5,
+    "rejected": 1,
+    "quote_mismatches": 0,
+    "invalid_targets": 1,
+    "schema_failures": 0,
+    "rejection_reasons": [
+      "arguments: invalid target or question ID"
+    ]
+  },
+  "concerns": {
+    "open": 0,
+    "claimed_addressed": 0,
+    "resolved": 0
+  },
+  "briefs": {
+    "source-ingestion": {
+      "decisions": 0,
+      "concerns": 0,
+      "valid": true
+    },
+    "agent-workflows": {
+      "decisions": 1,
+      "concerns": 0,
+      "valid": true
+    }
+  },
+  "fixture_annotations_imported": false,
+  "units": [
+    {
+      "source": "Plane page section",
+      "component": "source-ingestion",
+      "accepted": 0,
+      "rejected": 0,
+      "elapsed_seconds": 9.063,
+      "proposed": {},
+      "topics": [
+        "source-ingestion",
+        "ADR-001",
+        "ingestion",
+        "interpretation",
+        "semantic extraction",
+        "OpenRouter",
+        "live inference validation",
+        "Wayfinder design decision"
+      ]
+    },
+    {
+      "source": "Plane page section",
+      "component": "agent-workflows",
+      "accepted": 1,
+      "rejected": 1,
+      "elapsed_seconds": 27.453,
+      "proposed": {
+        "decisions": [
+          {
+            "summary": "Require human approval of agent-created work",
+            "evidence_quote": "Decision: require human approval of the exact payload hash before an agent creates a Plane follow-up task."
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "explanation",
+            "summary": "Explanation for requiring human approval",
+            "evidence_quote": "Read access and a useful recommendation do not grant permission to write. A person must be able to inspect what the agent intends to create.",
+            "stance": "supports"
+          }
+        ]
+      },
+      "topics": [
+        "agent workflows",
+        "human approval",
+        "access control",
+        "agent permissions"
+      ]
+    },
+    {
+      "source": "Plane page section",
+      "component": "agent-workflows",
+      "accepted": 0,
+      "rejected": 0,
+      "elapsed_seconds": 5.204,
+      "proposed": {},
+      "topics": [
+        "agent-workflows",
+        "live extraction",
+        "OpenRouter generation and embedding models",
+        "provider transfer approval"
+      ]
+    },
+    {
+      "source": "Plane comment",
+      "component": "source-ingestion",
+      "accepted": 1,
+      "rejected": 0,
+      "elapsed_seconds": 10.141,
+      "proposed": {
+        "questions": [
+          {
+            "summary": "What additional data should be verified for the demo?",
+            "evidence_quote": "The work-item list alone is not enough for this demo."
+          }
+        ]
+      },
+      "topics": [
+        "verification",
+        "demo",
+        "data",
+        "work-item list",
+        "endpoints",
+        "Project Pages",
+        "import complete"
+      ]
+    },
+    {
+      "source": "Plane comment",
+      "component": "source-ingestion",
+      "accepted": 0,
+      "rejected": 0,
+      "elapsed_seconds": 2.875,
+      "proposed": {},
+      "topics": []
+    },
+    {
+      "source": "Plane comment",
+      "component": "agent-workflows",
+      "accepted": 1,
+      "rejected": 0,
+      "elapsed_seconds": 6.921,
+      "proposed": {
+        "questions": [
+          {
+            "summary": "What is required to claim that the agent correctly interpreted the source?",
+            "evidence_quote": "We still need live extraction and independent answer review before making that claim."
+          }
+        ]
+      },
+      "topics": [
+        "agent interpretation",
+        "source interpretation",
+        "verification process"
+      ]
+    },
+    {
+      "source": "Slack message",
+      "component": "source-ingestion",
+      "accepted": 1,
+      "rejected": 0,
+      "elapsed_seconds": 9.532,
+      "proposed": {
+        "questions": [
+          {
+            "summary": "Are we also reading the comment bodies and Project Pages?",
+            "evidence_quote": "Before we call this complete, are we also reading the comment bodies and Project Pages?"
+          }
+        ]
+      },
+      "topics": [
+        "Plane task list",
+        "import",
+        "comment bodies",
+        "Project Pages"
+      ]
+    },
+    {
+      "source": "Slack message",
+      "component": "agent-workflows",
+      "accepted": 1,
+      "rejected": 0,
+      "elapsed_seconds": 9.437,
+      "proposed": {
+        "questions": [
+          {
+            "summary": "What is blocking a model-generated review brief?",
+            "evidence_quote": "What is blocking a model-generated review brief?"
+          }
+        ]
+      },
+      "topics": [
+        "model-generated review brief",
+        "blocking issue",
+        "FalkorDB live sources"
+      ]
+    }
+  ],
+  "assessment": "Real provider output on staged live-connector sources. Accepted items passed quote/target validation; recall was low (no decision extracted from the source-ingestion ADR; the accuracy concern was proposed as a question). Not an accuracy evaluation."
+}

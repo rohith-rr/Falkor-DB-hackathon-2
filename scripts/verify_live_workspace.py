@@ -24,6 +24,15 @@ GRAPH='wayfinder_company_live_demo'
 FOLDER=ROOT/'data/live-workspace'
 
 
+def extraction_state():
+    path=FOLDER/'extraction-report.json'
+    if not path.exists(): return 'pending_explicit_external_provider_transfer_approval'
+    report=json.loads(path.read_text(encoding='utf-8'))
+    return {'completed':bool(report.get('completed')),'at':report.get('at'),'model':report.get('model'),
+        'embedding_model':report.get('embedding_model'),'generation_requests':report.get('generation_requests'),
+        'embedding_requests':report.get('embedding_requests'),'diagnostics':report.get('diagnostics')}
+
+
 async def run():
     db=DatabaseManager(graph_name=GRAPH);manifest=load_manifest(FOLDER/'manifest.json')
     seed=json.loads((FOLDER/'seed-state.json').read_text(encoding='utf-8'))
@@ -97,7 +106,7 @@ async def run():
     report={'at':now_iso(),'graph':GRAPH,'mode':'real_connector_readback_and_scripted_mcp_navigation',
         'counts':counts,'assignments':assignments,'task_states':states,'task_dependencies':dependencies,
         'slack_bot_authors':bot_authors,'coverage':coverage,
-        'content_revision_verification':polish,'model_requests':0,'extraction_state':'pending_explicit_external_provider_transfer_approval',
+        'content_revision_verification':polish,'model_requests':0,'extraction_state':extraction_state(),
         'semantic_accuracy':'not_evaluated','transcript':calls}
     (FOLDER/'verification.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
     print(json.dumps({k:v for k,v in report.items() if k not in ('transcript','coverage')},indent=2))

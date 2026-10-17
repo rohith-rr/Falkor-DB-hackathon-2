@@ -111,11 +111,18 @@ Limits: this is polling, not push. One full pass is about 60 Plane requests and 
 
 ## Semantic extraction status and request boundary
 
-**At this setup snapshot, semantic extraction is pending explicit approval to transfer selected source text to OpenRouter.** Automatic approval review rejected the first launch before it executed; zero generation or embedding requests were made by this setup.
+**Result, October 17.** The owner approved sending the eight selected source units to OpenRouter. Before the run, both company graphs were moved to the new embedding model, and the reviewed source texts were rechecked against the graph.
+
+- **Configuration:** mistralai/mistral-nemo for generation; perplexity/pplx-embed-v1-0.6b at 1024 dimensions for embeddings.
+- **Requests:** 8 generation and 20 embedding requests.
+- **Proposals:** 6 proposed. 5 were accepted, all quote-verified, and 1 was rejected for an invalid target.
+- **What was extracted:** one Decision ("require human approval of agent-created work", Agent Review Workflow) and four Questions. Both component briefs validate.
+
+Recall was low. The source-ingestion ADR yielded topics but no Decision, and the interpretation-accuracy concern was proposed as a Question, not a concern. No concern status changed. This is real model output and is not an accuracy evaluation. The publishable summary, without native IDs, is [live-connector-extraction.json](evidence/live-connector-extraction.json).
 
 The prepared bounded runner selects eight imported source units: the source-ingestion ADR, exact-payload-approval ADR, extraction-pilot RFC, Plane body-readback discussion and resolution comments, interpretation-accuracy concern comment, and one Slack thread root for each current workstream. It uses the configured generation and embedding models; maximum eight generation requests and sixty embedding requests, SDK retries disabled, maximum two thousand generation output tokens per request. Existing valid extraction materializations can be skipped. These are request/token bounds, not a quoted dollar cost.
 
-Only after the external-provider transfer is explicitly approved:
+Re-running requires the same explicit approval and an unchanged transfer review:
 
 ```powershell
 .\.venv\Scripts\python.exe -m wayfinder.company.live_seed_extract --enable-live

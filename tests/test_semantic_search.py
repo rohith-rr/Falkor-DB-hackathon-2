@@ -23,3 +23,38 @@ def test_native_semantic_search_distance_and_current_filter(monkeypatch):
         assert calls==['query']
         capabilities.prepare_schema(db)  # Idempotent, dimension checked.
     finally: db.clear_graph()
+
+
+def test_embedding_migration_rebuilds_index_and_vectors(monkeypatch):
+    db=DatabaseManager(graph_name='test_migrate_'+uuid.uuid4().hex)
+    if not db.ping(): pytest.skip('FalkorDB unavailable')
+    monkeypatch.setattr(capabilities.settings,'embedding_dim',3)
+    monkeypatch.setattr(capabilities.settings,'embedding_model','old-model')
+    try:
+        db.upsert_node('Argument',{'id':'a','summary':'reservation starvation','embedding':[1.,0.,0.],'embedding_model':'old-model','embedding_dim':3})
+        capabilities.prepare_schema(db)
+        monkeypatch.setattr(capabilities.settings,'embedding_dim',4)
+        monkeypatch.setattr(capabilities.settings,'embedding_model','new-model')
+        with pytest.raises(ValueError,match='enable-live'): capabilities.migrate_embeddings(db)
+        texts=[]
+        class Fake:
+            def get_embedding(self,text):
+                texts.append(text); return [0.,0.,0.,1.]
+        # A provider failure must leave the old index and vectors untouched.
+        class Failing:
+            def get_embedding(self,text): raise RuntimeError('provider down')
+        monkeypatch.setattr(capabilities,'embedding_client',lambda:Failing())
+        with pytest.raises(RuntimeError): capabilities.migrate_embeddings(db,enable_live=True)
+        assert db.graph.ro_query("MATCH (n {id:'a'}) RETURN n.embedding_model").result_set==[['old-model']]
+        monkeypatch.setattr(capabilities,'embedding_client',lambda:Fake())
+        report=capabilities.migrate_embeddings(db,enable_live=True)
+        assert texts==['reservation starvation'] and report['embedding_requests']==1
+        assert {'label':'Argument','dimension':3} in report['dropped_indexes']
+        vector=next(i for i in capabilities.indexes(db) if i['label']=='Argument' and 'VECTOR' in i['types'])
+        assert int(vector['options']['dimension'])==4
+        found=capabilities.vector_search(db,[0.,0.,0.,1.],['Argument'],5)
+        assert [r['entity']['id'] for r in found['items']]==['a']
+        # Already migrated: no requests, nothing dropped.
+        again=capabilities.migrate_embeddings(db)
+        assert again['embedding_requests']==0 and again['dropped_indexes']==[]
+    finally: db.clear_graph()

@@ -12,7 +12,7 @@ This document separates implemented mechanisms, repeatable demonstrations, evalu
 
 | Principle | Current design support | Remaining gap |
 |---|---|---|
-| Docs, tickets, and chats in one graph | Plane Project Pages/work items/comments plus optional Slack share identities and explicit component links; the designated live sandbox was populated and read back on October 17 | Live-source semantic extraction is pending explicit transfer approval; access on this account does not prove compatibility with every account |
+| Docs, tickets, and chats in one graph | Plane Project Pages/work items/comments plus optional Slack share identities and explicit component links; the designated live sandbox was populated and read back on October 17 | Live-source semantic extraction covered eight units with low recall (one Decision, four Questions); access on this account does not prove compatibility with every account |
 | Who owns what | Manifest component owners, Plane assignments, and Kubernetes OWNERS are separate relationships | No automatic authoritative company service catalog or HR synchronization |
 | Who knows what | Versioned directory expertise for Kubernetes and Northstar synthetic code, connected by IMPLEMENTED_IN | No validated general company expertise model over ticket/chat activity; topic scoring remains legacy |
 | Trace decisions to sources | Quotes, source records, revisions, semantic links, and evidence navigation | Quote validation cannot prove a statement was actually a decision or caused an outcome |
@@ -68,7 +68,7 @@ The retained Kubernetes compatibility artifact records unchanged ranking output 
 
 The October 17 implementation run passed 103 automated tests against local FalkorDB and completed a real capped OpenRouter edit/invalidation proof plus native retrieval and an actual MCP protocol session. These checks do not establish independent answer accuracy. No actual Plane task creation has been verified without the required sandbox credentials and human approval.
 
-A later October 17 setup created actual source records in the designated fictional Plane project and Slack channels, read them through the real connectors into a third graph, and verified a real MCP protocol session without provider requests. It checked twelve assignments and bot attribution for all thirty Slack messages. These are source-population operations, not the separate hash-approved agent action workflow. Semantic extraction of that newly imported dataset remains pending explicit OpenRouter transfer approval; the earlier successful local-overlay proof must not be presented as proof of extraction from these live sources. See the [live workspace record](../LIVE-WORKSPACE.md).
+A later October 17 setup created actual source records in the designated fictional Plane project and Slack channels, read them through the real connectors into a third graph, and verified a real MCP protocol session without provider requests. It checked twelve assignments and bot attribution for all thirty Slack messages. These are source-population operations, not the separate hash-approved agent action workflow. Bounded semantic extraction of eight imported units later ran with low recall (see the live workspace record); the earlier successful local-overlay proof must not be presented as proof of extraction from these live sources. See the [live workspace record](../LIVE-WORKSPACE.md).
 
 ## Answer evaluation design
 
