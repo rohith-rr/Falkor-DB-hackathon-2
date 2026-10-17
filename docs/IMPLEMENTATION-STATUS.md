@@ -12,7 +12,7 @@ Snapshot: October 17, 2026. This report distinguishes implementation checks from
 | Agent vector tool | semantic_search exposed through MCP | Real stdio client transcript and native filtering/metric regression |
 | Three-view local dashboard | HTTP/session smoke verified; visual review unavailable | No controllable browser surfaced in the environment |
 | New brief/action compatibility | Controlled stub regression verified | docs/evidence/plane-action-regression.json; no real task created |
-| Real approved Plane creation | Pending sandbox credential/IDs and exact human approval | Do not represent the stub as live; fallback decision at 6 PM IST October 18 |
+| Real approved Plane creation | Verified live on the sandbox: prepared from a validated brief, approved by the project owner in a terminal against the payload hash, executed once; a repeat returned the same task | docs/evidence/plane-action-live.json; task FALKORDBTE-16, ingested by the next sync with URL and key links |
 | Real MCP client investigation | Protocol session succeeded end to end | docs/evidence/company-mcp-transcript.json; scripted navigation, not independent agent accuracy |
 | Actual Plane/Slack sandbox population and readback | Verified on the designated account/project and channels | 12 assigned work items, 20 comments, 6 pages, 30 bot discussion messages plus two channel disclosures; ignored local data/live-workspace/verification.json |
 | Live sandbox Wayfinder project revision | All 70 existing records verified against coherent Wayfinder tasks, documents, and staged discussions | Four Done/three In Progress/five Todo; 23 task dependencies; 22 current Slack-to-Plane links; IDs and authors retained; no model calls |

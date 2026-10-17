@@ -53,7 +53,7 @@ The controlled regression is runnable with `python -m wayfinder.company.action_c
 It uses an isolated disposable graph and a stub client; its saved evidence explicitly
 states that no live task was created. It does not approve a real task on the human's behalf.
 
-Use a synthetic sandbox manifest with the real workspace slug, actual allowed project IDs, and sandbox_project_id. Put PLANE_API_KEY in local `.env` or the process environment, never Git or a chat message. Plane credentials and the live sandbox IDs are now configured locally in the ignored `data/live-workspace/`. However, no human-approved agent task has been executed yet, so do not claim a live Plane action has passed.
+Use a synthetic sandbox manifest with the real workspace slug, actual allowed project IDs, and sandbox_project_id. Put PLANE_API_KEY in local `.env` or the process environment, never Git or a chat message. Plane credentials and the live sandbox IDs are now configured locally in the ignored `data/live-workspace/`. A human-approved task was executed live on October 18 against `wayfinder_company_live_demo` (FALKORDBTE-16, [evidence](evidence/plane-action-live.json)). The 6 PM simulated fallback is no longer needed. For the video, either show this recorded run or prepare and approve a fresh action on camera.
 
 ```powershell
 .\.venv\Scripts\python.exe -m wayfinder.company --manifest data/sandbox.json check-plane
@@ -71,7 +71,7 @@ For an uncertain request outcome, reconcile the existing action rather than prep
 - Complete local setup instructions, graph model, and [operational Cypher](QUERIES.md).
 - [AI assistant use disclosure](AI-USE-DISCLOSURE.md), synthetic/fixture/live distinctions, and limitations.
 - Committed extraction evidence, Kubernetes compatibility comparison, native query plans, and MCP transcript.
-- Real approved Plane task evidence, or clearly simulated fallback.
+- Real approved Plane task evidence: [plane-action-live.json](evidence/plane-action-live.json).
 - Live freshness evidence ([inline](evidence/live-change-probe-inline.json), [watch](evidence/live-change-probe-watch.json)). Rebuild the [offline replay](../fixtures/live-replay/README.md) once from a clean clone with no `.env`.
 - Repository and video links accessible to judges; no credential files, API keys, private sandbox config, or sensitive backups committed.
 - Video playable from beginning to end; final track selections and submission fields complete before 11:59 PM IST.
