@@ -151,6 +151,7 @@ def response_context(db,operational=False):
         except (KeyError,ValueError): c['age_seconds']=None
         c['stale']=c['age_seconds'] is None or c['age_seconds']>1200
     github=db.graph.ro_query('MATCH (c:ActivityCoverage) RETURN properties(c) LIMIT 1',timeout=5000).result_set
+    clocks=db.graph.ro_query('MATCH (d:DemoDataset) RETURN properties(d) LIMIT 5',timeout=5000).result_set
     prs=db.graph.ro_query('MATCH (p:PullRequest) RETURN count(p)',timeout=5000).result_set
     pending=db.graph.ro_query("MATCH (n) WHERE n.organization_id IS NOT NULL AND n.valid_to IS NULL "
         "AND (n:Comment OR n:DocSection) AND n.extraction_version IS NULL RETURN count(n)",timeout=5000).result_set
@@ -159,6 +160,9 @@ def response_context(db,operational=False):
         'age_seconds':c['age_seconds'],'stale':c['stale'],
         'covered_through':c.get('covered_through'),'gaps':c.get('gaps',[]),'record_count':c.get('record_count',0)} for c in coverage],
         'freshness':'not_applicable' if operational else 'source_observation_times_only',
+        'clock':{'actual_now_utc':now.isoformat(),'datasets':[r[0] for r in clocks],
+            'event_time':'fixed offsets before persisted dataset anchor','decay_time':'expertise snapshot calculated_at',
+            'staleness_time':'actual current UTC minus calculated_at'},
         'imported_pr_count':prs[0][0] if prs else 0,
         'supporting_pr_count':None,
         'units_without_live_extraction':pending[0][0] if pending else 0,

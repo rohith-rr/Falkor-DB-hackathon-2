@@ -2,12 +2,14 @@
 from ..extraction.extractor import ExtractionPipeline
 
 
-def extract_units(db,org,limit=20):
+def extract_units(db,org,limit=20,unit_id=None):
     if not 0<=limit<=100: raise ValueError('Extraction limit must be 0..100')
     pipeline=ExtractionPipeline(db=db); attempts=0; results=[]
     rows=db.graph.ro_query("MATCH (u) WHERE u.organization_id=$org AND u.valid_to IS NULL "
-        "AND (u:Comment OR u:DocSection) AND size(u.text_content)>=20 RETURN labels(u)[0],u.id,u.text_content,u.source_url,u.created_at "
-        "ORDER BY u.created_at,u.id",params={'org':org}).result_set
+        "AND ($unit IS NULL OR u.id=$unit) AND (u:Comment OR u:DocSection) AND size(u.text_content)>=20 "
+        "RETURN labels(u)[0],u.id,u.text_content,u.source_url,u.created_at "
+        "ORDER BY u.created_at,u.id",params={'org':org,'unit':unit_id}).result_set
+    if unit_id and not rows: raise ValueError('No eligible current source unit in this organization')
     for label,ident,text,url,at in rows:
         if attempts>=limit: break
         context=db.graph.ro_query('MATCH path=(u {id:$id})-[*1..3]-(n) '

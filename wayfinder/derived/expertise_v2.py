@@ -258,6 +258,9 @@ def rankings(db, term, as_of=None, clock=None):
     if not snapshots:
         return None  # Caller retains explicitly labeled legacy historical compatibility.
     meta = snapshots[0]['s'].properties
+    roots=read(db,'MATCH (c:Component {id:$term})-[r:IMPLEMENTED_IN]->(d:Directory) '
+        'WHERE c.valid_to IS NULL AND r.valid_to IS NULL AND d.valid_to IS NULL '
+        'AND coalesce(d.is_deleted,false)=false RETURN DISTINCT d.id AS id,d.path AS path,d.repo AS repo',{'term':term})
     exact_directory=read(db,'MATCH (d:Directory {id:$term}) RETURN d.path AS path,d.repo AS repo',{'term':term})
     repo=None
     if exact_directory:
@@ -265,9 +268,11 @@ def rankings(db, term, as_of=None, clock=None):
         repo=exact_directory[0]['repo']
     records = read(db,'MATCH (c:ExpertiseContribution {generation:$generation}) '
         'MATCH (p:Person {id:c.person_id}) WHERE coalesce(p.is_bot,false)=false AND p.valid_to IS NULL AND coalesce(p.is_deleted,false)=false '
-        'AND (c.directory_id=$term OR c.path=$term OR c.path STARTS WITH ($term+\'/\')) '
-        'AND ($repo IS NULL OR c.repo=$repo) '
-        'RETURN c.record_json AS record,p.login AS login,p.display_name AS display_name', {'generation':meta['id'],'term':term,'repo':repo})
+        'AND ((size($roots)=0 AND (c.directory_id=$term OR c.path=$term OR c.path STARTS WITH ($term+\'/\')) '
+        'AND ($repo IS NULL OR c.repo=$repo)) OR any(root IN $roots WHERE c.repo=root.repo AND '
+        '(c.directory_id=root.id OR c.path=root.path OR root.path=\'\' OR c.path STARTS WITH (root.path+\'/\')))) '
+        'RETURN DISTINCT c.record_json AS record,p.login AS login,p.display_name AS display_name',
+        {'generation':meta['id'],'term':term,'repo':repo,'roots':roots})
     people = {}
     recent_cutoff = date(meta['calculated_at']).timestamp()-meta['recent_window_days']*86400
     for row in records:
@@ -322,6 +327,7 @@ def rankings(db, term, as_of=None, clock=None):
     return {'items':sorted(strong,key=lambda x:(-x['score'],x['login'])),
             'involvement_only':sorted(weak,key=lambda x:(-x['involvement_count'],x['login'])),
             'generation':meta['id'],'scoring_version':VERSION,'calculated_at':meta['calculated_at'],
+            **({'component_id':term,'code_directories':roots} if roots else {}),
             'snapshot_age_seconds':age,'stale':age>7200 and not as_of,'warnings':warnings,
             'parameters':{'half_life_days':meta['half_life_days'],'recent_window_days':meta['recent_window_days'],'hard_cutoff':False},
             'excluded_counts':json.loads(meta.get('excluded_counts_json','{}')),

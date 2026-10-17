@@ -36,6 +36,7 @@ people authorized reviewers without OWNERS evidence. Involvement is not expertis
 commands request actions and do not prove outcomes. Legacy scores require caution.
 """
 MEANINGS = {
+    "IMPLEMENTED_IN": "Explicit component-to-code-directory mapping; expertise aggregates distinct contributions across mapped subtrees",
     "OWNS_COMPONENT": "Explicitly declared component owner; not code reviewer authorization",
     "HAS_WORK_ITEM": "Project contains a source work item",
     "HAS_DOCUMENT": "Project contains a document",

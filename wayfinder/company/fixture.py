@@ -7,10 +7,23 @@ from .slack import ingest_channel
 from .links import link_manifest
 from ..derived.concerns import ConcernResolver
 from ..models.common import now_iso
+from ..models.layer2 import ArgumentKind,RationaleKind,DecisionScope
 
 ROOT=Path(__file__).resolve().parents[2]
 MANIFEST=ROOT/'fixtures/company/manifest.json'
 DATA=ROOT/'fixtures/company/sources.json'
+
+
+def validate_claims(claims):
+    for claim in claims:
+        label,kind=claim['label'],claim.get('kind')
+        if label=='Decision':
+            if kind is not None or claim.get('scope') not in {v.value for v in DecisionScope}:
+                raise ValueError('Decision requires scope and cannot carry a rationale/argument kind')
+        elif label=='Argument' and kind not in {v.value for v in ArgumentKind}:
+            raise ValueError('Invalid Argument kind')
+        elif label=='Rationale' and kind not in {v.value for v in RationaleKind}:
+            raise ValueError('Invalid Rationale kind')
 
 
 def ingest_fixture(db,manifest_path=MANIFEST,data_path=DATA):
@@ -18,6 +31,7 @@ def ingest_fixture(db,manifest_path=MANIFEST,data_path=DATA):
     if db.graph_name!='wayfinder_company_demo' and not db.graph_name.startswith('test_'):
         raise ValueError('Fixture ingestion requires wayfinder_company_demo or an isolated test_ graph')
     data=json.loads(Path(data_path).read_text(encoding='utf-8'))
+    validate_claims(data['claims'])
     store=CompanyStore(db,manifest); store.bootstrap()
     for project in data['projects']: ingest_project(store,project,mode='fixture')
     for channel in data['channels']: ingest_channel(store,channel,mode='fixture')
@@ -31,6 +45,8 @@ def ingest_fixture(db,manifest_path=MANIFEST,data_path=DATA):
         store.node(label,cid,source='fixture-annotation',url=url,summary=claim['summary'],
             evidence_quote=claim['quote'],source_revision_id=revision,source_timestamp=claim['at'],
             kind=claim.get('kind'),target_id=claim.get('target'),annotation_origin='hand_authored_demo')
+        if label=='Decision':
+            db.query('MATCH (d:Decision {id:$id}) REMOVE d.kind SET d.scope=$scope',{'id':cid,'scope':claim['scope']})
         store.edge('Comment' if ':comment:' in source else 'DocPage',source,label,cid,'ASSERTS',
             'fixture-annotation',url,evidence_quote=claim['quote'],authority_override='EXTRACTED')
         # Explicitly label fixture interpretation links rather than claiming an API asserted them.
@@ -47,7 +63,9 @@ def ingest_fixture(db,manifest_path=MANIFEST,data_path=DATA):
         'AND n.valid_to IS NULL AND NOT n.id IN $ids SET n.valid_to=$now WITH n '
         'OPTIONAL MATCH (n)-[r]-() WHERE r.valid_to IS NULL SET r.valid_to=$now',
         {'org':store.org,'ids':[c['id'] for c in data['claims']],'now':now_iso()})
-    return {'mode':'fixture','synthetic':True,'projects':len(data['projects']),
+    from .github_fixture import ingest_github
+    github=ingest_github(db,manifest)
+    return {'mode':'fixture','synthetic':True,'projects':len(data['projects']),'github':github,
         'issues':sum(len(p['work_items']) for p in data['projects']),
         'pages':sum(len(p['pages']) for p in data['projects']),
         'chat_threads':sum(len(c['threads']) for c in data['channels']),

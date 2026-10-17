@@ -17,7 +17,10 @@ def component_context(db,component,limit=20):
         'RETURN n,r ORDER BY n.id LIMIT $limit',params={'id':cid,'limit':limit+1},timeout=5000).result_set
     from ..brain_graph import serialize
     endpoint_ids={node.id:cid,**{p.id:p.properties['id'] for p,_ in owners},**{n.id:n.properties['id'] for n,_ in related}}
-    return {'component':serialize(node),'owners':[{'person':serialize(p),'relationship':serialize(r,endpoint_ids)} for p,r in owners],
+    directories=db.graph.ro_query('MATCH (:Component {id:$id})-[r:IMPLEMENTED_IN]->(d:Directory) '
+        'WHERE r.valid_to IS NULL AND d.valid_to IS NULL RETURN d',params={'id':cid},timeout=5000).result_set
+    return {'component':serialize(node),'code_directories':[serialize(r[0]) for r in directories],
+        'owners':[{'person':serialize(p),'relationship':serialize(r,endpoint_ids)} for p,r in owners],
         'related':[{'entity':serialize(n),'relationship':serialize(r,endpoint_ids)} for n,r in related[:limit]],
         'truncated':len(related)>limit,'context':response_context(db),
         'reviewer_warning':'Declared component ownership does not confer code reviewer authorization. Inspect OWNERS separately.'}
@@ -105,4 +108,15 @@ def draft_brief(db,component):
                     if rows[0][0] not in claim['source_urls']: claim['source_urls'].append(rows[0][0])
             brief['concerns'].append(claim)
         else: brief['decisions'].append(claim)
+    if context['code_directories']:
+        from ..derived.expertise_v2 import get_rankings
+        report=get_rankings(db,brief['component_id'])
+        brief['context']['expertise']={k:v for k,v in report.items() if k not in ('items','involvement_only')}
+        brief['missing_evidence'][0]='Code expertise measures synthetic imported implementation/file-review evidence, not company-wide competence.'
+        for person in report['items'][:5]:
+            brief['contributors'].append({'summary':f"{person['login']}: code activity score {person['score']}, supported by {person['distinct_pr_count']} PRs",
+                'evidence_ids':person['evidence_ids'],'source_urls':person['source_urls'],'authority':'COMPUTED',
+                'person_id':person['person_id'],'score':person['score'],'score_breakdown':person['score_breakdown'],
+                'distinct_pr_count':person['distinct_pr_count'],'evidence_strength':person['evidence_strength'],
+                'generation':report['generation'],'calculated_at':report.get('calculated_at')})
     return brief

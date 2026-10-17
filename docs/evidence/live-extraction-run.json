@@ -1,0 +1,1889 @@
+{
+  "run_id": "46dc8f685ab8438ca4398b8d4c2b8839",
+  "graph": "wayfinder_company_demo",
+  "mode": "local_source_overlay",
+  "external_plane_edit": false,
+  "created_at": "2026-10-17T09:13:07.083767+00:00",
+  "stage": "complete",
+  "generation_requests": 2,
+  "embedding_requests": 3,
+  "model_responses": [
+    {
+      "at": "2026-10-17T09:13:14.232019+00:00",
+      "model": "mistralai/mistral-nemo",
+      "origin": "live_provider",
+      "elapsed_seconds": 4.985,
+      "proposed": {
+        "arguments": [],
+        "decisions": [
+          {
+            "summary": "Preserve existing reservations and retry resize immediately, at most twice.",
+            "scope": "component",
+            "evidence_quote": "Decision: preserve existing reservations and retry resize immediately, at most twice.",
+            "target_id": "company:northstar:component:resource-allocation",
+            "supersedes_id": null,
+            "topics": [
+              "Resource Allocation",
+              "Reservation Fairness"
+            ]
+          }
+        ],
+        "rationales": [],
+        "questions": [],
+        "topics": [
+          "Resource Allocation",
+          "Reservation Fairness"
+        ],
+        "answers": []
+      }
+    },
+    {
+      "at": "2026-10-17T09:13:23.916432+00:00",
+      "model": "mistralai/mistral-nemo",
+      "origin": "live_provider",
+      "elapsed_seconds": 8.516,
+      "proposed": {
+        "arguments": [],
+        "decisions": [
+          {
+            "summary": "Disable automatic resize retries for resource allocation",
+            "scope": "component",
+            "evidence_quote": "Disable automatic resize retries, and require an operator-initiated retry.",
+            "target_id": "company:northstar:component:resource-allocation",
+            "supersedes_id": null,
+            "topics": [
+              "Resource Allocation"
+            ]
+          }
+        ],
+        "rationales": [],
+        "questions": [],
+        "topics": [
+          "Resource Allocation"
+        ],
+        "answers": []
+      }
+    }
+  ],
+  "steps": [
+    {
+      "stage": "baseline",
+      "at": "2026-10-17T09:13:15.313935+00:00",
+      "elapsed_seconds": 8.235,
+      "ok": true
+    },
+    {
+      "stage": "edit",
+      "at": "2026-10-17T09:13:15.392922+00:00",
+      "elapsed_seconds": 0.078,
+      "ok": true
+    },
+    {
+      "stage": "extract",
+      "at": "2026-10-17T09:13:24.390497+00:00",
+      "elapsed_seconds": 9.0,
+      "ok": true
+    }
+  ],
+  "successful": true,
+  "inference_mode": "live_provider",
+  "model": "mistralai/mistral-nemo",
+  "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+  "embedding_dim": 2048,
+  "baseline": {
+    "accepted": 1,
+    "rejected": 0,
+    "rejection_rate": 0.0,
+    "diagnostics": {
+      "total_proposed": 1,
+      "accepted": 1,
+      "rejected": 0,
+      "quote_mismatches": 0,
+      "invalid_targets": 0,
+      "schema_failures": 0,
+      "rejection_reasons": []
+    },
+    "decisions": [
+      {
+        "id": "plane:decision:5010a7668f8b395d5ec432b7",
+        "source_system": "llm-extraction",
+        "source_url": "https://app.plane.so/northstar-demo/projects/allocation/pages/adr-allocation",
+        "source_ref": "adr-allocation",
+        "observed_at": "2026-10-17T09:13:09.240016+00:00",
+        "valid_from": "2026-10-17T09:13:09.240016+00:00",
+        "extractor_version": "live-proof-46dc8f685ab8438ca4398b8d4c2b8839",
+        "source_unit_id": "plane:northstar:page:adr-allocation:section:0",
+        "content_hash": "fc15fe913a19c36b5ccd13087a1f296b350f319f9aa2a671b4b82f767a07f59c",
+        "source_revision_id": "source-revision:plane:northstar:page:adr-allocation:section:0:45ab47e132ede5d892e3f0102febc15ef0e470bce892333ae14107e0a9401f53",
+        "authority": "EXTRACTED",
+        "link_method": "LLM_EXTRACTED",
+        "summary": "Preserve existing reservations and retry resize immediately, at most twice.",
+        "scope": "component",
+        "evidence_quote": "Decision: preserve existing reservations and retry resize immediately, at most twice.",
+        "target_id": "company:northstar:component:resource-allocation",
+        "source_timestamp": "2026-10-17T09:13:09.240016+00:00"
+      }
+    ]
+  },
+  "old_brief": {
+    "component_id": "company:northstar:component:resource-allocation",
+    "ownership": [
+      {
+        "summary": "dee is a declared component owner",
+        "evidence_ids": [
+          "company:northstar:person:dee->OWNS_COMPONENT->company:northstar:component:resource-allocation@b8720a44b4ec1d126960"
+        ],
+        "source_urls": [
+          "https://example.org/wayfinder-synthetic/northstar"
+        ],
+        "authority": "CONFIRMED"
+      },
+      {
+        "summary": "eli is a declared component owner",
+        "evidence_ids": [
+          "company:northstar:person:eli->OWNS_COMPONENT->company:northstar:component:resource-allocation@c39a17fa27afb75efc74"
+        ],
+        "source_urls": [
+          "https://example.org/wayfinder-synthetic/northstar"
+        ],
+        "authority": "CONFIRMED"
+      }
+    ],
+    "contributors": [
+      {
+        "summary": "faye: code activity score 7.122971, supported by 4 PRs",
+        "evidence_ids": [
+          "github:northstar:comment:northstar-demo/engineering:RC101-0",
+          "github:northstar:comment:northstar-demo/engineering:RC102-0",
+          "github:northstar:comment:northstar-demo/engineering:RC103-0",
+          "github:northstar:comment:northstar-demo/engineering:RC104-0"
+        ],
+        "source_urls": [
+          "https://github.com/northstar-demo/engineering/pull/101#discussion_r1010",
+          "https://github.com/northstar-demo/engineering/pull/102#discussion_r1020",
+          "https://github.com/northstar-demo/engineering/pull/103#discussion_r1030",
+          "https://github.com/northstar-demo/engineering/pull/104#discussion_r1040"
+        ],
+        "authority": "COMPUTED",
+        "person_id": "company:northstar:person:faye",
+        "score": 7.122971,
+        "score_breakdown": {
+          "implementation": 0.0,
+          "peer_review": 7.122971
+        },
+        "distinct_pr_count": 4,
+        "evidence_strength": "multiple_prs",
+        "generation": "expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
+        "calculated_at": "2026-10-17T09:10:01.183599+00:00"
+      },
+      {
+        "summary": "dee: code activity score 5.227017, supported by 3 PRs",
+        "evidence_ids": [
+          "github:northstar:pr:northstar-demo/engineering:101",
+          "github:northstar:pr:northstar-demo/engineering:102",
+          "github:northstar:pr:northstar-demo/engineering:103"
+        ],
+        "source_urls": [
+          "https://github.com/northstar-demo/engineering/pull/101",
+          "https://github.com/northstar-demo/engineering/pull/102",
+          "https://github.com/northstar-demo/engineering/pull/103"
+        ],
+        "authority": "COMPUTED",
+        "person_id": "company:northstar:person:dee",
+        "score": 5.227017,
+        "score_breakdown": {
+          "implementation": 5.227017,
+          "peer_review": 0.0
+        },
+        "distinct_pr_count": 3,
+        "evidence_strength": "multiple_prs",
+        "generation": "expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
+        "calculated_at": "2026-10-17T09:10:01.183599+00:00"
+      },
+      {
+        "summary": "eli: code activity score 3.81569, supported by 2 PRs",
+        "evidence_ids": [
+          "github:northstar:comment:northstar-demo/engineering:RC105-0",
+          "github:northstar:pr:northstar-demo/engineering:104"
+        ],
+        "source_urls": [
+          "https://github.com/northstar-demo/engineering/pull/104",
+          "https://github.com/northstar-demo/engineering/pull/105#discussion_r1050"
+        ],
+        "authority": "COMPUTED",
+        "person_id": "company:northstar:person:eli",
+        "score": 3.81569,
+        "score_breakdown": {
+          "implementation": 1.909681,
+          "peer_review": 1.906008
+        },
+        "distinct_pr_count": 2,
+        "evidence_strength": "limited",
+        "generation": "expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
+        "calculated_at": "2026-10-17T09:10:01.183599+00:00"
+      }
+    ],
+    "decisions": [
+      {
+        "summary": "Preserve existing reservations and retry resize immediately, at most twice.",
+        "evidence_ids": [
+          "plane:decision:5010a7668f8b395d5ec432b7"
+        ],
+        "source_urls": [
+          "https://app.plane.so/northstar-demo/projects/allocation/pages/adr-allocation"
+        ],
+        "authority": "EXTRACTED",
+        "source_revision_id": "source-revision:plane:northstar:page:adr-allocation:section:0:45ab47e132ede5d892e3f0102febc15ef0e470bce892333ae14107e0a9401f53",
+        "evidence_quote": "Decision: preserve existing reservations and retry resize immediately, at most twice."
+      }
+    ],
+    "concerns": [
+      {
+        "summary": "I am concerned that resize retry can starve existing reservations.",
+        "evidence_ids": [
+          "company:northstar:claim:pc7"
+        ],
+        "source_urls": [
+          "https://app.plane.so/northstar-demo/projects/allocation/work-items/w7#comment-pc7"
+        ],
+        "authority": "EXTRACTED",
+        "source_revision_id": "source-revision:plane:northstar:comment:pc7:ca0943b8c29cf50192cc7e10490c9367d7c2f9be210e2be062656339afe262e3",
+        "evidence_quote": "I am concerned that resize retry can starve existing reservations.",
+        "status": "open",
+        "status_authority": "COMPUTED"
+      }
+    ],
+    "missing_evidence": [
+      "Code expertise measures synthetic imported implementation/file-review evidence, not company-wide competence.",
+      "Code reviewer authorization requires code ownership evidence."
+    ],
+    "next_action": "Review unresolved concerns and prepare a scoped follow-up task for human approval.",
+    "context": {
+      "source_scope": [
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w1:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.158204+00:00",
+          "age_seconds": 197.10988,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.158204+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w2:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.199831+00:00",
+          "age_seconds": 197.068253,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.199831+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w3:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.244096+00:00",
+          "age_seconds": 197.023988,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.244096+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w4:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.283896+00:00",
+          "age_seconds": 196.984188,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.283896+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w5:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.322285+00:00",
+          "age_seconds": 196.945799,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.322285+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w6:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.361953+00:00",
+          "age_seconds": 196.906131,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.361953+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "project:runtime:items",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.406847+00:00",
+          "age_seconds": 196.861237,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.406847+00:00",
+          "gaps": [],
+          "record_count": 6
+        },
+        {
+          "source": "plane",
+          "scope": "project:runtime:pages",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.411114+00:00",
+          "age_seconds": 196.85697,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.411114+00:00",
+          "gaps": [],
+          "record_count": 3
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w7:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.467481+00:00",
+          "age_seconds": 196.800603,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.467481+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w8:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.531434+00:00",
+          "age_seconds": 196.73665,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.531434+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w9:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.572547+00:00",
+          "age_seconds": 196.695537,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.572547+00:00",
+          "gaps": [],
+          "record_count": 1
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w10:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.610830+00:00",
+          "age_seconds": 196.657254,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.610830+00:00",
+          "gaps": [],
+          "record_count": 1
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w11:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.642716+00:00",
+          "age_seconds": 196.625368,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.642716+00:00",
+          "gaps": [],
+          "record_count": 1
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w12:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.677443+00:00",
+          "age_seconds": 196.590641,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.677443+00:00",
+          "gaps": [],
+          "record_count": 1
+        },
+        {
+          "source": "plane",
+          "scope": "project:allocation:items",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.728425+00:00",
+          "age_seconds": 196.539659,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.728425+00:00",
+          "gaps": [],
+          "record_count": 6
+        },
+        {
+          "source": "plane",
+          "scope": "project:allocation:pages",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.731721+00:00",
+          "age_seconds": 196.536363,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.731721+00:00",
+          "gaps": [],
+          "record_count": 3
+        },
+        {
+          "source": "slack",
+          "scope": "channel:CDEMO",
+          "status": "partial",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:59.085084+00:00",
+          "age_seconds": 196.183,
+          "stale": false,
+          "covered_through": null,
+          "gaps": [
+            "Channel history is bounded; absence does not prove deletion or inactivity."
+          ],
+          "record_count": 30
+        },
+        {
+          "source": "github",
+          "scope": "fixture:northstar-demo/engineering",
+          "status": "partial",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:10:01.182022+00:00",
+          "age_seconds": 194.086062,
+          "stale": false,
+          "covered_through": null,
+          "gaps": [
+            "Eight synthetic PRs, not live or complete repository activity."
+          ],
+          "record_count": 8
+        }
+      ],
+      "freshness": "source_observation_times_only",
+      "clock": {
+        "actual_now_utc": "2026-10-17T09:13:15.268084+00:00",
+        "datasets": [
+          {
+            "id": "company:northstar:github-fixture:v1",
+            "anchor_at": "2026-10-17T09:09:59.453059+00:00",
+            "synthetic": true,
+            "organization_id": "northstar",
+            "clock_policy": "events=fixed offsets before persisted anchor; decay=snapshot calculated_at; staleness=actual UTC now"
+          }
+        ],
+        "event_time": "fixed offsets before persisted dataset anchor",
+        "decay_time": "expertise snapshot calculated_at",
+        "staleness_time": "actual current UTC minus calculated_at"
+      },
+      "imported_pr_count": 8,
+      "supporting_pr_count": null,
+      "units_without_live_extraction": 95,
+      "github_activity_coverage": [],
+      "missing_evidence": [
+        "No proven complete GitHub activity coverage"
+      ],
+      "warnings": [
+        "Coverage describes configured scopes, not the whole company.",
+        "Fixture observations are not live synchronization."
+      ],
+      "expertise": {
+        "generation": "expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
+        "scoring_version": "v2",
+        "calculated_at": "2026-10-17T09:10:01.183599+00:00",
+        "component_id": "company:northstar:component:resource-allocation",
+        "code_directories": [
+          {
+            "id": "github:northstar:dir:northstar-demo/engineering:services/allocation",
+            "path": "services/allocation",
+            "repo": "northstar-demo/engineering"
+          }
+        ],
+        "snapshot_age_seconds": 194.089643,
+        "stale": false,
+        "warnings": [
+          "Activity import is not proven complete; rankings describe saved evidence, not lifetime competence.",
+          "PR-wide involvement does not contribute to the expertise score.",
+          "Scores aggregate allocated contributions across matched descendant directories."
+        ],
+        "parameters": {
+          "half_life_days": 15,
+          "recent_window_days": 30,
+          "hard_cutoff": false
+        },
+        "excluded_counts": {
+          "self_or_unknown_author_review": 8,
+          "command_only": 8
+        },
+        "coverage": {
+          "activity": [],
+          "review_threads": [
+            {
+              "records": 0,
+              "complete": 0.0
+            }
+          ],
+          "note": "Review coverage describes only explicitly fetched imported PRs, not complete activity."
+        }
+      }
+    }
+  },
+  "baseline_validation": {
+    "valid": true,
+    "errors": [],
+    "claims_checked": 7,
+    "semantic_correctness": "Not mechanically proven; evaluate interpretation against the source.",
+    "context": {
+      "source_scope": [
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w1:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.158204+00:00",
+          "age_seconds": 197.152049,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.158204+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w2:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.199831+00:00",
+          "age_seconds": 197.110422,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.199831+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w3:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.244096+00:00",
+          "age_seconds": 197.066157,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.244096+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w4:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.283896+00:00",
+          "age_seconds": 197.026357,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.283896+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w5:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.322285+00:00",
+          "age_seconds": 196.987968,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.322285+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w6:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.361953+00:00",
+          "age_seconds": 196.9483,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.361953+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "project:runtime:items",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.406847+00:00",
+          "age_seconds": 196.903406,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.406847+00:00",
+          "gaps": [],
+          "record_count": 6
+        },
+        {
+          "source": "plane",
+          "scope": "project:runtime:pages",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.411114+00:00",
+          "age_seconds": 196.899139,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.411114+00:00",
+          "gaps": [],
+          "record_count": 3
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w7:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.467481+00:00",
+          "age_seconds": 196.842772,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.467481+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w8:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.531434+00:00",
+          "age_seconds": 196.778819,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.531434+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w9:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.572547+00:00",
+          "age_seconds": 196.737706,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.572547+00:00",
+          "gaps": [],
+          "record_count": 1
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w10:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.610830+00:00",
+          "age_seconds": 196.699423,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.610830+00:00",
+          "gaps": [],
+          "record_count": 1
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w11:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.642716+00:00",
+          "age_seconds": 196.667537,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.642716+00:00",
+          "gaps": [],
+          "record_count": 1
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w12:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.677443+00:00",
+          "age_seconds": 196.63281,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.677443+00:00",
+          "gaps": [],
+          "record_count": 1
+        },
+        {
+          "source": "plane",
+          "scope": "project:allocation:items",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.728425+00:00",
+          "age_seconds": 196.581828,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.728425+00:00",
+          "gaps": [],
+          "record_count": 6
+        },
+        {
+          "source": "plane",
+          "scope": "project:allocation:pages",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.731721+00:00",
+          "age_seconds": 196.578532,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.731721+00:00",
+          "gaps": [],
+          "record_count": 3
+        },
+        {
+          "source": "slack",
+          "scope": "channel:CDEMO",
+          "status": "partial",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:59.085084+00:00",
+          "age_seconds": 196.225169,
+          "stale": false,
+          "covered_through": null,
+          "gaps": [
+            "Channel history is bounded; absence does not prove deletion or inactivity."
+          ],
+          "record_count": 30
+        },
+        {
+          "source": "github",
+          "scope": "fixture:northstar-demo/engineering",
+          "status": "partial",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:10:01.182022+00:00",
+          "age_seconds": 194.128231,
+          "stale": false,
+          "covered_through": null,
+          "gaps": [
+            "Eight synthetic PRs, not live or complete repository activity."
+          ],
+          "record_count": 8
+        }
+      ],
+      "freshness": "source_observation_times_only",
+      "clock": {
+        "actual_now_utc": "2026-10-17T09:13:15.310253+00:00",
+        "datasets": [
+          {
+            "id": "company:northstar:github-fixture:v1",
+            "anchor_at": "2026-10-17T09:09:59.453059+00:00",
+            "synthetic": true,
+            "organization_id": "northstar",
+            "clock_policy": "events=fixed offsets before persisted anchor; decay=snapshot calculated_at; staleness=actual UTC now"
+          }
+        ],
+        "event_time": "fixed offsets before persisted dataset anchor",
+        "decay_time": "expertise snapshot calculated_at",
+        "staleness_time": "actual current UTC minus calculated_at"
+      },
+      "imported_pr_count": 8,
+      "supporting_pr_count": null,
+      "units_without_live_extraction": 95,
+      "github_activity_coverage": [],
+      "missing_evidence": [
+        "No proven complete GitHub activity coverage"
+      ],
+      "warnings": [
+        "Coverage describes configured scopes, not the whole company.",
+        "Fixture observations are not live synchronization."
+      ]
+    }
+  },
+  "baseline_revision": "source-revision:plane:northstar:page:adr-allocation:section:0:45ab47e132ede5d892e3f0102febc15ef0e470bce892333ae14107e0a9401f53",
+  "new_revision": "source-revision:plane:northstar:page:adr-allocation:section:0:eb2ba9c5faec6592bfcbab1e0436100bab1e08caa5a91c091e32297e1ff9d30b",
+  "pending": {
+    "semantic_stale": true,
+    "extraction_version": null,
+    "retired_decisions": [
+      [
+        "plane:decision:5010a7668f8b395d5ec432b7",
+        "2026-10-17T09:13:15.333707+00:00"
+      ]
+    ]
+  },
+  "old_brief_validation_after_edit": {
+    "valid": false,
+    "errors": [
+      "Claim 5: missing or retired evidence plane:decision:5010a7668f8b395d5ec432b7",
+      "Claim 5: URL does not match its evidence",
+      "Claim 5: cited source revision is stale"
+    ],
+    "claims_checked": 7,
+    "semantic_correctness": "Not mechanically proven; evaluate interpretation against the source.",
+    "context": {
+      "source_scope": [
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w1:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.158204+00:00",
+          "age_seconds": 197.227934,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.158204+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w2:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.199831+00:00",
+          "age_seconds": 197.186307,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.199831+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w3:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.244096+00:00",
+          "age_seconds": 197.142042,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.244096+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w4:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.283896+00:00",
+          "age_seconds": 197.102242,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.283896+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w5:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.322285+00:00",
+          "age_seconds": 197.063853,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.322285+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w6:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.361953+00:00",
+          "age_seconds": 197.024185,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.361953+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "project:runtime:items",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.406847+00:00",
+          "age_seconds": 196.979291,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.406847+00:00",
+          "gaps": [],
+          "record_count": 6
+        },
+        {
+          "source": "plane",
+          "scope": "project:runtime:pages",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.411114+00:00",
+          "age_seconds": 196.975024,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.411114+00:00",
+          "gaps": [],
+          "record_count": 3
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w7:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.467481+00:00",
+          "age_seconds": 196.918657,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.467481+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w8:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.531434+00:00",
+          "age_seconds": 196.854704,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.531434+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w9:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.572547+00:00",
+          "age_seconds": 196.813591,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.572547+00:00",
+          "gaps": [],
+          "record_count": 1
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w10:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.610830+00:00",
+          "age_seconds": 196.775308,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.610830+00:00",
+          "gaps": [],
+          "record_count": 1
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w11:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.642716+00:00",
+          "age_seconds": 196.743422,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.642716+00:00",
+          "gaps": [],
+          "record_count": 1
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w12:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.677443+00:00",
+          "age_seconds": 196.708695,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.677443+00:00",
+          "gaps": [],
+          "record_count": 1
+        },
+        {
+          "source": "plane",
+          "scope": "project:allocation:items",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.728425+00:00",
+          "age_seconds": 196.657713,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.728425+00:00",
+          "gaps": [],
+          "record_count": 6
+        },
+        {
+          "source": "plane",
+          "scope": "project:allocation:pages",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.731721+00:00",
+          "age_seconds": 196.654417,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.731721+00:00",
+          "gaps": [],
+          "record_count": 3
+        },
+        {
+          "source": "slack",
+          "scope": "channel:CDEMO",
+          "status": "partial",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:59.085084+00:00",
+          "age_seconds": 196.301054,
+          "stale": false,
+          "covered_through": null,
+          "gaps": [
+            "Channel history is bounded; absence does not prove deletion or inactivity."
+          ],
+          "record_count": 30
+        },
+        {
+          "source": "github",
+          "scope": "fixture:northstar-demo/engineering",
+          "status": "partial",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:10:01.182022+00:00",
+          "age_seconds": 194.204116,
+          "stale": false,
+          "covered_through": null,
+          "gaps": [
+            "Eight synthetic PRs, not live or complete repository activity."
+          ],
+          "record_count": 8
+        }
+      ],
+      "freshness": "source_observation_times_only",
+      "clock": {
+        "actual_now_utc": "2026-10-17T09:13:15.386138+00:00",
+        "datasets": [
+          {
+            "id": "company:northstar:github-fixture:v1",
+            "anchor_at": "2026-10-17T09:09:59.453059+00:00",
+            "synthetic": true,
+            "organization_id": "northstar",
+            "clock_policy": "events=fixed offsets before persisted anchor; decay=snapshot calculated_at; staleness=actual UTC now"
+          }
+        ],
+        "event_time": "fixed offsets before persisted dataset anchor",
+        "decay_time": "expertise snapshot calculated_at",
+        "staleness_time": "actual current UTC minus calculated_at"
+      },
+      "imported_pr_count": 8,
+      "supporting_pr_count": null,
+      "units_without_live_extraction": 96,
+      "github_activity_coverage": [],
+      "missing_evidence": [
+        "No proven complete GitHub activity coverage"
+      ],
+      "warnings": [
+        "Coverage describes configured scopes, not the whole company.",
+        "Fixture observations are not live synchronization."
+      ]
+    }
+  },
+  "replacement": {
+    "accepted": 1,
+    "rejected": 0,
+    "rejection_rate": 0.0,
+    "diagnostics": {
+      "total_proposed": 1,
+      "accepted": 1,
+      "rejected": 0,
+      "quote_mismatches": 0,
+      "invalid_targets": 0,
+      "schema_failures": 0,
+      "rejection_reasons": []
+    },
+    "decisions": [
+      {
+        "id": "plane:decision:ba2e48b118b69719b613bfaa",
+        "source_system": "llm-extraction",
+        "source_url": "https://app.plane.so/northstar-demo/projects/allocation/pages/adr-allocation",
+        "source_ref": "adr-allocation",
+        "observed_at": "2026-10-17T09:13:15.400399+00:00",
+        "valid_from": "2026-10-17T09:13:15.400399+00:00",
+        "extractor_version": "live-proof-46dc8f685ab8438ca4398b8d4c2b8839",
+        "source_unit_id": "plane:northstar:page:adr-allocation:section:0",
+        "content_hash": "13a0fbb6278fa88fa5929a54a97363dff3830e3d3a6612ad44e7bbcbb61e5dd7",
+        "source_revision_id": "source-revision:plane:northstar:page:adr-allocation:section:0:eb2ba9c5faec6592bfcbab1e0436100bab1e08caa5a91c091e32297e1ff9d30b",
+        "authority": "EXTRACTED",
+        "link_method": "LLM_EXTRACTED",
+        "summary": "Disable automatic resize retries for resource allocation",
+        "scope": "component",
+        "evidence_quote": "Disable automatic resize retries, and require an operator-initiated retry.",
+        "target_id": "company:northstar:component:resource-allocation",
+        "source_timestamp": "2026-10-17T09:13:15.400399+00:00"
+      }
+    ]
+  },
+  "new_brief": {
+    "component_id": "company:northstar:component:resource-allocation",
+    "ownership": [
+      {
+        "summary": "dee is a declared component owner",
+        "evidence_ids": [
+          "company:northstar:person:dee->OWNS_COMPONENT->company:northstar:component:resource-allocation@b8720a44b4ec1d126960"
+        ],
+        "source_urls": [
+          "https://example.org/wayfinder-synthetic/northstar"
+        ],
+        "authority": "CONFIRMED"
+      },
+      {
+        "summary": "eli is a declared component owner",
+        "evidence_ids": [
+          "company:northstar:person:eli->OWNS_COMPONENT->company:northstar:component:resource-allocation@c39a17fa27afb75efc74"
+        ],
+        "source_urls": [
+          "https://example.org/wayfinder-synthetic/northstar"
+        ],
+        "authority": "CONFIRMED"
+      }
+    ],
+    "contributors": [
+      {
+        "summary": "faye: code activity score 7.122971, supported by 4 PRs",
+        "evidence_ids": [
+          "github:northstar:comment:northstar-demo/engineering:RC101-0",
+          "github:northstar:comment:northstar-demo/engineering:RC102-0",
+          "github:northstar:comment:northstar-demo/engineering:RC103-0",
+          "github:northstar:comment:northstar-demo/engineering:RC104-0"
+        ],
+        "source_urls": [
+          "https://github.com/northstar-demo/engineering/pull/101#discussion_r1010",
+          "https://github.com/northstar-demo/engineering/pull/102#discussion_r1020",
+          "https://github.com/northstar-demo/engineering/pull/103#discussion_r1030",
+          "https://github.com/northstar-demo/engineering/pull/104#discussion_r1040"
+        ],
+        "authority": "COMPUTED",
+        "person_id": "company:northstar:person:faye",
+        "score": 7.122971,
+        "score_breakdown": {
+          "implementation": 0.0,
+          "peer_review": 7.122971
+        },
+        "distinct_pr_count": 4,
+        "evidence_strength": "multiple_prs",
+        "generation": "expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
+        "calculated_at": "2026-10-17T09:10:01.183599+00:00"
+      },
+      {
+        "summary": "dee: code activity score 5.227017, supported by 3 PRs",
+        "evidence_ids": [
+          "github:northstar:pr:northstar-demo/engineering:101",
+          "github:northstar:pr:northstar-demo/engineering:102",
+          "github:northstar:pr:northstar-demo/engineering:103"
+        ],
+        "source_urls": [
+          "https://github.com/northstar-demo/engineering/pull/101",
+          "https://github.com/northstar-demo/engineering/pull/102",
+          "https://github.com/northstar-demo/engineering/pull/103"
+        ],
+        "authority": "COMPUTED",
+        "person_id": "company:northstar:person:dee",
+        "score": 5.227017,
+        "score_breakdown": {
+          "implementation": 5.227017,
+          "peer_review": 0.0
+        },
+        "distinct_pr_count": 3,
+        "evidence_strength": "multiple_prs",
+        "generation": "expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
+        "calculated_at": "2026-10-17T09:10:01.183599+00:00"
+      },
+      {
+        "summary": "eli: code activity score 3.81569, supported by 2 PRs",
+        "evidence_ids": [
+          "github:northstar:comment:northstar-demo/engineering:RC105-0",
+          "github:northstar:pr:northstar-demo/engineering:104"
+        ],
+        "source_urls": [
+          "https://github.com/northstar-demo/engineering/pull/104",
+          "https://github.com/northstar-demo/engineering/pull/105#discussion_r1050"
+        ],
+        "authority": "COMPUTED",
+        "person_id": "company:northstar:person:eli",
+        "score": 3.81569,
+        "score_breakdown": {
+          "implementation": 1.909681,
+          "peer_review": 1.906008
+        },
+        "distinct_pr_count": 2,
+        "evidence_strength": "limited",
+        "generation": "expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
+        "calculated_at": "2026-10-17T09:10:01.183599+00:00"
+      }
+    ],
+    "decisions": [
+      {
+        "summary": "Disable automatic resize retries for resource allocation",
+        "evidence_ids": [
+          "plane:decision:ba2e48b118b69719b613bfaa"
+        ],
+        "source_urls": [
+          "https://app.plane.so/northstar-demo/projects/allocation/pages/adr-allocation"
+        ],
+        "authority": "EXTRACTED",
+        "source_revision_id": "source-revision:plane:northstar:page:adr-allocation:section:0:eb2ba9c5faec6592bfcbab1e0436100bab1e08caa5a91c091e32297e1ff9d30b",
+        "evidence_quote": "Disable automatic resize retries, and require an operator-initiated retry."
+      }
+    ],
+    "concerns": [
+      {
+        "summary": "I am concerned that resize retry can starve existing reservations.",
+        "evidence_ids": [
+          "company:northstar:claim:pc7"
+        ],
+        "source_urls": [
+          "https://app.plane.so/northstar-demo/projects/allocation/work-items/w7#comment-pc7"
+        ],
+        "authority": "EXTRACTED",
+        "source_revision_id": "source-revision:plane:northstar:comment:pc7:ca0943b8c29cf50192cc7e10490c9367d7c2f9be210e2be062656339afe262e3",
+        "evidence_quote": "I am concerned that resize retry can starve existing reservations.",
+        "status": "open",
+        "status_authority": "COMPUTED"
+      }
+    ],
+    "missing_evidence": [
+      "Code expertise measures synthetic imported implementation/file-review evidence, not company-wide competence.",
+      "Code reviewer authorization requires code ownership evidence."
+    ],
+    "next_action": "Review unresolved concerns and prepare a scoped follow-up task for human approval.",
+    "context": {
+      "source_scope": [
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w1:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.158204+00:00",
+          "age_seconds": 206.184855,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.158204+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w2:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.199831+00:00",
+          "age_seconds": 206.143228,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.199831+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w3:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.244096+00:00",
+          "age_seconds": 206.098963,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.244096+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w4:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.283896+00:00",
+          "age_seconds": 206.059163,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.283896+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w5:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.322285+00:00",
+          "age_seconds": 206.020774,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.322285+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w6:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.361953+00:00",
+          "age_seconds": 205.981106,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.361953+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "project:runtime:items",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.406847+00:00",
+          "age_seconds": 205.936212,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.406847+00:00",
+          "gaps": [],
+          "record_count": 6
+        },
+        {
+          "source": "plane",
+          "scope": "project:runtime:pages",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.411114+00:00",
+          "age_seconds": 205.931945,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.411114+00:00",
+          "gaps": [],
+          "record_count": 3
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w7:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.467481+00:00",
+          "age_seconds": 205.875578,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.467481+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w8:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.531434+00:00",
+          "age_seconds": 205.811625,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.531434+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w9:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.572547+00:00",
+          "age_seconds": 205.770512,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.572547+00:00",
+          "gaps": [],
+          "record_count": 1
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w10:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.610830+00:00",
+          "age_seconds": 205.732229,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.610830+00:00",
+          "gaps": [],
+          "record_count": 1
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w11:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.642716+00:00",
+          "age_seconds": 205.700343,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.642716+00:00",
+          "gaps": [],
+          "record_count": 1
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w12:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.677443+00:00",
+          "age_seconds": 205.665616,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.677443+00:00",
+          "gaps": [],
+          "record_count": 1
+        },
+        {
+          "source": "plane",
+          "scope": "project:allocation:items",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.728425+00:00",
+          "age_seconds": 205.614634,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.728425+00:00",
+          "gaps": [],
+          "record_count": 6
+        },
+        {
+          "source": "plane",
+          "scope": "project:allocation:pages",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.731721+00:00",
+          "age_seconds": 205.611338,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.731721+00:00",
+          "gaps": [],
+          "record_count": 3
+        },
+        {
+          "source": "slack",
+          "scope": "channel:CDEMO",
+          "status": "partial",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:59.085084+00:00",
+          "age_seconds": 205.257975,
+          "stale": false,
+          "covered_through": null,
+          "gaps": [
+            "Channel history is bounded; absence does not prove deletion or inactivity."
+          ],
+          "record_count": 30
+        },
+        {
+          "source": "github",
+          "scope": "fixture:northstar-demo/engineering",
+          "status": "partial",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:10:01.182022+00:00",
+          "age_seconds": 203.161037,
+          "stale": false,
+          "covered_through": null,
+          "gaps": [
+            "Eight synthetic PRs, not live or complete repository activity."
+          ],
+          "record_count": 8
+        }
+      ],
+      "freshness": "source_observation_times_only",
+      "clock": {
+        "actual_now_utc": "2026-10-17T09:13:24.343059+00:00",
+        "datasets": [
+          {
+            "id": "company:northstar:github-fixture:v1",
+            "anchor_at": "2026-10-17T09:09:59.453059+00:00",
+            "synthetic": true,
+            "organization_id": "northstar",
+            "clock_policy": "events=fixed offsets before persisted anchor; decay=snapshot calculated_at; staleness=actual UTC now"
+          }
+        ],
+        "event_time": "fixed offsets before persisted dataset anchor",
+        "decay_time": "expertise snapshot calculated_at",
+        "staleness_time": "actual current UTC minus calculated_at"
+      },
+      "imported_pr_count": 8,
+      "supporting_pr_count": null,
+      "units_without_live_extraction": 95,
+      "github_activity_coverage": [],
+      "missing_evidence": [
+        "No proven complete GitHub activity coverage"
+      ],
+      "warnings": [
+        "Coverage describes configured scopes, not the whole company.",
+        "Fixture observations are not live synchronization."
+      ],
+      "expertise": {
+        "generation": "expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
+        "scoring_version": "v2",
+        "calculated_at": "2026-10-17T09:10:01.183599+00:00",
+        "component_id": "company:northstar:component:resource-allocation",
+        "code_directories": [
+          {
+            "id": "github:northstar:dir:northstar-demo/engineering:services/allocation",
+            "path": "services/allocation",
+            "repo": "northstar-demo/engineering"
+          }
+        ],
+        "snapshot_age_seconds": 203.164804,
+        "stale": false,
+        "warnings": [
+          "Activity import is not proven complete; rankings describe saved evidence, not lifetime competence.",
+          "PR-wide involvement does not contribute to the expertise score.",
+          "Scores aggregate allocated contributions across matched descendant directories."
+        ],
+        "parameters": {
+          "half_life_days": 15,
+          "recent_window_days": 30,
+          "hard_cutoff": false
+        },
+        "excluded_counts": {
+          "self_or_unknown_author_review": 8,
+          "command_only": 8
+        },
+        "coverage": {
+          "activity": [],
+          "review_threads": [
+            {
+              "records": 0,
+              "complete": 0.0
+            }
+          ],
+          "note": "Review coverage describes only explicitly fetched imported PRs, not complete activity."
+        }
+      }
+    }
+  },
+  "replacement_validation": {
+    "valid": true,
+    "errors": [],
+    "claims_checked": 7,
+    "semantic_correctness": "Not mechanically proven; evaluate interpretation against the source.",
+    "context": {
+      "source_scope": [
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w1:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.158204+00:00",
+          "age_seconds": 206.228019,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.158204+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w2:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.199831+00:00",
+          "age_seconds": 206.186392,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.199831+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w3:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.244096+00:00",
+          "age_seconds": 206.142127,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.244096+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w4:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.283896+00:00",
+          "age_seconds": 206.102327,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.283896+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w5:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.322285+00:00",
+          "age_seconds": 206.063938,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.322285+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w6:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.361953+00:00",
+          "age_seconds": 206.02427,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.361953+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "project:runtime:items",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.406847+00:00",
+          "age_seconds": 205.979376,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.406847+00:00",
+          "gaps": [],
+          "record_count": 6
+        },
+        {
+          "source": "plane",
+          "scope": "project:runtime:pages",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.411114+00:00",
+          "age_seconds": 205.975109,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.411114+00:00",
+          "gaps": [],
+          "record_count": 3
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w7:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.467481+00:00",
+          "age_seconds": 205.918742,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.467481+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w8:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.531434+00:00",
+          "age_seconds": 205.854789,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.531434+00:00",
+          "gaps": [],
+          "record_count": 2
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w9:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.572547+00:00",
+          "age_seconds": 205.813676,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.572547+00:00",
+          "gaps": [],
+          "record_count": 1
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w10:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.610830+00:00",
+          "age_seconds": 205.775393,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.610830+00:00",
+          "gaps": [],
+          "record_count": 1
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w11:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.642716+00:00",
+          "age_seconds": 205.743507,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.642716+00:00",
+          "gaps": [],
+          "record_count": 1
+        },
+        {
+          "source": "plane",
+          "scope": "plane:northstar:issue:w12:comments",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.677443+00:00",
+          "age_seconds": 205.70878,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.677443+00:00",
+          "gaps": [],
+          "record_count": 1
+        },
+        {
+          "source": "plane",
+          "scope": "project:allocation:items",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.728425+00:00",
+          "age_seconds": 205.657798,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.728425+00:00",
+          "gaps": [],
+          "record_count": 6
+        },
+        {
+          "source": "plane",
+          "scope": "project:allocation:pages",
+          "status": "complete",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:58.731721+00:00",
+          "age_seconds": 205.654502,
+          "stale": false,
+          "covered_through": "2026-10-17T09:09:58.731721+00:00",
+          "gaps": [],
+          "record_count": 3
+        },
+        {
+          "source": "slack",
+          "scope": "channel:CDEMO",
+          "status": "partial",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:09:59.085084+00:00",
+          "age_seconds": 205.301139,
+          "stale": false,
+          "covered_through": null,
+          "gaps": [
+            "Channel history is bounded; absence does not prove deletion or inactivity."
+          ],
+          "record_count": 30
+        },
+        {
+          "source": "github",
+          "scope": "fixture:northstar-demo/engineering",
+          "status": "partial",
+          "mode": "fixture",
+          "synthetic": true,
+          "observed_at": "2026-10-17T09:10:01.182022+00:00",
+          "age_seconds": 203.204201,
+          "stale": false,
+          "covered_through": null,
+          "gaps": [
+            "Eight synthetic PRs, not live or complete repository activity."
+          ],
+          "record_count": 8
+        }
+      ],
+      "freshness": "source_observation_times_only",
+      "clock": {
+        "actual_now_utc": "2026-10-17T09:13:24.386223+00:00",
+        "datasets": [
+          {
+            "id": "company:northstar:github-fixture:v1",
+            "anchor_at": "2026-10-17T09:09:59.453059+00:00",
+            "synthetic": true,
+            "organization_id": "northstar",
+            "clock_policy": "events=fixed offsets before persisted anchor; decay=snapshot calculated_at; staleness=actual UTC now"
+          }
+        ],
+        "event_time": "fixed offsets before persisted dataset anchor",
+        "decay_time": "expertise snapshot calculated_at",
+        "staleness_time": "actual current UTC minus calculated_at"
+      },
+      "imported_pr_count": 8,
+      "supporting_pr_count": null,
+      "units_without_live_extraction": 95,
+      "github_activity_coverage": [],
+      "missing_evidence": [
+        "No proven complete GitHub activity coverage"
+      ],
+      "warnings": [
+        "Coverage describes configured scopes, not the whole company.",
+        "Fixture observations are not live synchronization."
+      ]
+    }
+  },
+  "completed_at": "2026-10-17T09:13:24.390497+00:00"
+}

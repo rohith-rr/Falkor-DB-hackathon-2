@@ -172,7 +172,7 @@
     "source_id": "plane:northstar:page:adr-runtime",
     "quote": "Decision: use bounded cancellation with a five second shutdown deadline.",
     "expected_label": "Decision",
-    "expected_kind": "goal",
+    "expected_scope": "component",
     "origin": "manually_authored_fixture_label"
   },
   {
@@ -188,7 +188,7 @@
     "source_id": "plane:northstar:page:adr-allocation",
     "quote": "Decision: preserve existing reservations before retrying resize.",
     "expected_label": "Decision",
-    "expected_kind": "goal",
+    "expected_scope": "component",
     "origin": "manually_authored_fixture_label"
   },
   {

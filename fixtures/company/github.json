@@ -1,0 +1,20 @@
+{
+  "synthetic": true,
+  "repository": "northstar-demo/engineering",
+  "owners": [
+    {"path": "services/allocation/OWNERS", "content": "approvers: [dee, eli]\nreviewers: [dee, eli]\n"},
+    {"path": "services/runtime/OWNERS", "content": "approvers: [ada]\nreviewers: [ada, ben]\n"},
+    {"path": "services/allocation/reservations/OWNERS", "content": "approvers: [eli]\nreviewers: [eli]\noptions:\n  no_parent_owners: true\n"}
+  ],
+  "components": {"resource-allocation": "services/allocation", "node-runtime": "services/runtime"},
+  "pull_requests": [
+    {"number":101,"title":"Bound resize retries while preserving reservations","author":"dee","state":"MERGED","age_days":4,"component":"resource-allocation","ticket":"w7","files":["services/allocation/retry/policy.py"],"peer":"faye","review":"The retry counter must stop at the configured bound before the reservation is released."},
+    {"number":102,"title":"Measure reservation drift","author":"dee","state":"MERGED","age_days":3,"component":"resource-allocation","ticket":"w8","files":["services/allocation/reservations/drift.py"],"peer":"faye","review":"Capture the reservation generation under the lock so the drift sample remains consistent."},
+    {"number":103,"title":"Add operator rollback for allocation","author":"dee","state":"MERGED","age_days":2,"component":"resource-allocation","ticket":"w9","files":["services/allocation/retry/rollback.py","services/allocation/reservations/rollback.py"],"peer":"faye","review":"Rollback must preserve committed reservations and cancel only the pending resize."},
+    {"number":104,"title":"Verify resource isolation","author":"eli","state":"MERGED","age_days":1,"component":"resource-allocation","ticket":"w10","files":["services/allocation/reservations/isolation.py"],"peer":"faye","review":"Assert that one tenant cannot consume another tenant's reserved capacity."},
+    {"number":105,"title":"Audit capacity owner routing","author":"cy","state":"OPEN","age_days":1,"component":"resource-allocation","ticket":"w11","files":["services/allocation/routing.py"],"peer":"eli","review":"Route missing owner cases to the capacity on-call rather than dropping the notification."},
+    {"number":106,"title":"Bound runtime shutdown deadline","author":"ada","state":"MERGED","age_days":3,"component":"node-runtime","ticket":"w1","files":["services/runtime/shutdown.py"],"peer":"ben","review":"Cancel the worker before releasing its shared runtime state."},
+    {"number":107,"title":"Improve runtime deadline metrics","author":"ben","state":"MERGED","age_days":2,"component":"node-runtime","ticket":"w2","files":["services/runtime/metrics.py"],"peer":"ada","review":"Keep the deadline label bounded to avoid unbounded metric cardinality."},
+    {"number":108,"title":"Document runtime fallback","author":"cy","state":"OPEN","age_days":1,"component":"node-runtime","ticket":"w3","files":["services/runtime/fallback.py"],"peer":"ben","review":"Use the safe fallback when the cancellation signal is already closed."}
+  ]
+}

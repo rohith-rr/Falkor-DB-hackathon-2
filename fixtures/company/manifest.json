@@ -54,7 +54,13 @@
     "slack:cy": "cy",
     "slack:dee": "dee",
     "slack:eli": "eli",
-    "slack:faye": "faye"
+    "slack:faye": "faye",
+    "github:ada": "ada",
+    "github:ben": "ben",
+    "github:cy": "cy",
+    "github:dee": "dee",
+    "github:eli": "eli",
+    "github:faye": "faye"
   },
   "teams": [
     {

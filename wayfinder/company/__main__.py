@@ -14,7 +14,7 @@ def main():
     sub.add_parser('fixture')
     sub.add_parser('check-plane')
     sync=sub.add_parser('sync'); sync.add_argument('--slack',action='store_true'); sync.add_argument('--extractions',type=int,default=0)
-    extract=sub.add_parser('extract'); extract.add_argument('--limit',type=int,default=20)
+    extract=sub.add_parser('extract'); extract.add_argument('--limit',type=int,default=20); extract.add_argument('--unit-id')
     brief=sub.add_parser('brief'); brief.add_argument('component'); brief.add_argument('--output')
     prepare=sub.add_parser('prepare'); prepare.add_argument('--brief',required=True); prepare.add_argument('--title',required=True); prepare.add_argument('--description',required=True)
     approve=sub.add_parser('approve'); approve.add_argument('action_id'); approve.add_argument('--hash',required=True); approve.add_argument('--by',required=True); approve.add_argument('--yes',action='store_true')
@@ -45,7 +45,7 @@ def main():
         result['concerns']=ConcernResolver(db).resolve_concern_statuses()
     elif args.command=='extract':
         from .extract import extract_units
-        result=extract_units(db,manifest['organization_id'],args.limit)
+        result=extract_units(db,manifest['organization_id'],args.limit,args.unit_id)
         from ..derived.concerns import ConcernResolver
         result['concerns']=ConcernResolver(db).resolve_concern_statuses()
     elif args.command=='brief':

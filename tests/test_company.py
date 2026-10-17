@@ -38,6 +38,64 @@ def test_company_navigation_and_evidence(db):
     assert {r[1] for r in review['concerns']}=={'open','resolved'}
 
 
+def test_decision_fixture_taxonomy(db):
+    from wayfinder.company.fixture import validate_claims
+    rows=db.graph.ro_query('MATCH (d:Decision) WHERE d.id IN $ids RETURN d.kind,d.scope,d.evidence_quote',
+        params={'ids':['company:northstar:claim:adr-runtime','company:northstar:claim:adr-allocation']}).result_set
+    assert len(rows)==2 and all(kind is None and scope=='component' and quote.startswith('Decision:') for kind,scope,quote in rows)
+    with pytest.raises(ValueError,match='Decision'):
+        validate_claims([{'label':'Decision','kind':'goal','scope':'component'}])
+    with pytest.raises(ValueError,match='Argument'):
+        validate_claims([{'label':'Argument','kind':'goal'}])
+    with pytest.raises(ValueError,match='Rationale'):
+        validate_claims([{'label':'Rationale','kind':'decision'}])
+
+
+def test_component_expertise_and_dedupe(db):
+    from wayfinder.derived.expertise_v2 import get_rankings
+    component='company:northstar:component:resource-allocation'
+    report=get_rankings(db,component)
+    assert report['items'][0]['login']=='faye'
+    assert report['items'][0]['score_breakdown']['peer_review']>0
+    assert report['items'][0]['distinct_pr_count']==4
+    dee=next(p for p in report['items'] if p['login']=='dee')
+    assert dee['distinct_pr_count']==3 and dee['evidence_strength']=='multiple_prs'
+    assert all(p['login'] not in ('cy','northstar-build-bot') for p in report['items'])
+    nested='github:northstar:dir:northstar-demo/engineering:services/allocation/retry'
+    db.query('MATCH (c:Component {id:$c}),(d:Directory {id:$d}) CREATE (c)-[:IMPLEMENTED_IN {id:\'overlap\'}]->(d)',{'c':component,'d':nested})
+    after=get_rankings(db,component)
+    assert after['items']==report['items']
+    brief=draft_brief(db,component)
+    assert brief['contributors'] and validate_brief(db,brief)['valid']
+    assert not db.graph.ro_query('MATCH (:Person {login:\'faye\'})-[:OWNS_COMPONENT]->(:Component {id:$c}) RETURN 1',params={'c':component}).result_set
+    before=db.graph.ro_query('MATCH (d:DemoDataset) RETURN d.anchor_at').result_set
+    from wayfinder.company.github_fixture import ingest_github
+    ingest_github(db,load_manifest(MANIFEST))
+    assert db.graph.ro_query('MATCH (d:DemoDataset) RETURN d.anchor_at').result_set==before
+
+
+def test_local_proof_invalidates_old_decision_and_brief(db,tmp_path,monkeypatch):
+    import wayfinder.company.live_proof as proof
+    monkeypatch.setattr(proof,'ROOT',tmp_path)
+    class Client:
+        model='test-double'; embedding_dim=3; embedding_model='test-only'
+        def chat_completion_json(self,**kwargs):
+            import json
+            body=json.loads(kwargs['messages'][0]['content'])['text_to_analyze']
+            quote=proof.AFTER if 'operator-initiated' in body else proof.BEFORE
+            return {'decisions':[{'summary':quote,'scope':'component','target_id':proof.COMPONENT,'evidence_quote':quote,'topics':[]}]}
+        def get_embedding(self,text): return [1.,0.,0.]
+    runner=proof.LocalProof(db)
+    before=runner.advance('baseline',llm=Client())
+    assert before['baseline_validation']['valid']
+    pending=runner.advance('edit',llm=Client())
+    assert pending['stage']=='pending' and pending['pending']['semantic_stale']
+    assert not pending['old_brief_validation_after_edit']['valid']
+    completed=runner.advance('extract',llm=Client())
+    assert completed['stage']=='complete' and completed['replacement_validation']['valid']
+    assert not completed['successful']  # A test double must never become live proof.
+
+
 def test_stale_quotes_and_wrong_urls_rejected(db):
     brief=draft_brief(db,'Node Runtime')
     broken=copy.deepcopy(brief); broken['decisions'][0]['source_urls']=['https://wrong.example/']

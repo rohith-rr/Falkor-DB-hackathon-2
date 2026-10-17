@@ -29,6 +29,8 @@ class OwnersParser:
         aliases_map: Optional[Dict[str, List[str]]] = None,
         commit_sha: Optional[str] = None,
         source_url: Optional[str] = None,
+        namespace: str = 'k8s',
+        person_id_resolver=None,
     ) -> Dict[str, Any]:
         """
         Parse an OWNERS file at `path` in `repo`.
@@ -70,7 +72,7 @@ class OwnersParser:
         reviewer_logins = expand_logins(raw_reviewers)
 
         url = source_url or f"https://github.com/{repo}/blob/{commit_sha or 'master'}/{path}"
-        owners_id = f"k8s:owners:{repo}:{str(norm_path)}"
+        owners_id = f"{namespace}:owners:{repo}:{str(norm_path)}"
         owners_node = OwnersFile(
             id=owners_id,
             path=str(norm_path),
@@ -84,7 +86,7 @@ class OwnersParser:
             valid_from=now,
         )
 
-        dir_id = f"k8s:dir:{repo}:{dir_path}"
+        dir_id = f"{namespace}:dir:{repo}:{dir_path}"
         dir_node = Directory(
             id=dir_id,
             path=dir_path,
@@ -123,8 +125,8 @@ class OwnersParser:
         while str(curr_p) not in ("", "."):
             parent_p = curr_p.parent
             parent_str = str(parent_p) if str(parent_p) != "." else ""
-            curr_id = f"k8s:dir:{repo}:{str(curr_p)}"
-            parent_id = f"k8s:dir:{repo}:{parent_str}"
+            curr_id = f"{namespace}:dir:{repo}:{str(curr_p)}"
+            parent_id = f"{namespace}:dir:{repo}:{parent_str}"
 
             if parent_id not in directories:
                 directories[parent_id] = Directory(
@@ -163,7 +165,7 @@ class OwnersParser:
         people: Dict[str, Person] = {}
 
         for login in approver_logins:
-            pid = f"k8s:person:{login.lower()}"
+            pid = person_id_resolver(login) if person_id_resolver else f"{namespace}:person:{login.lower()}"
             if pid not in people:
                 people[pid] = Person(
                     id=pid,
@@ -194,7 +196,7 @@ class OwnersParser:
             })
 
         for login in reviewer_logins:
-            pid = f"k8s:person:{login.lower()}"
+            pid = person_id_resolver(login) if person_id_resolver else f"{namespace}:person:{login.lower()}"
             if pid not in people:
                 people[pid] = Person(
                     id=pid,

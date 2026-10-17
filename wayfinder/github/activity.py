@@ -64,6 +64,8 @@ class ActivityProcessor:
         cls,
         raw_node: Dict[str, Any],
         repo: str = "kubernetes/kubernetes",
+        namespace: str = 'k8s',
+        person_id_resolver=None,
     ) -> Dict[str, Any]:
         """
         Process a single GitHub Issue or PullRequest node from GraphQL search.
@@ -103,7 +105,7 @@ class ActivityProcessor:
         def get_or_create_person(login: Optional[str], act_time: str) -> Optional[str]:
             if not login:
                 return None
-            pid = f"k8s:person:{login.lower()}"
+            pid = person_id_resolver(login) if person_id_resolver else f"{namespace}:person:{login.lower()}"
             is_bot = cls.is_bot_user(login) or login.lower() in api_bots
             if pid not in people_seen:
                 people_seen[pid] = Person(
@@ -133,7 +135,7 @@ class ActivityProcessor:
         # Process PR or Issue
         if typename == "PullRequest":
             target_label = "PullRequest"
-            target_id = f"k8s:pr:{repo}:{number}"
+            target_id = f"{namespace}:pr:{repo}:{number}"
             merged_at = raw_node.get("mergedAt")
             milestone = raw_node.get("milestone", {}).get("title") if raw_node.get("milestone") else None
             additions = raw_node.get("additions", 0)
@@ -166,7 +168,7 @@ class ActivityProcessor:
                 fpath = file_entry.get("path")
                 if not fpath:
                     continue
-                file_id = f"k8s:file:{repo}:{fpath}"
+                file_id = f"{namespace}:file:{repo}:{fpath}"
                 file_node = File(
                     id=file_id,
                     path=fpath,
@@ -182,7 +184,7 @@ class ActivityProcessor:
                 # Directory containing file: (Directory)-[:CONTAINS]->(File)
                 p_obj = PurePosixPath(fpath.replace("\\", "/"))
                 dir_path = str(p_obj.parent) if str(p_obj.parent) != "." else ""
-                dir_id = f"k8s:dir:{repo}:{dir_path}"
+                dir_id = f"{namespace}:dir:{repo}:{dir_path}"
                 dir_node = Directory(
                     id=dir_id,
                     path=dir_path,
@@ -194,7 +196,8 @@ class ActivityProcessor:
                     valid_from=now,
                 )
                 nodes["directories"].append(dir_node)
-                hierarchy = OwnersParser.parse_owners_file('{}', repo, (dir_path + '/OWNERS').lstrip('/'))
+                hierarchy = OwnersParser.parse_owners_file('{}', repo, (dir_path + '/OWNERS').lstrip('/'),
+                    namespace=namespace,person_id_resolver=person_id_resolver)
                 nodes['directories'].extend(hierarchy['directories'])
                 edges.extend(e for e in hierarchy['edges'] if e['rel_type'] == 'CHILD_OF')
 
@@ -243,7 +246,7 @@ class ActivityProcessor:
                 r_author = r_entry.get("author", {}).get("login") if r_entry.get("author") else None
                 r_author_id = get_or_create_person(r_author, r_time)
 
-                review_id = f"k8s:review:{repo}:{r_id_raw}"
+                review_id = f"{namespace}:review:{repo}:{r_id_raw}"
                 rev_node = Review(
                     id=review_id,
                     state=r_state,
@@ -302,7 +305,7 @@ class ActivityProcessor:
         else:
             # Issue
             target_label = "Issue"
-            target_id = f"k8s:issue:{repo}:{number}"
+            target_id = f"{namespace}:issue:{repo}:{number}"
             closed_at = raw_node.get("closedAt")
 
             issue_node = Issue(
@@ -356,24 +359,24 @@ class ActivityProcessor:
             refs = ProwParser.extract_references(text)
             links = []
             for num in refs['issues']:
-                links.append(('Issue', f'k8s:issue:{repo}:{num}', 'REFERENCES', f'#{num}'))
+                links.append(('Issue', f'{namespace}:issue:{repo}:{num}', 'REFERENCES', f'#{num}'))
             for num in refs['keps']:
-                links.append(('KEP', f'k8s:kep:{num}', 'REFERENCES', f'KEP-{num}'))
+                links.append(('KEP', f'{namespace}:kep:{num}', 'REFERENCES', f'KEP-{num}'))
             for ref_url in refs['urls']:
                 parts = urlparse(ref_url).path.strip('/').split('/')
                 ref_repo = '/'.join(parts[:2])
                 kind = 'PullRequest' if parts[2] == 'pull' else 'Issue'
                 marker = 'pr' if kind == 'PullRequest' else 'issue'
-                links.append((kind, f'k8s:{marker}:{ref_repo}:{parts[3]}', 'REFERENCES', ref_url))
+                links.append((kind, f'{namespace}:{marker}:{ref_repo}:{parts[3]}', 'REFERENCES', ref_url))
             # Keep the repository and entity type from closing URLs.
             for match in re.finditer(r'(?i)\b(?:fixes|closes|resolves)\s+(https?://github\.com/[\w-]+/[\w-]+/(?:issues|pull)/\d+|#\d+)', text):
                 token = match.group(1)
                 if token.startswith('#'):
-                    kind, tid = 'Issue', f'k8s:issue:{repo}:{token[1:]}'
+                    kind, tid = 'Issue', f'{namespace}:issue:{repo}:{token[1:]}'
                 else:
                     parts = urlparse(token).path.strip('/').split('/')
                     kind = 'PullRequest' if parts[2] == 'pull' else 'Issue'
-                    tid = f"k8s:{'pr' if kind == 'PullRequest' else 'issue'}:{'/'.join(parts[:2])}:{parts[3]}"
+                    tid = f"{namespace}:{'pr' if kind == 'PullRequest' else 'issue'}:{'/'.join(parts[:2])}:{parts[3]}"
                 links.append((kind, tid, 'FIXES', token))
             for kind, tid, rel, pattern in links:
                 edges.append({'source_label': source_label, 'source_id': source_id, 'target_label': kind,
@@ -384,7 +387,7 @@ class ActivityProcessor:
         add_references(body, target_label, target_id, url, created_at)
 
         # Thread for this Issue/PR
-        thread_id = f"k8s:thread:{repo}:{number}"
+        thread_id = f"{namespace}:thread:{repo}:{number}"
         comments_list = raw_node.get("comments", {}).get("nodes", []) or []
         thread_node = Thread(
             id=thread_id,
@@ -432,7 +435,7 @@ class ActivityProcessor:
             prow_commands = ProwParser.parse_commands(c_body)
             is_cmd_only = ProwParser.is_command_only(c_body)
 
-            comment_id = f"k8s:comment:{repo}:{c_raw_id}"
+            comment_id = f"{namespace}:comment:{repo}:{c_raw_id}"
             comment_node = Comment(
                 id=comment_id,
                 kind="issue" if typename == "Issue" else "review",
@@ -535,7 +538,7 @@ class ActivityProcessor:
 
             # Edge: (Comment)-[:REPLIES_TO]->(Comment) in sequential thread
             explicit_reply = c_entry.get('replyTo')
-            reply_id = f"k8s:comment:{repo}:{explicit_reply['id']}" if explicit_reply else prev_comment_id
+            reply_id = f"{namespace}:comment:{repo}:{explicit_reply['id']}" if explicit_reply else prev_comment_id
             mention = prev_author and re.search(r'@' + re.escape(prev_author) + r'\b', c_body, re.I)
             quoted = prev_body and any(line.lstrip('> ').strip() and line.lstrip('> ').strip() in prev_body
                                       for line in c_body.splitlines() if line.lstrip().startswith('>'))
@@ -561,7 +564,7 @@ class ActivityProcessor:
             prev_author, prev_body = c_author, c_body
 
         for raw_thread in raw_node.get('reviewThreads', {}).get('nodes', []):
-            tid=f"k8s:review-thread:{repo}:{raw_thread['id']}"
+            tid=f"{namespace}:review-thread:{repo}:{raw_thread['id']}"
             entries=raw_thread.get('comments',{}).get('nodes',[])
             nodes['threads'].append(Thread(id=tid,kind='review_line',root_ref=target_id,comment_count=len(entries),
                 source_system='github',source_url=url,source_ref=raw_thread['id'],observed_at=now))
@@ -571,7 +574,7 @@ class ActivityProcessor:
                              'observed_at':now,'valid_from':now,'link_method':'API','authority':'CONFIRMED'}})
             link('Thread',tid,'PullRequest',target_id,'ON',url,raw_thread['id'])
             for entry in entries:
-                cid=f"k8s:comment:{repo}:{entry['id']}"
+                cid=f"{namespace}:comment:{repo}:{entry['id']}"
                 login=entry.get('author',{}).get('login') if entry.get('author') else None
                 if (entry.get('author') or {}).get('__typename')=='Bot' and login:
                     api_bots.add(login.lower())
@@ -579,7 +582,7 @@ class ActivityProcessor:
                 text=entry.get('body') or ''
                 path=entry.get('path') or raw_thread.get('path')
                 review=entry.get('pullRequestReview')
-                rid=f"k8s:review:{repo}:{review['id']}" if review else None
+                rid=f"{namespace}:review:{repo}:{review['id']}" if review else None
                 nodes['comments'].append(Comment(id=cid,kind='review_line',created_at=entry['createdAt'],body_text=text,
                     body_ref=cid+'#body',is_command=ProwParser.is_command_only(text),commands=ProwParser.parse_commands(text),
                     activity_category=ProwParser.classify(text)['category'],attribution='file_specific',file_path=path,
@@ -589,7 +592,7 @@ class ActivityProcessor:
                 if pid:
                     link('Person',pid,'Comment',cid,'AUTHORED',entry['url'],entry['id'])
                 if path:
-                    link('Comment',cid,'File',f'k8s:file:{repo}:{path}','ON_FILE',entry['url'],entry['id'])
+                    link('Comment',cid,'File',f'{namespace}:file:{repo}:{path}','ON_FILE',entry['url'],entry['id'])
                 if rid:
                     link('Comment',cid,'Review',rid,'IN_REVIEW',entry['url'],entry['id'])
         nodes["people"] = list(people_seen.values())
