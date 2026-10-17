@@ -4,9 +4,12 @@ Wayfinder connects people, component ownership, project work, documents, convers
 
 **Tracks:** Company Brain; Agents That Act on Connected Data.
 
-The main demo uses **one graph, `wayfinder_company_demo`**. Northstar is fictional: Plane/Slack/GitHub-shaped records and source URLs are synthetic. The separate `wayfinder_test_30d` graph retains the Kubernetes engineering pilot; it is an optional thirty-second appendix, not data silently mixed into Northstar.
+Wayfinder runs on two named graphs:
 
-An additional [live Plane/Slack sandbox](docs/LIVE-WORKSPACE.md) uses actual API-created records about [building Wayfinder itself](docs/WAYFINDER-PROJECT-DEMO.md), with coherent tasks, documents, staged discussions, and real connector ingestion in `wayfinder_company_live_demo`. It preserves real account/bot authorship and source timestamps, contains no fixture claims, can read this repository's own pull requests through a live GitHub connector, and does not replace the dashboard's original graph. Bounded semantic extraction of eight selected units completed on October 17 with mistralai/mistral-nemo and perplexity/pplx-embed-v1-0.6b (1024 dimensions): 8 generation and 20 embedding requests, 5 accepted and 1 rejected proposals, recall low ([evidence](docs/evidence/live-connector-extraction.json)).
+- **`wayfinder_company_live_demo`: the live graph.** It is built from real API records in a Plane project and two Slack channels describing [the Wayfinder project itself](docs/WAYFINDER-PROJECT-DEMO.md), plus this repository's own GitHub pull requests, branches and commits. Records keep their real authorship and timestamps. One `refresh` command keeps it current, and an MCP agent's path through it can be watched live at `/graph`. See [the live workspace](docs/LIVE-WORKSPACE.md).
+- **`wayfinder_company_demo`: Northstar, a fictional company.** Its Plane, Slack and GitHub-shaped records are synthetic. It shows owner-versus-expert code expertise and a recorded proof that an edited decision retires its old interpretation.
+
+The Plane/Slack content in the live graph is a staged scenario. Extraction there is bounded and owner-approved, and its recall is low ([evidence](docs/evidence/live-connector-extraction.json)). Models used are listed in the [AI use disclosure](docs/AI-USE-DISCLOSURE.md).
 
 ## Start here
 
@@ -14,7 +17,9 @@ An additional [live Plane/Slack sandbox](docs/LIVE-WORKSPACE.md) uses actual API
 - [Cypher the product depends on](docs/QUERIES.md): IMPLEMENTED_IN aggregation/deduplication, concern status, source invalidation, full-text/vector queries, paths, action guards.
 - [Recording script and submission checklist](docs/DEMO.md).
 - [AI assistant and model-use disclosure](docs/AI-USE-DISCLOSURE.md).
-- [Verified implementation status and outstanding prerequisites](docs/IMPLEMENTATION-STATUS.md).
+- [Verified implementation status and what remains](docs/IMPLEMENTATION-STATUS.md).
+- [Live workspace: connectors, refresh, freshness and replay](docs/LIVE-WORKSPACE.md).
+- [MCP setup and the live agent-path view](docs/MCP.md).
 - [Original October 12 ontology proposal](docs/history/ontology-and-population-design-2026-10-12.md), kept for history.
 
 ## Local setup
@@ -38,13 +43,11 @@ FALKORDB_PORT=6379
 FALKORDB_GRAPH=wayfinder_company_demo
 LLM_BASE_URL=https://openrouter.ai/api/v1
 LLM_API_KEY=YOUR_LOCAL_KEY
-LLM_MODEL=mistralai/mistral-nemo
+LLM_MODEL=deepseek/deepseek-v4-flash
 EMBEDDING_BASE_URL=https://openrouter.ai/api/v1
 EMBEDDING_API_KEY=YOUR_LOCAL_KEY
 EMBEDDING_MODEL=perplexity/pplx-embed-v1-0.6b
 EMBEDDING_DIM=1024
-CACHE_DIR=E:/Falkor-DB hackathon 2/.cache
-DATA_DIR=E:/Falkor-DB hackathon 2/data
 EXPERTISE_WINDOW_DAYS=30
 EXPERTISE_HALF_LIFE_DAYS=15
 ```
@@ -60,7 +63,7 @@ Provider availability and quota are account-dependent. Vector index dimension an
 .\.venv\Scripts\python.exe -m wayfinder.dashboard
 ```
 
-Open **http://127.0.0.1:8765**. The dashboard has exactly three views: Live proof/source history, Expertise, and FalkorDB capabilities. Read-only page loading makes no provider requests. Live controls require `--enable-live`. An archived proof is labeled when it no longer matches the current source. Committed evidence logs document a past real run, not a fresh run on each checkout.
+Open **http://127.0.0.1:8765**. The evidence views are Live proof/source history, Expertise and FalkorDB capabilities, and `/graph` draws the graph with live agent-path highlighting. Page loads make no provider requests. Live controls require `--enable-live`. An archived proof is labelled when it no longer matches the current source. Committed evidence logs document past real runs, not a fresh run on each checkout.
 
 Fixture import reestablishes baseline source records and recalculates v2 code expertise. It resets a local ADR overlay, so do not rerun it between proof stages. A fresh offline import has no provider-generated vectors until explicit preparation.
 
@@ -95,7 +98,7 @@ This writes `wayfinder_company_live_replay`, with coverage marked as a replay. S
 .\.venv\Scripts\python.exe -m wayfinder.dashboard --enable-live
 ```
 
-The live ADR changes from preserving reservations with at most two immediate retries to **disabling automatic retries and requiring an operator retry**. The runner exposes baseline -> edit/pending -> replacement. It records retired claims, the old brief's validation failure, and a valid replacement brief. No external Plane page is edited. [Staged recording commands](docs/DEMO.md#live-source-proof-commands) let the presenter pause at pending.
+The live ADR changes from preserving reservations with at most two immediate retries to **disabling automatic retries and requiring an operator retry**. The runner exposes baseline -> edit/pending -> replacement. It records retired claims, the old brief's validation failure, and a valid replacement brief. No external Plane page is edited. [Staged recording commands](docs/DEMO.md#live-source-proof-commands-northstar) let the presenter pause at pending.
 
 The committed [successful proof](docs/evidence/live-extraction-run.json) used the configured real model, two generation requests and three embeddings. [Native query evidence](docs/evidence/falkordb-capabilities.json) records actual full-text/vector results and EXPLAIN plans. Additional capability/client requests are separate from that proof's budget.
 
@@ -153,11 +156,11 @@ This ran live on October 18 against the sandbox project ([evidence](docs/evidenc
 - `execute` created FALKORDBTE-16. A repeat returned the same task, and Plane lists exactly one.
 - The next sync ingested the task and linked it to ADR-002 and FALKORDBTE-11.
 
-Put PLANE_API_KEY only in local config. [Setup and commands](docs/DEMO.md#plane-action-prerequisite-and-fallback) are provided.
+Put PLANE_API_KEY only in local config. See [setup and commands](docs/DEMO.md#approved-plane-action).
 
 ## Verification
 
-Tests cover expertise inflation/exclusions, overlapping Component mappings, source-edit invalidation and stale brief rejection, labels, native vector metric/filtering, MCP navigation/read boundaries, action approval/idempotency, and dashboard HTTP/session smoke behavior. Normal tests use fake inference keys; integration tests require local FalkorDB and isolate their graph names.
+Tests cover expertise inflation and exclusions, overlapping Component mappings, source-edit invalidation and stale brief rejection, connectors against mocked Plane/Slack/GitHub APIs (edits, deletions, merges, moved branch heads), cross-source URL and key links, refresh and extraction budgets, the offline replay, native vector metric and filtering, MCP navigation and read-only boundaries, agent-path tracing, action approval and idempotency, and dashboard endpoints. The suite has 140 tests. Normal tests use fake inference keys; integration tests require local FalkorDB and isolate their graph names.
 
 ```powershell
 $env:LLM_API_KEY='sk-dummy-key'
@@ -169,5 +172,3 @@ $env:EXPERTISE_HALF_LIFE_DAYS='90'
 ```
 
 These overrides apply to this shell; use a fresh shell for the configured live demo. Never use an empty key as an offline-test override because dotenv can reload the live value.
-
-The saved [Kubernetes comparison](docs/evidence/kubernetes-ranking-compatibility.json) verifies identical rankings before/after shared processing changes at the same clock and published generation. The company demo is additive; the Kubernetes graph was not rebuilt.

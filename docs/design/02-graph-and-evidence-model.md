@@ -26,19 +26,17 @@ The catalog below describes the logical model used by the application. FalkorDB 
 | DocSection | Section selected for interpretation | Heading, order, text and revision | Both |
 | Attachment | Work-item attachment | Name, type, URL, eligible text when available | Company |
 | SourceLink | Imported link awaiting or supporting resolution | Origin record and destination URL | Company |
-| SIG and Subproject | Declared Kubernetes organization | Names and declared governance/membership | Kubernetes |
+| Branch and Commit | Git history of a connected repository | Branch name, head and default flag; commit SHA, message, dates, parents | Live |
 | Repository, Directory, File | Code/document hierarchy | Repository and path | Both |
 | OwnersFile | Declared code governance | Path, inherited ownership behavior, reviewer/approver links | Both |
-| KEP and KEPSection | Enhancement metadata and source sections | Number, title, status, stage, section text | Kubernetes |
-| FeatureGate and Release | Feature maturity observations | Gate identity, release, stage/default properties | Kubernetes |
 
 People, projects, and components are not interchangeable. Being assigned an Issue does not establish component ownership. Authoring a PR does not establish reviewer authorization. Team membership is an explicit relationship rather than an inference from co-occurrence in chat.
 
 ### Graph and identity scope
 
-Entity IDs must be interpreted together with the selected named graph. Kubernetes source entities commonly use the `k8s:` namespace. Northstar canonical people and Components use `company:northstar:`, its synthetic GitHub activity uses `github:northstar:`, and its Plane-shaped records use `plane:northstar:`. Explicit identity mappings join those company records to the same fictional people; they do not map them to Kubernetes contributors.
+Entity IDs must be interpreted together with the selected named graph. Northstar canonical people and Components use `company:northstar:`, its synthetic GitHub activity uses `github:northstar:`, and its Plane-shaped records use `plane:northstar:`. The live graph uses `company:northstar-live:`, `plane:northstar-live:`, `slack:northstar-live:` and `github:northstar-live:`; the namespace keeps stable source identity, and the displayed organization is Wayfinder Project. Explicit identity mappings join each graph's records to its own people.
 
-Namespaces are not a source-trust or access-control boundary. Some retained semantic Topic IDs can have a legacy prefix; inspect their provenance, source revision, and containing graph instead of inferring dataset origin from a prefix alone. `IMPLEMENTED_IN` connects a Northstar Component to its code Directory within the company graph, not to a Directory in the Kubernetes graph.
+Namespaces are not a source-trust or access-control boundary. Some retained semantic Topic IDs can have a legacy prefix; inspect their provenance, source revision, and containing graph instead of inferring dataset origin from a prefix alone. `IMPLEMENTED_IN` connects a Component to code Directories within the same graph.
 
 ## Semantic and derived entities
 
@@ -94,7 +92,7 @@ This is a representative set of supported paths, not a promise that every possib
 | Authorship | Person → AUTHORED → source record; Person → SUBMITTED → Review → REVIEWS → PullRequest | Who produced the record, not whether it is correct |
 | Conversation | Thread → HAS_COMMENT → Comment; Thread → ON → Issue / PullRequest; Comment → REPLIES_TO → Comment | Imported conversation organization; inspect source kind |
 | Source meaning | Source unit → ASSERTS → claim; Person → MADE → claim | Interpretation tied to a text unit and its known author |
-| Decision context | Decision → ABOUT → target; KEP → HAS_RATIONALE → Rationale | Explicit semantic association; shared targets do not establish rationale support |
+| Decision context | Decision → ABOUT → target; HAS_RATIONALE → Rationale | Explicit semantic association; shared targets do not establish rationale support |
 | Debate | Argument → SUPPORTS / OPPOSES → target; Argument → RAISES_CONCERN_ON → target | Proposed semantic relationship requiring its evidence |
 | Response | Argument → ADDRESSES → concern; resolution Argument → RESOLVES → concern | A proposed response differs from a qualifying closure |
 | Reference | Source record → REFERENCES → target | Exact resolved reference; not proof of dependence, agreement, or causality |
@@ -107,7 +105,7 @@ This is a representative set of supported paths, not a promise that every possib
 
 ## Identity and stable identifiers
 
-Stable identifiers are namespaced by source and context. For example, `company:northstar:component:resource-allocation` identifies the fictional component, while `plane:northstar:issue:w7` identifies a fictional Plane item. Kubernetes identifiers retain repository context where needed.
+Stable identifiers are namespaced by source and context. For example, `company:northstar:component:resource-allocation` identifies the fictional component, while `plane:northstar:issue:w7` identifies a fictional Plane item. GitHub identifiers keep repository context, for example `github:northstar-live:commit:<owner>/<repo>:<sha>`.
 
 Cross-source company identity is resolved only through explicit mappings from source-native IDs to a canonical Person. Matching display names are not evidence that two accounts belong to the same person. Unmapped identities remain separate, which can undercount one person's work but avoids silently joining unrelated people.
 

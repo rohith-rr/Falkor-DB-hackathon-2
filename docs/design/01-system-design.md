@@ -23,9 +23,9 @@ The application supports these questions:
 
 There are two complementary application contexts.
 
-**Kubernetes pilot.** Scoped repository imports connect people, SIGs, subprojects, directories, OWNERS declarations, KEPs, feature gates, releases, documentation, pull requests, reviews, and discussions. This context supplies code ownership and versioned directory expertise.
+**Live Company Brain.** Real connectors read a Plane project, two Slack channels and this repository's GitHub activity (PRs, reviews, branches, commits) into one graph about building Wayfinder. Sources stay current through sync, a watcher and a one-command refresh. Literal URLs and Plane keys link records across tools, and an approved agent action has been executed against it.
 
-**Company sandbox.** An explicitly synthetic manifest defines a fictional organization, teams, identities, components, owners, and allowed projects/channels. Plane supplies work items, comments, and Project Pages; optional Slack supplies conversations. Eight synthetic GitHub PRs and OWNERS declarations connect the same company identities to real v2 code-expertise calculations through IMPLEMENTED_IN. A bundled fixture supports the same demonstration without live accounts or model requests.
+**Company sandbox (Northstar).** An explicitly synthetic manifest defines a fictional organization, teams, identities, components, owners, and allowed projects/channels. Plane supplies work items, comments, and Project Pages; optional Slack supplies conversations. Eight synthetic GitHub PRs and OWNERS declarations connect the same company identities to real v2 code-expertise calculations through IMPLEMENTED_IN. A bundled fixture supports the same demonstration without live accounts or model requests.
 
 The company connector and action paths target fictional sandboxes in this release. There is no general production company directory integration, HR import, confidential workspace authorization model, or automatic discovery of every project and channel.
 
@@ -109,18 +109,18 @@ This is the implemented integration choice. It is not a current guarantee about 
 
 The reviewed deployment is a local Python application, a Docker-hosted FalkorDB instance, local caches/artifacts, and an MCP process launched by an agent client. Optional network dependencies are GitHub, Plane, Slack, and configured OpenAI-compatible generation/embedding providers.
 
-There are three separate query interfaces. The three-view dashboard is a company-specific HTTP application; FalkorDB Browser is a database query interface with explicit named-graph selection; the MCP service is a standard-input/output process launched by an agent client. Opening the dashboard does not start or connect an MCP agent.
+There are three separate query interfaces. The dashboard is an HTTP application serving one graph chosen with `--graph`: Northstar evidence views, plus a graph view that highlights an MCP agent's path; FalkorDB Browser is a database query interface with explicit named-graph selection; the MCP service is a standard-input/output process launched by an agent client. Opening the dashboard does not start or connect an MCP agent.
 
 | Interface | Local endpoint or transport | Dataset selection |
 |---|---|---|
-| Company dashboard | HTTP on loopback port 8765 by default | The normal dashboard entry point explicitly selects `wayfinder_company_demo`; its Component selector changes the component within that graph |
-| FalkorDB Browser | HTTP on loopback port 3000 in the documented deployment | Reviewer explicitly selects the fixture, live connector, or Kubernetes graph |
+| Dashboard | HTTP on loopback port 8765 by default | `--graph` (Northstar by default); `/graph` follows MCP sessions recorded for that graph |
+| FalkorDB Browser | HTTP on loopback port 3000 in the documented deployment | Reviewer explicitly selects the Northstar or live graph |
 | Agent MCP process | Standard input/output | `FALKORDB_GRAPH` in the process configuration; client must restart the connection after a change |
 | FalkorDB database | Redis-compatible protocol on configured host/port, normally localhost:6379 | Queries address one named graph |
 
-The retained Kubernetes pilot and the unified Northstar fixture serve complementary review purposes. Northstar demonstrates docs, tickets, chats, and synthetic code in one graph. Kubernetes demonstrates the same application on imported public engineering evidence. A third graph, `wayfinder_company_live_demo`, verifies actual Plane/Slack connectors on API-created fictional source records, with no fixture claims or code activity. Bounded semantic extraction of eight of its units ran on October 17 with low recall; see the [live workspace record](../LIVE-WORKSPACE.md). No cross-graph join, Kubernetes-to-company identity merge, or shared ranking is implied. [Graph access and demo boundaries](06-graph-access-and-demo-boundaries.md) documents the selection and failure behavior.
+The live graph and the Northstar fixture serve complementary review purposes. `wayfinder_company_live_demo` shows real connectors, freshness, cross-source links, bounded extraction and an approved action on API records about the Wayfinder project. `wayfinder_company_demo` shows owner-versus-expert code expertise and a recorded source-edit proof on synthetic records. No cross-graph join or shared ranking is implied. [Graph access and demo boundaries](06-graph-access-and-demo-boundaries.md) documents selection and failure behavior.
 
-Named graphs separate the Kubernetes pilot, company demo, and isolated tests. This prevents accidental fixture mixing when the correct graph is selected. A named graph is not a tenant authorization mechanism: a process with database access can potentially access other graphs.
+Named graphs separate the live graph, the Northstar demo, and isolated tests. This prevents accidental fixture mixing when the correct graph is selected. A named graph is not a tenant authorization mechanism: a process with database access can potentially access other graphs.
 
 Ingestion, extraction, refresh, and querying are separate activities. Starting the MCP server does not import sources, spend provider requests, or refresh derived snapshots automatically. An explicit semantic_search call makes one query-embedding request; other read tools make no provider calls. Scheduled polling and expertise refresh require explicit setup. Polling every ten minutes is a scheduling option, not a freshness guarantee.
 

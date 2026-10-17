@@ -12,9 +12,9 @@ This document separates implemented mechanisms, repeatable demonstrations, evalu
 
 | Principle | Current design support | Remaining gap |
 |---|---|---|
-| Docs, tickets, and chats in one graph | Plane Project Pages/work items/comments plus optional Slack share identities and explicit component links; the designated live sandbox was populated and read back on October 17 | Live-source semantic extraction covered eight units with low recall (one Decision, four Questions); access on this account does not prove compatibility with every account |
-| Who owns what | Manifest component owners, Plane assignments, and Kubernetes OWNERS are separate relationships | No automatic authoritative company service catalog or HR synchronization |
-| Who knows what | Versioned directory expertise for Kubernetes and Northstar synthetic code, connected by IMPLEMENTED_IN | No validated general company expertise model over ticket/chat activity; topic scoring remains legacy |
+| Docs, tickets, and chats in one graph | Plane Project Pages/work items/comments plus optional Slack share identities and explicit component links; the designated live sandbox was populated and read back, and this repository's GitHub activity is linked by URL and Plane key | Live-source extraction is bounded and low-recall (10 claims so far); access on this account does not prove compatibility with every account |
+| Who owns what | Manifest component owners, Plane assignments, and OWNERS declarations are separate relationships | No automatic authoritative company service catalog or HR synchronization |
+| Who knows what | Versioned directory expertise over Northstar's synthetic PRs and the live repository's PRs, connected by IMPLEMENTED_IN | No validated general company expertise model over ticket/chat activity; topic scoring remains legacy |
 | Trace decisions to sources | Quotes, source records, revisions, semantic links, and evidence navigation | Quote validation cannot prove a statement was actually a decision or caused an outcome |
 | Keep knowledge current | Scoped polling, revision invalidation, reconciliation, coverage, and score refresh mechanisms | No globally atomic sync, universal deletion detection, automatic scheduler installation, or freshness SLA |
 | Answers with clear sources | MCP evidence tools and structured brief validation | Free-form agent citation correctness and semantic accuracy require evaluation |
@@ -37,7 +37,7 @@ This document separates implemented mechanisms, repeatable demonstrations, evalu
 | Hand-authored semantic annotations | 50 | Demonstrate source tracing and rule behavior |
 | Development / held-out questions | 10 / 20 | Separate diagnostic prompts from answer-review prompts |
 
-The fixture deliberately includes one runtime concern with an explicit recorded resolution and one allocation concern that remains open. It distinguishes immediate retry as considered from unlimited retry as rejected. It does not use Kubernetes records to populate the company demo.
+The fixture deliberately includes one runtime concern with an explicit recorded resolution and one allocation concern that remains open. It distinguishes immediate retry as considered from unlimited retry as rejected.
 
 Counts of total graph nodes and relationships will exceed this source inventory because sections, revisions, evidence links, coverage, status history, and retained records are also stored. Reimporting and historical retention can affect totals.
 
@@ -54,7 +54,7 @@ Counts of total graph nodes and relationships will exceed this source inventory 
 | Expertise ranking | Published generation, contribution records, direct directories, PR counts, exclusion metadata | Commands and PR-wide approval do not inflate strong expertise; no claim of calibrated confidence |
 | Historical question | Relationship intervals and selected score snapshot | Answer states bounded history limits instead of claiming a complete past company state |
 | Approved action | Exact payload/hash, human approval, current citations, external identity | Mutation is rejected without approval; uncertain outcome does not cause blind duplicate creation |
-| Wrong graph | Graph identity and entity namespace | Agent does not answer a company question using unrelated live Plane tools or Kubernetes evidence |
+| Wrong graph | Graph identity and entity namespace | Agent does not answer a Northstar question with live-graph evidence, or the reverse |
 
 ## Verification evidence and its limits
 
@@ -64,7 +64,7 @@ Connector behavior is also exercised with controlled responses for pagination, u
 
 The company MCP smoke workflow opens an actual MCP session and performs a scripted investigation, including evidence retrieval and brief validation. It demonstrates tool interoperability and a scripted navigation path. It is not an independent autonomous-agent accuracy evaluation.
 
-The retained Kubernetes compatibility artifact records unchanged ranking output before and after the shared processing changes at a fixed evaluation clock and published generation. It is a preservation regression, not a new Kubernetes sync, refreshed snapshot, full database backup, or claim that every possible query is unchanged. The company demonstration contains synthetic GitHub evidence rather than copied Kubernetes PRs. See the [compatibility record](../evidence/kubernetes-ranking-compatibility.json) and [final verification record](../evidence/final-verification.json).
+Live verification covers the real sources: `scripts/verify_live_workspace.py` checks the seeded records and runs an MCP session; the freshness probes create, edit and delete records in Plane and Slack and confirm the graph follows (15/15 checks with direct sync and with only the watcher); and the approved Plane action is recorded with its idempotent repeat. See the [final verification record](../evidence/final-verification.json), [freshness evidence](../evidence/live-change-probe-watch.json) and [Plane action evidence](../evidence/plane-action-live.json).
 
 The October 17 implementation run passed 103 automated tests against local FalkorDB and completed a real capped OpenRouter edit/invalidation proof plus native retrieval and an actual MCP protocol session. These checks do not establish independent answer accuracy. No actual Plane task creation has been verified without the required sandbox credentials and human approval.
 
@@ -135,7 +135,7 @@ For review, measure source retrieval separately from model generation, embedding
 1. Verify graph selection, fixture identity, and source scope before evaluating answers.
 2. Demonstrate a complete Resource Allocation investigation with full citations and stated gaps.
 3. Exercise negative cases: approval without closure, considered without rejection, missing coverage, stale citation, and unauthenticated action attempt.
-4. Inspect directory v2 evidence on a separate Kubernetes dataset, including exclusions and per-person PR counts.
+4. Inspect directory v2 evidence on Northstar, including exclusions and per-person PR counts.
 5. Review held-out answers independently and retain failures, not only successful demonstrations.
 6. Validate live source capabilities in an explicitly allowed fictional workspace before making live integration claims.
 7. Assess confidential-data authorization and operational controls as a separate production-readiness effort.

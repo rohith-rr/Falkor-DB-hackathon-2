@@ -9,7 +9,7 @@ The October 17 setup populated the user-designated **Falkor DB Test Data Project
 | Allocation Slack channel | 3 discussion threads, 15 discussion messages, 1 channel disclosure |
 | Separate FalkorDB graph | `wayfinder_company_live_demo` |
 
-The existing `wayfinder_test_30d` and `wayfinder_company_demo` graphs were not reseeded or replaced. The company dashboard still explicitly targets the original `wayfinder_company_demo`; it does not switch to the live connector graph automatically.
+The Northstar `wayfinder_company_demo` graph was not reseeded or replaced. The dashboard serves whichever graph `--graph` names (Northstar by default); use `--graph wayfinder_company_live_demo` and open `/graph` for this one.
 
 ## Authorship and evidence boundary
 
@@ -17,7 +17,7 @@ Plane work items are assigned to the actual project member. Plane creation/comme
 
 The manifest explicitly declares that sandbox member as owner of **Source Ingestion & Evidence** and **Agent Review Workflow**. This is a configured project responsibility, not discovered organizational truth. It maps the real Plane user ID to a canonical sandbox identity. The Slack bot remains a bot and is not mapped to a human owner.
 
-Each Slack channel has one staged-discussion disclosure. Discussions use concise project language and relevant labeled source links; bookkeeping IDs are in message metadata and the local checkpoint rather than repeated visible footers. The twelve tasks distinguish four completed implementation checks, three items in progress, and five Todo validation/release tasks. Staged conversation is not independent employee corroboration, and a scripted check is not answer accuracy. Tickets and chat volume do not establish code expertise. This live connector graph currently contains no GitHub PRs; use the separately identified Kubernetes or synthetic-code graph for code expertise demonstrations.
+Each Slack channel has one staged-discussion disclosure. Discussions use concise project language and relevant labeled source links; bookkeeping IDs are in message metadata and the local checkpoint rather than repeated visible footers. The twelve tasks distinguish four completed implementation checks, three items in progress, and five Todo validation/release tasks. Staged conversation is not independent employee corroboration, and a scripted check is not answer accuracy. Tickets and chat volume do not establish code expertise. Code activity comes from this repository's pull requests through the [live GitHub connector](#live-github-connector); expertise there reflects one main author, so use Northstar for the owner-versus-expert contrast.
 
 Events use actual source-system timestamps. There is no backdated company history or fixture clock anchor in this graph.
 
@@ -66,7 +66,7 @@ Repeat the connector sync after source changes. Historical SourceRevisions can r
 
 ## Live GitHub connector
 
-The live graph can also read this project's own repository. GitHub's GraphQL search returns pull requests, reviews, file-level review threads, comments and issues. These go through the same ActivityProcessor and v2 expertise rules as the Northstar fixture and the Kubernetes pilot.
+The live graph can also read this project's own repository. GitHub's GraphQL search returns pull requests, reviews, file-level review threads, comments and issues. These go through the same ActivityProcessor and v2 expertise rules as the Northstar fixture.
 
 Links between code and work are explicit only:
 
@@ -94,7 +94,7 @@ Cross-source links extend to git:
 - `/commit/<sha>` and `/pull/n/commits/<sha>` resolve to the commit. An abbreviated SHA resolves only if exactly one known commit matches it.
 - A Plane work-item key such as `FALKORDBTE-12` in a branch name, commit message, PR, Slack message or Plane text links to that work item (`link_method: EXACT_IDENTIFIER`). Plane supplies the key; `FALKORDBTE-120` or `XFALKORDBTE-12` do not match.
 
-On October 17 the live sync read 3 PRs, 4 branches and 13 commits from this repository.
+The latest sync (October 18) read 6 PRs, 7 branches and 21 commits from this repository.
 
 Prerequisites and limits:
 
@@ -165,9 +165,9 @@ October 17 results ([inline](evidence/live-change-probe-inline.json), [watch](ev
 
 Limits: this is polling, not push. One full pass is about 60 Plane requests and takes 40-80 s under Plane's per-minute rate limit, so lag below about a minute needs incremental fetches or Plane webhooks / the Slack Events API (both need a public endpoint). Plane task dependencies come from the manifest, so a relation added in the Plane UI is not ingested. Slack coverage stays bounded to 30 days of history plus previously seen threads.
 
-## Semantic extraction status and request boundary
+## Semantic extraction
 
-**Result, October 17.** The owner approved sending the eight selected source units to OpenRouter. Before the run, both company graphs were moved to the new embedding model, and the reviewed source texts were rechecked against the graph.
+**Eight-unit run, October 17.** The owner approved sending the eight selected source units to OpenRouter. Before the run, both company graphs were moved to the new embedding model, and the reviewed source texts were rechecked against the graph.
 
 - **Configuration:** mistralai/mistral-nemo for generation; perplexity/pplx-embed-v1-0.6b at 1024 dimensions for embeddings.
 - **Requests:** 8 generation and 20 embedding requests.
@@ -186,6 +186,13 @@ Re-running requires the same explicit approval and an unchanged transfer review:
 
 The runner saves actual proposed model results, validation diagnostics, request counts, and brief validation in `data/live-workspace/extraction-report.json`. It imports no fixture annotations. Empty or rejected output is retained as a result; it does not fabricate a successful semantic demonstration. Existing source-text ingestion remains useful while inference is pending, but Decision/concern answers must report missing extraction.
 
+**Later extraction.** Further units are extracted with `refresh --extract N` (pending units, pages first) or `extract --unit-id`, under the model configured at the time:
+
+- A three-unit run on Plane comments, before the model change, accepted 1 Question.
+- The product-brief page, with `deepseek/deepseek-v4-flash`, gave 5 accepted claims: 2 ownership Arguments and 3 Rationales (problem, goal, non-goal).
+
+As of October 18, the graph holds 10 current extracted claims (1 Decision, 3 Rationales, 2 Arguments, 4 Questions) from 10 units. The review checklist and runbook pages are still pending. Since October 18, claims record `llm_model`; earlier claims don't, and the [AI use disclosure](AI-USE-DISCLOSURE.md) lists which model produced them.
+
 The setup does not edit the live ADR after seeding, run the original local-overlay proof on this graph, or bypass the exact-payload approval required for a later agent-created Plane action.
 
 ## MCP testing
@@ -200,13 +207,13 @@ Use the existing MCP entry point with this graph override, then restart the agen
 
 Ask the agent to verify graph_stats, inspect coverage, and investigate **Agent Review Workflow** using stable ID `company:northstar-live:component:agent-workflows`, or **Source Ingestion & Evidence** using `company:northstar-live:component:source-ingestion`. The namespace is retained for stable source identity; the displayed organization is Wayfinder Project. Use modest context/page limits and follow pagination; including too many complete source records can exceed the MCP response bound.
 
-Before semantic extraction, ask:
+Example questions:
 
-> Confirm the graph and inspect Wayfinder's Agent Review Workflow owner, assigned Plane work items, source pages, and Slack discussions. Which implementation checks pass, and which live extraction, approved action, dashboard, and answer-evaluation tasks remain? Read the source evidence and state missing semantic and code-activity coverage.
+> Confirm the graph and inspect Wayfinder's Agent Review Workflow: owner, assigned Plane work items, pages, Slack discussions, and linked PRs, branches and commits. Which tasks are done and which remain? Cite source evidence and state missing extraction and coverage.
 
-After a successful extraction, ask:
+> Explain why Wayfinder separates source ingestion from inference and requires approval of an exact Plane payload. Cite the source revisions, distinguish the pilot proposal from completed validation, and say what remains unextracted.
 
-> Explain why Wayfinder separates source ingestion from inference and requires approval of an exact Plane payload. Cite the source revisions, distinguish the pilot proposal from completed validation, and assess whether the interpretation-accuracy concern has qualifying resolution evidence.
+To watch the agent's path through this graph while it answers, see [MCP.md](MCP.md#watch-the-agents-path-in-the-graph).
 
 The read-only protocol check makes no provider requests:
 
@@ -214,4 +221,4 @@ The read-only protocol check makes no provider requests:
 .\.venv\Scripts\python.exe scripts/verify_live_workspace.py
 ```
 
-It verifies counts, assignments, coverage, bot attribution, and an actual MCP navigation/brief-validation session. It is a scripted integration check, not an autonomous answer-accuracy evaluation. Its recorded baseline concerns/extraction status describes the initial pre-inference run; use the separate extraction report for later semantic results.
+It verifies the seeded records by native ID (counts, assignments, bot attribution, text, and forward-only task states), coverage, references and dependencies, and runs an actual MCP navigation and brief-validation session. It reports GitHub counts and the extraction state. Records added later, such as the sync-test scenario and approved actions, don't make it fail. It is a scripted integration check, not an answer-accuracy evaluation.

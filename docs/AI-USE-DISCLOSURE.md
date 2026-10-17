@@ -1,31 +1,62 @@
 # AI assistant and model use disclosure
 
-Wayfinder was developed with assistance from OpenAI Codex for architecture discussion, code implementation, documentation, debugging, test construction, and review. The project owner remains responsible for understanding the design, reviewing changes, validating behavior, and the final submission.
+Wayfinder was built with AI coding agents, and the application itself calls hosted models for semantic extraction and embeddings. This page records both. The project owner directed the work, reviewed and approved changes, ran or approved every operation against the live accounts, and is responsible for the submission.
 
-Anthropic's Claude Code (Claude Opus 5.5) was used on October 17 for a judge-style project review and the work that followed:
+## AI coding agents used to build the project
 
-- The source-freshness layer: the sync change report, the `watch` command, and the live create/edit/delete change probe.
-- The scrubbed offline replay of the live Plane/Slack responses.
-- Fixes for four ingestion defects found by those tests.
-- This cleanup pass.
+| Agent | Used for |
+|---|---|
+| **OpenAI Codex** | Architecture discussion, implementation, documentation, debugging, tests and review for the core system: the graph model, Northstar fixture, MCP server, expertise scoring, extraction pipeline with provenance, evidence dashboard, the live Plane/Slack connectors, and the seeding tooling and staged story for the live sandbox. |
+| **Anthropic Claude Code** (Claude Opus 5.5), October 17–18 | See the list below. |
 
-Commits containing that work carry a `Co-Authored-By: Claude` trailer. The live probe and the recording read and wrote only the designated fictional sandbox. They made no LLM or embedding requests.
+Claude Code was used for:
 
-The application uses the locally configured OpenRouter model for semantic extraction. The recorded live demonstration used **mistralai/mistral-nemo**. Its embedding model was **nvidia/nemotron-3-embed-1b:free**, dimension **2048**. On October 17 the project moved to **perplexity/pplx-embed-v1-0.6b**, dimension **1024**. Both company graphs were re-embedded and their vector indexes rebuilt (`capabilities --migrate-embeddings`), and the [capability evidence](evidence/falkordb-capabilities.json) was re-recorded with the new model. The earlier extraction proof record keeps its original configuration. These identify the recorded configuration, not guarantees about future provider availability, price, or account quota.
+- **Project review:** a judge-style review of the project.
+- **Freshness:** sync change reports, the `watch` command and the scheduler fix, plus live create/edit/delete probes on the sandbox.
+- **Fixes and replay:** four ingestion fixes, and the scrubbed offline replay of the live API responses.
+- **Embeddings:** the embedding-model migration.
+- **GitHub:** the live connector (PRs, reviews, branches, commits), plus URL and Plane-key linking across GitHub, Plane and Slack.
+- **Plane action:** preparing and executing the human-approved Plane action. The owner approved it in a terminal; the agent cannot approve.
+- **Agent path view:** the graph view and its MCP tool-call tracing.
+- **Refresh:** the `refresh` command with budgeted extraction, and model provenance on extracted claims.
+- **Documentation**, including this page.
+
+Commits from that work carry a `Co-Authored-By: Claude` trailer. One linking change was made in a separate Claude Code session and merged through the same pull requests.
+
+## Content in the live sandbox written with AI assistance
+
+- **Plane and Slack seed content.** The 12 tasks, 6 pages, 20 comments and 32 Slack messages describing the Wayfinder project were drafted with Codex and posted through the real APIs under the owner's Plane account and the Falkor DB Slack bot. They are a staged scenario, not an independent team discussion.
+- **Sync-test changes,** written by Claude Code with the owner's request:
+  - FALKORDBTE-8 and FALKORDBTE-6 moved to Done, with one comment and one appended line.
+  - Work item FALKORDBTE-15 created.
+  - One Slack thread posted.
+  - Freshness-probe records created and then deleted.
+- **FALKORDBTE-16,** created by the approved agent action. Its text was drafted by Claude Code, and the owner approved that exact payload.
+- **GitHub.** The repository's code, commits and pull requests were written with the agents above. The connector imports them as real records (`synthetic: false`).
+
+## Models the application calls
+
+All model calls go through OpenRouter and are explicit: `extract`, `refresh --extract N`, `live_proof --enable-live`, `capabilities --enable-live`, `--migrate-embeddings`, and `semantic_search` (one query embedding). Sync, `refresh` without `--extract`, `watch`, actions and the other MCP read tools make no model calls.
+
+| Purpose | Model | Where it was used |
+|---|---|---|
+| Generation | `mistralai/mistral-nemo` | Recorded local proof on Northstar; the eight-unit live extraction ([evidence](evidence/live-connector-extraction.json)); a later three-unit run on Plane comments |
+| Generation | `deepseek/deepseek-v4-flash` | The product-brief page on the live graph (5 accepted claims); the current configuration |
+| Embeddings | `nvidia/nemotron-3-embed-1b:free`, 2048 dims | Original Northstar vectors and the recorded local proof |
+| Embeddings | `perplexity/pplx-embed-v1-0.6b`, 1024 dims | Current. Both company graphs were re-embedded and their indexes rebuilt on October 17; the [capability evidence](evidence/falkordb-capabilities.json) was re-recorded |
+
+Since October 18, each extracted claim records `llm_model` and `llm_base_url`. Claims extracted earlier don't carry that property; the table and the evidence files identify their models. These records describe the configuration used, not future provider availability, price or quota.
 
 ## Data and interpretation origins
 
-- In the original Northstar fixture, people, teams, components, work items, pages, chats, repository, PRs, and URLs are synthetic demonstration data. They are not records from a real company or live GitHub repository.
-- The separate live connector sandbox contains API-created Plane work/pages/comments and Slack bot messages with real native IDs, source URLs, timestamps, and actual authorship. Codex assisted with writing the staged project story and population tooling. The current revision describes building Wayfinder itself, distinguishes recorded completed checks from outstanding work, and replaces the earlier fictional infrastructure story. This is real integration on staged content, not an actual six-person company or independent employee discussion. No fixture annotations were imported into that graph, After the owner approved the external-provider transfer, bounded semantic extraction of eight selected units completed on October 17 with mistralai/mistral-nemo and perplexity/pplx-embed-v1-0.6b (1024 dimensions): 8 generation and 20 embedding requests, 5 accepted and 1 rejected proposals, recall low ([evidence](evidence/live-connector-extraction.json)).
-- Fifty baseline interpretation records are deterministically authored fixture annotations. They are labeled FIXTURE_ANNOTATION and are not live model outputs or independent human accuracy measurements. Fixture creation and development also involved AI assistance.
-- The live-proof record contains genuine provider-generated before/after interpretations, labeled LLM_EXTRACTED, with source revisions and validation results. Local source overlays were used; no Plane page was edited externally.
-- Kubernetes records come from the project's scoped public-source imports and remain in a separate graph. Activity coverage is incomplete, and scores are heuristic evidence signals.
-- Automated test doubles and controlled Plane stubs are identified as simulations. They are not evidence of successful live inference or a real external task creation.
+- **Northstar** (`wayfinder_company_demo`): people, teams, components, work items, pages, chats, repository, PRs and URLs are synthetic. Fifty baseline interpretations are fixture annotations labelled `FIXTURE_ANNOTATION`, not model output. The recorded live proof contains genuine `LLM_EXTRACTED` before and after interpretations on a local source overlay; no Plane page was edited.
+- **Live sandbox** (`wayfinder_company_live_demo`): real API records with native IDs, timestamps and actual authorship (owner account, bot, GitHub users), over the staged content described above. No fixture annotations were imported. Extracted claims there are `LLM_EXTRACTED`.
+- **Test doubles and controlled stubs** are labelled as simulations, and are not evidence of live inference or task creation.
 
 ## Validation and limitations
 
-The recorded successful extraction proof used two generation and three embedding requests. It demonstrates retirement of the old Decision, rejection of its saved brief, and publication of a different Decision. A preliminary restricted-network attempt failed and is not represented as a successful inference. Additional explicit embedding requests were used for capability and MCP checks; the successful extraction record is not a total billing report.
-
-Schema, target, revision, and quote checks are deterministic safeguards. They do not prove that every interpretation is correct, that a reviewer recommendation is appropriate, or that an identified software concern is actually fixed. The scripted MCP transcript is a real protocol/client interoperability exercise, not an independent agent accuracy evaluation. Held-out semantic accuracy remains unestablished until independent answer review is completed.
-
-The local credentials file is excluded from Git. Secrets are not included in committed proof logs. Synthetic status, partial coverage, snapshot age, model identity, and simulation/live origin must remain visible in the presentation.
+- Schema, target, revision and quote checks are deterministic safeguards. They don't prove an interpretation is correct, a recommendation is appropriate, or a concern is fixed.
+- Live extraction recall was low (for example, the ADR-001 decision was missed), so treat missing claims as unknown.
+- Scripted MCP sessions test the protocol and navigation, not agent answer accuracy. Held-out answer accuracy has not been evaluated.
+- Credentials stay in the ignored `.env`. Account identifiers stay in ignored `data/` folders, and committed evidence is scrubbed of native IDs and personal names.
+- The presentation should keep synthetic versus live origin, coverage gaps, snapshot age and model identity visible.

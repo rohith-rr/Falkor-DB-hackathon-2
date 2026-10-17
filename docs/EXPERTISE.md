@@ -5,11 +5,14 @@ evidence**. PR-wide approvals, review summaries and coordination remain availabl
 as involvement, but do not increase the expertise score. Names in this ranking
 are contributors, not automatically authorized reviewers; consult OWNERS separately.
 
-## Repair the existing pilot
+## Recompute and query
+
+Commands use the graph named by `FALKORDB_GRAPH`.
 
 ```powershell
+$env:FALKORDB_GRAPH='wayfinder_company_demo'
 .\.venv\Scripts\python.exe -m wayfinder.repair --expertise-only
-.\.venv\Scripts\python.exe -m wayfinder who-knows pkg/kubelet
+.\.venv\Scripts\python.exe -m wayfinder who-knows services/allocation
 .\.venv\Scripts\python.exe -m wayfinder.mcp_smoke
 ```
 

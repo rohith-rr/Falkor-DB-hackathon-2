@@ -5,8 +5,9 @@ review backfill and hourly refresh](EXPERTISE.md). Restart the MCP client/server
 after upgrading to load the new tools' scoring semantics.
 
 The local stdio server exposes **22 database-read-only tools**, two resources and three prompts.
-It uses the graph configured in the repository `.env` (`wayfinder_test_30d` for
-your pilot). It performs no ingestion, repair, or generation calls. The explicit
+It uses the graph named by `FALKORDB_GRAPH`. Set it in the client configuration to
+`wayfinder_company_live_demo` or `wayfinder_company_demo`, because the repository `.env` may name
+another graph. It performs no ingestion, repair, or generation calls. The explicit
 `semantic_search` tool makes one configured query-embedding request, without retries;
 other read tools make no provider requests. Use a client tool timeout of at least
 90 seconds for semantic search (provider timeout 60 seconds, followed by bounded reads).
@@ -56,7 +57,7 @@ Every MCP tool call is recorded locally, so the dashboard can draw the graph and
    startup_timeout_sec = 30
    tool_timeout_sec = 90
    ```
-   Claude Code: `claude mcp add --transport stdio wayfinder -e FALKORDB_GRAPH=wayfinder_company_live_demo -- <python> <mcp_server.py>`. The repository `.env` defaults to the Kubernetes graph, so always set `FALKORDB_GRAPH`.
+   Claude Code: `claude mcp add --transport stdio wayfinder -e FALKORDB_GRAPH=wayfinder_company_live_demo -- <python> <mcp_server.py>`. The repository `.env` may name a different graph, so always set `FALKORDB_GRAPH`.
 3. Ask the agent a question. Within about a second of each tool call, the page:
    - rings every entity the call touched, with the number of the step that first reached it
    - draws the agent's route between steps in amber, solid along a real relationship and dashed where it jumped by search or Cypher
@@ -141,9 +142,9 @@ that do not use resources.
 
 Start with this agent request:
 
-> Use Wayfinder to investigate pkg/kubelet. First check graph schema and import
-> coverage. Recommend distinct human reviewers, inspect relevant decisions and
-> concerns, and follow source evidence. Cite source URLs and explain missing data.
+> Use Wayfinder to investigate Agent Review Workflow. First check graph schema and import
+> coverage. Find the owner, the Plane work, documents, Slack discussions and linked PRs,
+> inspect decisions and concerns, and follow source evidence. Cite source URLs and explain missing data.
 
 Agents can search, inspect entities, follow incoming/outgoing neighbors, connect
 entities through paths and read original discussion text without user-supplied
@@ -187,7 +188,7 @@ ORDER BY score DESC
 LIMIT 10
 ```
 
-Use parameters such as `{"path":"pkg/kubelet"}` rather than interpolating names.
+Use parameters such as `{"path":"services/allocation"}` rather than interpolating names.
 Connection errors, timeouts and invalid queries produce MCP tool errors, not
 empty lists. Narrow an expensive query after a timeout.
 

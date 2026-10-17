@@ -4,7 +4,7 @@
 
 ## Lifecycle overview
 
-The lifecycle runs within the explicitly selected graph. Adding the Northstar fixture did not delete, copy, or reseed `wayfinder_test_30d`. The shared GitHub processing changes were checked against saved Kubernetes rankings using the same published generation and evaluation clock. Recalculating Kubernetes expertise later is a separate operation and may legitimately change scores as time or imported evidence changes.
+The lifecycle runs within the explicitly selected graph. Importing the Northstar fixture or syncing the live graph never touches another named graph. Recalculating expertise is a separate operation and may legitimately change scores as time or imported evidence changes.
 
 Company fixture ingestion is distinct from the local live-proof overlay. The fixture establishes authored baseline source text and annotations; the proof then changes the allocation ADR locally, retires its old interpretation, and publishes a real model-extracted replacement. Reimporting the complete fixture can restore its seeded ADR and retire that replacement. A saved successful proof remains a historical artifact and must be marked archived when its revision no longer matches the current source. Opening a dashboard or MCP session does not perform either import.
 
@@ -38,8 +38,7 @@ The fixture supplies hand-authored interpretations instead of using the model pa
 
 | Source | Imported information | Completeness and linking behavior |
 |---|---|---|
-| Kubernetes structured repositories | SIG/subproject metadata, scoped OWNERS and aliases, KEPs and sections, feature gate observations, releases, scoped docs | Deterministic parsing; current relationships reconciled by source-specific logic; no guarantee of complete repository history |
-| GitHub activity | Scoped issues/PRs, changed files, reviews, conversation comments, file-review threads, references, commands | Fully paginated paths are distinct from capped pilots; file anchoring is retained when actually available |
+| GitHub activity | Issues/PRs of the configured repository, changed files, reviews, conversation comments, file-review threads, references, commands; branches with heads and recent history; commits; PR head/base refs and merge commits | PR search is fully paginated; commit history is bounded per branch and recorded as partial coverage; deleted branches are retired; file anchoring is kept when available |
 | Plane | Allowed projects, members, states, work items, assignments, comments, Project Pages, links, attachments | Small-sandbox full scans; failed scopes remain gaps; successful complete listings allow scoped reconciliation |
 | Plane Pages export | Explicitly exported pages with original identifiers and export metadata | Partial observation; does not establish live freshness or deletion |
 | Slack | Allowed public sandbox channel history, separately fetched replies, authors, message edits, permalinks | Bounded history with overlap; revisits saved threads; retention and missing permissions remain gaps |
@@ -164,4 +163,4 @@ Inherited OWNERS declarations support ownership views and unlisted-expert compar
 
 Collaboration edges, communities, PageRank, and review centrality are exploratory signals. They depend on the chosen graph projection and a small, incomplete sample; communities are not formal teams, centrality is not actual workload, and uniform PageRank does not identify foundational documents.
 
-Stale findings cover document/gate stage mismatch, owner inactivity, KEP metadata mismatch, and unanswered questions. They are review candidates. Retained resolved findings can still appear in graph statistics; current unresolved-finding queries use their status rather than raw node counts.
+Stale findings cover document stage mismatch, owner inactivity, metadata mismatch, and unanswered questions. They are review candidates. Retained resolved findings can still appear in graph statistics; current unresolved-finding queries use their status rather than raw node counts.
