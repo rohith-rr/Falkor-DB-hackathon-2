@@ -108,15 +108,15 @@ def test_polished_messages_are_conversations_without_visible_bookkeeping():
 def test_labeled_slack_links_resolve_to_actual_source_records():
     from wayfinder.company.links import link_manifest
     url='https://app.plane.so/demo/projects/p/pages/adr'
-    records=[['page','DocPage','Decision text',url],
-             ['comment','Comment','Please review <'+url+'|Reservation fairness ADR>.','https://slack.com/thread']]
+    records=[['page','DocPage','Decision text',url,'plane'],
+             ['comment','Comment','Please review <'+url+'|Reservation fairness ADR>.','https://slack.com/thread','slack']]
     def query(text,**kwargs):
-        return SimpleNamespace(result_set=[] if 'SourceLink' in text or 'link_basis' in text or 'RETURN DISTINCT n.id' in text else records)
+        return SimpleNamespace(result_set=[] if 'SourceLink' in text or 't.source_system' in text or 'RETURN DISTINCT n.id' in text else records)
     edges=[]
     store=SimpleNamespace(org='demo',manifest={},db=SimpleNamespace(graph=SimpleNamespace(ro_query=query)),
         edge=lambda *args,**kwargs:edges.append(args))
     link_manifest(store)
-    assert any(edge[:5]==('Comment','comment','DocPage','page','REFERENCES') for edge in edges)
+    assert any(edge[:6]==('Comment','comment','DocPage','page','REFERENCES','slack') for edge in edges)
 
 
 def test_removed_literal_links_retire_while_explicit_bindings_remain():
@@ -124,9 +124,9 @@ def test_removed_literal_links_retire_while_explicit_bindings_remain():
     url='https://example.org/adr';retained=[]
     def query(text,**kwargs):
         if 'RETURN labels(a)' in text: rows=[['Comment','DocPage','https://slack.com/thread']]
-        elif 'SourceLink' in text or 'link_basis' in text: rows=[]
+        elif 'SourceLink' in text or 't.source_system' in text: rows=[]
         elif 'RETURN DISTINCT n.id' in text: rows=[['comment']]
-        else: rows=[['page','DocPage','Decision',url],['comment','Comment','No document URL remains.','https://slack.com/thread']]
+        else: rows=[['page','DocPage','Decision',url,'plane'],['comment','Comment','No document URL remains.','https://slack.com/thread','slack']]
         return SimpleNamespace(result_set=rows)
     store=SimpleNamespace(org='demo',manifest={'bindings':[{'source':'comment','target':'page','relationship':'REFERENCES'}]},
         db=SimpleNamespace(graph=SimpleNamespace(ro_query=query)),edge=lambda *args,**kwargs:None,
@@ -137,14 +137,34 @@ def test_removed_literal_links_retire_while_explicit_bindings_remain():
     assert retained==[('comment',[])]
 
 
-def test_github_urls_normalize_to_the_pull_request():
+def test_github_urls_normalize_to_one_record_key():
     from wayfinder.company.links import normalize_url
+    key='https://github.com/acme/wayfinder/issues/7'
     pr='https://github.com/acme/wayfinder/pull/7'
-    for url in (pr,pr+'/',pr+'#discussion_r123',pr+'/files#diff-abc',pr+'/commits/0a1b2c',pr+'?w=1',pr+'.'):
-        assert normalize_url(url)==pr,url
-    assert normalize_url('https://github.com/acme/wayfinder/pull/70')!=pr
+    for url in (pr,key,pr+'/',pr+'#discussion_r123',pr+'/files#diff-abc',pr+'/commits/0a1b2c',pr+'/checks',
+                pr+'?w=1',pr+'.',pr+'**','http://github.com/acme/wayfinder/pull/7','https://www.github.com/Acme/Wayfinder/pull/7',
+                key+'#issuecomment-9'):
+        assert normalize_url(url)==key,url
+    assert normalize_url('https://github.com/acme/wayfinder/pull/70')!=key
     item='https://app.plane.so/ws/projects/99999999-8888-4777-8666-555555555555/issues/11111111-2222-4333-8444-555555555555'
     assert normalize_url(item)==item.replace('/issues/','/work-items/')
+
+
+def test_slack_link_prefers_the_message_over_its_thread():
+    from wayfinder.company.links import link_manifest
+    permalink='https://acme.slack.com/archives/C1/p1700000000000100'
+    # The live Slack sync gives a thread the permalink of its root message.
+    records=[['slack:t','Thread',None,permalink,'slack'],['slack:m','Comment','Root message',permalink,'slack'],
+             ['plane:i','Issue','See '+permalink,'https://app.plane.so/ws/projects/p/work-items/i','plane']]
+    def query(text,**kwargs):
+        return SimpleNamespace(result_set=[] if 'SourceLink' in text or 't.source_system' in text or 'RETURN DISTINCT n.id' in text
+            else records)
+    for order in (records,list(reversed(records))):
+        records[:]=order; edges=[]
+        store=SimpleNamespace(org='demo',manifest={},db=SimpleNamespace(graph=SimpleNamespace(ro_query=query)),
+            edge=lambda *args,**kwargs:edges.append((args,kwargs)))
+        link_manifest(store)
+        assert [(a[1],a[3],a[5],k) for a,k in edges]==[('plane:i','slack:m','plane',{'link_method':'EXACT_REFERENCE'})]
 
 
 def test_wayfinder_backlog_is_connected_and_has_no_dependency_cycles():
