@@ -92,3 +92,47 @@ def watch(db,manifest,*,interval=120,slack=False,github=False,iterations=None,lo
         else: print(json.dumps({k:v for k,v in entry.items() if k!='changes'},default=str),flush=True)
         if iterations is not None and count>=iterations: break
         time.sleep(max(0,interval-(time.monotonic()-started)))
+
+
+def counts(units):
+    out={}
+    for u in units:
+        key='page' if u['label']=='DocSection' else f"{u['source']} message"
+        out[key]=out.get(key,0)+1
+    return out
+
+
+def refresh(db,manifest,*,extract=0,slack=None,github=None,log=None):
+    """One pass: sync every configured source, then extract up to `extract` pending units (pages first).
+
+    extract=0 makes no model calls; it reports what is pending.
+    """
+    from .extract import pending_units,extract_units
+    from ..derived.concerns import ConcernResolver
+    clock=time.monotonic(); org=manifest['organization_id']
+    slack=bool(manifest.get('slack',{}).get('channel_ids')) if slack is None else slack
+    github=bool((manifest.get('github') or {}).get('repository')) if github is None else github
+    synced=sync_once(db,manifest,slack=slack,github=github)
+    before=pending_units(db,org)
+    summary={'graph':db.graph_name,'sources':{'plane':[{k:p.get(k) for k in ('items','pages')} for p in synced['plane']]},
+        'changes':synced['changes']['summary'],'pending_before':counts(before)}
+    if slack: summary['sources']['slack']=[{k:r[k] for k in ('channel','threads','status','reason') if r.get(k) is not None} for r in synced.get('slack',[])]
+    if github:
+        g=synced.get('github') or {}
+        summary['sources']['github']={k:g.get(k) for k in ('pull_requests','branches','commits','status','reason') if g.get(k) is not None}
+    if extract:
+        run=extract_units(db,org,extract,units=[u['id'] for u in before])
+        resolved=ConcernResolver(db).resolve_concern_statuses()
+        summary['extraction']={'model':run['model'],'units':len(run['results']),'generation_calls':run['attempts'],
+            'accepted':run['diagnostics']['accepted'],'rejected':run['diagnostics']['rejected'],
+            'rejection_reasons':run['diagnostics']['rejection_reasons'],'concerns':resolved,
+            'results':[{k:r.get(k) for k in ('unit','accepted','rejected','skipped','error') if r.get(k) is not None} for r in run['results']]}
+    after=pending_units(db,org) if extract else before
+    summary['pending_after']=counts(after)
+    summary['next_pending']=[f"{u['label']} {u['source']}: {u['preview']}" for u in after[:5]]
+    summary['duration_seconds']=round(time.monotonic()-clock,2)
+    if log:
+        log=Path(log); log.parent.mkdir(parents=True,exist_ok=True)
+        with log.open('a',encoding='utf-8') as handle:
+            handle.write(json.dumps({'at':now_iso(),'kind':'refresh',**summary,'changes_detail':synced['changes']},default=str)+'\n')
+    return summary

@@ -175,7 +175,9 @@ class ExtractionPipeline:
         provenance = {'source_system': 'llm-extraction', 'source_url': source_url,
                       'source_ref': source_ref or unit_id, 'observed_at': now, 'valid_from': now,
                       'extractor_version': self.version, 'source_unit_id': unit_id,
-                      'content_hash': content_hash, 'source_revision_id': revision_id, 'authority': 'EXTRACTED', 'link_method': 'LLM_EXTRACTED'}
+                      'content_hash': content_hash, 'source_revision_id': revision_id, 'authority': 'EXTRACTED', 'link_method': 'LLM_EXTRACTED',
+                      # Which model proposed the claim; several models can contribute to one graph.
+                      'llm_model': getattr(self.llm, 'model', None), 'llm_base_url': getattr(self.llm, 'base_url', None)}
         def edge(sl, sid, tl, tid, rel, quote=None):
             props = dict(provenance, id=f'{sid}->{rel}->{tid}')
             if quote:

@@ -64,6 +64,14 @@ Open **http://127.0.0.1:8765**. The dashboard has exactly three views: Live proo
 
 Fixture import reestablishes baseline source records and recalculates v2 code expertise. It resets a local ADR overlay, so do not rerun it between proof stages. A fresh offline import has no provider-generated vectors until explicit preparation.
 
+### Everyday refresh of the live graph
+
+```powershell
+.\.venv\Scripts\python.exe -m wayfinder.company --graph wayfinder_company_live_demo --manifest data/live-workspace/manifest.json refresh --extract 3
+```
+
+This syncs Plane, Slack and GitHub, then extracts up to three pending units, pages first. Without `--extract` it makes no model calls. See [one-command refresh](docs/LIVE-WORKSPACE.md#one-command-refresh).
+
 ### Offline rebuild of the live Plane/Slack graph - no credentials
 
 The live sandbox graph can be rebuilt from a committed, scrubbed recording of its real Plane and Slack API responses. The recording is replayed through the same connector code:
@@ -156,13 +164,3 @@ $env:EXPERTISE_HALF_LIFE_DAYS='90'
 These overrides apply to this shell; use a fresh shell for the configured live demo. Never use an empty key as an offline-test override because dotenv can reload the live value.
 
 The saved [Kubernetes comparison](docs/evidence/kubernetes-ranking-compatibility.json) verifies identical rankings before/after shared processing changes at the same clock and published generation. The company demo is additive; the Kubernetes graph was not rebuilt.
-
-## Limits and submission honesty
-
-- Synthetic fixtures demonstrate integration, not organizational truth or measured LLM precision. Live extraction evidence is identified separately.
-- Partial coverage means missing activity/closure is unknown. Rankings do not establish competence, availability, or reviewer authorization.
-- The pinned FalkorDB vector procedure returns cosine distance; product similarity is 1 - distance. Similarity is not confidence.
-- Company ingestion is not globally atomic. Source permissions, confidential multiuser access, retention/erasure, and complete history are not implemented.
-- The dashboard is localhost-only. Visual browser verification was unavailable during implementation; perform the pre-recording check.
-- No new PageRank/WCC/betweenness demo or interactive graph explorer is included. Browser queries and bounded current paths demonstrate connections.
-- Live Plane creation, video recording/upload, and final submission require the owner's configured sandbox and review. See the [status report](docs/IMPLEMENTATION-STATUS.md).
