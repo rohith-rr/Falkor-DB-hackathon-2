@@ -33,6 +33,11 @@ def load_scope(path):
     return scope
 
 
+def scope_hash(scope):
+    """Identity of the Plane/Slack sandbox; the optional GitHub section does not change it."""
+    return digest({k:v for k,v in scope.items() if k!='github'})
+
+
 def legacy_records(owner):
     """Reuse source text, not fixture claims, dates, identities, or annotations."""
     source=json.loads((ROOT/'fixtures/company/sources.json').read_text(encoding='utf-8'))
@@ -149,8 +154,8 @@ class Seeder:
         self.scope=scope;self.folder=Path(folder);self.folder.mkdir(parents=True,exist_ok=True)
         self.path=self.folder/'seed-state.json'
         self.state=json.loads(self.path.read_text(encoding='utf-8')) if self.path.exists() else {
-            'dataset':DATASET,'scope_hash':digest(scope),'created':{},'pending':{},'started_at':datetime.now(timezone.utc).isoformat()}
-        if self.state['scope_hash']!=digest(scope): raise ValueError('Checkpoint belongs to another scope')
+            'dataset':DATASET,'scope_hash':scope_hash(scope),'created':{},'pending':{},'started_at':datetime.now(timezone.utc).isoformat()}
+        if self.state['scope_hash']!=scope_hash(scope): raise ValueError('Checkpoint belongs to another scope')
         self.plane=plane or PlaneClient(scope['workspace'])
         self.slack=slack or SlackClient()
         env=dotenv_values(ROOT/'.env')
@@ -222,7 +227,7 @@ class Seeder:
             return {'id':matches[0]['ts'],'channel':channel} if matches else None
         def create():
             payload={'channel':channel,'text':text,'unfurl_links':False,'unfurl_media':False,
-                'metadata':metadata(key),'client_msg_id':str(uuid.uuid5(uuid.NAMESPACE_URL,digest(self.scope)+key))}
+                'metadata':metadata(key),'client_msg_id':str(uuid.uuid5(uuid.NAMESPACE_URL,scope_hash(self.scope)+key))}
             if thread: payload['thread_ts']=thread
             response=self.http.post('https://slack.com/api/chat.postMessage',headers={'Authorization':'Bearer '+self.bot_token},json=payload)
             response.raise_for_status();value=response.json()
@@ -282,7 +287,10 @@ class Seeder:
             'plane':{'workspace':self.scope['workspace'],'project_ids':[self.scope['project_id']],
                      'sandbox_project_id':self.scope['project_id']},'slack':{'channel_ids':list(self.scope['channels'].values())},
             'people':[{'id':'workspace-owner','name':self.owner}],
-            'identities':{'plane:'+self.me['id']:'workspace-owner'},'teams':[],
+            # Optional GitHub scope: repository, since, component directories, and login -> identity.
+            **({'github':{k:v for k,v in self.scope['github'].items() if k!='identities'}} if self.scope.get('github') else {}),
+            'identities':{'plane:'+self.me['id']:'workspace-owner',
+                **{'github:'+login.lower():who for login,who in self.scope.get('github',{}).get('identities',{}).items()}},'teams':[],
             'components':[{**c,'owners':['workspace-owner']} for c in content()['components']],'bindings':bindings}
 
 

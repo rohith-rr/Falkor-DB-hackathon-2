@@ -16,9 +16,9 @@ RAW_GITHUB_ENDPOINT = "https://raw.githubusercontent.com"
 class GitHubClient:
     """Client for GitHub GraphQL & REST APIs using personal access token (PAT)."""
 
-    def __init__(self, token: Optional[str] = None):
+    def __init__(self, token: Optional[str] = None, session: Optional[httpx.Client] = None):
         self.token = token or settings.github_token
-        self._session = httpx.Client(timeout=30.0)
+        self._session = session or httpx.Client(timeout=30.0)
 
     @property
     def headers(self) -> Dict[str, str]:
@@ -85,7 +85,7 @@ class GitHubClient:
     def search_sig_node_activity(
         self,
         repo: str = "kubernetes/kubernetes",
-        label: str = "sig/node",
+        label: Optional[str] = "sig/node",
         since_date: Optional[str] = None,
         first: int = 30,
         after_cursor: Optional[str] = None,
@@ -102,7 +102,8 @@ class GitHubClient:
             since_date = datetime.fromisoformat(since_date.replace('Z', '+00:00')).isoformat(timespec='seconds')
         # Some GitHub token types return an empty ISSUE search when issues and
         # PRs are mixed. Always specify the type and paginate each independently.
-        query_str = f'repo:{repo} label:"{label}" is:{kind} sort:updated-asc'
+        # label=None reads the whole repository (live company connector).
+        query_str = f'repo:{repo}' + (f' label:"{label}"' if label else '') + f' is:{kind} sort:updated-asc'
         if since_date:
             query_str += f" updated:>={since_date}"
         if until_date:
@@ -256,7 +257,7 @@ class GitHubClient:
         self._paginate_connections(pr)
         return pr['reviewThreads']
 
-    def iter_activity(self, since_date=None, page_size=100, limit=None):
+    def iter_activity(self, since_date=None, page_size=100, limit=None, repo='kubernetes/kubernetes', label='sig/node'):
         if limit is not None and limit <= 0:
             return
         start = datetime.fromisoformat((since_date or (datetime.now(timezone.utc)-timedelta(days=365)).isoformat()).replace('Z','+00:00'))
@@ -268,7 +269,7 @@ class GitHubClient:
             cursor=None
             while True:
                 first=min(page_size,100,limit-count) if limit is not None else min(page_size,100)
-                result=self.search_sig_node_activity(since_date=lower.isoformat(timespec='seconds'),
+                result=self.search_sig_node_activity(repo=repo,label=label,since_date=lower.isoformat(timespec='seconds'),
                     until_date=upper.isoformat(timespec='seconds'),first=first,after_cursor=cursor,kind=kind)['search']
                 if cursor is None and limit is None and result.get('issueCount',0)>=1000:
                     if (upper-lower).total_seconds()<=2:

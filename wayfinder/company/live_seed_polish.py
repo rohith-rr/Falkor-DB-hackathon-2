@@ -9,7 +9,7 @@ import html
 import json
 import re
 from pathlib import Path
-from .live_seed import (Seeder,ROOT,DATASET,load_scope,legacy_records,legacy_messages,
+from .live_seed import (Seeder,scope_hash,ROOT,DATASET,load_scope,legacy_records,legacy_messages,
     records,messages,message_text,metadata,disclosure,content,item_description)
 from .core import html_text,digest
 from ..models.common import now_iso
@@ -47,7 +47,7 @@ def check_source_edit(current,original,replacement,key,normalize):
 def prepare(seeder):
     prior_path=seeder.folder/'content-update-plan.json'
     previous=json.loads(prior_path.read_text(encoding='utf-8')) if prior_path.exists() else {}
-    if previous.get('scope_hash') not in (None,digest(seeder.scope)): raise ValueError('Previous plan belongs to another scope')
+    if previous.get('scope_hash') not in (None,scope_hash(seeder.scope)): raise ValueError('Previous plan belongs to another scope')
     if previous:
         archive=seeder.folder/f"content-update-plan-{previous['revision']}.json"
         if not archive.exists():archive.write_text(json.dumps(previous,indent=2),encoding='utf-8')
@@ -113,14 +113,14 @@ def prepare(seeder):
             'metadata':metadata('notice-'+channel),'parse':'none','attachments':[]},'changed':plain_slack(current['text'])!=plain_slack(text)})
     backup=seeder.folder/f'content-before-{revision}.json'
     if not backup.exists(): backup.write_text(json.dumps({'at':now_iso(),'records':snapshots},indent=2),encoding='utf-8')
-    result={'at':now_iso(),'revision':revision,'scope_hash':digest(seeder.scope),'changes':changes,
+    result={'at':now_iso(),'revision':revision,'scope_hash':scope_hash(seeder.scope),'changes':changes,
         'new_disclosures':{c:disclosure() for c in seeder.scope['channels']},'backup':str(backup),'model_calls':0}
     (seeder.folder/'content-update-plan.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
     return result,plan
 
 
 def apply(seeder,revision,plan):
-    if revision['scope_hash']!=digest(seeder.scope): raise ValueError('Update plan belongs to another scope')
+    if revision['scope_hash']!=scope_hash(seeder.scope): raise ValueError('Update plan belongs to another scope')
     count=0
     for change in revision['changes']:
         if not change['changed']: continue
