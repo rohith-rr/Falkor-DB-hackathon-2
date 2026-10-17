@@ -8,15 +8,15 @@ import time
 from pathlib import Path
 from ..models.common import now_iso
 
-LABELS=('Issue','Comment','DocPage','DocSection','Thread','Attachment')
+LABELS=('Issue','Comment','DocPage','DocSection','Thread','Attachment','PullRequest','Review')
 FIELDS=('content_hash','title','name','state','priority','start_date','target_date','source_updated_at')
-EDGES=('ASSIGNED_TO','HAS_COMMENT','REFERENCES','HAS_WORK_ITEM','HAS_DOCUMENT')
+EDGES=('ASSIGNED_TO','HAS_COMMENT','REFERENCES','HAS_WORK_ITEM','HAS_DOCUMENT','CONCERNS_COMPONENT','TOUCHES')
 
 
 def snapshot(db,org):
     """Current (valid_to IS NULL) source records and confirmed edges for one organization."""
     try:
-        nodes=db.graph.ro_query('MATCH (n) WHERE n.organization_id=$org AND n.source_system IN [\'plane\',\'slack\'] '
+        nodes=db.graph.ro_query('MATCH (n) WHERE n.organization_id=$org AND n.source_system IN [\'plane\',\'slack\',\'github\'] '
             'AND n.valid_to IS NULL AND labels(n)[0] IN $labels '
             'RETURN n.id,labels(n)[0],'+','.join('n.'+f for f in FIELDS),
             params={'org':org,'labels':list(LABELS)}).result_set
@@ -47,7 +47,7 @@ def diff(before,after):
                    'edges_added':len(added),'edges_retired':len(removed)}}
 
 
-def sync_once(db,manifest,*,slack=False,extractions=0):
+def sync_once(db,manifest,*,slack=False,github=False,extractions=0):
     """The single sync path used by the CLI, the scheduler and the watcher."""
     from .plane import sync_plane
     from .links import link_manifest
@@ -58,6 +58,9 @@ def sync_once(db,manifest,*,slack=False,extractions=0):
     if slack:
         from .slack import sync_slack
         result['slack']=sync_slack(db,manifest)
+    if github:
+        from .github_live import sync_github
+        result['github']=sync_github(db,manifest)
     link_manifest(CompanyStore(db,manifest))
     if extractions:
         from .extract import extract_units
@@ -68,7 +71,7 @@ def sync_once(db,manifest,*,slack=False,extractions=0):
     return result
 
 
-def watch(db,manifest,*,interval=120,slack=False,iterations=None,log=None,out=None):
+def watch(db,manifest,*,interval=120,slack=False,github=False,iterations=None,log=None,out=None):
     """Poll the allowlisted sources and append each observed change set to a JSONL log."""
     log=Path(log) if log else None
     if log: log.parent.mkdir(parents=True,exist_ok=True)
@@ -76,7 +79,7 @@ def watch(db,manifest,*,interval=120,slack=False,iterations=None,log=None,out=No
     while iterations is None or count<iterations:
         count+=1; started=time.monotonic()
         try:
-            result=sync_once(db,manifest,slack=slack)
+            result=sync_once(db,manifest,slack=slack,github=github)
             entry={'at':result['finished_at'],'graph':db.graph_name,'duration_seconds':result['duration_seconds'],
                    'summary':result['changes']['summary'],'changes':result['changes'],
                    'unavailable':[r for r in result.get('slack',[]) if isinstance(r,dict) and r.get('status')=='unavailable']}
