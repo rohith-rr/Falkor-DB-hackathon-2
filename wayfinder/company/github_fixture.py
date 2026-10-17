@@ -9,6 +9,27 @@ from ..derived.expertise_v2 import ExpertiseRefresh
 from ..models.common import now_iso
 
 
+LABELS={'people':'Person','issues':'Issue','prs':'PullRequest','reviews':'Review','comments':'Comment',
+    'threads':'Thread','files':'File','directories':'Directory'}
+
+
+def save_parsed(db,parsed,common,owners=False):
+    """Write ActivityProcessor/OwnersParser output; shared by the fixture and the live connector."""
+    if owners:
+        batches={'OwnersFile':[parsed['owners_node']],'Directory':parsed['directories'],'Person':parsed['people']}
+    else: batches={LABELS[k]:v for k,v in parsed['nodes'].items()}
+    for label,nodes in batches.items():
+        for node in nodes:
+            props=node.to_cypher_props(); props.update(common)
+            if label=='Person' and props['id'].startswith('company:'):
+                # Source accounts enrich canonical identities without overwriting display names.
+                props.pop('display_name',None)
+            db.upsert_node(label,props)
+    for edge in parsed['edges']:
+        db.upsert_edge(edge['source_label'],edge['source_id'],edge['target_label'],edge['target_id'],edge['rel_type'],
+            {**edge['props'],**common})
+
+
 def ingest_github(db,manifest,clock=None):
     data=json.loads((Path(__file__).resolve().parents[2]/'fixtures/company/github.json').read_text(encoding='utf-8'))
     if not data.get('synthetic'): raise ValueError('Only synthetic GitHub fixture records are supported')
@@ -20,22 +41,7 @@ def ingest_github(db,manifest,clock=None):
         'organization_id':org,'clock_policy':'events=fixed offsets before persisted anchor; decay=snapshot calculated_at; staleness=actual UTC now'})
     common={'synthetic':True,'organization_id':org,'data_mode':'fixture','fixture_dataset':dataset}
     def person(login): return store.person('github',login.lower())
-    labels={'people':'Person','issues':'Issue','prs':'PullRequest','reviews':'Review','comments':'Comment',
-        'threads':'Thread','files':'File','directories':'Directory'}
-    def save(parsed,owners=False):
-        if owners:
-            batches={'OwnersFile':[parsed['owners_node']],'Directory':parsed['directories'],'Person':parsed['people']}
-        else: batches={labels[k]:v for k,v in parsed['nodes'].items()}
-        for label,nodes in batches.items():
-            for node in nodes:
-                props=node.to_cypher_props(); props.update(common)
-                if label=='Person' and props['id'].startswith('company:'):
-                    # Source accounts enrich canonical identities without overwriting display names.
-                    props.pop('display_name',None)
-                db.upsert_node(label,props)
-        for edge in parsed['edges']:
-            db.upsert_edge(edge['source_label'],edge['source_id'],edge['target_label'],edge['target_id'],edge['rel_type'],
-                {**edge['props'],**common})
+    def save(parsed,owners=False): save_parsed(db,parsed,common,owners)
     for source in data['owners']:
         save(OwnersParser.parse_owners_file(source['content'],repo,source['path'],namespace=namespace,
             person_id_resolver=person),owners=True)

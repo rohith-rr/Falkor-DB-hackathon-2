@@ -1,8 +1,8 @@
 {
-  "at": "2026-10-17T09:19:01.840518+00:00",
+  "at": "2026-10-17T15:19:51.956221+00:00",
   "graph": "wayfinder_company_demo",
   "schema": {
-    "at": "2026-10-17T09:18:59.943511+00:00",
+    "at": "2026-10-17T15:19:49.858582+00:00",
     "graph": "wayfinder_company_demo",
     "indexes": [
       {
@@ -266,7 +266,7 @@
           "VECTOR"
         ],
         "options": {
-          "dimension": 2048,
+          "dimension": 1024,
           "similarityFunction": "cosine",
           "M": 16,
           "efConstruction": 200,
@@ -510,7 +510,7 @@
           "VECTOR"
         ],
         "options": {
-          "dimension": 2048,
+          "dimension": 1024,
           "similarityFunction": "cosine",
           "M": 16,
           "efConstruction": 200,
@@ -600,7 +600,7 @@
           "VECTOR"
         ],
         "options": {
-          "dimension": 2048,
+          "dimension": 1024,
           "similarityFunction": "cosine",
           "M": 16,
           "efConstruction": 200,
@@ -724,34 +724,34 @@
         "status": "OPERATIONAL"
       }
     ],
-    "embedding_model": "nvidia/nemotron-3-embed-1b:free",
-    "embedding_dim": 2048
+    "embedding_model": "perplexity/pplx-embed-v1-0.6b",
+    "embedding_dim": 1024
   },
   "vector_preparation": {
-    "embedding_requests": 2,
+    "embedding_requests": 1,
     "records": [
       {
-        "id": "k8s:topic:reservation-fairness",
+        "id": "company:northstar:topic:resource-allocation",
         "label": "Topic",
-        "origin": "cached_live_provider",
-        "text": "Reservation Fairness"
+        "origin": "live_provider",
+        "text": "Resource Allocation"
       },
       {
         "id": "company:northstar:claim:pc7",
         "label": "Argument",
-        "origin": "live_provider",
+        "origin": "cached_live_provider",
         "text": "I am concerned that resize retry can starve existing reservations."
       },
       {
         "id": "plane:northstar:comment:pc7",
         "label": "Comment",
-        "origin": "live_provider",
+        "origin": "cached_live_provider",
         "text": "I am concerned that resize retry can starve existing reservations."
       }
     ]
   },
   "query_embedding_requests": 1,
-  "total_embedding_requests": 3,
+  "total_embedding_requests": 2,
   "fulltext": {
     "query": "CALL db.idx.fulltext.queryNodes('Argument', $query) YIELD node,score WHERE node.valid_to IS NULL RETURN node,score ORDER BY score DESC LIMIT 10",
     "parameters": {
@@ -874,7 +874,7 @@
   "vector": {
     "query": "CALL db.idx.vector.queryNodes('Argument', 'embedding', 10, vecf32($vector)) YIELD node,score WHERE node.valid_to IS NULL RETURN node,score LIMIT 10",
     "query_text": "reservation retry starvation",
-    "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+    "embedding_model": "perplexity/pplx-embed-v1-0.6b",
     "result": {
       "graph": "wayfinder_company_demo",
       "query": null,
@@ -906,8 +906,8 @@
               "resolution_evidence_ids": []
             }
           },
-          "native_distance": 0.338671922683716,
-          "score": 0.661328077316284
+          "native_distance": 0.42124992609024,
+          "score": 0.57875007390976
         },
         {
           "entity": {
@@ -940,8 +940,8 @@
               "attribution": "pr_wide"
             }
           },
-          "native_distance": 0.338671922683716,
-          "score": 0.661328077316284
+          "native_distance": 0.42124992609024,
+          "score": 0.57875007390976
         },
         {
           "entity": {
@@ -965,8 +965,8 @@
               "name": "Reservation Fairness"
             }
           },
-          "native_distance": 0.504557371139526,
-          "score": 0.49544262886047397
+          "native_distance": 0.692721009254456,
+          "score": 0.307278990745544
         },
         {
           "entity": {
@@ -991,8 +991,55 @@
               "annotation_origin": "hand_authored_demo"
             }
           },
-          "native_distance": 0.907466053962708,
-          "score": 0.09253394603729204
+          "native_distance": 0.805927991867065,
+          "score": 0.19407200813293501
+        },
+        {
+          "entity": {
+            "id": "company:northstar:topic:resource-allocation",
+            "labels": [
+              "Topic"
+            ],
+            "properties": {
+              "id": "company:northstar:topic:resource-allocation",
+              "source_system": "manifest",
+              "source_url": "https://example.org/wayfinder-synthetic/northstar",
+              "source_ref": "company:northstar:topic:resource-allocation",
+              "observed_at": "2026-10-17T09:24:03.591139+00:00",
+              "organization_id": "northstar",
+              "synthetic": true,
+              "is_deleted": false,
+              "name": "Resource Allocation",
+              "seed": true
+            }
+          },
+          "native_distance": 0.828573107719421,
+          "score": 0.17142689228057895
+        },
+        {
+          "entity": {
+            "id": "k8s:topic:resource-allocation",
+            "labels": [
+              "Topic"
+            ],
+            "properties": {
+              "id": "k8s:topic:resource-allocation",
+              "source_system": "llm-extraction",
+              "source_url": "https://app.plane.so/northstar-demo/projects/allocation/pages/adr-allocation",
+              "source_ref": "adr-allocation",
+              "observed_at": "2026-10-17T09:13:15.400399+00:00",
+              "valid_from": "2026-10-17T09:13:15.400399+00:00",
+              "extractor_version": "live-proof-46dc8f685ab8438ca4398b8d4c2b8839",
+              "source_unit_id": "plane:northstar:page:adr-allocation:section:0",
+              "content_hash": "13a0fbb6278fa88fa5929a54a97363dff3830e3d3a6612ad44e7bbcbb61e5dd7",
+              "source_revision_id": "source-revision:plane:northstar:page:adr-allocation:section:0:eb2ba9c5faec6592bfcbab1e0436100bab1e08caa5a91c091e32297e1ff9d30b",
+              "authority": "EXTRACTED",
+              "link_method": "LLM_EXTRACTED",
+              "name": "Resource Allocation"
+            }
+          },
+          "native_distance": 0.828573107719421,
+          "score": 0.17142689228057895
         },
         {
           "entity": {
@@ -1005,7 +1052,7 @@
               "source_system": "github",
               "source_url": "https://github.com/northstar-demo/engineering/pull/101#issuecomment-10102",
               "source_ref": "northstar-demo/engineering#comment:IC101approval",
-              "observed_at": "2026-10-17T09:09:59.562940+00:00",
+              "observed_at": "2026-10-17T09:24:02.801011+00:00",
               "valid_from": "2026-10-13T08:09:59.453059+00:00",
               "is_deleted": false,
               "kind": "review",
@@ -1026,12 +1073,12 @@
               "source_revision_id": "source-revision:github:northstar:comment:northstar-demo/engineering:IC101approval:543e0fc462bdb3d9449665aff3f33b6e1cf33028bf3927c09b906660f927ff41"
             }
           },
-          "native_distance": 0.93787145614624,
-          "score": 0.06212854385375999
+          "native_distance": 0.912490427494049,
+          "score": 0.08750957250595104
         }
       ],
-      "embedding_model": "nvidia/nemotron-3-embed-1b:free",
-      "embedding_dim": 2048,
+      "embedding_model": "perplexity/pplx-embed-v1-0.6b",
+      "embedding_dim": 1024,
       "retrieval": "native_falkordb_cosine_vector_index",
       "score_semantics": "similarity=1-native cosine distance; higher is closer; verified by self-query on pinned server",
       "warnings": [
@@ -1075,8 +1122,8 @@
                 "source_system": "github",
                 "source_url": "https://github.com/northstar-demo/engineering/blob/master/services/allocation/OWNERS",
                 "source_ref": "northstar-demo/engineering@HEAD:services/allocation",
-                "observed_at": "2026-10-17T09:10:00.400349+00:00",
-                "valid_from": "2026-10-17T09:10:00.400349+00:00",
+                "observed_at": "2026-10-17T09:24:03.267285+00:00",
+                "valid_from": "2026-10-17T09:24:03.267285+00:00",
                 "is_deleted": false,
                 "path": "services/allocation",
                 "repo": "northstar-demo/engineering",
@@ -1096,7 +1143,7 @@
                 "source_system": "github",
                 "source_url": "https://github.com/eli",
                 "source_ref": "github:eli",
-                "observed_at": "2026-10-17T09:10:00.978693+00:00",
+                "observed_at": "2026-10-17T09:24:03.512912+00:00",
                 "organization_id": "northstar",
                 "synthetic": true,
                 "is_deleted": false,
@@ -1120,8 +1167,8 @@
                 "source_system": "github",
                 "source_url": "https://github.com/northstar-demo/engineering/blob/master/services/allocation/reservations/OWNERS",
                 "source_ref": "northstar-demo/engineering@HEAD:services/allocation/reservations",
-                "observed_at": "2026-10-17T09:10:00.220787+00:00",
-                "valid_from": "2026-10-17T09:10:00.220787+00:00",
+                "observed_at": "2026-10-17T09:24:03.148490+00:00",
+                "valid_from": "2026-10-17T09:24:03.148490+00:00",
                 "is_deleted": false,
                 "path": "services/allocation/reservations",
                 "repo": "northstar-demo/engineering",
@@ -1141,7 +1188,7 @@
                 "source_system": "github",
                 "source_url": "https://github.com/faye",
                 "source_ref": "github:faye",
-                "observed_at": "2026-10-17T09:10:00.220787+00:00",
+                "observed_at": "2026-10-17T09:24:03.148490+00:00",
                 "organization_id": "northstar",
                 "synthetic": true,
                 "is_deleted": false,
@@ -1176,62 +1223,62 @@
               }
             },
             {
-              "id": "company:northstar:person:eli->EXPERT_IN->github:northstar:dir:northstar-demo/engineering:services/allocation@expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
+              "id": "company:northstar:person:eli->EXPERT_IN->github:northstar:dir:northstar-demo/engineering:services/allocation@expertise:v2:9302c5d35836470484fb28a83681e15b",
               "type": "EXPERT_IN",
               "source_id": "company:northstar:person:eli",
               "target_id": "github:northstar:dir:northstar-demo/engineering:services/allocation",
               "properties": {
-                "id": "company:northstar:person:eli->EXPERT_IN->github:northstar:dir:northstar-demo/engineering:services/allocation@expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
+                "id": "company:northstar:person:eli->EXPERT_IN->github:northstar:dir:northstar-demo/engineering:services/allocation@expertise:v2:9302c5d35836470484fb28a83681e15b",
                 "logical_id": "company:northstar:person:eli->EXPERT_IN->github:northstar:dir:northstar-demo/engineering:services/allocation",
-                "generation": "expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
+                "generation": "expertise:v2:9302c5d35836470484fb28a83681e15b",
                 "scoring_version": "v2",
-                "score": 1.90600806030234,
+                "score": 1.90514948493649,
                 "evidence_ids": [
                   "github:northstar:comment:northstar-demo/engineering:RC105-0"
                 ],
-                "observed_at": "2026-10-17T09:10:01.183599+00:00",
-                "valid_from": "2026-10-17T09:10:01.183599+00:00",
+                "observed_at": "2026-10-17T09:24:03.608247+00:00",
+                "valid_from": "2026-10-17T09:24:03.608247+00:00",
                 "link_method": "COMPUTED",
                 "authority": "COMPUTED"
               }
             },
             {
-              "id": "company:northstar:person:eli->EXPERT_IN->github:northstar:dir:northstar-demo/engineering:services/allocation/reservations@expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
+              "id": "company:northstar:person:eli->EXPERT_IN->github:northstar:dir:northstar-demo/engineering:services/allocation/reservations@expertise:v2:9302c5d35836470484fb28a83681e15b",
               "type": "EXPERT_IN",
               "source_id": "company:northstar:person:eli",
               "target_id": "github:northstar:dir:northstar-demo/engineering:services/allocation/reservations",
               "properties": {
-                "id": "company:northstar:person:eli->EXPERT_IN->github:northstar:dir:northstar-demo/engineering:services/allocation/reservations@expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
+                "id": "company:northstar:person:eli->EXPERT_IN->github:northstar:dir:northstar-demo/engineering:services/allocation/reservations@expertise:v2:9302c5d35836470484fb28a83681e15b",
                 "logical_id": "company:northstar:person:eli->EXPERT_IN->github:northstar:dir:northstar-demo/engineering:services/allocation/reservations",
-                "generation": "expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
+                "generation": "expertise:v2:9302c5d35836470484fb28a83681e15b",
                 "scoring_version": "v2",
-                "score": 1.90968144030534,
+                "score": 1.90882121023842,
                 "evidence_ids": [
                   "github:northstar:pr:northstar-demo/engineering:104"
                 ],
-                "observed_at": "2026-10-17T09:10:01.183599+00:00",
-                "valid_from": "2026-10-17T09:10:01.183599+00:00",
+                "observed_at": "2026-10-17T09:24:03.608247+00:00",
+                "valid_from": "2026-10-17T09:24:03.608247+00:00",
                 "link_method": "COMPUTED",
                 "authority": "COMPUTED"
               }
             },
             {
-              "id": "company:northstar:person:faye->EXPERT_IN->github:northstar:dir:northstar-demo/engineering:services/allocation/reservations@expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
+              "id": "company:northstar:person:faye->EXPERT_IN->github:northstar:dir:northstar-demo/engineering:services/allocation/reservations@expertise:v2:9302c5d35836470484fb28a83681e15b",
               "type": "EXPERT_IN",
               "source_id": "company:northstar:person:faye",
               "target_id": "github:northstar:dir:northstar-demo/engineering:services/allocation/reservations",
               "properties": {
-                "id": "company:northstar:person:faye->EXPERT_IN->github:northstar:dir:northstar-demo/engineering:services/allocation/reservations@expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
+                "id": "company:northstar:person:faye->EXPERT_IN->github:northstar:dir:northstar-demo/engineering:services/allocation/reservations@expertise:v2:9302c5d35836470484fb28a83681e15b",
                 "logical_id": "company:northstar:person:faye->EXPERT_IN->github:northstar:dir:northstar-demo/engineering:services/allocation/reservations",
-                "generation": "expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
+                "generation": "expertise:v2:9302c5d35836470484fb28a83681e15b",
                 "scoring_version": "v2",
-                "score": 3.6437584722532,
+                "score": 3.64211711441819,
                 "evidence_ids": [
                   "github:northstar:comment:northstar-demo/engineering:RC102-0",
                   "github:northstar:comment:northstar-demo/engineering:RC104-0"
                 ],
-                "observed_at": "2026-10-17T09:10:01.183599+00:00",
-                "valid_from": "2026-10-17T09:10:01.183599+00:00",
+                "observed_at": "2026-10-17T09:24:03.608247+00:00",
+                "valid_from": "2026-10-17T09:24:03.608247+00:00",
                 "link_method": "COMPUTED",
                 "authority": "COMPUTED"
               }
@@ -1245,15 +1292,5 @@
     "truncated": false,
     "pagination_consistency": "Best effort if ingestion changes the graph between pages.",
     "note": "At most ten paths; narrow relationship types or use read_cypher for further exploration."
-  },
-  "metric_self_test": {
-    "input_id": "company:northstar:claim:pc7",
-    "native_results": [
-      [
-        "company:northstar:claim:pc7",
-        0.0
-      ]
-    ],
-    "interpretation": "Native cosine distance; self distance approximately zero. Product similarity = 1-distance."
   }
 }

@@ -6,7 +6,7 @@ Wayfinder connects people, component ownership, project work, documents, convers
 
 The main demo uses **one graph, `wayfinder_company_demo`**. Northstar is fictional: Plane/Slack/GitHub-shaped records and source URLs are synthetic. The separate `wayfinder_test_30d` graph retains the Kubernetes engineering pilot; it is an optional thirty-second appendix, not data silently mixed into Northstar.
 
-An additional [live Plane/Slack sandbox](docs/LIVE-WORKSPACE.md) uses actual API-created records about [building Wayfinder itself](docs/WAYFINDER-PROJECT-DEMO.md), with coherent tasks, documents, staged discussions, and real connector ingestion in `wayfinder_company_live_demo`. It preserves real account/bot authorship and source timestamps, contains no fixture claims or GitHub PRs, and does not replace the dashboard's original graph. Semantic extraction for this dataset is pending explicit external-provider transfer approval.
+An additional [live Plane/Slack sandbox](docs/LIVE-WORKSPACE.md) uses actual API-created records about [building Wayfinder itself](docs/WAYFINDER-PROJECT-DEMO.md), with coherent tasks, documents, staged discussions, and real connector ingestion in `wayfinder_company_live_demo`. It preserves real account/bot authorship and source timestamps, contains no fixture claims, can read this repository's own pull requests through a live GitHub connector, and does not replace the dashboard's original graph. Bounded semantic extraction of eight selected units completed on October 17 with mistralai/mistral-nemo and perplexity/pplx-embed-v1-0.6b (1024 dimensions): 8 generation and 20 embedding requests, 5 accepted and 1 rejected proposals, recall low ([evidence](docs/evidence/live-connector-extraction.json)).
 
 ## Start here
 
@@ -15,6 +15,7 @@ An additional [live Plane/Slack sandbox](docs/LIVE-WORKSPACE.md) uses actual API
 - [Recording script and submission checklist](docs/DEMO.md).
 - [AI assistant and model-use disclosure](docs/AI-USE-DISCLOSURE.md).
 - [Verified implementation status and outstanding prerequisites](docs/IMPLEMENTATION-STATUS.md).
+- [Original October 12 ontology proposal](docs/history/ontology-and-population-design-2026-10-12.md), kept for history.
 
 ## Local setup
 
@@ -40,8 +41,8 @@ LLM_API_KEY=YOUR_LOCAL_KEY
 LLM_MODEL=mistralai/mistral-nemo
 EMBEDDING_BASE_URL=https://openrouter.ai/api/v1
 EMBEDDING_API_KEY=YOUR_LOCAL_KEY
-EMBEDDING_MODEL=nvidia/nemotron-3-embed-1b:free
-EMBEDDING_DIM=2048
+EMBEDDING_MODEL=perplexity/pplx-embed-v1-0.6b
+EMBEDDING_DIM=1024
 CACHE_DIR=E:/Falkor-DB hackathon 2/.cache
 DATA_DIR=E:/Falkor-DB hackathon 2/data
 EXPERTISE_WINDOW_DAYS=30

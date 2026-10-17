@@ -115,6 +115,54 @@ def prepare_vectors(db):
     return {'embedding_requests':requests,'records':records}
 
 
+def migrate_embeddings(db,enable_live=False):
+    """Move one graph to the configured embedding model and dimension.
+
+    New vectors are requested first. Only after every request succeeds are mismatched
+    vector indexes dropped, vectors from other models cleared, indexes recreated at the
+    configured dimension, and the new vectors written. A provider failure changes nothing.
+    """
+    if db.graph_name not in ('wayfinder_company_demo','wayfinder_company_live_demo') and not db.graph_name.startswith('test_'):
+        raise ValueError('Embedding migration requires a company demo or isolated test graph')
+    stale=db.graph.ro_query('MATCH (n) WHERE n.embedding IS NOT NULL AND (n.embedding_model IS NULL '
+        'OR n.embedding_model<>$model OR n.embedding_dim IS NULL OR n.embedding_dim<>$dim) '
+        'RETURN labels(n)[0],n.id,n.embedding_model,n.embedding_dim ORDER BY n.id',
+        params={'model':settings.embedding_model,'dim':settings.embedding_dim}).result_set
+    unsupported=[r[1] for r in stale if r[0] not in LABELS]
+    if unsupported: raise ValueError(f'No re-embedding text field for {unsupported[:3]}; nothing changed')
+    if stale and not enable_live: raise ValueError(f'{len(stale)} vectors need re-embedding; pass --enable-live')
+    client=embedding_client() if stale else None; prepared=[]
+    for label,ident,old_model,old_dim in stale:
+        text=db.graph.ro_query(f'MATCH (n:{label} {{id:$id}}) RETURN n.{LABELS[label]}',params={'id':ident}).result_set[0][0]
+        if not text: raise ValueError(f'{ident} has no {LABELS[label]} text; nothing changed')
+        text=text[:16000]
+        prepared.append((label,ident,old_model,old_dim,text,client.get_embedding(text)))
+    dropped=[]
+    for index in indexes(db):
+        if 'VECTOR' not in index['types']: continue
+        options=index['options']; options=json.loads(options) if isinstance(options,str) else options
+        if int(options.get('dimension',0))!=settings.embedding_dim:
+            db.query(f"DROP VECTOR INDEX FOR (n:{index['label']}) ON (n.{index['properties'][0]})")
+            dropped.append({'label':index['label'],'dimension':int(options.get('dimension',0))})
+    # Drops on populated labels finish asynchronously; recreating too early would be skipped.
+    deadline=time.monotonic()+20
+    while any(i['label'] in {d['label'] for d in dropped} and 'VECTOR' in i['types'] for i in indexes(db)):
+        if time.monotonic()>deadline: raise RuntimeError('Dropped vector indexes are still present; inspect db.indexes()')
+        time.sleep(.1)
+    db.query('MATCH (n) WHERE n.embedding IS NOT NULL AND (n.embedding_model IS NULL OR n.embedding_model<>$model '
+        'OR n.embedding_dim IS NULL OR n.embedding_dim<>$dim) SET n.embedding=null,n.embedding_model=null,'
+        'n.embedding_dim=null,n.embedding_text_hash=null',{'model':settings.embedding_model,'dim':settings.embedding_dim})
+    schema=prepare_schema(db)
+    for label,ident,_,_,text,vector in prepared:
+        db.upsert_node(label,{'id':ident,'embedding':vector,'embedding_model':settings.embedding_model,
+            'embedding_dim':settings.embedding_dim,'embedding_generated_at':now_iso(),
+            'embedding_text_hash':hashlib.sha256(text.encode()).hexdigest()})
+    return {'at':now_iso(),'graph':db.graph_name,'embedding_model':settings.embedding_model,'embedding_dim':settings.embedding_dim,
+        'dropped_indexes':dropped,'recreated_vector_indexes':[l for l in LABELS],'embedding_requests':len(prepared),
+        'reembedded':[{'label':l,'id':i,'previous_model':m,'previous_dim':d} for l,i,m,d,_,_ in prepared],
+        'indexes_operational':all(str(x['status']).upper()=='OPERATIONAL' for x in schema['indexes'])}
+
+
 def record_showcase(db,output,enable_live=False):
     schema=prepare_schema(db)
     if not enable_live: return schema
@@ -144,5 +192,9 @@ if __name__=='__main__':
     import argparse
     from ..db import DatabaseManager
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--enable-live',action='store_true')
+    parser.add_argument('--graph',default='wayfinder_company_demo')
+    parser.add_argument('--migrate-embeddings',action='store_true',help='Re-embed and rebuild vector indexes for the configured model/dimension')
     parser.add_argument('--output',default='docs/evidence/falkordb-capabilities.json');args=parser.parse_args()
-    print(json.dumps(record_showcase(DatabaseManager(graph_name='wayfinder_company_demo'),args.output,args.enable_live),indent=2))
+    db=DatabaseManager(graph_name=args.graph)
+    if args.migrate_embeddings: print(json.dumps(migrate_embeddings(db,args.enable_live),indent=2))
+    else: print(json.dumps(record_showcase(db,args.output,args.enable_live),indent=2))

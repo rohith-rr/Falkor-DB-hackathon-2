@@ -64,6 +64,29 @@ The source revision command checks external seed IDs and bot ownership, saves na
 
 Repeat the connector sync after source changes. Historical SourceRevisions can retain earlier stories; current source text should contain the Wayfinder revision. When migrating the earlier graph context, `scripts/update_live_graph_story.py` retires only its two old infrastructure Components, retaining their closed history and rebuilding the explicit current owner context. It does not delete records or affect the other graphs. A prior provider-transfer review is invalid when its selected source revisions change. Review the new text before enabling external inference; a content rewrite does not authorize model calls.
 
+## Live GitHub connector
+
+The live graph can also read this project's own repository. GitHub's GraphQL search returns pull requests, reviews, file-level review threads, comments and issues. These go through the same ActivityProcessor and v2 expertise rules as the Northstar fixture and the Kubernetes pilot.
+
+Links between code and work are explicit only:
+
+- A PR references a Plane work item when its title or body contains that item's URL.
+- A PR concerns a Component when it changes files under a directory that `scope.json` maps to that Component (`github.components`, copied into the manifest).
+- The `rohith-rr` login maps to the same sandbox owner as the Plane account. Reviewers stay separate GitHub identities.
+
+PR records are marked `data_mode: live` and `synthetic: false`, because the code is real even though the Plane/Slack scenario is staged.
+
+```powershell
+.\.venv\Scripts\python.exe -m wayfinder.company --graph wayfinder_company_live_demo --manifest data/live-workspace/manifest.json sync --slack --github
+# or keep it current alongside Plane/Slack:
+.\.venv\Scripts\python.exe -m wayfinder.company --graph wayfinder_company_live_demo --manifest data/live-workspace/manifest.json watch --slack --github --interval 90
+```
+
+Prerequisites and limits:
+
+- `GITHUB_TOKEN` must be able to read the repository. For a fine-grained token, grant Metadata, Contents and Pull requests read access on this repository. Without it, the sync records GitHub coverage as `unavailable` and continues.
+- Only pull requests and issues are imported. Commits pushed straight to a branch create no PR evidence, so expertise appears only once work lands through reviewed PRs.
+
 ## Offline replay for reviewers
 
 Reviewers without these credentials can rebuild the same current graph from [`fixtures/live-replay`](../fixtures/live-replay/README.md). It is a scrubbed recording of one real connector read, replayed through the connectors. Run `python -m wayfinder.company.replay load --reset` to write `wayfinder_company_live_replay`. Account identifiers are replaced consistently. Re-record with `replay record` after source changes.
@@ -111,11 +134,18 @@ Limits: this is polling, not push. One full pass is about 60 Plane requests and 
 
 ## Semantic extraction status and request boundary
 
-**At this setup snapshot, semantic extraction is pending explicit approval to transfer selected source text to OpenRouter.** Automatic approval review rejected the first launch before it executed; zero generation or embedding requests were made by this setup.
+**Result, October 17.** The owner approved sending the eight selected source units to OpenRouter. Before the run, both company graphs were moved to the new embedding model, and the reviewed source texts were rechecked against the graph.
+
+- **Configuration:** mistralai/mistral-nemo for generation; perplexity/pplx-embed-v1-0.6b at 1024 dimensions for embeddings.
+- **Requests:** 8 generation and 20 embedding requests.
+- **Proposals:** 6 proposed. 5 were accepted, all quote-verified, and 1 was rejected for an invalid target.
+- **What was extracted:** one Decision ("require human approval of agent-created work", Agent Review Workflow) and four Questions. Both component briefs validate.
+
+Recall was low. The source-ingestion ADR yielded topics but no Decision, and the interpretation-accuracy concern was proposed as a Question, not a concern. No concern status changed. This is real model output and is not an accuracy evaluation. The publishable summary, without native IDs, is [live-connector-extraction.json](evidence/live-connector-extraction.json).
 
 The prepared bounded runner selects eight imported source units: the source-ingestion ADR, exact-payload-approval ADR, extraction-pilot RFC, Plane body-readback discussion and resolution comments, interpretation-accuracy concern comment, and one Slack thread root for each current workstream. It uses the configured generation and embedding models; maximum eight generation requests and sixty embedding requests, SDK retries disabled, maximum two thousand generation output tokens per request. Existing valid extraction materializations can be skipped. These are request/token bounds, not a quoted dollar cost.
 
-Only after the external-provider transfer is explicitly approved:
+Re-running requires the same explicit approval and an unchanged transfer review:
 
 ```powershell
 .\.venv\Scripts\python.exe -m wayfinder.company.live_seed_extract --enable-live

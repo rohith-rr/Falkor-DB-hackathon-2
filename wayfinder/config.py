@@ -30,13 +30,13 @@ class Settings(BaseSettings):
     embedding_model: str = Field(default="text-embedding-3-small", alias="EMBEDDING_MODEL")
     embedding_dim: int = Field(default=1536, alias="EMBEDDING_DIM")
 
-    # Storage paths: MUST reside on Drive E to protect Drive C!
+    # Storage paths default to the checkout; override with absolute paths in .env.
     cache_dir: Path = Field(
-        default_factory=lambda: Path(r"E:\Falkor-DB hackathon 2\.cache"),
+        default_factory=lambda: Path(__file__).resolve().parents[1] / ".cache",
         alias="CACHE_DIR"
     )
     data_dir: Path = Field(
-        default_factory=lambda: Path(r"E:\Falkor-DB hackathon 2\data"),
+        default_factory=lambda: Path(__file__).resolve().parents[1] / "data",
         alias="DATA_DIR"
     )
 

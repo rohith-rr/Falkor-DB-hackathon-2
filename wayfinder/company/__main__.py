@@ -13,9 +13,9 @@ def main():
     sub=parser.add_subparsers(dest='command',required=True)
     sub.add_parser('fixture')
     sub.add_parser('check-plane')
-    sync=sub.add_parser('sync'); sync.add_argument('--slack',action='store_true'); sync.add_argument('--extractions',type=int,default=0)
+    sync=sub.add_parser('sync'); sync.add_argument('--slack',action='store_true'); sync.add_argument('--github',action='store_true'); sync.add_argument('--extractions',type=int,default=0)
     watch=sub.add_parser('watch',help='Poll allowlisted sources and log what each sync changed')
-    watch.add_argument('--slack',action='store_true'); watch.add_argument('--interval',type=int,default=120)
+    watch.add_argument('--slack',action='store_true'); watch.add_argument('--github',action='store_true'); watch.add_argument('--interval',type=int,default=120)
     watch.add_argument('--iterations',type=int); watch.add_argument('--log')
     extract=sub.add_parser('extract'); extract.add_argument('--limit',type=int,default=20); extract.add_argument('--unit-id')
     brief=sub.add_parser('brief'); brief.add_argument('component'); brief.add_argument('--output')
@@ -34,11 +34,11 @@ def main():
         finally: client.close()
     elif args.command=='sync':
         from .freshness import sync_once
-        result=sync_once(db,manifest,slack=args.slack,extractions=args.extractions)
+        result=sync_once(db,manifest,slack=args.slack,github=args.github,extractions=args.extractions)
     elif args.command=='watch':
         from .freshness import watch
         if args.interval<60: raise SystemExit('Plane allows about 60 API requests per minute; use --interval 60 or more')
-        watch(db,manifest,interval=args.interval,slack=args.slack,iterations=args.iterations,
+        watch(db,manifest,interval=args.interval,slack=args.slack,github=args.github,iterations=args.iterations,
               log=args.log or Path('data')/f'sync-log-{args.graph}.jsonl')
         return
     elif args.command=='extract':
