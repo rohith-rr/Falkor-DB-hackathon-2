@@ -101,7 +101,8 @@ def ingest_project(store,project,*,mode='live'):
     org=store.org; native=str(project['id']); scope=f'project:{native}'
     root=f"https://app.plane.so/{store.manifest['plane']['workspace']}/projects/{native}"
     pid=f'plane:{org}:project:{native}'
-    store.node('Project',pid,source='plane',url=root,name=project['name'],native=native,scope=scope)
+    store.node('Project',pid,source='plane',url=root,name=project['name'],native=native,scope=scope,
+        identifier=project.get('identifier'))
     for member in project.get('members',[]):
         mid=str(member.get('member_id') or member.get('id'))
         person=store.person('plane',mid)
@@ -113,6 +114,7 @@ def ingest_project(store,project,*,mode='live'):
         ident=f"plane:{org}:issue:{item['id']}"; url=f"{root}/work-items/{item['id']}"
         store.node('Issue',ident,source='plane',url=url,native=item['id'],scope=f'{scope}:items',
             title=item['name'],number=str(item.get('sequence_id',item['id'])),
+            key=item.get('identifier') or (f"{project['identifier']}-{item['sequence_id']}" if project.get('identifier') and item.get('sequence_id') else None),
             state=item.get('state_name',item.get('state_id','unknown')),created_at=item.get('created_at'),
             priority=item.get('priority'),start_date=item.get('start_date'),target_date=item.get('target_date'),
             updated=item.get('updated_at'),text=html_text(item.get('description_html','')),raw_html=item.get('description_html',''))

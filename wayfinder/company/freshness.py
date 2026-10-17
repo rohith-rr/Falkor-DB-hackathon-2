@@ -8,9 +8,10 @@ import time
 from pathlib import Path
 from ..models.common import now_iso
 
-LABELS=('Issue','Comment','DocPage','DocSection','Thread','Attachment','PullRequest','Review')
-FIELDS=('content_hash','title','name','state','priority','start_date','target_date','source_updated_at')
-EDGES=('ASSIGNED_TO','HAS_COMMENT','REFERENCES','HAS_WORK_ITEM','HAS_DOCUMENT','CONCERNS_COMPONENT','TOUCHES')
+LABELS=('Issue','Comment','DocPage','DocSection','Thread','Attachment','PullRequest','Review','Branch','Commit')
+FIELDS=('content_hash','title','name','state','priority','start_date','target_date','source_updated_at','head_sha')
+EDGES=('ASSIGNED_TO','HAS_COMMENT','REFERENCES','HAS_WORK_ITEM','HAS_DOCUMENT','CONCERNS_COMPONENT','TOUCHES',
+    'HEAD_AT','HAS_BRANCH','FROM_BRANCH','INTO_BRANCH','MERGED_AS')
 
 
 def snapshot(db,org):

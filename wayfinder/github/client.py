@@ -293,6 +293,28 @@ class GitHubClient:
                 count+=1
                 if limit is not None and count>=limit: return
 
+    COMMIT_FIELDS = ('oid abbreviatedOid url messageHeadline message committedDate authoredDate additions deletions '
+        'author { name user { login } } parents(first: 2) { nodes { oid } }')
+
+    def repository_history(self, repo, since=None, branches=100, commits=100, pull_requests=100):
+        """Branches with head and recent history, and PR head/base refs with their commits.
+
+        One bounded read; truncated connections are reported, not silently treated as complete.
+        """
+        owner, name = repo.split('/', 1)
+        query = ('query($owner:String!,$name:String!,$since:GitTimestamp,$branches:Int!,$commits:Int!,$prs:Int!) {'
+            ' repository(owner:$owner,name:$name) { defaultBranchRef { name }'
+            ' refs(refPrefix:"refs/heads/",first:$branches) { pageInfo { hasNextPage } nodes { name target { ... on Commit {'
+            f' oid history(first:$commits,since:$since) {{ pageInfo {{ hasNextPage }} nodes {{ {self.COMMIT_FIELDS} }} }} }} }} }} }}'
+            ' pullRequests(first:$prs,orderBy:{field:UPDATED_AT,direction:DESC}) { pageInfo { hasNextPage } nodes {'
+            ' number headRefName baseRefName headRefOid mergeCommit { oid }'
+            f' commits(first:$commits) {{ pageInfo {{ hasNextPage }} nodes {{ commit {{ {self.COMMIT_FIELDS} }} }} }} }} }} }} }}')
+        result = self.execute_graphql(query, {'owner': owner, 'name': name, 'since': since,
+            'branches': branches, 'commits': commits, 'prs': pull_requests})
+        if not result.get('repository'):
+            raise RuntimeError(f'Repository {repo} is not readable with this token')
+        return result['repository']
+
     def repository_tree(self, repo):
         response = self._session.get(f'{GITHUB_REST_ENDPOINT}/repos/{repo}', headers=self.headers)
         response.raise_for_status()

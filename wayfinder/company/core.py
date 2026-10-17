@@ -85,9 +85,9 @@ class CompanyStore:
         return ident
 
     def edge(self,sl,sid,tl,tid,rel,source,url,**props):
-        self.db.upsert_edge(sl,sid,tl,tid,rel,dict(id=f'{sid}->{rel}->{tid}',source_system=source,
-            source_url=url,source_ref=sid,observed_at=now_iso(),authority='CONFIRMED',
-            link_method='API' if source!='manifest' else 'STRUCTURED_FILE',**props))
+        self.db.upsert_edge(sl,sid,tl,tid,rel,{'id':f'{sid}->{rel}->{tid}','source_system':source,
+            'source_url':url,'source_ref':sid,'observed_at':now_iso(),'authority':'CONFIRMED',
+            'link_method':'API' if source!='manifest' else 'STRUCTURED_FILE',**props})
 
     def reconcile_edges(self,source_id,types,desired):
         self.db.query('MATCH (n {id:$id})-[r]->() WHERE type(r) IN $types AND r.valid_to IS NULL '

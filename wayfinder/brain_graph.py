@@ -38,6 +38,14 @@ people authorized reviewers without OWNERS evidence. Involvement is not expertis
 commands request actions and do not prove outcomes. Legacy scores require caution.
 """
 MEANINGS = {
+    "REFERENCES": "Source text contains the target's URL (link_method EXACT_REFERENCE) or Plane work-item key (EXACT_IDENTIFIER); not causality",
+    "HAS_BRANCH": "Repository has a current branch (deleted branches are retired)",
+    "HEAD_AT": "Branch currently points at this commit; earlier heads remain as closed intervals",
+    "HAS_COMMIT": "Branch history or pull request includes this commit (bounded window; see SourceCoverage)",
+    "HAS_PARENT": "Commit's parent commit, when both are imported",
+    "FROM_BRANCH": "Pull request's head branch",
+    "INTO_BRANCH": "Pull request's base branch",
+    "MERGED_AS": "Pull request was merged as this commit",
     "IMPLEMENTED_IN": "Explicit component-to-code-directory mapping; expertise aggregates distinct contributions across mapped subtrees",
     "OWNS_COMPONENT": "Explicitly declared component owner; not code reviewer authorization",
     "HAS_WORK_ITEM": "Project contains a source work item",
