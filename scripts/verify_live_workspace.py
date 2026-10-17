@@ -42,13 +42,27 @@ async def run():
         'RETURN labels(n)[0],count(n)').result_set}
     github={r[0]:r[1] for r in db.graph.ro_query("MATCH (n) WHERE n.valid_to IS NULL AND n.source_system='github' "
         'RETURN labels(n)[0],count(n)').result_set}
-    assert counts['Issue']==12 and counts['DocPage']==6 and counts['Comment']==50+notices and counts['Thread']==18+notices
+    # Later work (sync-test scenario, approved actions) adds records, so check the seeded ones by native ID.
+    created=seed['created']; ids=lambda prefix:[v['id'] for k,v in created.items() if k.startswith(prefix)]
+    items=[f'plane:northstar-live:issue:{i}' for i in ids('item:')]
+    pages=[f'plane:northstar-live:page:{i}' for i in ids('page:')]
+    slack=[f"slack:northstar-live:comment:{v['channel']}:{v['id']}" for k,v in created.items() if k.startswith('slack:')]
+    comments=[f'plane:northstar-live:comment:{i}' for i in ids('comment:')]+slack
+    roots=[f"slack:northstar-live:thread:{v['channel']}:{v['id']}" for k,v in created.items()
+        if k.startswith('slack:') and (k.endswith('-0') or k.startswith('slack:notice-'))]
+    threads=[i+':thread' for i in items]+roots
+    current=lambda label,wanted:db.graph.ro_query(f'MATCH (n:{label}) WHERE n.valid_to IS NULL AND n.id IN $ids RETURN count(n)',
+        params={'ids':wanted}).result_set[0][0]
+    seeded={'Issue':current('Issue',items),'DocPage':current('DocPage',pages),'Comment':current('Comment',comments),'Thread':current('Thread',threads)}
+    assert seeded=={'Issue':12,'DocPage':6,'Comment':50+notices,'Thread':18+notices},seeded
     assert counts['Component']==len(manifest['components'])
-    assignments=db.graph.ro_query('MATCH (:Issue)-[a:ASSIGNED_TO]->(:Person) WHERE a.valid_to IS NULL RETURN count(a)').result_set[0][0]
+    assignments=db.graph.ro_query('MATCH (i:Issue)-[a:ASSIGNED_TO]->(:Person) WHERE a.valid_to IS NULL AND i.id IN $ids RETURN count(a)',
+        params={'ids':items}).result_set[0][0]
     assert assignments==12
     coverage=db.graph.ro_query('MATCH (c:SourceCoverage) RETURN c.source_system,c.status,c.mode,c.record_count,c.gaps').result_set
     assert not any(r[1]=='unavailable' for r in coverage),coverage
-    bot_authors=db.graph.ro_query("MATCH (p:Person)-[r:AUTHORED]->(m:Comment) WHERE m.source_system='slack' AND r.valid_to IS NULL RETURN p.is_bot,count(m)").result_set
+    bot_authors=db.graph.ro_query("MATCH (p:Person)-[r:AUTHORED]->(m:Comment) WHERE m.source_system='slack' AND r.valid_to IS NULL "
+        'AND m.id IN $ids RETURN p.is_bot,count(m)',params={'ids':slack}).result_set
     assert bot_authors==[[True,30+notices]],bot_authors
     polish=None
     if (FOLDER/'content-update-result.json').exists():
@@ -65,9 +79,11 @@ async def run():
                 assert 'Wayfinder seed' not in current[0][0] and 'API authorship' not in current[0][0]
             else:
                 expected=html_text(payload.get('description_html',payload.get('comment_html','')))
-                assert current[0][0]==expected,change['key']
+                # Work items may gain later appended updates (e.g. the sync-test scenario); the reviewed text must remain.
+                assert current[0][0]==expected or (kind=='item' and current[0][0].startswith(expected)),change['key']
                 if 'name' in payload:assert current[0][1]==payload['name'],change['key']
-        references=db.graph.ro_query("MATCH (m:Comment)-[r:REFERENCES]->(n) WHERE m.source_system='slack' AND m.valid_to IS NULL AND r.valid_to IS NULL RETURN count(r)").result_set[0][0]
+        references=db.graph.ro_query("MATCH (m:Comment)-[r:REFERENCES]->(n) WHERE m.source_system='slack' AND m.valid_to IS NULL "
+            'AND r.valid_to IS NULL AND m.id IN $ids RETURN count(r)',params={'ids':slack}).result_set[0][0]
         expected_refs=sum(len(v) for t in content()['threads'] for v in t.get('links',{}).values())
         assert references==expected_refs,references
         polish={'verified_current_source_records':len(revision['changes']),'labeled_slack_source_links':references,
@@ -77,8 +93,10 @@ async def run():
         ident='plane:northstar-live:issue:'+seed['created']['item:'+item['key']]['id']
         row=db.graph.ro_query('MATCH (i:Issue {id:$id}) RETURN i.state,i.priority,i.target_date',params={'id':ident}).result_set[0]
         expected={'completed':'Done','started':'In Progress','unstarted':'Todo'}[item['status']]
-        assert row==[expected,item['priority'],content()['target_date']],(item['key'],row)
-        states[expected]=states.get(expected,0)+1
+        # Tasks may move forward after seeding (recorded progress), never backward.
+        rank={'Todo':0,'In Progress':1,'Done':2}
+        assert row[1:]==[item['priority'],content()['target_date']] and rank.get(row[0],-1)>=rank[expected],(item['key'],row)
+        states[row[0]]=states.get(row[0],0)+1
     dependencies=db.graph.ro_query('MATCH (:Issue)-[r:DEPENDS_ON]->(:Issue) WHERE r.valid_to IS NULL RETURN count(r)').result_set[0][0]
     assert dependencies==sum(len(i['depends_on']) for i in items)
     calls=[]
@@ -108,7 +126,7 @@ async def run():
             validation=await call('validate_review_brief',{'brief':brief})
             assert validation['valid']
     report={'at':now_iso(),'graph':GRAPH,'mode':'real_connector_readback_and_scripted_mcp_navigation',
-        'counts':counts,'github_counts':github,'assignments':assignments,'task_states':states,'task_dependencies':dependencies,
+        'counts':counts,'seeded_counts':seeded,'github_counts':github,'assignments':assignments,'task_states':states,'task_dependencies':dependencies,
         'slack_bot_authors':bot_authors,'coverage':coverage,
         'content_revision_verification':polish,'model_requests':0,'extraction_state':extraction_state(),
         'semantic_accuracy':'not_evaluated','transcript':calls}

@@ -17,3 +17,6 @@ __pycache__/
 
 # Watcher change logs contain native source IDs
 data/sync-log-*.jsonl
+
+# Local agent tool-call traces for the dashboard path view
+data/agent-trace/

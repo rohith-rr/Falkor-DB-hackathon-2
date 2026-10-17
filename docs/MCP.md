@@ -39,6 +39,33 @@ A stdio server waits for an MCP client, so a quiet terminal is expected. You do
 not need to launch it separately when using the client configurations below.
 The client starts and stops the process. All logging goes to stderr.
 
+## Watch the agent's path in the graph
+
+Every MCP tool call is recorded locally, so the dashboard can draw the graph and light up what the agent touched. Each record holds the tool, its arguments, and the entities and relationships found in the arguments and the result. Records are appended to the ignored `data/agent-trace/<graph>.jsonl`, grouped by server session. Recording never changes a result. Turn it off with `--no-trace` or `WAYFINDER_TRACE=0`.
+
+1. Start the dashboard on the graph the agent uses, and open **http://127.0.0.1:8765/graph**:
+   ```powershell
+   .\.venv\Scripts\python.exe -m wayfinder.dashboard --graph wayfinder_company_live_demo
+   ```
+2. Point the agent's MCP server at the same graph. Codex `config.toml`:
+   ```toml
+   [mcp_servers.wayfinder]
+   command = 'E:\Falkor-DB hackathon 2\.venv\Scripts\python.exe'
+   args = ['E:\Falkor-DB hackathon 2\wayfinder\mcp_server.py', '--enable-actions', '--manifest', 'E:\Falkor-DB hackathon 2\data\live-workspace\manifest.json']
+   env = { FALKORDB_GRAPH = "wayfinder_company_live_demo" }
+   startup_timeout_sec = 30
+   tool_timeout_sec = 90
+   ```
+   Claude Code: `claude mcp add --transport stdio wayfinder -e FALKORDB_GRAPH=wayfinder_company_live_demo -- <python> <mcp_server.py>`. The repository `.env` defaults to the Kubernetes graph, so always set `FALKORDB_GRAPH`.
+3. Ask the agent a question. Within about a second of each tool call, the page:
+   - rings every entity the call touched, with the number of the step that first reached it
+   - draws the agent's route between steps in amber, solid along a real relationship and dashed where it jumped by search or Cypher
+   - lists the calls with their arguments, and recentres on the current step while **Follow agent** is on
+
+**Latest (live)** follows the newest server session. Pick an earlier session to inspect it, use **Replay** to animate a session step by step, and click a step to see the path up to that point. Click a node to see its source and step.
+
+The overview draws the work, discussion, code and knowledge records. Provenance records (revisions, coverage, files) appear only when the agent touches them. The evidence views at `/` are built for the Northstar graph; on another graph, use `/graph`.
+
 ## Connect Codex
 
 Add this entry to your existing Codex `config.toml`; retain its other entries:

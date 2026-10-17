@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wayfinder · Agent path</title><link rel="stylesheet" href="/assets/graph.css"><script src="/assets/graph.js" defer></script></head>
+<body>
+<header class="bar">
+  <a class="brand" href="/">W<span>WAYFINDER</span></a>
+  <div class="title"><div class="eyebrow">FALKORDB GRAPH / AGENT PATH</div><h1>Follow the agent through the graph.</h1></div>
+  <div class="pill" id="graph-name">Connecting…</div>
+</header>
+<div class="stage">
+  <div class="canvas-wrap">
+    <canvas id="canvas" aria-label="Graph visualization"></canvas>
+    <div class="legend" id="legend" aria-label="Node types"></div>
+    <div class="hud">
+      <button id="fit" title="Fit the whole graph">Fit</button>
+      <label><input type="checkbox" id="follow" checked> Follow agent</label>
+      <label><input type="checkbox" id="labels"> All labels</label>
+    </div>
+    <div class="tooltip" id="tooltip" hidden></div>
+  </div>
+  <aside class="panel">
+    <div class="eyebrow">AGENT SESSION</div>
+    <div class="row"><select id="session" aria-label="Session"><option value="">Latest (live)</option></select>
+      <button id="replay" title="Replay this session step by step">Replay</button><button id="clear" title="Clear highlights">Clear</button></div>
+    <div id="status" class="status">Waiting for MCP tool calls…</div>
+    <ol id="steps" class="steps"></ol>
+    <div class="eyebrow">SELECTED</div>
+    <div id="detail" class="detail"><span class="muted">Click a node to inspect it.</span></div>
+  </aside>
+</div>
+</body></html>
