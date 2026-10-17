@@ -82,10 +82,25 @@ PR records are marked `data_mode: live` and `synthetic: false`, because the code
 .\.venv\Scripts\python.exe -m wayfinder.company --graph wayfinder_company_live_demo --manifest data/live-workspace/manifest.json watch --slack --github --interval 90
 ```
 
+The same sync also reads git history with one bounded GraphQL request:
+
+- **Branch** nodes (current branches, with `is_default` and tree URL) hang off the Repository via `HAS_BRANCH`. A branch moves through `HEAD_AT`; earlier heads stay as closed intervals. A deleted branch is retired.
+- **Commit** nodes are keyed by SHA: headline, message, dates, size, parent SHAs, and the GitHub author mapped through `identities`. They connect through `HAS_PARENT` and `HAS_COMMIT` (from the branch's recent history and from each PR).
+- **Pull requests** gain `head_ref`, `base_ref`, `head_sha` and `merge_sha`, plus `FROM_BRANCH`, `INTO_BRANCH` and `MERGED_AS` edges.
+
+Cross-source links extend to git:
+
+- `/tree/<branch>[/<path>]` resolves to the longest matching known branch.
+- `/commit/<sha>` and `/pull/n/commits/<sha>` resolve to the commit. An abbreviated SHA resolves only if exactly one known commit matches it.
+- A Plane work-item key such as `FALKORDBTE-12` in a branch name, commit message, PR, Slack message or Plane text links to that work item (`link_method: EXACT_IDENTIFIER`). Plane supplies the key; `FALKORDBTE-120` or `XFALKORDBTE-12` do not match.
+
+On October 17 the live sync read 3 PRs, 4 branches and 13 commits from this repository.
+
 Prerequisites and limits:
 
 - `GITHUB_TOKEN` must be able to read the repository. For a fine-grained token, grant Metadata, Contents and Pull requests read access on this repository. Without it, the sync records GitHub coverage as `unavailable` and continues.
-- Only pull requests and issues are imported. Commits pushed straight to a branch create no PR evidence, so expertise appears only once work lands through reviewed PRs.
+- Commits are imported from current branch heads and PRs within the configured window (at most 100 per branch). Their coverage is `partial`. Commits never count toward code expertise; only reviewed PRs do.
+- A force-push can leave an old `HAS_COMMIT` edge from the branch; `HEAD_AT` always reflects the current head.
 
 ## Offline replay for reviewers
 
