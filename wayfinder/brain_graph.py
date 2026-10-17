@@ -292,6 +292,15 @@ class BrainGraph:
         result['note'] = 'At most ten paths; narrow relationship types or use read_cypher for further exploration.'
         return result
 
+    def graph_algorithm(self, algorithm: str, node_labels: list[str] | None = None, relationship_types: list[str] | None = None,
+                        around_id: str | None = None, hops: int = 2, source_id: str | None = None, target_id: str | None = None,
+                        max_hops: int = 6, limit: int = 10):
+        from .graph_algorithms import run, AlgorithmError
+        try:
+            return run(self.db, algorithm, node_labels, relationship_types, around_id, hops, source_id, target_id, max_hops, limit)
+        except AlgorithmError as exc:
+            raise BrainError(f"INVALID_ALGORITHM_REQUEST: {exc}") from exc
+
     def get_evidence(self, evidence_ids: list[str], limit: int = 20, cursor: str | None = None, include_history: bool = False):
         if not 1 <= len(evidence_ids) <= 100:
             raise BrainError("INVALID_IDS: Provide 1..100 evidence IDs.")

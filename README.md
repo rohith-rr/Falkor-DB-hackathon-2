@@ -137,7 +137,7 @@ Event dates are fixed offsets before a persisted dataset anchor. Decay uses the 
 
 Configure the client to launch `.venv\Scripts\python.exe` with the absolute path to `wayfinder\mcp_server.py`, and set its environment `FALKORDB_GRAPH=wayfinder_company_demo`. See [client setup](docs/MCP.md).
 
-The default server exposes **22 database-read-only tools**. `semantic_search` makes one explicitly requested embedding-provider call; other read tools make no model requests. Optional action mode exposes 24 tools total, including proposal preparation/execution but no approval-granting tool.
+The default server exposes **23 tools** that only read the knowledge graph. These include `graph_algorithm`: FalkorDB's native PageRank, betweenness, connected components and shortest path over the current graph, run on a temporary projection that is deleted afterwards. `semantic_search` makes one explicitly requested embedding-provider call; other tools make no model requests. Optional action mode adds 2 tools (25 in total) for proposal preparation and execution, but no approval-granting tool.
 
 Ask:
 

@@ -257,8 +257,8 @@ def test_actions_are_opt_in_and_no_approval_tool(db):
     from wayfinder.mcp_server import create_server
     regular=asyncio.run(create_server(db).list_tools())
     enabled=asyncio.run(create_server(db,enable_actions=True).list_tools())
-    assert len(regular)==22 and all(t.annotations.readOnlyHint for t in regular)
-    assert len(enabled)==24 and not any(t.name.startswith('approve') for t in enabled)
+    assert len(regular)==23 and all(t.annotations.readOnlyHint for t in regular)
+    assert len(enabled)==25 and not any(t.name.startswith('approve') for t in enabled)
 
 
 def test_approval_cannot_cover_changed_payload(db):

@@ -27,7 +27,7 @@ DISPLAY=("coalesce(n.key,n.title,n.name,n.display_name,n.login,n.short_sha,n.sum
 READ_TOOLS={'who_knows','ownership','decisions','concerns','stale_findings','graph_stats','graph_schema',
     'search_entities','get_entity','get_neighbors','find_paths','get_evidence','get_thread','person_context',
     'component_context','list_questions','recent_activity','knowledge_coverage','read_cypher','company_context',
-    'validate_review_brief','semantic_search'}
+    'validate_review_brief','semantic_search','graph_algorithm'}
 
 
 def describe(db,ids):

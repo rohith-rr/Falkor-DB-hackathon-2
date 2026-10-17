@@ -34,8 +34,15 @@ def create_server(db=None, enable_actions=False, manifest_path=None, trace=True,
     names = ["who_knows", "ownership", "decisions", "concerns", "stale_findings", "graph_stats",
              "graph_schema", "search_entities", "get_entity", "get_neighbors", "find_paths", "get_evidence",
              "get_thread", "person_context", "component_context", "list_questions", "recent_activity",
-             "knowledge_coverage", "read_cypher", "company_context", "validate_review_brief", "semantic_search"]
+             "knowledge_coverage", "read_cypher", "company_context", "validate_review_brief", "semantic_search",
+             "graph_algorithm"]
     descriptions = {
+        "graph_algorithm": ("Run a FalkorDB native graph algorithm over the current graph (retired history excluded): "
+            "'pagerank' (important entities by incoming links), 'betweenness' (brokers between areas), 'components' (connected "
+            "groups and isolated islands), or 'shortest_path' (fewest relationships between source_id and target_id, returned with "
+            "its edges). Optionally restrict node_labels / relationship_types, or around_id with hops (1-3) for a neighbourhood. "
+            "Runs on a temporary projection graph that is deleted afterwards; the knowledge graph is only read. Scores rank "
+            "structure, not correctness or authority; retrieve evidence before relying on a result."),
         "semantic_search": "Meaning-based discovery over native Topic/Argument/Comment vector indexes. Each explicit call makes one configured embedding API request (possibly paid), no retries, and no database writes. Retrieve source evidence after similarity matches.",
         "company_context": "Inspect a company component's declared owners, explicitly linked Plane work items/pages, discussions, decisions and concerns. Ownership is not code reviewer authorization.",
         "validate_review_brief": "Check structured brief sections, evidence IDs, URLs, source revisions and quote presence. Does not prove semantic correctness.",
