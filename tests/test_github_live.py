@@ -16,14 +16,14 @@ MANIFEST={'organization_id':'ghtest','synthetic':True,'plane':{'workspace':'acme
     'github':{'repository':REPO,'components':{'source-ingestion':['wayfinder/company'],'agent-workflows':'wayfinder/extraction'}}}
 
 
-def pr(number,files):
+def pr(number,files,body=None):
     at=(datetime.now(timezone.utc)-timedelta(days=2)).isoformat()
     url=f'https://github.com/{REPO}/pull/{number}'
     empty={'pageInfo':{'hasNextPage':False},'nodes':[]}
     return {'__typename':'PullRequest','id':f'PR{number}','number':number,'title':'Add freshness watcher',
         'state':'MERGED','createdAt':at,'mergedAt':at,'updatedAt':at,'url':url,'additions':40,'deletions':2,
         'milestone':None,'author':{'login':'alice','__typename':'User'},'labels':{'nodes':[]},
-        'body':f'Implements the Plane task {PLANE_URL}',
+        'body':f'Implements the Plane task {PLANE_URL}' if body is None else body,
         'files':{'pageInfo':{'hasNextPage':False},'nodes':[{'path':p,'additions':20,'deletions':1} for p in files]},
         'reviews':{'pageInfo':{'hasNextPage':False},'nodes':[{'id':f'R{number}','state':'APPROVED','submittedAt':at,
             'url':url+'#review','author':{'login':'bob','__typename':'User'},'body':'Checked the retirement cascade.'}]},
@@ -33,11 +33,11 @@ def pr(number,files):
         'comments':empty}
 
 
-def transport(searches):
+def transport(searches,body=None):
     def respond(request):
-        body=json.loads(request.content); query=body['variables'].get('queryStr','')
+        query=json.loads(request.content)['variables'].get('queryStr','')
         searches.append(query)
-        nodes=[pr(7,['wayfinder/company/plane.py','wayfinder/company/slack.py'])] if 'is:pr' in query else []
+        nodes=[pr(7,['wayfinder/company/plane.py','wayfinder/company/slack.py'],body)] if 'is:pr' in query else []
         return httpx.Response(200,json={'data':{'search':{'issueCount':len(nodes),'pageInfo':{'hasNextPage':False},'nodes':nodes}}})
     return httpx.MockTransport(respond)
 
@@ -69,6 +69,35 @@ def test_live_github_connector_links_code_work_and_expertise():
         # File-level review by a non-author peer counts as review expertise on the touched code.
         experts=q("MATCH (p:Person)-[r:EXPERT_IN]->(d:Directory) WHERE r.valid_to IS NULL RETURN DISTINCT p.id")
         assert ['github:ghtest:person:bob'] in experts,experts
+    finally:
+        db.clear_graph()
+
+
+def test_pr_urls_link_both_ways_and_retire_when_removed():
+    db=DatabaseManager(graph_name='test_github_links_'+uuid.uuid4().hex)
+    if not db.ping(): pytest.skip('FalkorDB unavailable')
+    try:
+        store=CompanyStore(db,MANIFEST); store.bootstrap()
+        store.node('Issue',f'plane:ghtest:issue:{ITEM}',source='plane',url=PLANE_URL,title='Freshness watcher',text='Build it')
+        permalink='https://acme.slack.com/archives/C1/p1700000000000100'
+        pid=f'github:ghtest:pr:{REPO}:7'; pr_url=f'https://github.com/{REPO}/pull/7'
+        def slack(text):
+            store.node('Comment','slack:ghtest:message:C1:1',source='slack',url=permalink,text=text)
+        def sync(body):
+            client=GitHubClient(token='test',session=httpx.Client(transport=transport([],body)))
+            return sync_github(db,MANIFEST,client=client)
+        slack(f'Review thread on <{pr_url}#discussion_r42|the watcher PR> before merge.')
+        result=sync(f'Context in Slack: {permalink}\nTracks {PLANE_URL}')
+        assert result['plane_references']==1
+        q=lambda c:db.graph.ro_query(c).result_set
+        current=lambda src:sorted(r[0] for r in q(f"MATCH ({{id:'{src}'}})-[r:REFERENCES]->(t) WHERE r.valid_to IS NULL RETURN t.id"))
+        assert current('slack:ghtest:message:C1:1')==[pid]
+        assert current(pid)==sorted([f'plane:ghtest:issue:{ITEM}','slack:ghtest:message:C1:1'])
+        # Removing the URLs from either side retires only those reference intervals.
+        slack('Merged, thanks.'); sync(f'Tracks {PLANE_URL}')
+        assert current('slack:ghtest:message:C1:1')==[]
+        assert current(pid)==[f'plane:ghtest:issue:{ITEM}']
+        assert q(f"MATCH ({{id:'{pid}'}})-[r:REFERENCES]->({{id:'slack:ghtest:message:C1:1'}}) RETURN r.valid_to IS NOT NULL")==[[True]]
     finally:
         db.clear_graph()
 

@@ -111,7 +111,7 @@ def test_labeled_slack_links_resolve_to_actual_source_records():
     records=[['page','DocPage','Decision text',url],
              ['comment','Comment','Please review <'+url+'|Reservation fairness ADR>.','https://slack.com/thread']]
     def query(text,**kwargs):
-        return SimpleNamespace(result_set=[] if 'SourceLink' in text or 'RETURN DISTINCT n.id' in text else records)
+        return SimpleNamespace(result_set=[] if 'SourceLink' in text or 'link_basis' in text or 'RETURN DISTINCT n.id' in text else records)
     edges=[]
     store=SimpleNamespace(org='demo',manifest={},db=SimpleNamespace(graph=SimpleNamespace(ro_query=query)),
         edge=lambda *args,**kwargs:edges.append(args))
@@ -124,7 +124,7 @@ def test_removed_literal_links_retire_while_explicit_bindings_remain():
     url='https://example.org/adr';retained=[]
     def query(text,**kwargs):
         if 'RETURN labels(a)' in text: rows=[['Comment','DocPage','https://slack.com/thread']]
-        elif 'SourceLink' in text: rows=[]
+        elif 'SourceLink' in text or 'link_basis' in text: rows=[]
         elif 'RETURN DISTINCT n.id' in text: rows=[['comment']]
         else: rows=[['page','DocPage','Decision',url],['comment','Comment','No document URL remains.','https://slack.com/thread']]
         return SimpleNamespace(result_set=rows)
@@ -135,6 +135,16 @@ def test_removed_literal_links_retire_while_explicit_bindings_remain():
     assert retained==[('comment',['comment->REFERENCES->page'])]
     retained.clear();store.manifest={'bindings':[]};link_manifest(store)
     assert retained==[('comment',[])]
+
+
+def test_github_urls_normalize_to_the_pull_request():
+    from wayfinder.company.links import normalize_url
+    pr='https://github.com/acme/wayfinder/pull/7'
+    for url in (pr,pr+'/',pr+'#discussion_r123',pr+'/files#diff-abc',pr+'/commits/0a1b2c',pr+'?w=1',pr+'.'):
+        assert normalize_url(url)==pr,url
+    assert normalize_url('https://github.com/acme/wayfinder/pull/70')!=pr
+    item='https://app.plane.so/ws/projects/99999999-8888-4777-8666-555555555555/issues/11111111-2222-4333-8444-555555555555'
+    assert normalize_url(item)==item.replace('/issues/','/work-items/')
 
 
 def test_wayfinder_backlog_is_connected_and_has_no_dependency_cycles():

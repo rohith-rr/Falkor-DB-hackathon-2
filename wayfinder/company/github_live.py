@@ -2,19 +2,18 @@
 
 Pull requests, reviews, review threads, comments and issues go through the same
 ActivityProcessor as the Kubernetes pilot and the Northstar fixture, so code expertise
-is computed by the unchanged v2 rules. Links are explicit only: a PR references a Plane
-work item when its title or body contains that item's URL, and concerns a Component when
-it changes files under a directory the manifest maps to that Component.
+is computed by the unchanged v2 rules. Links are explicit only: a PR references a Plane or
+Slack record when its title or body contains that record's URL (resolved by links.py, the
+same path that links Slack/Plane text to PR URLs), and concerns a Component when it
+changes files under a directory the manifest maps to that Component.
 """
-import re
 from .core import CompanyStore
+from .links import link_manifest
 from .github_fixture import save_parsed
 from ..github.client import GitHubClient
 from ..github.activity import ActivityProcessor
 from ..derived.expertise_v2 import ExpertiseRefresh
 from ..models.common import now_iso
-
-PLANE_ITEM=re.compile(r'https://app\.plane\.so/[\w-]+/projects/[0-9a-f-]{36}/(?:work-items|issues)/([0-9a-f-]{36})')
 
 
 def sync_github(db,manifest,client=None):
@@ -48,19 +47,17 @@ def sync_github(db,manifest,client=None):
             store.edge('Component',cid,'Directory',did,'IMPLEMENTED_IN','manifest',url)
             store.edge('Repository',rid,'Directory',did,'CONTAINS','manifest',url)
             roots[path.rstrip('/')]=cid
-    references=0
     for node in prs:
         pid=f"{namespace}:pr:{repo}:{node['number']}"
-        for item in set(PLANE_ITEM.findall((node.get('title') or '')+'\n'+(node.get('body') or ''))):
-            target=f'plane:{org}:issue:{item}'
-            if db.graph.ro_query('MATCH (i:Issue {id:$id}) RETURN i.id',params={'id':target}).result_set:
-                store.edge('PullRequest',pid,'Issue',target,'REFERENCES','github',node['url']); references+=1
         files=[f['path'] for f in (node.get('files') or {}).get('nodes',[])]
         for root,cid in roots.items():
             if any(f==root or f.startswith(root+'/') for f in files):
                 store.edge('PullRequest',pid,'Component',cid,'CONCERNS_COMPONENT','github',node['url'])
     store.coverage('github',f'repo:{repo}','complete',since=cfg.get('since'),count=len(prs)+issues,
         gaps=['Pull requests and issues only; commits pushed without a pull request are not imported.'])
+    linked=link_manifest(store)
+    references=sum(1 for node in prs for edge in linked.get(f"{namespace}:pr:{repo}:{node['number']}",())
+        if edge.split('->REFERENCES->',1)[1].startswith(f'plane:{org}:issue:'))
     refresh=ExpertiseRefresh(db).refresh()
     return {'repository':repo,'observed_since':started,'pull_requests':len(prs),'issues':issues,
             'plane_references':references,'expertise_generation':refresh.get('generation') if isinstance(refresh,dict) else None}
