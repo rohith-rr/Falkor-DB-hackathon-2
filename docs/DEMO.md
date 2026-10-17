@@ -12,6 +12,8 @@
 4. Confirm source/brief state before recording. Reimporting the fixture resets the local overlay; it must not happen between the baseline/edit/re-extraction steps.
 5. Choose recorded proof replay or an explicitly enabled new live run. State which is shown. A recorded real-provider result is not a new on-camera request.
 6. Check browser display manually. Automated dashboard HTTP/session smoke tests pass, but no controllable browser was available during implementation for visual QA.
+7. Start the live freshness watcher in a separate terminal and leave it running for the whole recording. It needs credentials; see [the freshness section](LIVE-WORKSPACE.md#freshness-does-the-graph-follow-plane-and-slack-edits):
+   `.\.venv\Scripts\python.exe -m wayfinder.company --graph wayfinder_company_live_demo --manifest data/live-workspace/manifest.json watch --slack --interval 60`
 
 ## Five-minute demonstration
 
@@ -23,7 +25,9 @@
 | 2:30–3:05 | Old brief validation failure, then replacement | Show the validator rejecting retired evidence/stale revision. Re-extract with the configured model or inspect the recorded real run. Show the different operator-only Decision, quote, target, LLM_EXTRACTED origin, and a valid replacement brief. |
 | 3:05–3:40 | FalkorDB capabilities | Inspect one full-text result, semantic_search result, source evidence, and EXPLAIN output. Copy an IMPLEMENTED_IN query into Browser. Similarity is one minus the pinned server's native cosine distance; it is not confidence. |
 | 3:40–4:30 | Approved Plane task | Prepare a narrow follow-up from the current brief. Display payload/hash, human approval, execute, then show the task's returned ID. A repeated execution must reuse the result. If using the stub, show a persistent **SIMULATED — no live Plane task created** label. |
-| 4:30–5:00 | Kubernetes appendix | Switch explicitly to `wayfinder_test_30d`. Show pkg/kubelet v2 expertise and KEP 1287 decisions. “The same engine supports scoped public engineering knowledge; Kubernetes data was not copied into Northstar.” |
+| 4:30–5:00 | Live freshness: Plane edit reaches the graph | Make the edit during the 3:40 segment: change one task's state in the live Plane project. Watch lag is about 60–90 s, so by 4:30 the watcher has synced. Show its log line (`updated: 1`, with the old and new state) and the Issue's new state with a Browser query on `wayfinder_company_live_demo`. “No re-import: the watcher polled Plane.” A description edit would also retain the previous text as a SourceRevision. Cite the [watch-mode probe](evidence/live-change-probe-watch.json): 15/15 checks, 62–85 s lag. |
+
+The Kubernetes appendix (`wayfinder_test_30d`, pkg/kubelet v2 expertise and KEP 1287 decisions) is now optional. Show it only if an earlier segment runs short. Narration: “The same engine supports scoped public engineering knowledge; Kubernetes data was not copied into Northstar.”
 
 ## Suggested MCP agent prompt
 
@@ -49,7 +53,7 @@ The controlled regression is runnable with `python -m wayfinder.company.action_c
 It uses an isolated disposable graph and a stub client; its saved evidence explicitly
 states that no live task was created. It does not approve a real task on the human's behalf.
 
-Use a synthetic sandbox manifest with the real workspace slug, actual allowed project IDs, and sandbox_project_id. Put PLANE_API_KEY in local `.env` or the process environment, never Git or a chat message. No key or live sandbox IDs were available during initial implementation, so do not claim a live Plane check has already passed.
+Use a synthetic sandbox manifest with the real workspace slug, actual allowed project IDs, and sandbox_project_id. Put PLANE_API_KEY in local `.env` or the process environment, never Git or a chat message. Plane credentials and the live sandbox IDs are now configured locally in the ignored `data/live-workspace/`. However, no human-approved agent task has been executed yet, so do not claim a live Plane action has passed.
 
 ```powershell
 .\.venv\Scripts\python.exe -m wayfinder.company --manifest data/sandbox.json check-plane
@@ -68,6 +72,7 @@ For an uncertain request outcome, reconcile the existing action rather than prep
 - [AI assistant use disclosure](AI-USE-DISCLOSURE.md), synthetic/fixture/live distinctions, and limitations.
 - Committed extraction evidence, Kubernetes compatibility comparison, native query plans, and MCP transcript.
 - Real approved Plane task evidence, or clearly simulated fallback.
+- Live freshness evidence ([inline](evidence/live-change-probe-inline.json), [watch](evidence/live-change-probe-watch.json)). Rebuild the [offline replay](../fixtures/live-replay/README.md) once from a clean clone with no `.env`.
 - Repository and video links accessible to judges; no credential files, API keys, private sandbox config, or sensitive backups committed.
 - Video playable from beginning to end; final track selections and submission fields complete before 11:59 PM IST.
 - No new feature work after noon October 18. Unfinished features are not claimed in the README or video.

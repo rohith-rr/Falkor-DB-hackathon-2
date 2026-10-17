@@ -2,6 +2,15 @@
 
 Wayfinder was developed with assistance from OpenAI Codex for architecture discussion, code implementation, documentation, debugging, test construction, and review. The project owner remains responsible for understanding the design, reviewing changes, validating behavior, and the final submission.
 
+Anthropic's Claude Code (Claude Opus 5.5) was used on October 17 for a judge-style project review and the work that followed:
+
+- The source-freshness layer: the sync change report, the `watch` command, and the live create/edit/delete change probe.
+- The scrubbed offline replay of the live Plane/Slack responses.
+- Fixes for four ingestion defects found by those tests.
+- This cleanup pass.
+
+Commits containing that work carry a `Co-Authored-By: Claude` trailer. The live probe and the recording read and wrote only the designated fictional sandbox. They made no LLM or embedding requests.
+
 The application uses the locally configured OpenRouter model for semantic extraction. The recorded live demonstration used **mistralai/mistral-nemo**. Its configured embedding model was **nvidia/nemotron-3-embed-1b:free**, dimension **2048**. These identify the recorded configuration, not guarantees about future provider availability, price, or account quota.
 
 ## Data and interpretation origins

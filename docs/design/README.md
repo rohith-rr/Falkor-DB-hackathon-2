@@ -57,4 +57,4 @@ The local dashboard targets the company graph. FalkorDB Browser can select eithe
 - **Evaluation target** means a proposed or configured acceptance criterion, not an achieved result.
 - **Limitation** means the reviewer should not infer a capability from a nearby feature.
 
-The original [Graph Ontology and Population Design](../../Wayfinder%20Graph%20Ontology%20and%20Population%20Design.md) remains a record of the initial design, including aspirations and earlier rules. This pack documents current behavior where those descriptions differ. Existing [company operations](../COMPANY.md), [MCP setup](../MCP.md), and [expertise operations](../EXPERTISE.md) guides cover running the application separately.
+The original [Graph Ontology and Population Design](../history/ontology-and-population-design-2026-10-12.md) remains a record of the initial design, including aspirations and earlier rules. This pack documents current behavior where those descriptions differ. Existing [company operations](../COMPANY.md), [MCP setup](../MCP.md), and [expertise operations](../EXPERTISE.md) guides cover running the application separately.

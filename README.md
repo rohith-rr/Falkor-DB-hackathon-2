@@ -15,6 +15,7 @@ An additional [live Plane/Slack sandbox](docs/LIVE-WORKSPACE.md) uses actual API
 - [Recording script and submission checklist](docs/DEMO.md).
 - [AI assistant and model-use disclosure](docs/AI-USE-DISCLOSURE.md).
 - [Verified implementation status and outstanding prerequisites](docs/IMPLEMENTATION-STATUS.md).
+- [Original October 12 ontology proposal](docs/history/ontology-and-population-design-2026-10-12.md), kept for history.
 
 ## Local setup
 

@@ -18,12 +18,10 @@ Snapshot: October 17, 2026. This report distinguishes implementation checks from
 | Live sandbox Wayfinder project revision | All 70 existing records verified against coherent Wayfinder tasks, documents, and staged discussions | Four Done/three In Progress/five Todo; 23 task dependencies; 22 current Slack-to-Plane links; IDs and authors retained; no model calls |
 | Live connector MCP navigation | Actual stdio session verified without provider requests | Separate wayfinder_company_live_demo; local verification transcript |
 | Live source change propagation | Create/edit/delete in real Plane and Slack verified in the graph, both with direct sync and with only the background watcher running | docs/evidence/live-change-probe-inline.json and live-change-probe-watch.json; 15/15 checks per mode; 62-85 s lag at a 90 s watch interval |
+| Offline rebuild of the live graph | Scrubbed recording of 104 real Plane/Slack responses replays through the connectors without credentials | fixtures/live-replay; current records match the live graph; tests/test_live_replay.py includes an identifier leak scan |
 | Live connector semantic extraction | Pending explicit approval to transfer eight selected source units to OpenRouter | Automatic approval review rejected the first launch before execution; zero setup model requests; provider-transfer-review.json contains the exact text |
 | Video/script/submission assets | Script, disclosure, setup, model, and query catalog provided | Owner must record/check/upload video and complete submission |
 
-The full suite passed 103 tests; subsequent targeted vector-invalidation and dashboard
-smoke checks passed two tests. All twelve read-only queries in the query catalog were
-executed against the demo graph; the action-write example was intentionally not executed.
-The additional vector-invalidation regression makes the current collected test count 104.
+The full suite passes 123 tests (October 17, after the freshness, replay and cleanup work), with fake inference keys and a local FalkorDB. All twelve read-only queries in the query catalog were executed against the demo graph. The action-write example was intentionally not executed.
 
 The feature cutoff is noon October 18 IST. At least the final four hours are protected for submission. No new PageRank/WCC/betweenness demonstration or interactive graph explorer is included. The later October 17 sandbox setup verified the existing live Plane/Slack ingestion paths and added repeatable source population. A live ADR-edit proof and a hash-approved agent-created Plane task are still separate from that seed setup.
