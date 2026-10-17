@@ -136,7 +136,14 @@ Agent navigation uses stable IDs, bounded neighbors/paths, thread inspection, so
 
 The existing action flow prepares an exact payload, records its hash, requires a human's approval outside MCP, revalidates cited evidence, then creates one task in an allowlisted fictional Plane sandbox. Repeated success returns the existing ID; uncertain outcomes reconcile instead of blindly posting again.
 
-Put PLANE_API_KEY only in local config. Real workspace/project IDs and an actual human-approved proposal are prerequisites for live execution. [Setup and commands](docs/DEMO.md#plane-action-prerequisite-and-fallback) are provided. Until live verification succeeds, controlled-stub tests are regression evidence only. A simulated video segment must say **SIMULATED - no live Plane task created**.
+This ran live on October 18 against the sandbox project ([evidence](docs/evidence/plane-action-live.json)):
+
+- A brief for Agent Review Workflow, built from the live graph, cited the extracted "require human approval" Decision.
+- The project owner approved the exact payload hash in a terminal.
+- `execute` created FALKORDBTE-16. A repeat returned the same task, and Plane lists exactly one.
+- The next sync ingested the task and linked it to ADR-002 and FALKORDBTE-11.
+
+Put PLANE_API_KEY only in local config. [Setup and commands](docs/DEMO.md#plane-action-prerequisite-and-fallback) are provided.
 
 ## Verification
 
