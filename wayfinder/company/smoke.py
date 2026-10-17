@@ -25,9 +25,16 @@ async def check(output):
             await call('knowledge_coverage',{})
             search=await call('search_entities',{'query':'Resource Allocation','labels':['Component'],'limit':2})
             cid=search['items'][0]['n']['id']
-            context=await call('company_context',{'component':cid,'limit':30})
-            await call('get_neighbors',{'entity_id':cid,'limit':30})
-            issue=next(r['entity']['id'] for r in context['related'] if 'Issue' in r['entity']['labels'])
+            context=await call('company_context',{'component':cid,'limit':20})
+            expertise=await call('who_knows',{'topic_or_dir':cid,'limit':10})
+            if not expertise['items'] or expertise['items'][0]['login']!='faye': raise RuntimeError('Unified code expertise missing')
+            await call('semantic_search',{'query':'reservation retry starvation','limit':5})
+            page=await call('get_neighbors',{'entity_id':cid,'limit':20})
+            neighbors=list(page['items'])
+            while page.get('next_cursor'):
+                page=await call('get_neighbors',{'entity_id':cid,'limit':20,'cursor':page['next_cursor']})
+                neighbors.extend(page['items'])
+            issue=next(r['m']['id'] for r in neighbors if 'Issue' in r['m']['labels'])
             await call('get_thread',{'entity_id':issue,'limit':20})
             for item in context['related']:
                 props=item['entity']['properties']
@@ -37,12 +44,13 @@ async def check(output):
             from ..db import DatabaseManager
             from .brief import draft_brief
             brief=draft_brief(DatabaseManager(graph_name='wayfinder_company_demo'),cid)
-            ids=[i for c in brief['decisions']+brief['concerns'] for i in c['evidence_ids']]
+            ids=list(dict.fromkeys(i for c in brief['decisions']+brief['concerns']+brief['contributors'] for i in c['evidence_ids']))
             await call('get_evidence',{'evidence_ids':ids})
             validation=await call('validate_review_brief',{'brief':brief})
             if not validation['valid']: raise RuntimeError('Brief evidence validation failed')
     output=Path(output); output.parent.mkdir(parents=True,exist_ok=True)
     output.write_text(json.dumps({'mode':'scripted_navigation_not_an_agent_accuracy_evaluation',
+        'at':__import__('datetime').datetime.now(__import__('datetime').timezone.utc).isoformat(),
         'brief':brief,'transcript':transcript},indent=2),encoding='utf-8')
     print(f'MCP investigation passed; transcript: {output}')
 

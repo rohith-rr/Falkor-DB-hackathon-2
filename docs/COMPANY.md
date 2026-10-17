@@ -13,11 +13,13 @@ From the repository root:
 .\.venv\Scripts\python.exe -m wayfinder.company fixture
 .\.venv\Scripts\python.exe -m wayfinder.company brief "Node Runtime" --output data/runtime-brief.json
 .\.venv\Scripts\python.exe -m wayfinder.company evaluate
-.\.venv\Scripts\python.exe -m wayfinder.company.smoke
 ```
 
 The fixture contains two teams, six people, two components, two projects, twelve work
 items, twenty issue comments, six pages, and thirty chat messages in six threads.
+It also contains eight synthetic GitHub PRs, three OWNERS files, a build bot,
+and explicit IMPLEMENTED_IN mappings to code directories. Directory expertise v2
+now works within this same company graph and contributes evidence to briefs.
 Fifty hand-authored interpretation labels demonstrate provenance and rule behavior.
 They are explicitly fixture annotations, not successful LLM extractions or independent
 measurements of model accuracy. Fixture URLs identify simulated records and may not
@@ -93,7 +95,7 @@ minutes, without overlapping instances. Check Task Scheduler for errors.
 ## Agent investigation through MCP
 
 Set `FALKORDB_GRAPH=wayfinder_company_demo` in the MCP client's environment and restart
-its server. The default server has 21 read-only tools and three prompts. Use
+its server. The default server has 22 database-read-only tools and three prompts. Use
 `review_component("Node Runtime")` or ask:
 
 > Investigate Resource Allocation. Navigate from owners to Plane work items, ADRs,
@@ -105,6 +107,15 @@ and validate the brief. `company_context` is an entry point, not permission to i
 links. `validate_review_brief` checks structure, IDs, URLs, current revisions and quote
 presence; it does not prove a summary follows from its quote. Component ownership is
 not code reviewer authorization. Company ticket/chat volume is not v2 code expertise.
+
+`semantic_search` explicitly makes one query-embedding request. Prepare demo indexes
+using `python -m wayfinder.company.capabilities`; use `--enable-live` to prepare real
+vectors and record native full-text/vector/EXPLAIN evidence. The company MCP smoke
+now includes semantic search and therefore makes one explicit embedding request:
+`python -m wayfinder.company.smoke`. It is not part of the zero-request offline path.
+
+See [local source overlay and recording instructions](DEMO.md), the
+[three-view dashboard setup](../README.md), and the [operational Cypher](QUERIES.md).
 
 ## Proposed Plane task and human approval
 

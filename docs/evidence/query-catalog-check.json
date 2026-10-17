@@ -1,0 +1,70 @@
+{
+  "at": "2026-10-17T09:31:43.449832+00:00",
+  "graph": "wayfinder_company_demo",
+  "checks": [
+    {
+      "query": "MATCH (c:Component {id:$component})-[m:IMPLEMENTED_IN]->(d:Directory)\nWHERE c.valid_to IS NULL AND m.valid_to IS NULL AND d.valid_to IS NULL\nRETURN c.id,d.id,d.repo,d.path",
+      "rows": 1,
+      "passed": true
+    },
+    {
+      "query": "MATCH (state:ExpertiseState {id:'expertise:directory:published'})\nMATCH (component:Component {id:$component})-[mapping:IMPLEMENTED_IN]->(root:Directory)\nWHERE component.valid_to IS NULL AND mapping.valid_to IS NULL AND root.valid_to IS NULL\nWITH state,collect(DISTINCT {id:root.id,path:root.path,repo:root.repo}) AS roots\nMATCH (c:ExpertiseContribution {generation:state.generation})\nMATCH (p:Person {id:c.person_id})\nWHERE p.valid_to IS NULL AND coalesce(p.is_deleted,false)=false AND coalesce(p.is_bot,false)=false\nAND any(root IN roots WHERE c.repo=root.repo AND\n  (c.directory_id=root.id OR c.path=root.path OR root.path='' OR c.path STARTS WITH (root.path+'/')))\nRETURN DISTINCT c.record_json AS contribution,p.id AS person_id,p.login AS login",
+      "rows": 22,
+      "passed": true
+    },
+    {
+      "query": "MATCH (p:Person)-[r:OWNS_COMPONENT]->(c:Component {id:$component})\nWHERE p.valid_to IS NULL AND r.valid_to IS NULL\nRETURN p,r,c",
+      "rows": 2,
+      "passed": true
+    },
+    {
+      "query": "MATCH path=(c:Component {id:$component})-[*1..5]-(p:Person {id:$person})\nWHERE all(r IN relationships(path) WHERE r.valid_to IS NULL)\nAND all(n IN nodes(path) WHERE n.valid_to IS NULL AND coalesce(n.is_deleted,false)=false)\nRETURN path ORDER BY length(path) LIMIT 10",
+      "rows": 10,
+      "passed": true
+    },
+    {
+      "query": "MATCH (source)-[assertion:ASSERTS]->(claim {id:$claim})\nWHERE assertion.valid_to IS NULL AND claim.valid_to IS NULL\nMATCH (revision:SourceRevision {id:claim.source_revision_id})\nRETURN source.id,source.source_url,claim,revision.text_content,\n       source.source_revision_id=claim.source_revision_id AS current_revision",
+      "rows": 1,
+      "passed": true
+    },
+    {
+      "query": "MATCH (concern:Argument {kind:'concern'})-[raised:RAISES_CONCERN_ON]->(target {id:$component})\nWHERE concern.valid_to IS NULL AND raised.valid_to IS NULL\nRETURN concern.id,concern.summary,concern.status,\n       concern.resolution_evidence_ids,concern.resolution_rule_version",
+      "rows": 1,
+      "passed": true
+    },
+    {
+      "query": "MATCH (resolution:Argument {kind:'resolution'})-[r:RESOLVES]->(concern:Argument {id:$concern})\nMATCH (person:Person)-[made:MADE]->(resolution)\nMATCH (source)-[assertion:ASSERTS]->(resolution)\nWHERE r.valid_to IS NULL AND made.valid_to IS NULL AND assertion.valid_to IS NULL\nAND resolution.valid_to IS NULL AND source.valid_to IS NULL AND person.valid_to IS NULL\nAND coalesce(source.is_deleted,false)=false AND coalesce(person.is_bot,false)=false\nRETURN person.id,resolution.source_timestamp,r.evidence_quote,\n       coalesce(source.body_text,source.text_content),source.id",
+      "rows": 0,
+      "passed": true
+    },
+    {
+      "query": "CALL db.idx.fulltext.queryNodes('Argument', $query) YIELD node,score\nWHERE node.valid_to IS NULL\nRETURN node,score ORDER BY score DESC LIMIT 10",
+      "rows": 4,
+      "passed": true
+    },
+    {
+      "query": "CALL db.idx.vector.queryNodes('Argument','embedding',$k,vecf32($vector)) YIELD node,score\nWHERE node.valid_to IS NULL AND coalesce(node.is_deleted,false)=false\nAND node.embedding_model=$model AND node.embedding_dim=$dim\nRETURN node,score ORDER BY score ASC LIMIT $limit",
+      "rows": 2,
+      "passed": true
+    },
+    {
+      "query": "MATCH (seed:Argument {id:'company:northstar:claim:pc7'})\nWITH seed.embedding AS vector\nCALL db.idx.vector.queryNodes('Argument','embedding',10,vector) YIELD node,score\nWHERE node.valid_to IS NULL\nRETURN node,score ORDER BY score ASC LIMIT 10",
+      "rows": 2,
+      "passed": true
+    },
+    {
+      "query": "CALL db.indexes()",
+      "rows": 44,
+      "passed": true
+    },
+    {
+      "query": "MATCH (source {id:$unit})\nOPTIONAL MATCH (source)-[assertion:ASSERTS]->(claim)\nRETURN source.source_revision_id,source.semantic_stale,source.extraction_version,\n       claim.id,claim.valid_to,assertion.valid_to",
+      "rows": 2,
+      "passed": true
+    },
+    {
+      "query": "MATCH (a:Action {id:$id}) WHERE a.status='approved'\nSET a.status='executing' RETURN a.id",
+      "status": "write example intentionally not executed"
+    }
+  ]
+}

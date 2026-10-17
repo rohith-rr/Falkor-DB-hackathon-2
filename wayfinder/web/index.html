@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wayfinder · Company Brain</title><link rel="stylesheet" href="/assets/style.css"><script src="/assets/app.js" defer></script></head>
+<body>
+<aside class="sidebar"><a class="brand" href="/">W<span>WAYFINDER</span></a><div class="workspace">NORTHSTAR<br><span>Company knowledge lab</span></div>
+<nav aria-label="Views"><button class="nav active" data-view="proof">01 <span>Live proof</span></button><button class="nav" data-view="expertise">02 <span>Expertise</span></button><button class="nav" data-view="capabilities">03 <span>FalkorDB capabilities</span></button></nav>
+<div class="side-note"><span class="dot"></span> FICTIONAL SANDBOX<p>Connected evidence.<br>Inspectable decisions.</p><small>Plane · Slack · GitHub<br>FalkorDB context layer</small></div></aside>
+<main><header><div><div class="eyebrow">COMPANY BRAIN / EVIDENCE WORKSPACE</div><h1 id="title">A decision you can trace.</h1></div><div class="graph-pill" id="graph">Connecting…</div></header>
+<div class="scope"><span>Component</span><select id="component" aria-label="Component"><option value="company:northstar:component:resource-allocation">Resource Allocation</option><option value="company:northstar:component:node-runtime">Node Runtime</option></select><span class="scope-note">Synthetic source records · real graph queries</span><button id="refresh" class="quiet">Refresh</button></div>
+<div id="notice" role="status" class="notice">Loading evidence…</div>
+<div class="layout"><div class="content">
+<section id="view-proof" class="view"><div class="section-head"><div><div class="eyebrow">SOURCE → REVISION → INTERPRETATION</div><h2>Watch knowledge change.</h2></div><span id="proof-badge" class="badge">Recorded run</span></div>
+<p class="intro">A local ADR overlay changes retry policy. OpenRouter extracts the Decision; source edits retire old claims before new meaning is published.</p>
+<div class="steps"><span>1 · Baseline</span><span>2 · Edit / pending</span><span>3 · Re-extract</span></div>
+<div id="proof-summary" class="metrics"></div><div class="two-col"><article class="card"><div class="eyebrow">BEFORE</div><h3>Bounded automatic retry</h3><blockquote id="before-quote">No baseline recorded.</blockquote><div id="before-meta" class="small"></div></article><article class="card"><div class="eyebrow">AFTER</div><h3>Operator-only retry</h3><blockquote id="after-quote">No replacement recorded.</blockquote><div id="after-meta" class="small"></div></article></div>
+<article class="card validation"><div class="eyebrow">SAFETY CHECK</div><h3>The old brief must fail.</h3><div id="validation"></div></article>
+<div class="controls"><button id="baseline" class="primary">Start real baseline</button><button id="edit">Ingest edit / inspect pending</button><button id="extract">Extract new Decision</button></div><p id="live-mode" class="small"></p>
+<details class="card"><summary>Inspect the complete proof log</summary><pre id="proof-log"></pre></details></section>
+<section id="view-expertise" class="view" hidden><div class="section-head"><div><div class="eyebrow">RESPONSIBILITY ≠ ACTIVITY</div><h2>Owners and evidence.</h2></div><span class="badge">Directory v2</span></div><p class="intro">Declared ownership and demonstrated file-review activity answer different questions. A ranking does not grant reviewer authorization.</p>
+<div id="owners" class="owner-list"></div><div id="rankings"></div><article class="card"><h3>Clocks, coverage, and confidence</h3><div id="clocks"></div><div id="coverage"></div></article></section>
+<section id="view-capabilities" class="view" hidden><div class="section-head"><div><div class="eyebrow">NATIVE FALKORDB / MEASURED RESULTS</div><h2>Query the connections.</h2></div><span class="badge">Read-only retrieval</span></div><p class="intro">Full-text, vector retrieval, and bounded paths use the database directly. Query plans and recorded results are inspectable below.</p>
+<div id="index-summary" class="metrics"></div><article class="card"><h3>Semantic discovery</h3><form id="semantic-form"><input id="semantic-query" value="reservation retry starvation" maxlength="4000" aria-label="Semantic query"><button class="primary" type="submit">Search meaning</button></form><p class="small">One explicitly requested query embedding, no retries. No database writes.</p><div id="semantic-results"></div></article>
+<div id="capability-results"></div><article class="card"><h3>Queries for FalkorDB Browser</h3><p class="small">Copy these into the company graph. The vector example uses a stored provider-generated embedding.</p><div id="queries"></div></article></section>
+</div><aside class="inspector"><div class="eyebrow">EVIDENCE INSPECTOR</div><h3>Follow the source.</h3><p class="small">Select a Decision, contributor, or search hit to inspect its stable ID and provenance.</p><div id="evidence"><span class="empty">No evidence selected</span></div></aside></div>
+<footer>Fictional company data. Real provider calls are explicitly labeled. Similarity and activity scores are not confidence or authorization.</footer></main>
+</body></html>

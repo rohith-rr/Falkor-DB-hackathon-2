@@ -4,9 +4,12 @@ Directory expertise now uses v2 scoring. See [expertise calculation, repair,
 review backfill and hourly refresh](EXPERTISE.md). Restart the MCP client/server
 after upgrading to load the new tools' scoring semantics.
 
-The local stdio server exposes **21 read-only tools**, two resources and three prompts.
+The local stdio server exposes **22 database-read-only tools**, two resources and three prompts.
 It uses the graph configured in the repository `.env` (`wayfinder_test_30d` for
-your pilot). It performs no ingestion, repair, LLM calls or embedding calls.
+your pilot). It performs no ingestion, repair, or generation calls. The explicit
+`semantic_search` tool makes one configured query-embedding request, without retries;
+other read tools make no provider requests. Use a client tool timeout of at least
+90 seconds for semantic search (provider timeout 60 seconds, followed by bounded reads).
 Your agent supplies reasoning; this server supplies graph facts and evidence.
 
 ## Install and check
@@ -45,7 +48,7 @@ Add this entry to your existing Codex `config.toml`; retain its other entries:
 command = 'E:\Falkor-DB hackathon 2\.venv\Scripts\python.exe'
 args = ['E:\Falkor-DB hackathon 2\wayfinder\mcp_server.py']
 startup_timeout_sec = 30
-tool_timeout_sec = 30
+tool_timeout_sec = 90
 ```
 
 Check with `codex mcp list`, then restart the agent session.
@@ -72,7 +75,8 @@ or your user Gemini settings. Do not replace unrelated settings:
     "wayfinder": {
       "command": "E:\\Falkor-DB hackathon 2\\.venv\\Scripts\\python.exe",
       "args": ["E:\\Falkor-DB hackathon 2\\wayfinder\\mcp_server.py"],
-      "timeout": 30000
+      "env": {"FALKORDB_GRAPH": "wayfinder_company_demo"},
+      "timeout": 90000
     }
   }
 }
@@ -95,6 +99,8 @@ in `.env`, not in client configurations or tool arguments.
 | `decisions`, `concerns`, `stale_findings` | Rationale, arguments, concern status, unresolved computed findings |
 | `graph_stats`, `graph_schema`, `knowledge_coverage` | Discover graph structure, retained/active counts and coverage limitations |
 | `search_entities`, `get_entity` | Resolve names to IDs; inspect properties, provenance and source text |
+| `semantic_search` | One explicit query embedding followed by native Topic/Argument/Comment vector retrieval; no database writes |
+| `company_context`, `validate_review_brief` | Inspect company component/code context and mechanically validate current evidence |
 | `get_neighbors`, `find_paths` | Navigate relationships and explain connections |
 | `get_evidence`, `get_thread` | Read original sources, authors, quotes and chronological discussions |
 | `person_context`, `component_context` | Explore people, ownership, expertise, collaborators, directory descendants and linked PRs |
@@ -102,7 +108,7 @@ in `.env`, not in client configurations or tool arguments.
 | `read_cypher` | Run custom parameterized read-only Cypher |
 
 Resources: `wayfinder://schema`, `wayfinder://coverage`.
-Prompts: `investigate_component(component)`, `explain_decision(target)`.
+Prompts: `investigate_component(component)`, `explain_decision(target)`, `review_component(component)`.
 The same schema and coverage information is available through tools for clients
 that do not use resources.
 

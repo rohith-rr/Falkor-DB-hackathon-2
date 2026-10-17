@@ -1,0 +1,37 @@
+{
+  "at": "2026-10-17T09:33:03.085579+00:00",
+  "full_suite": {
+    "passed": 103,
+    "elapsed_seconds": 221.15
+  },
+  "final_targeted_checks": {
+    "passed": 2,
+    "elapsed_seconds": 13.95
+  },
+  "current_test_collection_count": 104,
+  "kubernetes_final_comparison_unchanged": true,
+  "live_extraction": {
+    "successful": true,
+    "generation_requests": 2,
+    "embedding_requests": 3
+  },
+  "real_mcp_protocol_session": true,
+  "independent_agent_accuracy_evaluation": false,
+  "query_catalog": {
+    "read_queries_passed": 12,
+    "action_write_example_executed": false
+  },
+  "plane": {
+    "controlled_stub_regression": true,
+    "live_task_created": false,
+    "status": "awaiting credentials, sandbox IDs, exact human approval"
+  },
+  "dashboard": {
+    "http_session_smoke": true,
+    "javascript_syntax": true,
+    "visual_qa": false,
+    "visual_qa_reason": "No controllable browsers available"
+  },
+  "feature_cutoff_ist": "2026-10-18T12:00:00+05:30",
+  "deadline_ist": "2026-10-18T23:59:00+05:30"
+}

@@ -1,0 +1,21 @@
+{
+  "at": "2026-10-17T09:30:50.344517+00:00",
+  "mode": "controlled_stub_regression_NOT_live_Plane",
+  "live_task_created": false,
+  "contributor_count": 3,
+  "payload_hash": "1093d96db6c97224a4866f08dc988a42e5333faa152c02399260fec42070933e",
+  "unapproved_rejected": true,
+  "stale_evidence_rejected": true,
+  "first": {
+    "action_id": "action:plane:1093d96db6c97224a4866f08dc988a42e5333faa152c02399260fec42070933e",
+    "status": "executed",
+    "external_id": "SIMULATED-PLANE-WORK-ITEM"
+  },
+  "repeat": {
+    "action_id": "action:plane:1093d96db6c97224a4866f08dc988a42e5333faa152c02399260fec42070933e",
+    "status": "executed",
+    "external_id": "SIMULATED-PLANE-WORK-ITEM"
+  },
+  "stub_post_calls": 1,
+  "passed": true
+}

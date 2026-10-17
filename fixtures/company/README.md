@@ -6,6 +6,11 @@ not evidence that those records exist in a real account. Immutable SourceRevisio
 nodes preserve the actual evidence text for offline inspection.
 
 `manifest.json` declares identity mappings, component owners and explicit bindings.
+`github.json` adds eight synthetic PRs and three OWNERS files, processed by the
+normal GitHub parsers with explicit Northstar identities. IMPLEMENTED_IN connects
+components to code directories. Faye is the leading allocation file reviewer,
+while Dee and Eli remain declared owners. A persisted anchor drives fixture event
+dates; snapshot calculation time drives decay; actual UTC drives snapshot age.
 `sources.json` holds the source records and fifty hand-authored interpretation labels.
 `claim_labels.json` is the evidence-label catalog. `evaluation.json` freezes ten
 development questions and twenty separate held-out questions. Expected concepts are

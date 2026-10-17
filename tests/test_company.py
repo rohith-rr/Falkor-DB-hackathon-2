@@ -96,6 +96,14 @@ def test_local_proof_invalidates_old_decision_and_brief(db,tmp_path,monkeypatch)
     assert not completed['successful']  # A test double must never become live proof.
 
 
+def test_source_edit_clears_obsolete_vector(db):
+    db.upsert_node('Comment',{'id':'vector-edit','body_text':'Original source text for vector evidence.',
+        'embedding':[1.,0.,0.],'embedding_model':'old-model','embedding_dim':3,'embedding_text_hash':'old'})
+    db.upsert_node('Comment',{'id':'vector-edit','body_text':'Completely changed current source text.'})
+    row=db.graph.ro_query("MATCH (u:Comment {id:'vector-edit'}) RETURN u.embedding,u.embedding_model,u.embedding_dim,u.embedding_text_hash").result_set[0]
+    assert row==[None,None,None,None]
+
+
 def test_stale_quotes_and_wrong_urls_rejected(db):
     brief=draft_brief(db,'Node Runtime')
     broken=copy.deepcopy(brief); broken['decisions'][0]['source_urls']=['https://wrong.example/']
@@ -249,8 +257,8 @@ def test_actions_are_opt_in_and_no_approval_tool(db):
     from wayfinder.mcp_server import create_server
     regular=asyncio.run(create_server(db).list_tools())
     enabled=asyncio.run(create_server(db,enable_actions=True).list_tools())
-    assert len(regular)==21 and all(t.annotations.readOnlyHint for t in regular)
-    assert len(enabled)==23 and not any(t.name.startswith('approve') for t in enabled)
+    assert len(regular)==22 and all(t.annotations.readOnlyHint for t in regular)
+    assert len(enabled)==24 and not any(t.name.startswith('approve') for t in enabled)
 
 
 def test_approval_cannot_cover_changed_payload(db):

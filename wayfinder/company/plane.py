@@ -3,13 +3,15 @@ import os
 import time
 from urllib.parse import quote,urlparse,urljoin
 import httpx
+from pathlib import Path
+from dotenv import dotenv_values
 from .core import CompanyStore, html_text
 from ..models.common import now_iso
 
 
 class PlaneClient:
     def __init__(self,workspace,token=None,session=None):
-        token=token or os.getenv('PLANE_API_KEY')
+        token=token or os.getenv('PLANE_API_KEY') or dotenv_values(Path(__file__).resolve().parents[2]/'.env').get('PLANE_API_KEY')
         if not token: raise ValueError('Set PLANE_API_KEY for Plane Cloud access')
         self.workspace=workspace
         self.root=f'https://api.plane.so/api/v2/workspaces/{quote(workspace,safe="")}/'

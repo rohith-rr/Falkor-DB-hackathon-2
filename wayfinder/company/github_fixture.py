@@ -72,6 +72,9 @@ def ingest_github(db,manifest,clock=None):
         cid=f'company:{org}:component:{component}'; did=f'{namespace}:dir:{repo}:{path}'
         store.edge('Component',cid,'Directory',did,'IMPLEMENTED_IN','manifest',manifest['source_url'])
         store.edge('Repository',rid,'Directory',did,'CONTAINS','manifest',manifest['source_url'])
+        topic=f'company:{org}:topic:{component}'
+        store.node('Topic',topic,source='manifest',url=manifest['source_url'],name=component.replace('-',' ').title(),seed=True)
+        store.edge('Component',cid,'Topic',topic,'ABOUT_TOPIC','manifest',manifest['source_url'])
     store.coverage('github',f'fixture:{repo}','partial',count=8,mode='fixture',
         gaps=['Eight synthetic PRs, not live or complete repository activity.'])
     return {'repository':repo,'pull_requests':8,'anchor_at':anchor.isoformat(),

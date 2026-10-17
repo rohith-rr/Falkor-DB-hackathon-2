@@ -5,6 +5,8 @@
 data/raw/
 data/backups/
 data/sandbox*.json
+data/proof-runs/
+data/falkordb/
 __pycache__/
 *.py[cod]
 *$py.class

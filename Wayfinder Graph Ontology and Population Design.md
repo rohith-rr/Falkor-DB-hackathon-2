@@ -1,5 +1,7 @@
 # Wayfinder: Graph Ontology and Population Design
 
+For the current code-free application design, start with the [design review pack](docs/design/README.md), dated 17 October 2026. The original proposal below is retained for historical context; the review pack describes implemented behavior, evidence boundaries, and known limitations.
+
 Oct 12, 2026 · @Bhargav
 
 ## Implementation status (October 15, 2026)

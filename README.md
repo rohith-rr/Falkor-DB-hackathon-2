@@ -1,233 +1,153 @@
-# Wayfinder: Company Brain on FalkorDB
+# Wayfinder - Company Brain on FalkorDB
 
-Wayfinder is an evidence-backed engineering knowledge graph on **FalkorDB**. It supports scoped Kubernetes SIG Node imports and a separate fictional company sandbox using Plane Cloud Project Pages/work items and optional Slack. Import windows and coverage depend on each run; complete organizational activity is not guaranteed.
+Wayfinder connects people, component ownership, project work, documents, conversations, code changes, and decisions in one evidence-backed graph. An MCP agent can investigate a component, inspect who owns it versus who has relevant implementation/review activity, trace decisions to source revisions, and prepare a human-approved Plane follow-up.
 
-See [Company Brain setup, repairs, evaluation, and approved Plane actions](docs/COMPANY.md).
+**Tracks:** Company Brain; Agents That Act on Connected Data.
 
-The graph follows the three-layer architecture described in `Wayfinder Graph Ontology and Population Design.md`:
+The main demo uses **one graph, `wayfinder_company_demo`**. Northstar is fictional: Plane/Slack/GitHub-shaped records and source URLs are synthetic. The separate `wayfinder_test_30d` graph retains the Kubernetes engineering pilot; it is an optional thirty-second appendix, not data silently mixed into Northstar.
 
-| Layer | What it holds | Populated by | Trust level |
-| --- | --- | --- | --- |
-| **1. Structure** | People, SIGs, ownership, KEPs, feature gates, issues, PRs, reviews, comments, docs | Deterministic parsers over structured files + GitHub API | Confirmed (deterministic) |
-| **2. Meaning** | Topics, arguments, concerns, decisions, rationale, questions & answers | OpenAPI / OpenRouter LLM extraction with verbatim quote verification | Extracted (text proven, reading is the model's) |
-| **3. Derived** | Expertise, real working groups, review load, unresolved concerns, stale findings | Cypher rules + FalkorDB graph algorithms (PageRank, betweenness, WCC/CDLP) | Computed (reproducible from layers 1 and 2) |
+## Start here
 
----
+- [Design review pack](docs/design/README.md): architecture, ontology, provenance, lifecycle, agent/action design, evaluation, limitations; no implementation listings.
+- [Cypher the product depends on](docs/QUERIES.md): IMPLEMENTED_IN aggregation/deduplication, concern status, source invalidation, full-text/vector queries, paths, action guards.
+- [Recording script and submission checklist](docs/DEMO.md).
+- [AI assistant and model-use disclosure](docs/AI-USE-DISCLOSURE.md).
+- [Verified implementation status and outstanding prerequisites](docs/IMPLEMENTATION-STATUS.md).
 
-## 🛠️ Environment & Configuration
+## Local setup
 
-All dependencies, virtual environments, caches, and raw data are strictly located within `E:\Falkor-DB hackathon 2\` to keep the primary C: drive clean.
+Requires Python 3.11+, Docker/FalkorDB, and a terminal in this repository. There is no JavaScript build step and no public hosting requirement. The reviewed database image is `falkordb/falkordb:v4.20.7`.
 
-- **Virtual Environment**: `E:\Falkor-DB hackathon 2\.venv\`
-- **Pip Cache**: `E:\Falkor-DB hackathon 2\.cache\pip\`
-- **Extraction Cache**: `E:\Falkor-DB hackathon 2\.cache\extractions\`
-- **FalkorDB Instance**: Docker container running on `localhost:6379` (`falkordb/falkordb:v4.20.7`)
+If FalkorDB is not already serving localhost:6379, start it with persistent storage on E: (adjust the absolute path for another checkout):
 
-### Environment Variables (`.env`)
+```powershell
+New-Item -ItemType Directory -Force 'E:\Falkor-DB hackathon 2\data\falkordb'
+docker run -d --name wayfinder-db -p 127.0.0.1:6379:6379 -p 127.0.0.1:3000:3000 -v 'E:\Falkor-DB hackathon 2\data\falkordb:/data' falkordb/falkordb:v4.20.7
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+```
 
-Configure your settings in `.env`:
+Configure local `.env` (excluded from Git). Preserve the models/dimension already configured if using the existing workspace:
 
-```env
-# FalkorDB Docker Instance
+```dotenv
 FALKORDB_HOST=localhost
 FALKORDB_PORT=6379
-FALKORDB_GRAPH=wayfinder_sig_node
-
-# GitHub PAT (Personal Access Token)
-GITHUB_TOKEN=your_personal_access_token_here
-
-# OpenAPI / OpenAI-compatible LLM Spec (OpenRouter, OpenAI, LocalAI, vLLM, Ollama)
+FALKORDB_GRAPH=wayfinder_company_demo
 LLM_BASE_URL=https://openrouter.ai/api/v1
-LLM_API_KEY=your_openrouter_or_llm_api_key
-LLM_MODEL=openai/gpt-4o-mini
-
-# OpenAPI / OpenAI-compatible Embedding Spec
+LLM_API_KEY=YOUR_LOCAL_KEY
+LLM_MODEL=mistralai/mistral-nemo
 EMBEDDING_BASE_URL=https://openrouter.ai/api/v1
-EMBEDDING_API_KEY=your_embedding_api_key
-EMBEDDING_MODEL=text-embedding-3-small
-EMBEDDING_DIM=1536
-
-# Local storage configuration (strictly on Drive E)
+EMBEDDING_API_KEY=YOUR_LOCAL_KEY
+EMBEDDING_MODEL=nvidia/nemotron-3-embed-1b:free
+EMBEDDING_DIM=2048
 CACHE_DIR=E:/Falkor-DB hackathon 2/.cache
 DATA_DIR=E:/Falkor-DB hackathon 2/data
-
-# Extraction & Derived parameters
-EXTRACTOR_VERSION=v1.0.0
-REJECTION_THRESHOLD=0.30
-EXPERTISE_WINDOW_DAYS=180
-EXPERTISE_HALF_LIFE_DAYS=90
+EXPERTISE_WINDOW_DAYS=30
+EXPERTISE_HALF_LIFE_DAYS=15
 ```
 
----
+Provider availability and quota are account-dependent. Vector index dimension and stored vectors must match the configured embedding model. The application rejects dimension mismatches; it does not replace failed provider vectors with fake ones.
 
-## 🚀 Quickstart & CLI Commands
-
-Activate the environment:
-```powershell
-.\.venv\Scripts\Activate.ps1
-```
-
-### 1. Initialize Schema & Indexes
-Creates range indexes on all stable IDs, FalkorDB vector indexes on embeddings, and full-text indexes on titles & bodies:
-```powershell
-python -m wayfinder init
-```
-
-### 2. Run 7-Step Population Pipeline
-Executes the initial population order:
-1. Structured files (`sigs.yaml`, `OWNERS`, `kep.yaml`, `README.md`, feature gates, docs).
-2. GitHub activity (Issues, PRs, files, reviews, comments, Prow commands).
-3. Threads and cross-references (`#123`, `Fixes #123`, `KEP-1287`, URLs).
-4. Layer 2 extraction with deterministic quote verification and OpenAPI embeddings.
-5. Index verification.
-6. Layer 3 derived rules (expertise, paper owners, unlisted experts, PageRank, betweenness, working groups).
-7. Stale checks (`DOC_STAGE_MISMATCH`, `OWNER_INACTIVE`, etc.).
+### Offline baseline - no GitHub, Plane, Slack, or model requests
 
 ```powershell
-# Using bundled offline/seed SIG Node dataset:
-python -m wayfinder populate
-
-# Or using live GitHub API via your PAT token:
-python -m wayfinder populate --live --limit 50
+.\.venv\Scripts\python.exe -m wayfinder.company fixture
+.\.venv\Scripts\python.exe -m wayfinder.company.capabilities
+.\.venv\Scripts\python.exe -m wayfinder.company brief "Resource Allocation" --output data/allocation-brief.json
+.\.venv\Scripts\python.exe -m wayfinder.dashboard
 ```
 
-### 3. Inspect Graph Statistics
-```powershell
-python -m wayfinder stats
-```
+Open **http://127.0.0.1:8765**. The dashboard has exactly three views: Live proof/source history, Expertise, and FalkorDB capabilities. Read-only page loading makes no provider requests. Live controls require `--enable-live`. An archived proof is labeled when it no longer matches the current source. Committed evidence logs document a past real run, not a fresh run on each checkout.
 
-### 4. Query the Brain
+Fixture import reestablishes baseline source records and recalculates v2 code expertise. It resets a local ADR overlay, so do not rerun it between proof stages. A fresh offline import has no provider-generated vectors until explicit preparation.
 
-#### Who knows about a topic or directory?
-```powershell
-python -m wayfinder who-knows pkg/kubelet
-python -m wayfinder who-knows "in-place-resize"
-```
-
-#### Who owns a directory (Declared vs Behavioral)?
-Shows declared owners in `OWNERS`, flags **Paper Owners** (inactive in the last 180 days), and lists **Unlisted Experts** (top activity without an OWNERS entry):
-```powershell
-python -m wayfinder ownership pkg/kubelet
-```
-
-#### Why was a decision made?
-Returns KEP rationales (Motivation, Goals, Non-Goals, Alternatives Rejected), decisions made, and debate arguments with **verbatim supporting quotes**:
-```powershell
-python -m wayfinder decisions 1287
-```
-
-#### What concerns were raised and are they resolved?
-Tracks open, claimed-addressed, and resolved concerns:
-```powershell
-python -m wayfinder concerns 118234
-```
-
-#### What documentation or ownership is stale?
-Detects documentation stage mismatches, inactive owners, and unanswered questions:
-```powershell
-python -m wayfinder stale
-```
-
-### 5. Incremental Sync (10-minute cycles)
-Syncs newly updated activity, closes edges with `valid_to` upon cancellations or edits (preserving time-travel capability), and recomputes derived metrics:
-```powershell
-python -m wayfinder sync
-```
-
----
-
-## 🧪 Automated Test Suite
-
-Run all unit and integration tests (including live tests against the local FalkorDB Docker container):
+### Explicit real inference and capability preparation
 
 ```powershell
-python -m pytest -v
+# Real local-overlay proof, maximum 2 generation / 12 embedding requests, no retries:
+.\.venv\Scripts\python.exe -u -m wayfinder.company.live_proof --enable-live --output docs/evidence/another-live-run.json
+# Native retrieval showcase; at most 3 content embeddings plus 1 query embedding:
+.\.venv\Scripts\python.exe -u -m wayfinder.company.capabilities --enable-live
+# Real MCP protocol investigation, including semantic search (1 query embedding):
+.\.venv\Scripts\python.exe -u -m wayfinder.company.smoke docs/evidence/another-mcp-transcript.json
+# Enable explicit paid proof/search controls in the local dashboard:
+.\.venv\Scripts\python.exe -m wayfinder.dashboard --enable-live
 ```
 
-Tests include:
-- `test_models.py`: Provenance fields, content hashing, Layer 1, 2, and 3 schema validation.
-- `test_parsers.py`: Deterministic parsers for `sigs.yaml`, `OWNERS`, `kep.yaml`, feature gates Go code, doc pages, and Prow commands.
-- `test_verifier.py`: Deterministic verbatim quote verification and target ID constraints.
-- `test_llm_client.py`: OpenAPI / OpenRouter client configuration, deterministic fallback embeddings, and content-hash caching.
-- `test_layer3_derived.py`: 180-day window, 90-day decay half-life, and derived rules.
-- `test_falkordb_live.py`: Full end-to-end integration test against the local running FalkorDB Docker instance, validating population, Cypher queries, and "as of" time-travel queries.
+The live ADR changes from preserving reservations with at most two immediate retries to **disabling automatic retries and requiring an operator retry**. The runner exposes baseline -> edit/pending -> replacement. It records retired claims, the old brief's validation failure, and a valid replacement brief. No external Plane page is edited. [Staged recording commands](docs/DEMO.md#live-source-proof-commands) let the presenter pause at pending.
 
-Live population reads scoped OWNERS (including ancestors and descendants), aliases,
-SIG Node KEP metadata and READMEs, gate definitions at releases in the last year,
-and scoped documentation from GitHub. Configure `OWNERS_SCOPE` and `DOCS_SCOPE`
-as JSON lists of repository paths/prefixes. Live source failures propagate; fixture
-population remains available without `--live`. Activity defaults to all paginated
-results updated within the last year; `--limit` explicitly caps a pilot load.
+The committed [successful proof](docs/evidence/live-extraction-run.json) used the configured real model, two generation requests and three embeddings. [Native query evidence](docs/evidence/falkordb-capabilities.json) records actual full-text/vector results and EXPLAIN plans. Additional capability/client requests are separate from that proof's budget.
 
-Incremental sync stores its successful activity watermark in the graph, refreshes
-structured sources, and extracts new or edited eligible text. Unchanged units skip
-semantic writes. Missing LLM credentials skip extraction without caching an empty
-model result. Changed relationships retain their previous validity intervals;
-withdrawn approvals and retired semantic evidence are excluded from current rules.
+## Graph data model
 
-`tests/test_regressions.py` exercises vector retrieval, relationship time travel,
-extraction validation and edits, source provenance, answers and rationale links,
-ownership inheritance, stale-finding reconciliation, collaboration projections,
-GitHub pagination, live-source refresh, and incremental cursor failure handling.
+| Layer | Main records | Meaning |
+|---|---|---|
+| Structure | Person, Team, Component, Project, Issue, DocPage/DocSection, Comment/Thread, Repository, Directory/File, OwnersFile, PullRequest, Review | Source records, explicit responsibilities, code/change hierarchy, assignments, discussion and exact links |
+| Meaning | Argument (including concerns/resolutions), Decision, Rationale, Question, Topic | Quoted interpretations; baseline FIXTURE_ANNOTATION and real LLM_EXTRACTED remain distinguishable |
+| Derived/operational | ExpertiseContribution, ExpertiseSnapshot/State, SourceRevision/RawSourceRevision, SourceCoverage, ConcernStatusRevision, StaleFinding, Action | Versioned calculations, retained evidence, coverage, status changes, approved proposals |
 
-Ownership activity is reported as unknown when the import does not cover the
-configured expertise window. Uncapped live imports record coverage separately
-from the successful sync watermark; limited loads and searches reaching GitHub's
-1,000-result ceiling do not establish coverage. Inactivity findings describe
-absence of qualifying activity in the imported SIG Node scope, not all GitHub
-activity. Activity coverage must reach within the last day to support those
-findings. Positive activity evidence can establish an active owner even when
-coverage is incomplete.
+Core paths:
 
-To repair first-line rationale excerpts and HTML comment artifacts already
-stored by older versions, stop any ongoing sync and run:
+- Person -> OWNS_COMPONENT -> Component -> IMPLEMENTED_IN -> Directory.
+- Person -> APPROVER_IN / REVIEWER_IN -> OwnersFile -> COVERS -> Directory.
+- Project -> HAS_WORK_ITEM -> Issue -> CONCERNS_COMPONENT -> Component.
+- Project -> HAS_DOCUMENT -> DocPage -> DESCRIBES -> Component.
+- Thread -> HAS_COMMENT -> Comment -> ASSERTS -> Argument/Decision/Question.
+- PullRequest -> REFERENCES -> Plane Issue; PullRequest -> TOUCHES -> File.
+- Person -> EXPERT_IN -> Directory, with immutable per-generation contribution evidence.
+- Resolution Argument -> RESOLVES -> specific concern; Action -> BASED_ON -> evidence.
+
+Source revisions retain evidence text; changed source text retires prior meaning before re-extraction. CONFIRMED declarations, EXTRACTED interpretation, and COMPUTED signals are different authority categories. Exact quote presence does not prove semantic entailment. Relationship intervals support bounded history; mutable records are not complete historical snapshots.
+
+## One coherent fictional dataset
+
+Northstar contains two teams, six humans plus a synthetic build bot, two components, two Plane projects, twelve work items, twenty work-item comments, six pages, thirty chat messages in six threads, eight synthetic GitHub PRs, three OWNERS files, and fifty baseline interpretation annotations.
+
+Four allocation PRs are merged and one is open; two runtime PRs are merged and one is open. Dee authors three merged allocation PRs. **Faye is not an allocation owner but leads file-review expertise across four PRs.** Commands, PR-wide approvals, bots, self-review, and open-PR authorship do not inflate strong directory expertise. More than three supporting PRs means multiple observations, not calibrated confidence.
+
+Event dates are fixed offsets before a persisted dataset anchor. Decay uses the published snapshot's calculation time and configured half-life. Staleness uses actual UTC now; snapshots older than two hours are flagged. The UI displays all these clocks. Reimporting does not silently redate events.
+
+## Agent/MCP access
+
+Configure the client to launch `.venv\Scripts\python.exe` with the absolute path to `wayfinder\mcp_server.py`, and set its environment `FALKORDB_GRAPH=wayfinder_company_demo`. See [client setup](docs/MCP.md).
+
+The default server exposes **22 database-read-only tools**. `semantic_search` makes one explicitly requested embedding-provider call; other read tools make no model requests. Optional action mode exposes 24 tools total, including proposal preparation/execution but no approval-granting tool.
+
+Ask:
+
+> Investigate Resource Allocation. Confirm the graph and coverage, find declared owners, follow IMPLEMENTED_IN, rank code contributors, retrieve supporting PR/file-review evidence, inspect the ADR and unresolved starvation concern, use semantic_search, and validate a cited review brief. Explain owner versus expert and state missing evidence.
+
+Agent navigation uses stable IDs, bounded neighbors/paths, thread inspection, source revision/evidence retrieval, and custom database-enforced read-only Cypher. Calls have database timeouts, pagination, and output bounds. The saved [MCP transcript](docs/evidence/company-mcp-transcript.json) is a real protocol session using a scripted client, not independent agent accuracy evaluation.
+
+## Human-approved Plane action
+
+The existing action flow prepares an exact payload, records its hash, requires a human's approval outside MCP, revalidates cited evidence, then creates one task in an allowlisted fictional Plane sandbox. Repeated success returns the existing ID; uncertain outcomes reconcile instead of blindly posting again.
+
+Put PLANE_API_KEY only in local config. Real workspace/project IDs and an actual human-approved proposal are prerequisites for live execution. [Setup and commands](docs/DEMO.md#plane-action-prerequisite-and-fallback) are provided. Until live verification succeeds, controlled-stub tests are regression evidence only. A simulated video segment must say **SIMULATED - no live Plane task created**.
+
+## Verification
+
+Tests cover expertise inflation/exclusions, overlapping Component mappings, source-edit invalidation and stale brief rejection, labels, native vector metric/filtering, MCP navigation/read boundaries, action approval/idempotency, and dashboard HTTP/session smoke behavior. Normal tests use fake inference keys; integration tests require local FalkorDB and isolate their graph names.
 
 ```powershell
-python -m wayfinder.repair
+$env:LLM_API_KEY='sk-dummy-key'
+$env:EMBEDDING_API_KEY='sk-dummy-key'
+$env:EMBEDDING_DIM='1536'
+$env:EXPERTISE_WINDOW_DAYS='180'
+$env:EXPERTISE_HALF_LIFE_DAYS='90'
+.\.venv\Scripts\python.exe -m pytest -q
 ```
 
-This uses saved KEP sections, preserves model-extracted rationales, and
-recomputes ownership inactivity flags and findings. It makes no GitHub, LLM,
-or embedding API calls. Reference-source refreshes also use the revised parser.
+These overrides apply to this shell; use a fresh shell for the configured live demo. Never use an empty key as an offline-test override because dotenv can reload the live value.
 
-For a bounded activity test on a graph with reference data already populated:
+The saved [Kubernetes comparison](docs/evidence/kubernetes-ranking-compatibility.json) verifies identical rankings before/after shared processing changes at the same clock and published generation. The company demo is additive; the Kubernetes graph was not rebuilt.
 
-```powershell
-python -m wayfinder.pilot --days 30 --items 10 --extractions 20
-```
+## Limits and submission honesty
 
-The pilot reuses existing reference data, imports at most 10 activity items,
-and attempts extraction of at most 20 comments/reviews, skipping KEP and
-documentation sections. Use `--extractions 0` for an activity-only test without
-model calls. SDK retries and embedding calls are additional API requests.
-The item cap does not establish complete coverage for inactivity findings.
-Pilot extraction considers only comments/reviews dated inside the requested
-window and skips units already completed with the current pilot prompt revision.
-The pilot prompt cache is versioned separately from full reference extraction.
-Its diagnostics distinguish schema, quote, and target validation failures.
-Extraction sends the JSON schema as a strict API response format. On OpenRouter,
-provider routing requires support for that parameter; an unsupported endpoint
-fails explicitly rather than silently ignoring it. Answer IDs are constrained
-to actual Question nodes, and answers are disabled when no Question is present
-in the supplied context. Local quote and target verification still applies.
-Directory expertise queries include descendants (for example, expertise in
-`pkg/kubelet/prober` is returned when querying `pkg/kubelet`).
-Known bots, including `kubernetes-prow`, are excluded from human directory/topic
-expertise and unlisted-expert results. Recompute saved derived results without
-API calls using `python -m wayfinder.repair --derived-only`.
-Graph statistics count retained historical nodes and relationship intervals;
-`stale` shows only unresolved findings.
-GitHub activity search uses separate `is:pr` and `is:issue` queries because
-some token types return empty results for mixed GraphQL searches.
-# Company brain MCP server
-
-See [expertise scoring v2](docs/EXPERTISE.md) for repairing activity scores,
-backfilling file-specific reviews and configuring hourly offline refreshes.
-
-Wayfinder exposes a local read-only MCP server with 21 tools for knowledge
-queries, graph navigation, evidence retrieval and custom read-only Cypher.
-See [MCP setup and tool guide](docs/MCP.md) for Codex, Claude and Gemini setup.
-
-```powershell
-.\.venv\Scripts\python.exe -m wayfinder.mcp_smoke
-```
+- Synthetic fixtures demonstrate integration, not organizational truth or measured LLM precision. Live extraction evidence is identified separately.
+- Partial coverage means missing activity/closure is unknown. Rankings do not establish competence, availability, or reviewer authorization.
+- The pinned FalkorDB vector procedure returns cosine distance; product similarity is 1 - distance. Similarity is not confidence.
+- Company ingestion is not globally atomic. Source permissions, confidential multiuser access, retention/erasure, and complete history are not implemented.
+- The dashboard is localhost-only. Visual browser verification was unavailable during implementation; perform the pre-recording check.
+- No new PageRank/WCC/betweenness demo or interactive graph explorer is included. Browser queries and bounded current paths demonstrate connections.
+- Live Plane creation, video recording/upload, and final submission require the owner's configured sandbox and review. See the [status report](docs/IMPLEMENTATION-STATUS.md).

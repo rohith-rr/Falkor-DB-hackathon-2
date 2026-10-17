@@ -196,6 +196,7 @@ class ExtractionPipeline:
             props = dict(provenance, id=ident, **{k: v for k, v in item.items() if k != 'topics' and v is not None})
             props['source_timestamp'] = source_timestamp or now
             if label == 'Argument':
+                props.update(embedding_model=getattr(self.llm,'embedding_model',None),embedding_dim=getattr(self.llm,'embedding_dim',None))
                 props['embedding'] = self.llm.get_embedding(item['summary'])
             if label == 'Question':
                 props['asked_at'] = source_timestamp or now
@@ -223,12 +224,14 @@ class ExtractionPipeline:
             for name in item.get('topics', []):
                 if not name.strip():
                     continue
-                tid = f"k8s:topic:{name.lower().replace(' ', '-')}"
-                nodes.append(('Topic', dict(provenance, id=tid, name=name, embedding=self.llm.get_embedding(name))))
+                tid = f"{namespace}:topic:{name.lower().replace(' ', '-')}"
+                nodes.append(('Topic', dict(provenance, id=tid, name=name, embedding=self.llm.get_embedding(name),
+                    embedding_model=getattr(self.llm,'embedding_model',None),embedding_dim=getattr(self.llm,'embedding_dim',None))))
                 edge(label, ident, 'Topic', tid, 'ABOUT_TOPIC', quote)
                 edge(unit_type, unit_id, 'Topic', tid, 'ABOUT_TOPIC', quote)
         if unit_type == 'Comment':
-            nodes.append((unit_type, {'id': unit_id, 'embedding': self.llm.get_embedding(text)}))
+            nodes.append((unit_type, {'id': unit_id, 'embedding': self.llm.get_embedding(text),
+                'embedding_model':getattr(self.llm,'embedding_model',None),'embedding_dim':getattr(self.llm,'embedding_dim',None)}))
         from .publication import publish
         publish(self.db, unit_id, unit_type, text, revision_id, nodes, edges,
                 expected=res.result_set[0][0] if res.result_set else None,

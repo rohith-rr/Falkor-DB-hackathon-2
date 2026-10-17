@@ -152,7 +152,8 @@ class DatabaseManager:
             self.query(f'MATCH (u:{label} {{id:$id}}) WHERE coalesce(u.body_text,u.text_content) IS NOT NULL '
                 'AND coalesce(u.body_text,u.text_content)<>$text '
                 "OPTIONAL MATCH (u)-[r:ASSERTS]->(claim) WHERE r.authority='EXTRACTED' AND r.valid_to IS NULL "
-                'SET u.semantic_stale=true,u.extraction_version=null,r.valid_to=$now,claim.valid_to=$now '
+                'SET u.semantic_stale=true,u.extraction_version=null,u.embedding=null,u.embedding_model=null,'
+                'u.embedding_dim=null,u.embedding_text_hash=null,r.valid_to=$now,claim.valid_to=$now '
                 'WITH claim OPTIONAL MATCH (claim)-[e]-() WHERE e.valid_to IS NULL SET e.valid_to=$now',
                 {'id':node_id,'text':source_text,'now':now_iso()})
         

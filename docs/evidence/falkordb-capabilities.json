@@ -1,0 +1,1259 @@
+{
+  "at": "2026-10-17T09:19:01.840518+00:00",
+  "graph": "wayfinder_company_demo",
+  "schema": {
+    "at": "2026-10-17T09:18:59.943511+00:00",
+    "graph": "wayfinder_company_demo",
+    "indexes": [
+      {
+        "label": "ReviewThreadCoverage",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "ActivityCoverage",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "SyncSource",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "SyncState",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "Action",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "StaleFinding",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "Community",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "Release",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "FeatureGate",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "KEPSection",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "KEP",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "Subproject",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "SIG",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "ConcernStatusRevision",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "SourceLink",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "Attachment",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "Topic",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "Topic",
+        "properties": [
+          "name"
+        ],
+        "types": [
+          "FULLTEXT"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "Topic",
+        "properties": [
+          "embedding"
+        ],
+        "types": [
+          "VECTOR"
+        ],
+        "options": {
+          "dimension": 2048,
+          "similarityFunction": "cosine",
+          "M": 16,
+          "efConstruction": 200,
+          "efRuntime": 10
+        },
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "ExpertiseContribution",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "ExpertiseSnapshot",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "ExpertiseState",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "File",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "Review",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "PullRequest",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "Repository",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "Directory",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "OwnersFile",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "DemoDataset",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "RawSourceRevision",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "Question",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "Decision",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "Rationale",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "Argument",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "Argument",
+        "properties": [
+          "summary"
+        ],
+        "types": [
+          "FULLTEXT"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "Argument",
+        "properties": [
+          "embedding"
+        ],
+        "types": [
+          "VECTOR"
+        ],
+        "options": {
+          "dimension": 2048,
+          "similarityFunction": "cosine",
+          "M": 16,
+          "efConstruction": 200,
+          "efRuntime": 10
+        },
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "DocSection",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "DocPage",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "SourceCoverage",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "Comment",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "Comment",
+        "properties": [
+          "body_text"
+        ],
+        "types": [
+          "FULLTEXT"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "Comment",
+        "properties": [
+          "embedding"
+        ],
+        "types": [
+          "VECTOR"
+        ],
+        "options": {
+          "dimension": 2048,
+          "similarityFunction": "cosine",
+          "M": 16,
+          "efConstruction": 200,
+          "efRuntime": 10
+        },
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "Thread",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "Issue",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "SourceRevision",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "Project",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "Component",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "Team",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "Person",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "Organization",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      }
+    ],
+    "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+    "embedding_dim": 2048
+  },
+  "vector_preparation": {
+    "embedding_requests": 2,
+    "records": [
+      {
+        "id": "k8s:topic:reservation-fairness",
+        "label": "Topic",
+        "origin": "cached_live_provider",
+        "text": "Reservation Fairness"
+      },
+      {
+        "id": "company:northstar:claim:pc7",
+        "label": "Argument",
+        "origin": "live_provider",
+        "text": "I am concerned that resize retry can starve existing reservations."
+      },
+      {
+        "id": "plane:northstar:comment:pc7",
+        "label": "Comment",
+        "origin": "live_provider",
+        "text": "I am concerned that resize retry can starve existing reservations."
+      }
+    ]
+  },
+  "query_embedding_requests": 1,
+  "total_embedding_requests": 3,
+  "fulltext": {
+    "query": "CALL db.idx.fulltext.queryNodes('Argument', $query) YIELD node,score WHERE node.valid_to IS NULL RETURN node,score ORDER BY score DESC LIMIT 10",
+    "parameters": {
+      "query": "reservation"
+    },
+    "result": {
+      "graph": "wayfinder_company_demo",
+      "items": [
+        {
+          "node": {
+            "id": "company:northstar:claim:pc17",
+            "labels": [
+              "Argument"
+            ],
+            "properties": {
+              "id": "company:northstar:claim:pc17",
+              "source_system": "fixture-annotation",
+              "source_url": "https://app.plane.so/northstar-demo/projects/runtime/work-items/w5#comment-pc17",
+              "source_ref": "company:northstar:claim:pc17",
+              "observed_at": "2026-10-17T09:09:59.197111+00:00",
+              "organization_id": "northstar",
+              "synthetic": true,
+              "is_deleted": false,
+              "summary": "Capacity testing needs a reservation fairness case.",
+              "evidence_quote": "Capacity testing needs a reservation fairness case.",
+              "source_revision_id": "source-revision:plane:northstar:comment:pc17:faf17035e3d08046029753cf2c9eb79cb6b9df2f327d5dc710c44b5a4f0ba8ce",
+              "source_timestamp": "2026-10-15T09:16:00+00:00",
+              "kind": "explanation",
+              "annotation_origin": "hand_authored_demo"
+            }
+          },
+          "score": 7.0
+        },
+        {
+          "node": {
+            "id": "company:northstar:claim:chat-3-2",
+            "labels": [
+              "Argument"
+            ],
+            "properties": {
+              "id": "company:northstar:claim:chat-3-2",
+              "source_system": "fixture-annotation",
+              "source_url": "https://app.slack.com/archives/CDEMO/p1792060260000001",
+              "source_ref": "company:northstar:claim:chat-3-2",
+              "observed_at": "2026-10-17T09:09:59.405984+00:00",
+              "organization_id": "northstar",
+              "synthetic": true,
+              "is_deleted": false,
+              "summary": "Unlimited retry was rejected because it can starve reservations.",
+              "evidence_quote": "Unlimited retry was rejected because it can starve reservations.",
+              "source_revision_id": "source-revision:slack:northstar:comment:CDEMO:1792060260.000001:f088f84e4bbc9cdd14da5f5a8d6eb6808c1627b16a7585abbf4775a0d410c40b",
+              "source_timestamp": "2026-10-15T10:17:00+00:00",
+              "kind": "explanation",
+              "annotation_origin": "hand_authored_demo"
+            }
+          },
+          "score": 2.0
+        },
+        {
+          "node": {
+            "id": "company:northstar:claim:chat-2-1",
+            "labels": [
+              "Argument"
+            ],
+            "properties": {
+              "id": "company:northstar:claim:chat-2-1",
+              "source_system": "fixture-annotation",
+              "source_url": "https://app.slack.com/archives/CDEMO/p1792059630000001",
+              "source_ref": "company:northstar:claim:chat-2-1",
+              "observed_at": "2026-10-17T09:09:59.372466+00:00",
+              "organization_id": "northstar",
+              "synthetic": true,
+              "is_deleted": false,
+              "summary": "The allocation ADR prioritizes existing reservations.",
+              "evidence_quote": "The allocation ADR prioritizes existing reservations.",
+              "source_revision_id": "source-revision:slack:northstar:comment:CDEMO:1792059630.000001:3170b17c9cce39eb10c37488db0a2628e4428f23488ebf9088b1ab436730e159",
+              "source_timestamp": "2026-10-15T10:11:00+00:00",
+              "kind": "explanation",
+              "annotation_origin": "hand_authored_demo"
+            }
+          },
+          "score": 2.0
+        },
+        {
+          "node": {
+            "id": "company:northstar:claim:pc7",
+            "labels": [
+              "Argument"
+            ],
+            "properties": {
+              "id": "company:northstar:claim:pc7",
+              "source_system": "fixture-annotation",
+              "source_url": "https://app.plane.so/northstar-demo/projects/allocation/work-items/w7#comment-pc7",
+              "source_ref": "company:northstar:claim:pc7",
+              "observed_at": "2026-10-17T09:09:59.213697+00:00",
+              "organization_id": "northstar",
+              "synthetic": true,
+              "is_deleted": false,
+              "summary": "I am concerned that resize retry can starve existing reservations.",
+              "evidence_quote": "I am concerned that resize retry can starve existing reservations.",
+              "source_revision_id": "source-revision:plane:northstar:comment:pc7:ca0943b8c29cf50192cc7e10490c9367d7c2f9be210e2be062656339afe262e3",
+              "source_timestamp": "2026-10-15T09:06:00+00:00",
+              "kind": "concern",
+              "target_id": "company:northstar:component:resource-allocation",
+              "annotation_origin": "hand_authored_demo",
+              "status": "open",
+              "resolution_rule_version": "explicit-resolution-v2",
+              "resolution_evidence_ids": []
+            }
+          },
+          "score": 1.0
+        }
+      ],
+      "count": 4,
+      "truncated": false,
+      "note": "Custom Cypher controls temporal predicates. Add LIMIT to bound database materialization; use SKIP or keyset filters for continuation."
+    },
+    "explain": "Results\n    Limit\n        Sort\n            Project\n                Filter\n                    ProcedureCall"
+  },
+  "vector": {
+    "query": "CALL db.idx.vector.queryNodes('Argument', 'embedding', 10, vecf32($vector)) YIELD node,score WHERE node.valid_to IS NULL RETURN node,score LIMIT 10",
+    "query_text": "reservation retry starvation",
+    "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+    "result": {
+      "graph": "wayfinder_company_demo",
+      "query": null,
+      "items": [
+        {
+          "entity": {
+            "id": "company:northstar:claim:pc7",
+            "labels": [
+              "Argument"
+            ],
+            "properties": {
+              "id": "company:northstar:claim:pc7",
+              "source_system": "fixture-annotation",
+              "source_url": "https://app.plane.so/northstar-demo/projects/allocation/work-items/w7#comment-pc7",
+              "source_ref": "company:northstar:claim:pc7",
+              "observed_at": "2026-10-17T09:09:59.213697+00:00",
+              "organization_id": "northstar",
+              "synthetic": true,
+              "is_deleted": false,
+              "summary": "I am concerned that resize retry can starve existing reservations.",
+              "evidence_quote": "I am concerned that resize retry can starve existing reservations.",
+              "source_revision_id": "source-revision:plane:northstar:comment:pc7:ca0943b8c29cf50192cc7e10490c9367d7c2f9be210e2be062656339afe262e3",
+              "source_timestamp": "2026-10-15T09:06:00+00:00",
+              "kind": "concern",
+              "target_id": "company:northstar:component:resource-allocation",
+              "annotation_origin": "hand_authored_demo",
+              "status": "open",
+              "resolution_rule_version": "explicit-resolution-v2",
+              "resolution_evidence_ids": []
+            }
+          },
+          "native_distance": 0.338671922683716,
+          "score": 0.661328077316284
+        },
+        {
+          "entity": {
+            "id": "plane:northstar:comment:pc7",
+            "labels": [
+              "Comment"
+            ],
+            "properties": {
+              "id": "plane:northstar:comment:pc7",
+              "source_system": "plane",
+              "source_url": "https://app.plane.so/northstar-demo/projects/allocation/work-items/w7#comment-pc7",
+              "source_ref": "pc7",
+              "source_updated_at": "2026-10-15T09:06:00+00:00",
+              "observed_at": "2026-10-17T09:09:58.443405+00:00",
+              "organization_id": "northstar",
+              "synthetic": true,
+              "sync_scope": "plane:northstar:issue:w7:comments",
+              "is_deleted": false,
+              "created_at": "2026-10-15T09:06:00+00:00",
+              "kind": "issue",
+              "text_content": "I am concerned that resize retry can starve existing reservations.",
+              "body_text": "I am concerned that resize retry can starve existing reservations.",
+              "content_hash": "c595ad8211018be37d214e192d5e415e92a576f61b2cc010c0034aaeaa1519be",
+              "source_revision_id": "source-revision:plane:northstar:comment:pc7:ca0943b8c29cf50192cc7e10490c9367d7c2f9be210e2be062656339afe262e3",
+              "raw_html": "<p>I am concerned that resize retry can starve existing reservations.</p>",
+              "raw_revision_id": "raw-revision:plane:northstar:comment:pc7:d0324b17602ebeaeae63f747662b20c5fc0aef2c2fe4a465245bbd5a48547d04",
+              "activity_category": "discussion",
+              "is_command": false,
+              "commands": [],
+              "attribution": "pr_wide"
+            }
+          },
+          "native_distance": 0.338671922683716,
+          "score": 0.661328077316284
+        },
+        {
+          "entity": {
+            "id": "k8s:topic:reservation-fairness",
+            "labels": [
+              "Topic"
+            ],
+            "properties": {
+              "id": "k8s:topic:reservation-fairness",
+              "source_system": "llm-extraction",
+              "source_url": "https://app.plane.so/northstar-demo/projects/allocation/pages/adr-allocation",
+              "source_ref": "adr-allocation",
+              "observed_at": "2026-10-17T09:13:09.240016+00:00",
+              "valid_from": "2026-10-17T09:13:09.240016+00:00",
+              "extractor_version": "live-proof-46dc8f685ab8438ca4398b8d4c2b8839",
+              "source_unit_id": "plane:northstar:page:adr-allocation:section:0",
+              "content_hash": "fc15fe913a19c36b5ccd13087a1f296b350f319f9aa2a671b4b82f767a07f59c",
+              "source_revision_id": "source-revision:plane:northstar:page:adr-allocation:section:0:45ab47e132ede5d892e3f0102febc15ef0e470bce892333ae14107e0a9401f53",
+              "authority": "EXTRACTED",
+              "link_method": "LLM_EXTRACTED",
+              "name": "Reservation Fairness"
+            }
+          },
+          "native_distance": 0.504557371139526,
+          "score": 0.49544262886047397
+        },
+        {
+          "entity": {
+            "id": "company:northstar:claim:chat-0-1",
+            "labels": [
+              "Argument"
+            ],
+            "properties": {
+              "id": "company:northstar:claim:chat-0-1",
+              "source_system": "fixture-annotation",
+              "source_url": "https://app.slack.com/archives/CDEMO/p1792058430000001",
+              "source_ref": "company:northstar:claim:chat-0-1",
+              "observed_at": "2026-10-17T09:09:59.314794+00:00",
+              "organization_id": "northstar",
+              "synthetic": true,
+              "is_deleted": false,
+              "summary": "The bounded cancellation ADR sets five seconds.",
+              "evidence_quote": "The bounded cancellation ADR sets five seconds.",
+              "source_revision_id": "source-revision:slack:northstar:comment:CDEMO:1792058430.000001:fb054dedb6b41e38de97ce0748396dc06be86204e20e4434d13e6e5cd456a416",
+              "source_timestamp": "2026-10-15T10:01:00+00:00",
+              "kind": "explanation",
+              "annotation_origin": "hand_authored_demo"
+            }
+          },
+          "native_distance": 0.907466053962708,
+          "score": 0.09253394603729204
+        },
+        {
+          "entity": {
+            "id": "github:northstar:comment:northstar-demo/engineering:IC101approval",
+            "labels": [
+              "Comment"
+            ],
+            "properties": {
+              "id": "github:northstar:comment:northstar-demo/engineering:IC101approval",
+              "source_system": "github",
+              "source_url": "https://github.com/northstar-demo/engineering/pull/101#issuecomment-10102",
+              "source_ref": "northstar-demo/engineering#comment:IC101approval",
+              "observed_at": "2026-10-17T09:09:59.562940+00:00",
+              "valid_from": "2026-10-13T08:09:59.453059+00:00",
+              "is_deleted": false,
+              "kind": "review",
+              "created_at": "2026-10-13T08:09:59.453059+00:00",
+              "body_ref": "github:northstar:comment:northstar-demo/engineering:IC101approval#body",
+              "body_text": "/approve\nfor API bits only",
+              "is_command": false,
+              "commands": [
+                "approve"
+              ],
+              "activity_category": "mixed",
+              "attribution": "pr_wide",
+              "pr_id": "github:northstar:pr:northstar-demo/engineering:101",
+              "synthetic": true,
+              "organization_id": "northstar",
+              "data_mode": "fixture",
+              "fixture_dataset": "company:northstar:github-fixture:v1",
+              "source_revision_id": "source-revision:github:northstar:comment:northstar-demo/engineering:IC101approval:543e0fc462bdb3d9449665aff3f33b6e1cf33028bf3927c09b906660f927ff41"
+            }
+          },
+          "native_distance": 0.93787145614624,
+          "score": 0.06212854385375999
+        }
+      ],
+      "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+      "embedding_dim": 2048,
+      "retrieval": "native_falkordb_cosine_vector_index",
+      "score_semantics": "similarity=1-native cosine distance; higher is closer; verified by self-query on pinned server",
+      "warnings": [
+        "Similarity is not confidence or factual support. Inspect sources.",
+        "Current/model filtering follows bounded ANN retrieval; results are not exhaustive."
+      ],
+      "query_embedding_requests": 0
+    },
+    "explain": "Results\n    Limit\n        Project\n            Filter\n                ProcedureCall"
+  },
+  "path": {
+    "graph": "wayfinder_company_demo",
+    "items": [
+      {
+        "p": {
+          "nodes": [
+            {
+              "id": "company:northstar:component:resource-allocation",
+              "labels": [
+                "Component"
+              ],
+              "properties": {
+                "id": "company:northstar:component:resource-allocation",
+                "source_system": "manifest",
+                "source_url": "https://example.org/wayfinder-synthetic/northstar",
+                "source_ref": "company:northstar:component:resource-allocation",
+                "observed_at": "2026-10-17T09:09:58.097346+00:00",
+                "organization_id": "northstar",
+                "synthetic": true,
+                "is_deleted": false,
+                "name": "Resource Allocation"
+              }
+            },
+            {
+              "id": "github:northstar:dir:northstar-demo/engineering:services/allocation",
+              "labels": [
+                "Directory"
+              ],
+              "properties": {
+                "id": "github:northstar:dir:northstar-demo/engineering:services/allocation",
+                "source_system": "github",
+                "source_url": "https://github.com/northstar-demo/engineering/blob/master/services/allocation/OWNERS",
+                "source_ref": "northstar-demo/engineering@HEAD:services/allocation",
+                "observed_at": "2026-10-17T09:10:00.400349+00:00",
+                "valid_from": "2026-10-17T09:10:00.400349+00:00",
+                "is_deleted": false,
+                "path": "services/allocation",
+                "repo": "northstar-demo/engineering",
+                "synthetic": true,
+                "organization_id": "northstar",
+                "data_mode": "fixture",
+                "fixture_dataset": "company:northstar:github-fixture:v1"
+              }
+            },
+            {
+              "id": "company:northstar:person:eli",
+              "labels": [
+                "Person"
+              ],
+              "properties": {
+                "id": "company:northstar:person:eli",
+                "source_system": "github",
+                "source_url": "https://github.com/eli",
+                "source_ref": "github:eli",
+                "observed_at": "2026-10-17T09:10:00.978693+00:00",
+                "organization_id": "northstar",
+                "synthetic": true,
+                "is_deleted": false,
+                "login": "eli",
+                "display_name": "Eli Moss",
+                "is_bot": false,
+                "valid_from": "2026-10-16T08:09:59.453059+00:00",
+                "data_mode": "fixture",
+                "fixture_dataset": "company:northstar:github-fixture:v1",
+                "first_seen_at": "2026-10-16T08:09:59.453059+00:00",
+                "last_active_at": "2026-10-16T08:09:59.453059+00:00"
+              }
+            },
+            {
+              "id": "github:northstar:dir:northstar-demo/engineering:services/allocation/reservations",
+              "labels": [
+                "Directory"
+              ],
+              "properties": {
+                "id": "github:northstar:dir:northstar-demo/engineering:services/allocation/reservations",
+                "source_system": "github",
+                "source_url": "https://github.com/northstar-demo/engineering/blob/master/services/allocation/reservations/OWNERS",
+                "source_ref": "northstar-demo/engineering@HEAD:services/allocation/reservations",
+                "observed_at": "2026-10-17T09:10:00.220787+00:00",
+                "valid_from": "2026-10-17T09:10:00.220787+00:00",
+                "is_deleted": false,
+                "path": "services/allocation/reservations",
+                "repo": "northstar-demo/engineering",
+                "synthetic": true,
+                "organization_id": "northstar",
+                "data_mode": "fixture",
+                "fixture_dataset": "company:northstar:github-fixture:v1"
+              }
+            },
+            {
+              "id": "company:northstar:person:faye",
+              "labels": [
+                "Person"
+              ],
+              "properties": {
+                "id": "company:northstar:person:faye",
+                "source_system": "github",
+                "source_url": "https://github.com/faye",
+                "source_ref": "github:faye",
+                "observed_at": "2026-10-17T09:10:00.220787+00:00",
+                "organization_id": "northstar",
+                "synthetic": true,
+                "is_deleted": false,
+                "login": "faye",
+                "display_name": "Faye Lin",
+                "is_bot": false,
+                "valid_from": "2026-10-16T08:09:59.453059+00:00",
+                "first_seen_at": "2026-10-16T08:09:59.453059+00:00",
+                "last_active_at": "2026-10-16T08:09:59.453059+00:00",
+                "data_mode": "fixture",
+                "fixture_dataset": "company:northstar:github-fixture:v1"
+              }
+            }
+          ],
+          "relationships": [
+            {
+              "id": "company:northstar:component:resource-allocation->IMPLEMENTED_IN->github:northstar:dir:northstar-demo/engineering:services/allocation@e5b1b5f3c5a9d5aaf45f",
+              "type": "IMPLEMENTED_IN",
+              "source_id": "company:northstar:component:resource-allocation",
+              "target_id": "github:northstar:dir:northstar-demo/engineering:services/allocation",
+              "properties": {
+                "id": "company:northstar:component:resource-allocation->IMPLEMENTED_IN->github:northstar:dir:northstar-demo/engineering:services/allocation@e5b1b5f3c5a9d5aaf45f",
+                "source_system": "manifest",
+                "source_url": "https://example.org/wayfinder-synthetic/northstar",
+                "source_ref": "company:northstar:component:resource-allocation",
+                "observed_at": "2026-10-17T09:10:01.166303+00:00",
+                "authority": "CONFIRMED",
+                "link_method": "STRUCTURED_FILE",
+                "logical_id": "company:northstar:component:resource-allocation->IMPLEMENTED_IN->github:northstar:dir:northstar-demo/engineering:services/allocation",
+                "signature": "0ce34d07cb10b77697728ca1af19700b9a72404067027d23543d7bcffb90b41f",
+                "valid_from": "2026-10-17T09:10:01.166303+00:00"
+              }
+            },
+            {
+              "id": "company:northstar:person:eli->EXPERT_IN->github:northstar:dir:northstar-demo/engineering:services/allocation@expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
+              "type": "EXPERT_IN",
+              "source_id": "company:northstar:person:eli",
+              "target_id": "github:northstar:dir:northstar-demo/engineering:services/allocation",
+              "properties": {
+                "id": "company:northstar:person:eli->EXPERT_IN->github:northstar:dir:northstar-demo/engineering:services/allocation@expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
+                "logical_id": "company:northstar:person:eli->EXPERT_IN->github:northstar:dir:northstar-demo/engineering:services/allocation",
+                "generation": "expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
+                "scoring_version": "v2",
+                "score": 1.90600806030234,
+                "evidence_ids": [
+                  "github:northstar:comment:northstar-demo/engineering:RC105-0"
+                ],
+                "observed_at": "2026-10-17T09:10:01.183599+00:00",
+                "valid_from": "2026-10-17T09:10:01.183599+00:00",
+                "link_method": "COMPUTED",
+                "authority": "COMPUTED"
+              }
+            },
+            {
+              "id": "company:northstar:person:eli->EXPERT_IN->github:northstar:dir:northstar-demo/engineering:services/allocation/reservations@expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
+              "type": "EXPERT_IN",
+              "source_id": "company:northstar:person:eli",
+              "target_id": "github:northstar:dir:northstar-demo/engineering:services/allocation/reservations",
+              "properties": {
+                "id": "company:northstar:person:eli->EXPERT_IN->github:northstar:dir:northstar-demo/engineering:services/allocation/reservations@expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
+                "logical_id": "company:northstar:person:eli->EXPERT_IN->github:northstar:dir:northstar-demo/engineering:services/allocation/reservations",
+                "generation": "expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
+                "scoring_version": "v2",
+                "score": 1.90968144030534,
+                "evidence_ids": [
+                  "github:northstar:pr:northstar-demo/engineering:104"
+                ],
+                "observed_at": "2026-10-17T09:10:01.183599+00:00",
+                "valid_from": "2026-10-17T09:10:01.183599+00:00",
+                "link_method": "COMPUTED",
+                "authority": "COMPUTED"
+              }
+            },
+            {
+              "id": "company:northstar:person:faye->EXPERT_IN->github:northstar:dir:northstar-demo/engineering:services/allocation/reservations@expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
+              "type": "EXPERT_IN",
+              "source_id": "company:northstar:person:faye",
+              "target_id": "github:northstar:dir:northstar-demo/engineering:services/allocation/reservations",
+              "properties": {
+                "id": "company:northstar:person:faye->EXPERT_IN->github:northstar:dir:northstar-demo/engineering:services/allocation/reservations@expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
+                "logical_id": "company:northstar:person:faye->EXPERT_IN->github:northstar:dir:northstar-demo/engineering:services/allocation/reservations",
+                "generation": "expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
+                "scoring_version": "v2",
+                "score": 3.6437584722532,
+                "evidence_ids": [
+                  "github:northstar:comment:northstar-demo/engineering:RC102-0",
+                  "github:northstar:comment:northstar-demo/engineering:RC104-0"
+                ],
+                "observed_at": "2026-10-17T09:10:01.183599+00:00",
+                "valid_from": "2026-10-17T09:10:01.183599+00:00",
+                "link_method": "COMPUTED",
+                "authority": "COMPUTED"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "count": 1,
+    "next_cursor": null,
+    "truncated": false,
+    "pagination_consistency": "Best effort if ingestion changes the graph between pages.",
+    "note": "At most ten paths; narrow relationship types or use read_cypher for further exploration."
+  },
+  "metric_self_test": {
+    "input_id": "company:northstar:claim:pc7",
+    "native_results": [
+      [
+        "company:northstar:claim:pc7",
+        0.0
+      ]
+    ],
+    "interpretation": "Native cosine distance; self distance approximately zero. Product similarity = 1-distance."
+  }
+}

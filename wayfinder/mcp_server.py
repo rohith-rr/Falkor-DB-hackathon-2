@@ -1,4 +1,4 @@
-"""Local stdio entry point. No ingestion, paid API calls, or writable tools."""
+"""Local stdio graph tools. semantic_search explicitly calls the embedding provider."""
 import functools
 import inspect
 import json
@@ -30,11 +30,12 @@ def create_server(db=None, enable_actions=False, manifest_path=None):
     names = ["who_knows", "ownership", "decisions", "concerns", "stale_findings", "graph_stats",
              "graph_schema", "search_entities", "get_entity", "get_neighbors", "find_paths", "get_evidence",
              "get_thread", "person_context", "component_context", "list_questions", "recent_activity",
-             "knowledge_coverage", "read_cypher", "company_context", "validate_review_brief"]
+             "knowledge_coverage", "read_cypher", "company_context", "validate_review_brief", "semantic_search"]
     descriptions = {
+        "semantic_search": "Meaning-based discovery over native Topic/Argument/Comment vector indexes. Each explicit call makes one configured embedding API request (possibly paid), no retries, and no database writes. Retrieve source evidence after similarity matches.",
         "company_context": "Inspect a company component's declared owners, explicitly linked Plane work items/pages, discussions, decisions and concerns. Ownership is not code reviewer authorization.",
         "validate_review_brief": "Check structured brief sections, evidence IDs, URLs, source revisions and quote presence. Does not prove semantic correctness.",
-        "who_knows": "Rank distinct human contributors by versioned strong expertise, with implementation/review breakdown, PR counts, coverage and freshness warnings. PR-wide involvement is separate. Scores are not probabilities or reviewer authorization.",
+        "who_knows": "Rank distinct humans by strong code expertise for a directory, topic, or stable company Component ID (via IMPLEMENTED_IN). Includes implementation/review breakdown, PR counts, coverage and freshness. Scores are not reviewer authorization.",
         "ownership": "Read inherited declared OWNERS with activity status and top unlisted human experts; missing evidence remains unknown.",
         "decisions": "Read decisions, rationale and arguments for a stable ID or exact KEP number, with provenance.",
         "concerns": "Read concerns and their stored resolution status for an exact target ID.",
@@ -86,7 +87,8 @@ def create_server(db=None, enable_actions=False, manifest_path=None):
     @server.prompt()
     def review_component(component: str) -> str:
         return (f'Investigate {component}. Call graph_schema and knowledge_coverage; resolve its ID with search_entities. '
-            'Use company_context for a Component or component_context for a Directory, then get_neighbors, get_thread and get_evidence '
+            'Use company_context for a Component or component_context for a Directory. Call who_knows with the stable Component ID '
+            'for code expertise via IMPLEMENTED_IN. Use semantic_search for relevant meaning, then get_neighbors, get_thread and get_evidence '
             'to navigate owners, tasks, documents, decisions and unresolved concerns. Inspect source revisions. '
             'Produce a structured brief with component_id, ownership, contributors, decisions, concerns, missing_evidence, '
             'next_action and context. Each factual claim needs summary, evidence_ids, source_urls and authority; extracted '
