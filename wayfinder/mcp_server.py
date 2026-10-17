@@ -3,6 +3,7 @@ import functools
 import inspect
 import json
 import logging
+import os
 import sys
 from pathlib import Path
 from typing import Any
@@ -18,14 +19,17 @@ from mcp.server.fastmcp import FastMCP
 from mcp.types import ToolAnnotations
 from wayfinder.db import DatabaseManager
 from wayfinder.brain_graph import BrainGraph, INSTRUCTIONS
+from wayfinder.agent_trace import Tracer
 from falkordb import FalkorDB
 
 
-def create_server(db=None, enable_actions=False, manifest_path=None):
+def create_server(db=None, enable_actions=False, manifest_path=None, trace=True, trace_folder=None):
     if db is None:
         db = DatabaseManager()
         db._client = FalkorDB(host=db.host, port=db.port, socket_connect_timeout=3, socket_timeout=8)
     brain = BrainGraph(db)
+    # Records which entities each call touched, for the dashboard's live agent-path view.
+    tracer = Tracer(db.graph_name, folder=trace_folder, enabled=trace)
     server = FastMCP("wayfinder-company-brain", instructions=INSTRUCTIONS)
     names = ["who_knows", "ownership", "decisions", "concerns", "stale_findings", "graph_stats",
              "graph_schema", "search_entities", "get_entity", "get_neighbors", "find_paths", "get_evidence",
@@ -61,7 +65,13 @@ def create_server(db=None, enable_actions=False, manifest_path=None):
             @functools.wraps(bound)
             def tool(*args, **kwargs) -> dict[str, Any]:
                 arguments = inspect.signature(bound).bind(*args, **kwargs)
-                return brain.invoke(tool_name, **arguments.arguments)
+                try:
+                    result = brain.invoke(tool_name, **arguments.arguments)
+                except Exception as exc:
+                    tracer.record(tool_name, arguments.arguments, error=f"{type(exc).__name__}: {exc}")
+                    raise
+                tracer.record(tool_name, arguments.arguments, result)
+                return result
             tool.__annotations__ = {**getattr(bound, "__annotations__", {}), "return": dict[str, Any]}
             tool.__signature__ = inspect.signature(bound).replace(return_annotation=dict[str, Any])
             return tool
@@ -106,13 +116,17 @@ def create_server(db=None, enable_actions=False, manifest_path=None):
         def prepare_plane_work_item(title: str, description: str, brief: dict[str, Any]) -> dict[str, Any]:
             """Persist an exact proposal in the graph. Does not approve or create anything in Plane."""
             from wayfinder.company.core import response_context
-            return {**actions.prepare(title,description,brief),'context':response_context(db)}
+            result={**actions.prepare(title,description,brief),'context':response_context(db)}
+            tracer.record('prepare_plane_work_item',{'title':title,'brief':brief},result)
+            return result
 
         @server.tool(annotations=ToolAnnotations(readOnlyHint=False,destructiveHint=False,idempotentHint=False,openWorldHint=True))
         def execute_plane_work_item(action_id: str) -> dict[str, Any]:
             """Create the exact Plane work item only after human CLI approval. Uncertain outcomes require reconciliation."""
             from wayfinder.company.core import response_context
-            return {**actions.execute(action_id),'context':response_context(db)}
+            result={**actions.execute(action_id),'context':response_context(db)}
+            tracer.record('execute_plane_work_item',{'action_id':action_id},result)
+            return result
 
     return server
 
@@ -122,9 +136,11 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--enable-actions',action='store_true')
     parser.add_argument('--manifest',type=str)
+    parser.add_argument('--no-trace',action='store_true',help='Do not record tool calls for the agent-path view')
     args=parser.parse_args()
     logging.basicConfig(stream=sys.stderr, level=logging.INFO, format="%(levelname)s %(name)s %(message)s")
-    create_server(enable_actions=args.enable_actions,manifest_path=args.manifest).run(transport="stdio")
+    trace=not args.no_trace and os.getenv('WAYFINDER_TRACE','1')!='0'
+    create_server(enable_actions=args.enable_actions,manifest_path=args.manifest,trace=trace).run(transport="stdio")
 
 
 if __name__ == "__main__":

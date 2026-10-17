@@ -29,6 +29,16 @@
 
 The Kubernetes appendix (`wayfinder_test_30d`, pkg/kubelet v2 expertise and KEP 1287 decisions) is now optional. Show it only if an earlier segment runs short. Narration: “The same engine supports scoped public engineering knowledge; Kubernetes data was not copied into Northstar.”
 
+## Side-by-side recording: agent and graph
+
+Put Codex (or Claude Code) on one half of the screen and **http://127.0.0.1:8765/graph** on the other, both on `wayfinder_company_live_demo`. Setup is in [MCP.md](MCP.md#watch-the-agents-path-in-the-graph). Start a fresh agent session for each take, so **Latest (live)** shows only that question. Good questions:
+
+- "What happened with linking branches and commits to Plane? Show the task, the Slack discussion, the PR and its commits." The path runs Slack → FALKORDBTE-15 → PR #4 → branch and commits.
+- "Why must a person approve agent-created tasks? Quote the source." The path runs from the component to the extracted Decision and the ADR-002 page.
+- "Draft a follow-up for the recall gap." The `prepare_plane_work_item` step appears in the list; approval stays in your terminal.
+
+After the answer, press **Replay** to retrace the route slowly for the narration.
+
 ## Suggested MCP agent prompt
 
 > Confirm the graph is wayfinder_company_demo. Investigate company:northstar:component:resource-allocation. Check schema and coverage; follow owners, Plane work, documents, Slack discussions, and IMPLEMENTED_IN code directories. Call who_knows with the Component ID and semantic_search for reservation starvation. Inspect the supporting PRs, file-review evidence, original sources, and source revisions. Distinguish declared owners from contributors and reviewer authorization. Produce a cited review brief and call validate_review_brief. State clocks, import gaps, and what remains unresolved. Prepare a Plane task only when asked; never grant approval yourself.

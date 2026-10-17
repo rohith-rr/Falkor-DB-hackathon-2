@@ -122,6 +122,8 @@ Event dates are fixed offsets before a persisted dataset anchor. Decay uses the 
 
 ## Agent/MCP access
 
+**See the agent work:** `python -m wayfinder.dashboard --graph wayfinder_company_live_demo`, then open `/graph`. The page draws the graph and highlights the path an MCP agent takes, live, call by call ([setup](docs/MCP.md#watch-the-agents-path-in-the-graph)).
+
 Configure the client to launch `.venv\Scripts\python.exe` with the absolute path to `wayfinder\mcp_server.py`, and set its environment `FALKORDB_GRAPH=wayfinder_company_demo`. See [client setup](docs/MCP.md).
 
 The default server exposes **22 database-read-only tools**. `semantic_search` makes one explicitly requested embedding-provider call; other read tools make no model requests. Optional action mode exposes 24 tools total, including proposal preparation/execution but no approval-granting tool.

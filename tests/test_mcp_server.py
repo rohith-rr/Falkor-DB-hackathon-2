@@ -1,4 +1,5 @@
 import asyncio
+import os
 import json
 from pathlib import Path
 import sys
@@ -154,7 +155,8 @@ async def test_stdio_protocol_from_other_directory(tmp_path):
     from mcp import ClientSession, StdioServerParameters
     from mcp.client.stdio import stdio_client
     root = Path(__file__).resolve().parents[1]
-    params = StdioServerParameters(command=sys.executable, args=[str(root / "wayfinder" / "mcp_server.py")], cwd=str(tmp_path))
+    params = StdioServerParameters(command=sys.executable, args=[str(root / "wayfinder" / "mcp_server.py")], cwd=str(tmp_path),
+                                    env={**os.environ, "WAYFINDER_TRACE": "0"})
     async with stdio_client(params) as (read, write):
         async with ClientSession(read, write) as session:
             response = await session.initialize()
