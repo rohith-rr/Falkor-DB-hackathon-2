@@ -1,6 +1,6 @@
 {
   "mode": "scripted_navigation_not_an_agent_accuracy_evaluation",
-  "at": "2026-10-17T09:19:10.834928+00:00",
+  "at": "2026-10-17T09:34:50.150562+00:00",
   "brief": {
     "component_id": "company:northstar:component:resource-allocation",
     "ownership": [
@@ -27,7 +27,7 @@
     ],
     "contributors": [
       {
-        "summary": "faye: code activity score 7.122971, supported by 4 PRs",
+        "summary": "faye: code activity score 7.119762, supported by 4 PRs",
         "evidence_ids": [
           "github:northstar:comment:northstar-demo/engineering:RC101-0",
           "github:northstar:comment:northstar-demo/engineering:RC102-0",
@@ -42,18 +42,18 @@
         ],
         "authority": "COMPUTED",
         "person_id": "company:northstar:person:faye",
-        "score": 7.122971,
+        "score": 7.119762,
         "score_breakdown": {
           "implementation": 0.0,
-          "peer_review": 7.122971
+          "peer_review": 7.119762
         },
         "distinct_pr_count": 4,
         "evidence_strength": "multiple_prs",
-        "generation": "expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
-        "calculated_at": "2026-10-17T09:10:01.183599+00:00"
+        "generation": "expertise:v2:9302c5d35836470484fb28a83681e15b",
+        "calculated_at": "2026-10-17T09:24:03.608247+00:00"
       },
       {
-        "summary": "dee: code activity score 5.227017, supported by 3 PRs",
+        "summary": "dee: code activity score 5.224663, supported by 3 PRs",
         "evidence_ids": [
           "github:northstar:pr:northstar-demo/engineering:101",
           "github:northstar:pr:northstar-demo/engineering:102",
@@ -66,18 +66,18 @@
         ],
         "authority": "COMPUTED",
         "person_id": "company:northstar:person:dee",
-        "score": 5.227017,
+        "score": 5.224663,
         "score_breakdown": {
-          "implementation": 5.227017,
+          "implementation": 5.224663,
           "peer_review": 0.0
         },
         "distinct_pr_count": 3,
         "evidence_strength": "multiple_prs",
-        "generation": "expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
-        "calculated_at": "2026-10-17T09:10:01.183599+00:00"
+        "generation": "expertise:v2:9302c5d35836470484fb28a83681e15b",
+        "calculated_at": "2026-10-17T09:24:03.608247+00:00"
       },
       {
-        "summary": "eli: code activity score 3.81569, supported by 2 PRs",
+        "summary": "eli: code activity score 3.813971, supported by 2 PRs",
         "evidence_ids": [
           "github:northstar:comment:northstar-demo/engineering:RC105-0",
           "github:northstar:pr:northstar-demo/engineering:104"
@@ -88,15 +88,15 @@
         ],
         "authority": "COMPUTED",
         "person_id": "company:northstar:person:eli",
-        "score": 3.81569,
+        "score": 3.813971,
         "score_breakdown": {
-          "implementation": 1.909681,
-          "peer_review": 1.906008
+          "implementation": 1.908821,
+          "peer_review": 1.905149
         },
         "distinct_pr_count": 2,
         "evidence_strength": "limited",
-        "generation": "expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
-        "calculated_at": "2026-10-17T09:10:01.183599+00:00"
+        "generation": "expertise:v2:9302c5d35836470484fb28a83681e15b",
+        "calculated_at": "2026-10-17T09:24:03.608247+00:00"
       }
     ],
     "decisions": [
@@ -143,8 +143,8 @@
           "mode": "fixture",
           "synthetic": true,
           "observed_at": "2026-10-17T09:09:58.158204+00:00",
-          "age_seconds": 552.377425,
-          "stale": false,
+          "age_seconds": 1491.640097,
+          "stale": true,
           "covered_through": "2026-10-17T09:09:58.158204+00:00",
           "gaps": [],
           "record_count": 2
@@ -156,8 +156,8 @@
           "mode": "fixture",
           "synthetic": true,
           "observed_at": "2026-10-17T09:09:58.199831+00:00",
-          "age_seconds": 552.335798,
-          "stale": false,
+          "age_seconds": 1491.59847,
+          "stale": true,
           "covered_through": "2026-10-17T09:09:58.199831+00:00",
           "gaps": [],
           "record_count": 2
@@ -169,8 +169,8 @@
           "mode": "fixture",
           "synthetic": true,
           "observed_at": "2026-10-17T09:09:58.244096+00:00",
-          "age_seconds": 552.291533,
-          "stale": false,
+          "age_seconds": 1491.554205,
+          "stale": true,
           "covered_through": "2026-10-17T09:09:58.244096+00:00",
           "gaps": [],
           "record_count": 2
@@ -182,8 +182,8 @@
           "mode": "fixture",
           "synthetic": true,
           "observed_at": "2026-10-17T09:09:58.283896+00:00",
-          "age_seconds": 552.251733,
-          "stale": false,
+          "age_seconds": 1491.514405,
+          "stale": true,
           "covered_through": "2026-10-17T09:09:58.283896+00:00",
           "gaps": [],
           "record_count": 2
@@ -195,8 +195,8 @@
           "mode": "fixture",
           "synthetic": true,
           "observed_at": "2026-10-17T09:09:58.322285+00:00",
-          "age_seconds": 552.213344,
-          "stale": false,
+          "age_seconds": 1491.476016,
+          "stale": true,
           "covered_through": "2026-10-17T09:09:58.322285+00:00",
           "gaps": [],
           "record_count": 2
@@ -208,8 +208,8 @@
           "mode": "fixture",
           "synthetic": true,
           "observed_at": "2026-10-17T09:09:58.361953+00:00",
-          "age_seconds": 552.173676,
-          "stale": false,
+          "age_seconds": 1491.436348,
+          "stale": true,
           "covered_through": "2026-10-17T09:09:58.361953+00:00",
           "gaps": [],
           "record_count": 2
@@ -221,8 +221,8 @@
           "mode": "fixture",
           "synthetic": true,
           "observed_at": "2026-10-17T09:09:58.406847+00:00",
-          "age_seconds": 552.128782,
-          "stale": false,
+          "age_seconds": 1491.391454,
+          "stale": true,
           "covered_through": "2026-10-17T09:09:58.406847+00:00",
           "gaps": [],
           "record_count": 6
@@ -234,8 +234,8 @@
           "mode": "fixture",
           "synthetic": true,
           "observed_at": "2026-10-17T09:09:58.411114+00:00",
-          "age_seconds": 552.124515,
-          "stale": false,
+          "age_seconds": 1491.387187,
+          "stale": true,
           "covered_through": "2026-10-17T09:09:58.411114+00:00",
           "gaps": [],
           "record_count": 3
@@ -247,8 +247,8 @@
           "mode": "fixture",
           "synthetic": true,
           "observed_at": "2026-10-17T09:09:58.467481+00:00",
-          "age_seconds": 552.068148,
-          "stale": false,
+          "age_seconds": 1491.33082,
+          "stale": true,
           "covered_through": "2026-10-17T09:09:58.467481+00:00",
           "gaps": [],
           "record_count": 2
@@ -260,8 +260,8 @@
           "mode": "fixture",
           "synthetic": true,
           "observed_at": "2026-10-17T09:09:58.531434+00:00",
-          "age_seconds": 552.004195,
-          "stale": false,
+          "age_seconds": 1491.266867,
+          "stale": true,
           "covered_through": "2026-10-17T09:09:58.531434+00:00",
           "gaps": [],
           "record_count": 2
@@ -273,8 +273,8 @@
           "mode": "fixture",
           "synthetic": true,
           "observed_at": "2026-10-17T09:09:58.572547+00:00",
-          "age_seconds": 551.963082,
-          "stale": false,
+          "age_seconds": 1491.225754,
+          "stale": true,
           "covered_through": "2026-10-17T09:09:58.572547+00:00",
           "gaps": [],
           "record_count": 1
@@ -286,8 +286,8 @@
           "mode": "fixture",
           "synthetic": true,
           "observed_at": "2026-10-17T09:09:58.610830+00:00",
-          "age_seconds": 551.924799,
-          "stale": false,
+          "age_seconds": 1491.187471,
+          "stale": true,
           "covered_through": "2026-10-17T09:09:58.610830+00:00",
           "gaps": [],
           "record_count": 1
@@ -299,8 +299,8 @@
           "mode": "fixture",
           "synthetic": true,
           "observed_at": "2026-10-17T09:09:58.642716+00:00",
-          "age_seconds": 551.892913,
-          "stale": false,
+          "age_seconds": 1491.155585,
+          "stale": true,
           "covered_through": "2026-10-17T09:09:58.642716+00:00",
           "gaps": [],
           "record_count": 1
@@ -312,8 +312,8 @@
           "mode": "fixture",
           "synthetic": true,
           "observed_at": "2026-10-17T09:09:58.677443+00:00",
-          "age_seconds": 551.858186,
-          "stale": false,
+          "age_seconds": 1491.120858,
+          "stale": true,
           "covered_through": "2026-10-17T09:09:58.677443+00:00",
           "gaps": [],
           "record_count": 1
@@ -325,8 +325,8 @@
           "mode": "fixture",
           "synthetic": true,
           "observed_at": "2026-10-17T09:09:58.728425+00:00",
-          "age_seconds": 551.807204,
-          "stale": false,
+          "age_seconds": 1491.069876,
+          "stale": true,
           "covered_through": "2026-10-17T09:09:58.728425+00:00",
           "gaps": [],
           "record_count": 6
@@ -338,8 +338,8 @@
           "mode": "fixture",
           "synthetic": true,
           "observed_at": "2026-10-17T09:09:58.731721+00:00",
-          "age_seconds": 551.803908,
-          "stale": false,
+          "age_seconds": 1491.06658,
+          "stale": true,
           "covered_through": "2026-10-17T09:09:58.731721+00:00",
           "gaps": [],
           "record_count": 3
@@ -351,8 +351,8 @@
           "mode": "fixture",
           "synthetic": true,
           "observed_at": "2026-10-17T09:09:59.085084+00:00",
-          "age_seconds": 551.450545,
-          "stale": false,
+          "age_seconds": 1490.713217,
+          "stale": true,
           "covered_through": null,
           "gaps": [
             "Channel history is bounded; absence does not prove deletion or inactivity."
@@ -365,8 +365,8 @@
           "status": "partial",
           "mode": "fixture",
           "synthetic": true,
-          "observed_at": "2026-10-17T09:10:01.182022+00:00",
-          "age_seconds": 549.353607,
+          "observed_at": "2026-10-17T09:24:03.606656+00:00",
+          "age_seconds": 646.191645,
           "stale": false,
           "covered_through": null,
           "gaps": [
@@ -377,7 +377,7 @@
       ],
       "freshness": "source_observation_times_only",
       "clock": {
-        "actual_now_utc": "2026-10-17T09:19:10.535629+00:00",
+        "actual_now_utc": "2026-10-17T09:34:49.798301+00:00",
         "datasets": [
           {
             "id": "company:northstar:github-fixture:v1",
@@ -403,9 +403,9 @@
         "Fixture observations are not live synchronization."
       ],
       "expertise": {
-        "generation": "expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
+        "generation": "expertise:v2:9302c5d35836470484fb28a83681e15b",
         "scoring_version": "v2",
-        "calculated_at": "2026-10-17T09:10:01.183599+00:00",
+        "calculated_at": "2026-10-17T09:24:03.608247+00:00",
         "component_id": "company:northstar:component:resource-allocation",
         "code_directories": [
           {
@@ -414,7 +414,7 @@
             "repo": "northstar-demo/engineering"
           }
         ],
-        "snapshot_age_seconds": 549.356858,
+        "snapshot_age_seconds": 646.195404,
         "stale": false,
         "warnings": [
           "Activity import is not proven complete; rankings describe saved evidence, not lifetime competence.",
@@ -973,7 +973,11 @@
                 "source_revision_id",
                 "authority",
                 "link_method",
-                "name"
+                "name",
+                "organization_id",
+                "synthetic",
+                "is_deleted",
+                "seed"
               ]
             }
           ],
@@ -1001,6 +1005,15 @@
               ],
               "target_labels": [
                 "Component"
+              ]
+            },
+            {
+              "relationship": "ABOUT_TOPIC",
+              "source_labels": [
+                "Component"
+              ],
+              "target_labels": [
+                "Topic"
               ]
             },
             {
@@ -1418,7 +1431,7 @@
               ]
             }
           ],
-          "count": 48,
+          "count": 49,
           "next_cursor": null,
           "truncated": false,
           "pagination_consistency": "Best effort if ingestion changes the graph between pages."
@@ -1495,8 +1508,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.158204+00:00",
-              "age_seconds": 548.774544,
-              "stale": false,
+              "age_seconds": 1487.695147,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.158204+00:00",
               "gaps": [],
               "record_count": 2
@@ -1508,8 +1521,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.199831+00:00",
-              "age_seconds": 548.732917,
-              "stale": false,
+              "age_seconds": 1487.65352,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.199831+00:00",
               "gaps": [],
               "record_count": 2
@@ -1521,8 +1534,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.244096+00:00",
-              "age_seconds": 548.688652,
-              "stale": false,
+              "age_seconds": 1487.609255,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.244096+00:00",
               "gaps": [],
               "record_count": 2
@@ -1534,8 +1547,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.283896+00:00",
-              "age_seconds": 548.648852,
-              "stale": false,
+              "age_seconds": 1487.569455,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.283896+00:00",
               "gaps": [],
               "record_count": 2
@@ -1547,8 +1560,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.322285+00:00",
-              "age_seconds": 548.610463,
-              "stale": false,
+              "age_seconds": 1487.531066,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.322285+00:00",
               "gaps": [],
               "record_count": 2
@@ -1560,8 +1573,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.361953+00:00",
-              "age_seconds": 548.570795,
-              "stale": false,
+              "age_seconds": 1487.491398,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.361953+00:00",
               "gaps": [],
               "record_count": 2
@@ -1573,8 +1586,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.406847+00:00",
-              "age_seconds": 548.525901,
-              "stale": false,
+              "age_seconds": 1487.446504,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.406847+00:00",
               "gaps": [],
               "record_count": 6
@@ -1586,8 +1599,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.411114+00:00",
-              "age_seconds": 548.521634,
-              "stale": false,
+              "age_seconds": 1487.442237,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.411114+00:00",
               "gaps": [],
               "record_count": 3
@@ -1599,8 +1612,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.467481+00:00",
-              "age_seconds": 548.465267,
-              "stale": false,
+              "age_seconds": 1487.38587,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.467481+00:00",
               "gaps": [],
               "record_count": 2
@@ -1612,8 +1625,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.531434+00:00",
-              "age_seconds": 548.401314,
-              "stale": false,
+              "age_seconds": 1487.321917,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.531434+00:00",
               "gaps": [],
               "record_count": 2
@@ -1625,8 +1638,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.572547+00:00",
-              "age_seconds": 548.360201,
-              "stale": false,
+              "age_seconds": 1487.280804,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.572547+00:00",
               "gaps": [],
               "record_count": 1
@@ -1638,8 +1651,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.610830+00:00",
-              "age_seconds": 548.321918,
-              "stale": false,
+              "age_seconds": 1487.242521,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.610830+00:00",
               "gaps": [],
               "record_count": 1
@@ -1651,8 +1664,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.642716+00:00",
-              "age_seconds": 548.290032,
-              "stale": false,
+              "age_seconds": 1487.210635,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.642716+00:00",
               "gaps": [],
               "record_count": 1
@@ -1664,8 +1677,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.677443+00:00",
-              "age_seconds": 548.255305,
-              "stale": false,
+              "age_seconds": 1487.175908,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.677443+00:00",
               "gaps": [],
               "record_count": 1
@@ -1677,8 +1690,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.728425+00:00",
-              "age_seconds": 548.204323,
-              "stale": false,
+              "age_seconds": 1487.124926,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.728425+00:00",
               "gaps": [],
               "record_count": 6
@@ -1690,8 +1703,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.731721+00:00",
-              "age_seconds": 548.201027,
-              "stale": false,
+              "age_seconds": 1487.12163,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.731721+00:00",
               "gaps": [],
               "record_count": 3
@@ -1703,8 +1716,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:59.085084+00:00",
-              "age_seconds": 547.847664,
-              "stale": false,
+              "age_seconds": 1486.768267,
+              "stale": true,
               "covered_through": null,
               "gaps": [
                 "Channel history is bounded; absence does not prove deletion or inactivity."
@@ -1717,8 +1730,8 @@
               "status": "partial",
               "mode": "fixture",
               "synthetic": true,
-              "observed_at": "2026-10-17T09:10:01.182022+00:00",
-              "age_seconds": 545.750726,
+              "observed_at": "2026-10-17T09:24:03.606656+00:00",
+              "age_seconds": 642.246695,
               "stale": false,
               "covered_through": null,
               "gaps": [
@@ -1729,7 +1742,7 @@
           ],
           "freshness": "not_applicable",
           "clock": {
-            "actual_now_utc": "2026-10-17T09:19:06.932748+00:00",
+            "actual_now_utc": "2026-10-17T09:34:45.853351+00:00",
             "datasets": [
               {
                 "id": "company:northstar:github-fixture:v1",
@@ -1772,8 +1785,8 @@
         "expertise_snapshots": [
           {
             "scoring_version": "v2",
-            "calculated_at": "2026-10-17T09:10:01.183599+00:00",
-            "snapshot_age_seconds": 545.767001,
+            "calculated_at": "2026-10-17T09:24:03.608247+00:00",
+            "snapshot_age_seconds": 642.264767,
             "stale": false,
             "coverage": {
               "activity": [],
@@ -1825,7 +1838,7 @@
         "observations": [
           {
             "first_observed": "2026-10-14T22:33:09.324010+00:00",
-            "last_observed": "2026-10-17T09:13:15.400399+00:00"
+            "last_observed": "2026-10-17T09:24:03.606656+00:00"
           }
         ],
         "context": {
@@ -1837,8 +1850,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.158204+00:00",
-              "age_seconds": 548.79763,
-              "stale": false,
+              "age_seconds": 1487.721203,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.158204+00:00",
               "gaps": [],
               "record_count": 2
@@ -1850,8 +1863,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.199831+00:00",
-              "age_seconds": 548.756003,
-              "stale": false,
+              "age_seconds": 1487.679576,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.199831+00:00",
               "gaps": [],
               "record_count": 2
@@ -1863,8 +1876,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.244096+00:00",
-              "age_seconds": 548.711738,
-              "stale": false,
+              "age_seconds": 1487.635311,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.244096+00:00",
               "gaps": [],
               "record_count": 2
@@ -1876,8 +1889,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.283896+00:00",
-              "age_seconds": 548.671938,
-              "stale": false,
+              "age_seconds": 1487.595511,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.283896+00:00",
               "gaps": [],
               "record_count": 2
@@ -1889,8 +1902,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.322285+00:00",
-              "age_seconds": 548.633549,
-              "stale": false,
+              "age_seconds": 1487.557122,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.322285+00:00",
               "gaps": [],
               "record_count": 2
@@ -1902,8 +1915,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.361953+00:00",
-              "age_seconds": 548.593881,
-              "stale": false,
+              "age_seconds": 1487.517454,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.361953+00:00",
               "gaps": [],
               "record_count": 2
@@ -1915,8 +1928,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.406847+00:00",
-              "age_seconds": 548.548987,
-              "stale": false,
+              "age_seconds": 1487.47256,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.406847+00:00",
               "gaps": [],
               "record_count": 6
@@ -1928,8 +1941,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.411114+00:00",
-              "age_seconds": 548.54472,
-              "stale": false,
+              "age_seconds": 1487.468293,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.411114+00:00",
               "gaps": [],
               "record_count": 3
@@ -1941,8 +1954,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.467481+00:00",
-              "age_seconds": 548.488353,
-              "stale": false,
+              "age_seconds": 1487.411926,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.467481+00:00",
               "gaps": [],
               "record_count": 2
@@ -1954,8 +1967,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.531434+00:00",
-              "age_seconds": 548.4244,
-              "stale": false,
+              "age_seconds": 1487.347973,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.531434+00:00",
               "gaps": [],
               "record_count": 2
@@ -1967,8 +1980,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.572547+00:00",
-              "age_seconds": 548.383287,
-              "stale": false,
+              "age_seconds": 1487.30686,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.572547+00:00",
               "gaps": [],
               "record_count": 1
@@ -1980,8 +1993,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.610830+00:00",
-              "age_seconds": 548.345004,
-              "stale": false,
+              "age_seconds": 1487.268577,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.610830+00:00",
               "gaps": [],
               "record_count": 1
@@ -1993,8 +2006,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.642716+00:00",
-              "age_seconds": 548.313118,
-              "stale": false,
+              "age_seconds": 1487.236691,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.642716+00:00",
               "gaps": [],
               "record_count": 1
@@ -2006,8 +2019,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.677443+00:00",
-              "age_seconds": 548.278391,
-              "stale": false,
+              "age_seconds": 1487.201964,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.677443+00:00",
               "gaps": [],
               "record_count": 1
@@ -2019,8 +2032,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.728425+00:00",
-              "age_seconds": 548.227409,
-              "stale": false,
+              "age_seconds": 1487.150982,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.728425+00:00",
               "gaps": [],
               "record_count": 6
@@ -2032,8 +2045,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.731721+00:00",
-              "age_seconds": 548.224113,
-              "stale": false,
+              "age_seconds": 1487.147686,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.731721+00:00",
               "gaps": [],
               "record_count": 3
@@ -2045,8 +2058,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:59.085084+00:00",
-              "age_seconds": 547.87075,
-              "stale": false,
+              "age_seconds": 1486.794323,
+              "stale": true,
               "covered_through": null,
               "gaps": [
                 "Channel history is bounded; absence does not prove deletion or inactivity."
@@ -2059,8 +2072,8 @@
               "status": "partial",
               "mode": "fixture",
               "synthetic": true,
-              "observed_at": "2026-10-17T09:10:01.182022+00:00",
-              "age_seconds": 545.773812,
+              "observed_at": "2026-10-17T09:24:03.606656+00:00",
+              "age_seconds": 642.272751,
               "stale": false,
               "covered_through": null,
               "gaps": [
@@ -2071,7 +2084,7 @@
           ],
           "freshness": "source_observation_times_only",
           "clock": {
-            "actual_now_utc": "2026-10-17T09:19:06.955834+00:00",
+            "actual_now_utc": "2026-10-17T09:34:45.879407+00:00",
             "datasets": [
               {
                 "id": "company:northstar:github-fixture:v1",
@@ -2145,8 +2158,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.158204+00:00",
-              "age_seconds": 548.810992,
-              "stale": false,
+              "age_seconds": 1487.737412,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.158204+00:00",
               "gaps": [],
               "record_count": 2
@@ -2158,8 +2171,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.199831+00:00",
-              "age_seconds": 548.769365,
-              "stale": false,
+              "age_seconds": 1487.695785,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.199831+00:00",
               "gaps": [],
               "record_count": 2
@@ -2171,8 +2184,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.244096+00:00",
-              "age_seconds": 548.7251,
-              "stale": false,
+              "age_seconds": 1487.65152,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.244096+00:00",
               "gaps": [],
               "record_count": 2
@@ -2184,8 +2197,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.283896+00:00",
-              "age_seconds": 548.6853,
-              "stale": false,
+              "age_seconds": 1487.61172,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.283896+00:00",
               "gaps": [],
               "record_count": 2
@@ -2197,8 +2210,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.322285+00:00",
-              "age_seconds": 548.646911,
-              "stale": false,
+              "age_seconds": 1487.573331,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.322285+00:00",
               "gaps": [],
               "record_count": 2
@@ -2210,8 +2223,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.361953+00:00",
-              "age_seconds": 548.607243,
-              "stale": false,
+              "age_seconds": 1487.533663,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.361953+00:00",
               "gaps": [],
               "record_count": 2
@@ -2223,8 +2236,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.406847+00:00",
-              "age_seconds": 548.562349,
-              "stale": false,
+              "age_seconds": 1487.488769,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.406847+00:00",
               "gaps": [],
               "record_count": 6
@@ -2236,8 +2249,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.411114+00:00",
-              "age_seconds": 548.558082,
-              "stale": false,
+              "age_seconds": 1487.484502,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.411114+00:00",
               "gaps": [],
               "record_count": 3
@@ -2249,8 +2262,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.467481+00:00",
-              "age_seconds": 548.501715,
-              "stale": false,
+              "age_seconds": 1487.428135,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.467481+00:00",
               "gaps": [],
               "record_count": 2
@@ -2262,8 +2275,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.531434+00:00",
-              "age_seconds": 548.437762,
-              "stale": false,
+              "age_seconds": 1487.364182,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.531434+00:00",
               "gaps": [],
               "record_count": 2
@@ -2275,8 +2288,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.572547+00:00",
-              "age_seconds": 548.396649,
-              "stale": false,
+              "age_seconds": 1487.323069,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.572547+00:00",
               "gaps": [],
               "record_count": 1
@@ -2288,8 +2301,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.610830+00:00",
-              "age_seconds": 548.358366,
-              "stale": false,
+              "age_seconds": 1487.284786,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.610830+00:00",
               "gaps": [],
               "record_count": 1
@@ -2301,8 +2314,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.642716+00:00",
-              "age_seconds": 548.32648,
-              "stale": false,
+              "age_seconds": 1487.2529,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.642716+00:00",
               "gaps": [],
               "record_count": 1
@@ -2314,8 +2327,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.677443+00:00",
-              "age_seconds": 548.291753,
-              "stale": false,
+              "age_seconds": 1487.218173,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.677443+00:00",
               "gaps": [],
               "record_count": 1
@@ -2327,8 +2340,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.728425+00:00",
-              "age_seconds": 548.240771,
-              "stale": false,
+              "age_seconds": 1487.167191,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.728425+00:00",
               "gaps": [],
               "record_count": 6
@@ -2340,8 +2353,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.731721+00:00",
-              "age_seconds": 548.237475,
-              "stale": false,
+              "age_seconds": 1487.163895,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.731721+00:00",
               "gaps": [],
               "record_count": 3
@@ -2353,8 +2366,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:59.085084+00:00",
-              "age_seconds": 547.884112,
-              "stale": false,
+              "age_seconds": 1486.810532,
+              "stale": true,
               "covered_through": null,
               "gaps": [
                 "Channel history is bounded; absence does not prove deletion or inactivity."
@@ -2367,8 +2380,8 @@
               "status": "partial",
               "mode": "fixture",
               "synthetic": true,
-              "observed_at": "2026-10-17T09:10:01.182022+00:00",
-              "age_seconds": 545.787174,
+              "observed_at": "2026-10-17T09:24:03.606656+00:00",
+              "age_seconds": 642.28896,
               "stale": false,
               "covered_through": null,
               "gaps": [
@@ -2379,7 +2392,7 @@
           ],
           "freshness": "source_observation_times_only",
           "clock": {
-            "actual_now_utc": "2026-10-17T09:19:06.969196+00:00",
+            "actual_now_utc": "2026-10-17T09:34:45.895616+00:00",
             "datasets": [
               {
                 "id": "company:northstar:github-fixture:v1",
@@ -2442,8 +2455,8 @@
               "source_system": "github",
               "source_url": "https://github.com/northstar-demo/engineering/blob/master/services/allocation/OWNERS",
               "source_ref": "northstar-demo/engineering@HEAD:services/allocation",
-              "observed_at": "2026-10-17T09:10:00.400349+00:00",
-              "valid_from": "2026-10-17T09:10:00.400349+00:00",
+              "observed_at": "2026-10-17T09:24:03.267285+00:00",
+              "valid_from": "2026-10-17T09:24:03.267285+00:00",
               "is_deleted": false,
               "path": "services/allocation",
               "repo": "northstar-demo/engineering",
@@ -2466,7 +2479,7 @@
                 "source_system": "github",
                 "source_url": "https://github.com/dee",
                 "source_ref": "github:dee",
-                "observed_at": "2026-10-17T09:09:59.988680+00:00",
+                "observed_at": "2026-10-17T09:24:03.016857+00:00",
                 "organization_id": "northstar",
                 "synthetic": true,
                 "is_deleted": false,
@@ -2510,7 +2523,7 @@
                 "source_system": "github",
                 "source_url": "https://github.com/eli",
                 "source_ref": "github:eli",
-                "observed_at": "2026-10-17T09:10:00.978693+00:00",
+                "observed_at": "2026-10-17T09:24:03.512912+00:00",
                 "organization_id": "northstar",
                 "synthetic": true,
                 "is_deleted": false,
@@ -2736,7 +2749,7 @@
                 "source_url": "https://github.com/northstar-demo/engineering/pull/101",
                 "source_ref": "northstar-demo/engineering#101",
                 "source_updated_at": "2026-10-13T09:09:59.453059+00:00",
-                "observed_at": "2026-10-17T09:09:59.562940+00:00",
+                "observed_at": "2026-10-17T09:24:02.801011+00:00",
                 "valid_from": "2026-10-12T09:09:59.453059+00:00",
                 "is_deleted": false,
                 "number": 101,
@@ -2787,7 +2800,7 @@
                 "source_url": "https://github.com/northstar-demo/engineering/pull/102",
                 "source_ref": "northstar-demo/engineering#102",
                 "source_updated_at": "2026-10-14T09:09:59.453059+00:00",
-                "observed_at": "2026-10-17T09:09:59.799016+00:00",
+                "observed_at": "2026-10-17T09:24:02.911550+00:00",
                 "valid_from": "2026-10-13T09:09:59.453059+00:00",
                 "is_deleted": false,
                 "number": 102,
@@ -2838,7 +2851,7 @@
                 "source_url": "https://github.com/northstar-demo/engineering/pull/103",
                 "source_ref": "northstar-demo/engineering#103",
                 "source_updated_at": "2026-10-15T09:09:59.453059+00:00",
-                "observed_at": "2026-10-17T09:09:59.988680+00:00",
+                "observed_at": "2026-10-17T09:24:03.016857+00:00",
                 "valid_from": "2026-10-14T09:09:59.453059+00:00",
                 "is_deleted": false,
                 "number": 103,
@@ -2889,7 +2902,7 @@
                 "source_url": "https://github.com/northstar-demo/engineering/pull/104",
                 "source_ref": "northstar-demo/engineering#104",
                 "source_updated_at": "2026-10-16T09:09:59.453059+00:00",
-                "observed_at": "2026-10-17T09:10:00.220787+00:00",
+                "observed_at": "2026-10-17T09:24:03.148490+00:00",
                 "valid_from": "2026-10-15T09:09:59.453059+00:00",
                 "is_deleted": false,
                 "number": 104,
@@ -2940,7 +2953,7 @@
                 "source_url": "https://github.com/northstar-demo/engineering/pull/105",
                 "source_ref": "northstar-demo/engineering#105",
                 "source_updated_at": "2026-10-16T09:09:59.453059+00:00",
-                "observed_at": "2026-10-17T09:10:00.400349+00:00",
+                "observed_at": "2026-10-17T09:24:03.267285+00:00",
                 "valid_from": "2026-10-15T09:09:59.453059+00:00",
                 "is_deleted": false,
                 "number": 105,
@@ -3506,8 +3519,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.158204+00:00",
-              "age_seconds": 549.507329,
-              "stale": false,
+              "age_seconds": 1488.496026,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.158204+00:00",
               "gaps": [],
               "record_count": 2
@@ -3519,8 +3532,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.199831+00:00",
-              "age_seconds": 549.465702,
-              "stale": false,
+              "age_seconds": 1488.454399,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.199831+00:00",
               "gaps": [],
               "record_count": 2
@@ -3532,8 +3545,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.244096+00:00",
-              "age_seconds": 549.421437,
-              "stale": false,
+              "age_seconds": 1488.410134,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.244096+00:00",
               "gaps": [],
               "record_count": 2
@@ -3545,8 +3558,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.283896+00:00",
-              "age_seconds": 549.381637,
-              "stale": false,
+              "age_seconds": 1488.370334,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.283896+00:00",
               "gaps": [],
               "record_count": 2
@@ -3558,8 +3571,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.322285+00:00",
-              "age_seconds": 549.343248,
-              "stale": false,
+              "age_seconds": 1488.331945,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.322285+00:00",
               "gaps": [],
               "record_count": 2
@@ -3571,8 +3584,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.361953+00:00",
-              "age_seconds": 549.30358,
-              "stale": false,
+              "age_seconds": 1488.292277,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.361953+00:00",
               "gaps": [],
               "record_count": 2
@@ -3584,8 +3597,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.406847+00:00",
-              "age_seconds": 549.258686,
-              "stale": false,
+              "age_seconds": 1488.247383,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.406847+00:00",
               "gaps": [],
               "record_count": 6
@@ -3597,8 +3610,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.411114+00:00",
-              "age_seconds": 549.254419,
-              "stale": false,
+              "age_seconds": 1488.243116,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.411114+00:00",
               "gaps": [],
               "record_count": 3
@@ -3610,8 +3623,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.467481+00:00",
-              "age_seconds": 549.198052,
-              "stale": false,
+              "age_seconds": 1488.186749,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.467481+00:00",
               "gaps": [],
               "record_count": 2
@@ -3623,8 +3636,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.531434+00:00",
-              "age_seconds": 549.134099,
-              "stale": false,
+              "age_seconds": 1488.122796,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.531434+00:00",
               "gaps": [],
               "record_count": 2
@@ -3636,8 +3649,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.572547+00:00",
-              "age_seconds": 549.092986,
-              "stale": false,
+              "age_seconds": 1488.081683,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.572547+00:00",
               "gaps": [],
               "record_count": 1
@@ -3649,8 +3662,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.610830+00:00",
-              "age_seconds": 549.054703,
-              "stale": false,
+              "age_seconds": 1488.0434,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.610830+00:00",
               "gaps": [],
               "record_count": 1
@@ -3662,8 +3675,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.642716+00:00",
-              "age_seconds": 549.022817,
-              "stale": false,
+              "age_seconds": 1488.011514,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.642716+00:00",
               "gaps": [],
               "record_count": 1
@@ -3675,8 +3688,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.677443+00:00",
-              "age_seconds": 548.98809,
-              "stale": false,
+              "age_seconds": 1487.976787,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.677443+00:00",
               "gaps": [],
               "record_count": 1
@@ -3688,8 +3701,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.728425+00:00",
-              "age_seconds": 548.937108,
-              "stale": false,
+              "age_seconds": 1487.925805,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.728425+00:00",
               "gaps": [],
               "record_count": 6
@@ -3701,8 +3714,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.731721+00:00",
-              "age_seconds": 548.933812,
-              "stale": false,
+              "age_seconds": 1487.922509,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.731721+00:00",
               "gaps": [],
               "record_count": 3
@@ -3714,8 +3727,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:59.085084+00:00",
-              "age_seconds": 548.580449,
-              "stale": false,
+              "age_seconds": 1487.569146,
+              "stale": true,
               "covered_through": null,
               "gaps": [
                 "Channel history is bounded; absence does not prove deletion or inactivity."
@@ -3728,8 +3741,8 @@
               "status": "partial",
               "mode": "fixture",
               "synthetic": true,
-              "observed_at": "2026-10-17T09:10:01.182022+00:00",
-              "age_seconds": 546.483511,
+              "observed_at": "2026-10-17T09:24:03.606656+00:00",
+              "age_seconds": 643.047574,
               "stale": false,
               "covered_through": null,
               "gaps": [
@@ -3740,7 +3753,7 @@
           ],
           "freshness": "source_observation_times_only",
           "clock": {
-            "actual_now_utc": "2026-10-17T09:19:07.665533+00:00",
+            "actual_now_utc": "2026-10-17T09:34:46.654230+00:00",
             "datasets": [
               {
                 "id": "company:northstar:github-fixture:v1",
@@ -3776,9 +3789,9 @@
         "limit": 10
       },
       "result": {
-        "generation": "expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
+        "generation": "expertise:v2:9302c5d35836470484fb28a83681e15b",
         "scoring_version": "v2",
-        "calculated_at": "2026-10-17T09:10:01.183599+00:00",
+        "calculated_at": "2026-10-17T09:24:03.608247+00:00",
         "component_id": "company:northstar:component:resource-allocation",
         "code_directories": [
           {
@@ -3787,7 +3800,7 @@
             "repo": "northstar-demo/engineering"
           }
         ],
-        "snapshot_age_seconds": 546.551382,
+        "snapshot_age_seconds": 643.119967,
         "stale": false,
         "warnings": [
           "Activity import is not proven complete; rankings describe saved evidence, not lifetime competence.",
@@ -3819,16 +3832,16 @@
             "person_id": "company:northstar:person:faye",
             "login": "faye",
             "display_name": "Faye Lin",
-            "score": 7.122971,
+            "score": 7.119762,
             "score_breakdown": {
               "implementation": 0.0,
-              "peer_review": 7.122971
+              "peer_review": 7.119762
             },
             "matches": [
               {
                 "target_id": "github:northstar:dir:northstar-demo/engineering:services/allocation/reservations",
                 "target_name": "services/allocation/reservations",
-                "score": 3.643758,
+                "score": 3.642117,
                 "evidence_ids": [
                   "github:northstar:comment:northstar-demo/engineering:RC102-0",
                   "github:northstar:comment:northstar-demo/engineering:RC104-0"
@@ -3837,7 +3850,7 @@
               {
                 "target_id": "github:northstar:dir:northstar-demo/engineering:services/allocation/retry",
                 "target_name": "services/allocation/retry",
-                "score": 3.479212,
+                "score": 3.477645,
                 "evidence_ids": [
                   "github:northstar:comment:northstar-demo/engineering:RC101-0",
                   "github:northstar:comment:northstar-demo/engineering:RC103-0"
@@ -3944,22 +3957,22 @@
             "involvement_count": 4,
             "involvement_truncated": false,
             "scoring_version": "v2",
-            "calculated_at": "2026-10-17T09:10:01.183599+00:00"
+            "calculated_at": "2026-10-17T09:24:03.608247+00:00"
           },
           {
             "person_id": "company:northstar:person:dee",
             "login": "dee",
             "display_name": "Dee Park",
-            "score": 5.227017,
+            "score": 5.224663,
             "score_breakdown": {
-              "implementation": 5.227017,
+              "implementation": 5.224663,
               "peer_review": 0.0
             },
             "matches": [
               {
                 "target_id": "github:northstar:dir:northstar-demo/engineering:services/allocation/reservations",
                 "target_name": "services/allocation/reservations",
-                "score": 2.652821,
+                "score": 2.651626,
                 "evidence_ids": [
                   "github:northstar:pr:northstar-demo/engineering:102",
                   "github:northstar:pr:northstar-demo/engineering:103"
@@ -3968,7 +3981,7 @@
               {
                 "target_id": "github:northstar:dir:northstar-demo/engineering:services/allocation/retry",
                 "target_name": "services/allocation/retry",
-                "score": 2.574196,
+                "score": 2.573036,
                 "evidence_ids": [
                   "github:northstar:pr:northstar-demo/engineering:101",
                   "github:northstar:pr:northstar-demo/engineering:103"
@@ -3992,22 +4005,22 @@
             "involvement_count": 0,
             "involvement_truncated": false,
             "scoring_version": "v2",
-            "calculated_at": "2026-10-17T09:10:01.183599+00:00"
+            "calculated_at": "2026-10-17T09:24:03.608247+00:00"
           },
           {
             "person_id": "company:northstar:person:eli",
             "login": "eli",
             "display_name": "Eli Moss",
-            "score": 3.81569,
+            "score": 3.813971,
             "score_breakdown": {
-              "implementation": 1.909681,
-              "peer_review": 1.906008
+              "implementation": 1.908821,
+              "peer_review": 1.905149
             },
             "matches": [
               {
                 "target_id": "github:northstar:dir:northstar-demo/engineering:services/allocation",
                 "target_name": "services/allocation",
-                "score": 1.906008,
+                "score": 1.905149,
                 "evidence_ids": [
                   "github:northstar:comment:northstar-demo/engineering:RC105-0"
                 ]
@@ -4015,7 +4028,7 @@
               {
                 "target_id": "github:northstar:dir:northstar-demo/engineering:services/allocation/reservations",
                 "target_name": "services/allocation/reservations",
-                "score": 1.909681,
+                "score": 1.908821,
                 "evidence_ids": [
                   "github:northstar:pr:northstar-demo/engineering:104"
                 ]
@@ -4137,7 +4150,7 @@
             "involvement_count": 6,
             "involvement_truncated": true,
             "scoring_version": "v2",
-            "calculated_at": "2026-10-17T09:10:01.183599+00:00"
+            "calculated_at": "2026-10-17T09:24:03.608247+00:00"
           }
         ],
         "count": 3,
@@ -4154,8 +4167,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.158204+00:00",
-              "age_seconds": 549.585299,
-              "stale": false,
+              "age_seconds": 1488.580116,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.158204+00:00",
               "gaps": [],
               "record_count": 2
@@ -4167,8 +4180,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.199831+00:00",
-              "age_seconds": 549.543672,
-              "stale": false,
+              "age_seconds": 1488.538489,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.199831+00:00",
               "gaps": [],
               "record_count": 2
@@ -4180,8 +4193,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.244096+00:00",
-              "age_seconds": 549.499407,
-              "stale": false,
+              "age_seconds": 1488.494224,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.244096+00:00",
               "gaps": [],
               "record_count": 2
@@ -4193,8 +4206,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.283896+00:00",
-              "age_seconds": 549.459607,
-              "stale": false,
+              "age_seconds": 1488.454424,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.283896+00:00",
               "gaps": [],
               "record_count": 2
@@ -4206,8 +4219,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.322285+00:00",
-              "age_seconds": 549.421218,
-              "stale": false,
+              "age_seconds": 1488.416035,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.322285+00:00",
               "gaps": [],
               "record_count": 2
@@ -4219,8 +4232,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.361953+00:00",
-              "age_seconds": 549.38155,
-              "stale": false,
+              "age_seconds": 1488.376367,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.361953+00:00",
               "gaps": [],
               "record_count": 2
@@ -4232,8 +4245,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.406847+00:00",
-              "age_seconds": 549.336656,
-              "stale": false,
+              "age_seconds": 1488.331473,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.406847+00:00",
               "gaps": [],
               "record_count": 6
@@ -4245,8 +4258,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.411114+00:00",
-              "age_seconds": 549.332389,
-              "stale": false,
+              "age_seconds": 1488.327206,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.411114+00:00",
               "gaps": [],
               "record_count": 3
@@ -4258,8 +4271,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.467481+00:00",
-              "age_seconds": 549.276022,
-              "stale": false,
+              "age_seconds": 1488.270839,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.467481+00:00",
               "gaps": [],
               "record_count": 2
@@ -4271,8 +4284,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.531434+00:00",
-              "age_seconds": 549.212069,
-              "stale": false,
+              "age_seconds": 1488.206886,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.531434+00:00",
               "gaps": [],
               "record_count": 2
@@ -4284,8 +4297,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.572547+00:00",
-              "age_seconds": 549.170956,
-              "stale": false,
+              "age_seconds": 1488.165773,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.572547+00:00",
               "gaps": [],
               "record_count": 1
@@ -4297,8 +4310,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.610830+00:00",
-              "age_seconds": 549.132673,
-              "stale": false,
+              "age_seconds": 1488.12749,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.610830+00:00",
               "gaps": [],
               "record_count": 1
@@ -4310,8 +4323,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.642716+00:00",
-              "age_seconds": 549.100787,
-              "stale": false,
+              "age_seconds": 1488.095604,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.642716+00:00",
               "gaps": [],
               "record_count": 1
@@ -4323,8 +4336,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.677443+00:00",
-              "age_seconds": 549.06606,
-              "stale": false,
+              "age_seconds": 1488.060877,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.677443+00:00",
               "gaps": [],
               "record_count": 1
@@ -4336,8 +4349,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.728425+00:00",
-              "age_seconds": 549.015078,
-              "stale": false,
+              "age_seconds": 1488.009895,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.728425+00:00",
               "gaps": [],
               "record_count": 6
@@ -4349,8 +4362,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.731721+00:00",
-              "age_seconds": 549.011782,
-              "stale": false,
+              "age_seconds": 1488.006599,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.731721+00:00",
               "gaps": [],
               "record_count": 3
@@ -4362,8 +4375,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:59.085084+00:00",
-              "age_seconds": 548.658419,
-              "stale": false,
+              "age_seconds": 1487.653236,
+              "stale": true,
               "covered_through": null,
               "gaps": [
                 "Channel history is bounded; absence does not prove deletion or inactivity."
@@ -4376,8 +4389,8 @@
               "status": "partial",
               "mode": "fixture",
               "synthetic": true,
-              "observed_at": "2026-10-17T09:10:01.182022+00:00",
-              "age_seconds": 546.561481,
+              "observed_at": "2026-10-17T09:24:03.606656+00:00",
+              "age_seconds": 643.131664,
               "stale": false,
               "covered_through": null,
               "gaps": [
@@ -4388,7 +4401,7 @@
           ],
           "freshness": "source_observation_times_only",
           "clock": {
-            "actual_now_utc": "2026-10-17T09:19:07.743503+00:00",
+            "actual_now_utc": "2026-10-17T09:34:46.738320+00:00",
             "datasets": [
               {
                 "id": "company:northstar:github-fixture:v1",
@@ -4428,36 +4441,6 @@
         "items": [
           {
             "entity": {
-              "id": "company:northstar:claim:pc7",
-              "labels": [
-                "Argument"
-              ],
-              "properties": {
-                "id": "company:northstar:claim:pc7",
-                "source_system": "fixture-annotation",
-                "source_url": "https://app.plane.so/northstar-demo/projects/allocation/work-items/w7#comment-pc7",
-                "source_ref": "company:northstar:claim:pc7",
-                "observed_at": "2026-10-17T09:09:59.213697+00:00",
-                "organization_id": "northstar",
-                "synthetic": true,
-                "is_deleted": false,
-                "summary": "I am concerned that resize retry can starve existing reservations.",
-                "evidence_quote": "I am concerned that resize retry can starve existing reservations.",
-                "source_revision_id": "source-revision:plane:northstar:comment:pc7:ca0943b8c29cf50192cc7e10490c9367d7c2f9be210e2be062656339afe262e3",
-                "source_timestamp": "2026-10-15T09:06:00+00:00",
-                "kind": "concern",
-                "target_id": "company:northstar:component:resource-allocation",
-                "annotation_origin": "hand_authored_demo",
-                "status": "open",
-                "resolution_rule_version": "explicit-resolution-v2",
-                "resolution_evidence_ids": []
-              }
-            },
-            "native_distance": 0.338671863079071,
-            "score": 0.661328136920929
-          },
-          {
-            "entity": {
               "id": "plane:northstar:comment:pc7",
               "labels": [
                 "Comment"
@@ -4492,6 +4475,36 @@
           },
           {
             "entity": {
+              "id": "company:northstar:claim:pc7",
+              "labels": [
+                "Argument"
+              ],
+              "properties": {
+                "id": "company:northstar:claim:pc7",
+                "source_system": "fixture-annotation",
+                "source_url": "https://app.plane.so/northstar-demo/projects/allocation/work-items/w7#comment-pc7",
+                "source_ref": "company:northstar:claim:pc7",
+                "observed_at": "2026-10-17T09:09:59.213697+00:00",
+                "organization_id": "northstar",
+                "synthetic": true,
+                "is_deleted": false,
+                "summary": "I am concerned that resize retry can starve existing reservations.",
+                "evidence_quote": "I am concerned that resize retry can starve existing reservations.",
+                "source_revision_id": "source-revision:plane:northstar:comment:pc7:ca0943b8c29cf50192cc7e10490c9367d7c2f9be210e2be062656339afe262e3",
+                "source_timestamp": "2026-10-15T09:06:00+00:00",
+                "kind": "concern",
+                "target_id": "company:northstar:component:resource-allocation",
+                "annotation_origin": "hand_authored_demo",
+                "status": "open",
+                "resolution_rule_version": "explicit-resolution-v2",
+                "resolution_evidence_ids": []
+              }
+            },
+            "native_distance": 0.338671982288361,
+            "score": 0.661328017711639
+          },
+          {
+            "entity": {
               "id": "k8s:topic:reservation-fairness",
               "labels": [
                 "Topic"
@@ -4512,8 +4525,8 @@
                 "name": "Reservation Fairness"
               }
             },
-            "native_distance": 0.504557371139526,
-            "score": 0.49544262886047397
+            "native_distance": 0.504557311534882,
+            "score": 0.49544268846511796
           },
           {
             "entity": {
@@ -4538,8 +4551,8 @@
                 "annotation_origin": "hand_authored_demo"
               }
             },
-            "native_distance": 0.907465994358063,
-            "score": 0.09253400564193703
+            "native_distance": 0.907466053962708,
+            "score": 0.09253394603729204
           },
           {
             "entity": {
@@ -4552,7 +4565,7 @@
                 "source_system": "github",
                 "source_url": "https://github.com/northstar-demo/engineering/pull/101#issuecomment-10102",
                 "source_ref": "northstar-demo/engineering#comment:IC101approval",
-                "observed_at": "2026-10-17T09:09:59.562940+00:00",
+                "observed_at": "2026-10-17T09:24:02.801011+00:00",
                 "valid_from": "2026-10-13T08:09:59.453059+00:00",
                 "is_deleted": false,
                 "kind": "review",
@@ -4573,8 +4586,8 @@
                 "source_revision_id": "source-revision:github:northstar:comment:northstar-demo/engineering:IC101approval:543e0fc462bdb3d9449665aff3f33b6e1cf33028bf3927c09b906660f927ff41"
               }
             },
-            "native_distance": 0.937871396541595,
-            "score": 0.062128603458404985
+            "native_distance": 0.93787145614624,
+            "score": 0.06212854385375999
           }
         ],
         "embedding_model": "nvidia/nemotron-3-embed-1b:free",
@@ -4595,8 +4608,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.158204+00:00",
-              "age_seconds": 550.199492,
-              "stale": false,
+              "age_seconds": 1489.435164,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.158204+00:00",
               "gaps": [],
               "record_count": 2
@@ -4608,8 +4621,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.199831+00:00",
-              "age_seconds": 550.157865,
-              "stale": false,
+              "age_seconds": 1489.393537,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.199831+00:00",
               "gaps": [],
               "record_count": 2
@@ -4621,8 +4634,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.244096+00:00",
-              "age_seconds": 550.1136,
-              "stale": false,
+              "age_seconds": 1489.349272,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.244096+00:00",
               "gaps": [],
               "record_count": 2
@@ -4634,8 +4647,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.283896+00:00",
-              "age_seconds": 550.0738,
-              "stale": false,
+              "age_seconds": 1489.309472,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.283896+00:00",
               "gaps": [],
               "record_count": 2
@@ -4647,8 +4660,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.322285+00:00",
-              "age_seconds": 550.035411,
-              "stale": false,
+              "age_seconds": 1489.271083,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.322285+00:00",
               "gaps": [],
               "record_count": 2
@@ -4660,8 +4673,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.361953+00:00",
-              "age_seconds": 549.995743,
-              "stale": false,
+              "age_seconds": 1489.231415,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.361953+00:00",
               "gaps": [],
               "record_count": 2
@@ -4673,8 +4686,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.406847+00:00",
-              "age_seconds": 549.950849,
-              "stale": false,
+              "age_seconds": 1489.186521,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.406847+00:00",
               "gaps": [],
               "record_count": 6
@@ -4686,8 +4699,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.411114+00:00",
-              "age_seconds": 549.946582,
-              "stale": false,
+              "age_seconds": 1489.182254,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.411114+00:00",
               "gaps": [],
               "record_count": 3
@@ -4699,8 +4712,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.467481+00:00",
-              "age_seconds": 549.890215,
-              "stale": false,
+              "age_seconds": 1489.125887,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.467481+00:00",
               "gaps": [],
               "record_count": 2
@@ -4712,8 +4725,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.531434+00:00",
-              "age_seconds": 549.826262,
-              "stale": false,
+              "age_seconds": 1489.061934,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.531434+00:00",
               "gaps": [],
               "record_count": 2
@@ -4725,8 +4738,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.572547+00:00",
-              "age_seconds": 549.785149,
-              "stale": false,
+              "age_seconds": 1489.020821,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.572547+00:00",
               "gaps": [],
               "record_count": 1
@@ -4738,8 +4751,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.610830+00:00",
-              "age_seconds": 549.746866,
-              "stale": false,
+              "age_seconds": 1488.982538,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.610830+00:00",
               "gaps": [],
               "record_count": 1
@@ -4751,8 +4764,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.642716+00:00",
-              "age_seconds": 549.71498,
-              "stale": false,
+              "age_seconds": 1488.950652,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.642716+00:00",
               "gaps": [],
               "record_count": 1
@@ -4764,8 +4777,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.677443+00:00",
-              "age_seconds": 549.680253,
-              "stale": false,
+              "age_seconds": 1488.915925,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.677443+00:00",
               "gaps": [],
               "record_count": 1
@@ -4777,8 +4790,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.728425+00:00",
-              "age_seconds": 549.629271,
-              "stale": false,
+              "age_seconds": 1488.864943,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.728425+00:00",
               "gaps": [],
               "record_count": 6
@@ -4790,8 +4803,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.731721+00:00",
-              "age_seconds": 549.625975,
-              "stale": false,
+              "age_seconds": 1488.861647,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.731721+00:00",
               "gaps": [],
               "record_count": 3
@@ -4803,8 +4816,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:59.085084+00:00",
-              "age_seconds": 549.272612,
-              "stale": false,
+              "age_seconds": 1488.508284,
+              "stale": true,
               "covered_through": null,
               "gaps": [
                 "Channel history is bounded; absence does not prove deletion or inactivity."
@@ -4817,8 +4830,8 @@
               "status": "partial",
               "mode": "fixture",
               "synthetic": true,
-              "observed_at": "2026-10-17T09:10:01.182022+00:00",
-              "age_seconds": 547.175674,
+              "observed_at": "2026-10-17T09:24:03.606656+00:00",
+              "age_seconds": 643.986712,
               "stale": false,
               "covered_through": null,
               "gaps": [
@@ -4829,7 +4842,7 @@
           ],
           "freshness": "source_observation_times_only",
           "clock": {
-            "actual_now_utc": "2026-10-17T09:19:08.357696+00:00",
+            "actual_now_utc": "2026-10-17T09:34:47.593368+00:00",
             "datasets": [
               {
                 "id": "company:northstar:github-fixture:v1",
@@ -5159,7 +5172,7 @@
                 "source_system": "github",
                 "source_url": "https://github.com/dee",
                 "source_ref": "github:dee",
-                "observed_at": "2026-10-17T09:09:59.988680+00:00",
+                "observed_at": "2026-10-17T09:24:03.016857+00:00",
                 "organization_id": "northstar",
                 "synthetic": true,
                 "is_deleted": false,
@@ -5220,7 +5233,7 @@
                 "source_system": "github",
                 "source_url": "https://github.com/eli",
                 "source_ref": "github:eli",
-                "observed_at": "2026-10-17T09:10:00.978693+00:00",
+                "observed_at": "2026-10-17T09:24:03.512912+00:00",
                 "organization_id": "northstar",
                 "synthetic": true,
                 "is_deleted": false,
@@ -5232,6 +5245,61 @@
                 "fixture_dataset": "company:northstar:github-fixture:v1",
                 "first_seen_at": "2026-10-16T08:09:59.453059+00:00",
                 "last_active_at": "2026-10-16T08:09:59.453059+00:00"
+              }
+            }
+          },
+          {
+            "n": {
+              "id": "company:northstar:component:resource-allocation",
+              "labels": [
+                "Component"
+              ],
+              "properties": {
+                "id": "company:northstar:component:resource-allocation",
+                "source_system": "manifest",
+                "source_url": "https://example.org/wayfinder-synthetic/northstar",
+                "source_ref": "company:northstar:component:resource-allocation",
+                "observed_at": "2026-10-17T09:09:58.097346+00:00",
+                "organization_id": "northstar",
+                "synthetic": true,
+                "is_deleted": false,
+                "name": "Resource Allocation"
+              }
+            },
+            "r": {
+              "id": "company:northstar:component:resource-allocation->ABOUT_TOPIC->company:northstar:topic:resource-allocation@7a245a73a10a091dc388",
+              "type": "ABOUT_TOPIC",
+              "source_id": "company:northstar:component:resource-allocation",
+              "target_id": "company:northstar:topic:resource-allocation",
+              "properties": {
+                "id": "company:northstar:component:resource-allocation->ABOUT_TOPIC->company:northstar:topic:resource-allocation@7a245a73a10a091dc388",
+                "source_system": "manifest",
+                "source_url": "https://example.org/wayfinder-synthetic/northstar",
+                "source_ref": "company:northstar:component:resource-allocation",
+                "observed_at": "2026-10-17T09:24:03.593949+00:00",
+                "authority": "CONFIRMED",
+                "link_method": "STRUCTURED_FILE",
+                "logical_id": "company:northstar:component:resource-allocation->ABOUT_TOPIC->company:northstar:topic:resource-allocation",
+                "signature": "0ce34d07cb10b77697728ca1af19700b9a72404067027d23543d7bcffb90b41f",
+                "valid_from": "2026-10-17T09:24:03.593949+00:00"
+              }
+            },
+            "m": {
+              "id": "company:northstar:topic:resource-allocation",
+              "labels": [
+                "Topic"
+              ],
+              "properties": {
+                "id": "company:northstar:topic:resource-allocation",
+                "source_system": "manifest",
+                "source_url": "https://example.org/wayfinder-synthetic/northstar",
+                "source_ref": "company:northstar:topic:resource-allocation",
+                "observed_at": "2026-10-17T09:24:03.591139+00:00",
+                "organization_id": "northstar",
+                "synthetic": true,
+                "is_deleted": false,
+                "name": "Resource Allocation",
+                "seed": true
               }
             }
           },
@@ -5281,8 +5349,8 @@
                 "source_system": "github",
                 "source_url": "https://github.com/northstar-demo/engineering/blob/master/services/allocation/OWNERS",
                 "source_ref": "northstar-demo/engineering@HEAD:services/allocation",
-                "observed_at": "2026-10-17T09:10:00.400349+00:00",
-                "valid_from": "2026-10-17T09:10:00.400349+00:00",
+                "observed_at": "2026-10-17T09:24:03.267285+00:00",
+                "valid_from": "2026-10-17T09:24:03.267285+00:00",
                 "is_deleted": false,
                 "path": "services/allocation",
                 "repo": "northstar-demo/engineering",
@@ -5340,7 +5408,7 @@
                 "source_url": "https://github.com/northstar-demo/engineering/pull/101",
                 "source_ref": "northstar-demo/engineering#101",
                 "source_updated_at": "2026-10-13T09:09:59.453059+00:00",
-                "observed_at": "2026-10-17T09:09:59.562940+00:00",
+                "observed_at": "2026-10-17T09:24:02.801011+00:00",
                 "valid_from": "2026-10-12T09:09:59.453059+00:00",
                 "is_deleted": false,
                 "number": 101,
@@ -5408,7 +5476,7 @@
                 "source_url": "https://github.com/northstar-demo/engineering/pull/102",
                 "source_ref": "northstar-demo/engineering#102",
                 "source_updated_at": "2026-10-14T09:09:59.453059+00:00",
-                "observed_at": "2026-10-17T09:09:59.799016+00:00",
+                "observed_at": "2026-10-17T09:24:02.911550+00:00",
                 "valid_from": "2026-10-13T09:09:59.453059+00:00",
                 "is_deleted": false,
                 "number": 102,
@@ -5476,7 +5544,7 @@
                 "source_url": "https://github.com/northstar-demo/engineering/pull/103",
                 "source_ref": "northstar-demo/engineering#103",
                 "source_updated_at": "2026-10-15T09:09:59.453059+00:00",
-                "observed_at": "2026-10-17T09:09:59.988680+00:00",
+                "observed_at": "2026-10-17T09:24:03.016857+00:00",
                 "valid_from": "2026-10-14T09:09:59.453059+00:00",
                 "is_deleted": false,
                 "number": 103,
@@ -5544,7 +5612,7 @@
                 "source_url": "https://github.com/northstar-demo/engineering/pull/104",
                 "source_ref": "northstar-demo/engineering#104",
                 "source_updated_at": "2026-10-16T09:09:59.453059+00:00",
-                "observed_at": "2026-10-17T09:10:00.220787+00:00",
+                "observed_at": "2026-10-17T09:24:03.148490+00:00",
                 "valid_from": "2026-10-15T09:09:59.453059+00:00",
                 "is_deleted": false,
                 "number": 104,
@@ -5612,7 +5680,7 @@
                 "source_url": "https://github.com/northstar-demo/engineering/pull/105",
                 "source_ref": "northstar-demo/engineering#105",
                 "source_updated_at": "2026-10-16T09:09:59.453059+00:00",
-                "observed_at": "2026-10-17T09:10:00.400349+00:00",
+                "observed_at": "2026-10-17T09:24:03.267285+00:00",
                 "valid_from": "2026-10-15T09:09:59.453059+00:00",
                 "is_deleted": false,
                 "number": 105,
@@ -6086,7 +6154,293 @@
                 "raw_revision_id": "raw-revision:plane:northstar:issue:w9:3a544887144bd38e2364612738e75829caba5743652771503d49e8bb34674aba"
               }
             }
+          }
+        ],
+        "count": 20,
+        "next_cursor": "eyJvZmZzZXQiOiAyMCwgInF1ZXJ5IjogIjUyNTE0YThhZGQ1ZGE1ZTNjMWZiNTQ3ZiJ9",
+        "truncated": true,
+        "pagination_consistency": "Best effort if ingestion changes the graph between pages.",
+        "context": {
+          "source_scope": [
+            {
+              "source": "plane",
+              "scope": "plane:northstar:issue:w1:comments",
+              "status": "complete",
+              "mode": "fixture",
+              "synthetic": true,
+              "observed_at": "2026-10-17T09:09:58.158204+00:00",
+              "age_seconds": 1489.476855,
+              "stale": true,
+              "covered_through": "2026-10-17T09:09:58.158204+00:00",
+              "gaps": [],
+              "record_count": 2
+            },
+            {
+              "source": "plane",
+              "scope": "plane:northstar:issue:w2:comments",
+              "status": "complete",
+              "mode": "fixture",
+              "synthetic": true,
+              "observed_at": "2026-10-17T09:09:58.199831+00:00",
+              "age_seconds": 1489.435228,
+              "stale": true,
+              "covered_through": "2026-10-17T09:09:58.199831+00:00",
+              "gaps": [],
+              "record_count": 2
+            },
+            {
+              "source": "plane",
+              "scope": "plane:northstar:issue:w3:comments",
+              "status": "complete",
+              "mode": "fixture",
+              "synthetic": true,
+              "observed_at": "2026-10-17T09:09:58.244096+00:00",
+              "age_seconds": 1489.390963,
+              "stale": true,
+              "covered_through": "2026-10-17T09:09:58.244096+00:00",
+              "gaps": [],
+              "record_count": 2
+            },
+            {
+              "source": "plane",
+              "scope": "plane:northstar:issue:w4:comments",
+              "status": "complete",
+              "mode": "fixture",
+              "synthetic": true,
+              "observed_at": "2026-10-17T09:09:58.283896+00:00",
+              "age_seconds": 1489.351163,
+              "stale": true,
+              "covered_through": "2026-10-17T09:09:58.283896+00:00",
+              "gaps": [],
+              "record_count": 2
+            },
+            {
+              "source": "plane",
+              "scope": "plane:northstar:issue:w5:comments",
+              "status": "complete",
+              "mode": "fixture",
+              "synthetic": true,
+              "observed_at": "2026-10-17T09:09:58.322285+00:00",
+              "age_seconds": 1489.312774,
+              "stale": true,
+              "covered_through": "2026-10-17T09:09:58.322285+00:00",
+              "gaps": [],
+              "record_count": 2
+            },
+            {
+              "source": "plane",
+              "scope": "plane:northstar:issue:w6:comments",
+              "status": "complete",
+              "mode": "fixture",
+              "synthetic": true,
+              "observed_at": "2026-10-17T09:09:58.361953+00:00",
+              "age_seconds": 1489.273106,
+              "stale": true,
+              "covered_through": "2026-10-17T09:09:58.361953+00:00",
+              "gaps": [],
+              "record_count": 2
+            },
+            {
+              "source": "plane",
+              "scope": "project:runtime:items",
+              "status": "complete",
+              "mode": "fixture",
+              "synthetic": true,
+              "observed_at": "2026-10-17T09:09:58.406847+00:00",
+              "age_seconds": 1489.228212,
+              "stale": true,
+              "covered_through": "2026-10-17T09:09:58.406847+00:00",
+              "gaps": [],
+              "record_count": 6
+            },
+            {
+              "source": "plane",
+              "scope": "project:runtime:pages",
+              "status": "complete",
+              "mode": "fixture",
+              "synthetic": true,
+              "observed_at": "2026-10-17T09:09:58.411114+00:00",
+              "age_seconds": 1489.223945,
+              "stale": true,
+              "covered_through": "2026-10-17T09:09:58.411114+00:00",
+              "gaps": [],
+              "record_count": 3
+            },
+            {
+              "source": "plane",
+              "scope": "plane:northstar:issue:w7:comments",
+              "status": "complete",
+              "mode": "fixture",
+              "synthetic": true,
+              "observed_at": "2026-10-17T09:09:58.467481+00:00",
+              "age_seconds": 1489.167578,
+              "stale": true,
+              "covered_through": "2026-10-17T09:09:58.467481+00:00",
+              "gaps": [],
+              "record_count": 2
+            },
+            {
+              "source": "plane",
+              "scope": "plane:northstar:issue:w8:comments",
+              "status": "complete",
+              "mode": "fixture",
+              "synthetic": true,
+              "observed_at": "2026-10-17T09:09:58.531434+00:00",
+              "age_seconds": 1489.103625,
+              "stale": true,
+              "covered_through": "2026-10-17T09:09:58.531434+00:00",
+              "gaps": [],
+              "record_count": 2
+            },
+            {
+              "source": "plane",
+              "scope": "plane:northstar:issue:w9:comments",
+              "status": "complete",
+              "mode": "fixture",
+              "synthetic": true,
+              "observed_at": "2026-10-17T09:09:58.572547+00:00",
+              "age_seconds": 1489.062512,
+              "stale": true,
+              "covered_through": "2026-10-17T09:09:58.572547+00:00",
+              "gaps": [],
+              "record_count": 1
+            },
+            {
+              "source": "plane",
+              "scope": "plane:northstar:issue:w10:comments",
+              "status": "complete",
+              "mode": "fixture",
+              "synthetic": true,
+              "observed_at": "2026-10-17T09:09:58.610830+00:00",
+              "age_seconds": 1489.024229,
+              "stale": true,
+              "covered_through": "2026-10-17T09:09:58.610830+00:00",
+              "gaps": [],
+              "record_count": 1
+            },
+            {
+              "source": "plane",
+              "scope": "plane:northstar:issue:w11:comments",
+              "status": "complete",
+              "mode": "fixture",
+              "synthetic": true,
+              "observed_at": "2026-10-17T09:09:58.642716+00:00",
+              "age_seconds": 1488.992343,
+              "stale": true,
+              "covered_through": "2026-10-17T09:09:58.642716+00:00",
+              "gaps": [],
+              "record_count": 1
+            },
+            {
+              "source": "plane",
+              "scope": "plane:northstar:issue:w12:comments",
+              "status": "complete",
+              "mode": "fixture",
+              "synthetic": true,
+              "observed_at": "2026-10-17T09:09:58.677443+00:00",
+              "age_seconds": 1488.957616,
+              "stale": true,
+              "covered_through": "2026-10-17T09:09:58.677443+00:00",
+              "gaps": [],
+              "record_count": 1
+            },
+            {
+              "source": "plane",
+              "scope": "project:allocation:items",
+              "status": "complete",
+              "mode": "fixture",
+              "synthetic": true,
+              "observed_at": "2026-10-17T09:09:58.728425+00:00",
+              "age_seconds": 1488.906634,
+              "stale": true,
+              "covered_through": "2026-10-17T09:09:58.728425+00:00",
+              "gaps": [],
+              "record_count": 6
+            },
+            {
+              "source": "plane",
+              "scope": "project:allocation:pages",
+              "status": "complete",
+              "mode": "fixture",
+              "synthetic": true,
+              "observed_at": "2026-10-17T09:09:58.731721+00:00",
+              "age_seconds": 1488.903338,
+              "stale": true,
+              "covered_through": "2026-10-17T09:09:58.731721+00:00",
+              "gaps": [],
+              "record_count": 3
+            },
+            {
+              "source": "slack",
+              "scope": "channel:CDEMO",
+              "status": "partial",
+              "mode": "fixture",
+              "synthetic": true,
+              "observed_at": "2026-10-17T09:09:59.085084+00:00",
+              "age_seconds": 1488.549975,
+              "stale": true,
+              "covered_through": null,
+              "gaps": [
+                "Channel history is bounded; absence does not prove deletion or inactivity."
+              ],
+              "record_count": 30
+            },
+            {
+              "source": "github",
+              "scope": "fixture:northstar-demo/engineering",
+              "status": "partial",
+              "mode": "fixture",
+              "synthetic": true,
+              "observed_at": "2026-10-17T09:24:03.606656+00:00",
+              "age_seconds": 644.028403,
+              "stale": false,
+              "covered_through": null,
+              "gaps": [
+                "Eight synthetic PRs, not live or complete repository activity."
+              ],
+              "record_count": 8
+            }
+          ],
+          "freshness": "source_observation_times_only",
+          "clock": {
+            "actual_now_utc": "2026-10-17T09:34:47.635059+00:00",
+            "datasets": [
+              {
+                "id": "company:northstar:github-fixture:v1",
+                "anchor_at": "2026-10-17T09:09:59.453059+00:00",
+                "synthetic": true,
+                "organization_id": "northstar",
+                "clock_policy": "events=fixed offsets before persisted anchor; decay=snapshot calculated_at; staleness=actual UTC now"
+              }
+            ],
+            "event_time": "fixed offsets before persisted dataset anchor",
+            "decay_time": "expertise snapshot calculated_at",
+            "staleness_time": "actual current UTC minus calculated_at"
           },
+          "imported_pr_count": 8,
+          "supporting_pr_count": null,
+          "units_without_live_extraction": 95,
+          "github_activity_coverage": [],
+          "missing_evidence": [
+            "No proven complete GitHub activity coverage"
+          ],
+          "warnings": [
+            "Coverage describes configured scopes, not the whole company.",
+            "Fixture observations are not live synchronization."
+          ]
+        }
+      }
+    },
+    {
+      "tool": "get_neighbors",
+      "arguments": {
+        "entity_id": "company:northstar:component:resource-allocation",
+        "limit": 20,
+        "cursor": "eyJvZmZzZXQiOiAyMCwgInF1ZXJ5IjogIjUyNTE0YThhZGQ1ZGE1ZTNjMWZiNTQ3ZiJ9"
+      },
+      "result": {
+        "graph": "wayfinder_company_demo",
+        "items": [
           {
             "n": {
               "id": "company:northstar:component:resource-allocation",
@@ -6151,293 +6505,7 @@
                 "local_overlay_run": "46dc8f685ab8438ca4398b8d4c2b8839"
               }
             }
-          }
-        ],
-        "count": 20,
-        "next_cursor": "eyJvZmZzZXQiOiAyMCwgInF1ZXJ5IjogIjUyNTE0YThhZGQ1ZGE1ZTNjMWZiNTQ3ZiJ9",
-        "truncated": true,
-        "pagination_consistency": "Best effort if ingestion changes the graph between pages.",
-        "context": {
-          "source_scope": [
-            {
-              "source": "plane",
-              "scope": "plane:northstar:issue:w1:comments",
-              "status": "complete",
-              "mode": "fixture",
-              "synthetic": true,
-              "observed_at": "2026-10-17T09:09:58.158204+00:00",
-              "age_seconds": 550.240264,
-              "stale": false,
-              "covered_through": "2026-10-17T09:09:58.158204+00:00",
-              "gaps": [],
-              "record_count": 2
-            },
-            {
-              "source": "plane",
-              "scope": "plane:northstar:issue:w2:comments",
-              "status": "complete",
-              "mode": "fixture",
-              "synthetic": true,
-              "observed_at": "2026-10-17T09:09:58.199831+00:00",
-              "age_seconds": 550.198637,
-              "stale": false,
-              "covered_through": "2026-10-17T09:09:58.199831+00:00",
-              "gaps": [],
-              "record_count": 2
-            },
-            {
-              "source": "plane",
-              "scope": "plane:northstar:issue:w3:comments",
-              "status": "complete",
-              "mode": "fixture",
-              "synthetic": true,
-              "observed_at": "2026-10-17T09:09:58.244096+00:00",
-              "age_seconds": 550.154372,
-              "stale": false,
-              "covered_through": "2026-10-17T09:09:58.244096+00:00",
-              "gaps": [],
-              "record_count": 2
-            },
-            {
-              "source": "plane",
-              "scope": "plane:northstar:issue:w4:comments",
-              "status": "complete",
-              "mode": "fixture",
-              "synthetic": true,
-              "observed_at": "2026-10-17T09:09:58.283896+00:00",
-              "age_seconds": 550.114572,
-              "stale": false,
-              "covered_through": "2026-10-17T09:09:58.283896+00:00",
-              "gaps": [],
-              "record_count": 2
-            },
-            {
-              "source": "plane",
-              "scope": "plane:northstar:issue:w5:comments",
-              "status": "complete",
-              "mode": "fixture",
-              "synthetic": true,
-              "observed_at": "2026-10-17T09:09:58.322285+00:00",
-              "age_seconds": 550.076183,
-              "stale": false,
-              "covered_through": "2026-10-17T09:09:58.322285+00:00",
-              "gaps": [],
-              "record_count": 2
-            },
-            {
-              "source": "plane",
-              "scope": "plane:northstar:issue:w6:comments",
-              "status": "complete",
-              "mode": "fixture",
-              "synthetic": true,
-              "observed_at": "2026-10-17T09:09:58.361953+00:00",
-              "age_seconds": 550.036515,
-              "stale": false,
-              "covered_through": "2026-10-17T09:09:58.361953+00:00",
-              "gaps": [],
-              "record_count": 2
-            },
-            {
-              "source": "plane",
-              "scope": "project:runtime:items",
-              "status": "complete",
-              "mode": "fixture",
-              "synthetic": true,
-              "observed_at": "2026-10-17T09:09:58.406847+00:00",
-              "age_seconds": 549.991621,
-              "stale": false,
-              "covered_through": "2026-10-17T09:09:58.406847+00:00",
-              "gaps": [],
-              "record_count": 6
-            },
-            {
-              "source": "plane",
-              "scope": "project:runtime:pages",
-              "status": "complete",
-              "mode": "fixture",
-              "synthetic": true,
-              "observed_at": "2026-10-17T09:09:58.411114+00:00",
-              "age_seconds": 549.987354,
-              "stale": false,
-              "covered_through": "2026-10-17T09:09:58.411114+00:00",
-              "gaps": [],
-              "record_count": 3
-            },
-            {
-              "source": "plane",
-              "scope": "plane:northstar:issue:w7:comments",
-              "status": "complete",
-              "mode": "fixture",
-              "synthetic": true,
-              "observed_at": "2026-10-17T09:09:58.467481+00:00",
-              "age_seconds": 549.930987,
-              "stale": false,
-              "covered_through": "2026-10-17T09:09:58.467481+00:00",
-              "gaps": [],
-              "record_count": 2
-            },
-            {
-              "source": "plane",
-              "scope": "plane:northstar:issue:w8:comments",
-              "status": "complete",
-              "mode": "fixture",
-              "synthetic": true,
-              "observed_at": "2026-10-17T09:09:58.531434+00:00",
-              "age_seconds": 549.867034,
-              "stale": false,
-              "covered_through": "2026-10-17T09:09:58.531434+00:00",
-              "gaps": [],
-              "record_count": 2
-            },
-            {
-              "source": "plane",
-              "scope": "plane:northstar:issue:w9:comments",
-              "status": "complete",
-              "mode": "fixture",
-              "synthetic": true,
-              "observed_at": "2026-10-17T09:09:58.572547+00:00",
-              "age_seconds": 549.825921,
-              "stale": false,
-              "covered_through": "2026-10-17T09:09:58.572547+00:00",
-              "gaps": [],
-              "record_count": 1
-            },
-            {
-              "source": "plane",
-              "scope": "plane:northstar:issue:w10:comments",
-              "status": "complete",
-              "mode": "fixture",
-              "synthetic": true,
-              "observed_at": "2026-10-17T09:09:58.610830+00:00",
-              "age_seconds": 549.787638,
-              "stale": false,
-              "covered_through": "2026-10-17T09:09:58.610830+00:00",
-              "gaps": [],
-              "record_count": 1
-            },
-            {
-              "source": "plane",
-              "scope": "plane:northstar:issue:w11:comments",
-              "status": "complete",
-              "mode": "fixture",
-              "synthetic": true,
-              "observed_at": "2026-10-17T09:09:58.642716+00:00",
-              "age_seconds": 549.755752,
-              "stale": false,
-              "covered_through": "2026-10-17T09:09:58.642716+00:00",
-              "gaps": [],
-              "record_count": 1
-            },
-            {
-              "source": "plane",
-              "scope": "plane:northstar:issue:w12:comments",
-              "status": "complete",
-              "mode": "fixture",
-              "synthetic": true,
-              "observed_at": "2026-10-17T09:09:58.677443+00:00",
-              "age_seconds": 549.721025,
-              "stale": false,
-              "covered_through": "2026-10-17T09:09:58.677443+00:00",
-              "gaps": [],
-              "record_count": 1
-            },
-            {
-              "source": "plane",
-              "scope": "project:allocation:items",
-              "status": "complete",
-              "mode": "fixture",
-              "synthetic": true,
-              "observed_at": "2026-10-17T09:09:58.728425+00:00",
-              "age_seconds": 549.670043,
-              "stale": false,
-              "covered_through": "2026-10-17T09:09:58.728425+00:00",
-              "gaps": [],
-              "record_count": 6
-            },
-            {
-              "source": "plane",
-              "scope": "project:allocation:pages",
-              "status": "complete",
-              "mode": "fixture",
-              "synthetic": true,
-              "observed_at": "2026-10-17T09:09:58.731721+00:00",
-              "age_seconds": 549.666747,
-              "stale": false,
-              "covered_through": "2026-10-17T09:09:58.731721+00:00",
-              "gaps": [],
-              "record_count": 3
-            },
-            {
-              "source": "slack",
-              "scope": "channel:CDEMO",
-              "status": "partial",
-              "mode": "fixture",
-              "synthetic": true,
-              "observed_at": "2026-10-17T09:09:59.085084+00:00",
-              "age_seconds": 549.313384,
-              "stale": false,
-              "covered_through": null,
-              "gaps": [
-                "Channel history is bounded; absence does not prove deletion or inactivity."
-              ],
-              "record_count": 30
-            },
-            {
-              "source": "github",
-              "scope": "fixture:northstar-demo/engineering",
-              "status": "partial",
-              "mode": "fixture",
-              "synthetic": true,
-              "observed_at": "2026-10-17T09:10:01.182022+00:00",
-              "age_seconds": 547.216446,
-              "stale": false,
-              "covered_through": null,
-              "gaps": [
-                "Eight synthetic PRs, not live or complete repository activity."
-              ],
-              "record_count": 8
-            }
-          ],
-          "freshness": "source_observation_times_only",
-          "clock": {
-            "actual_now_utc": "2026-10-17T09:19:08.398468+00:00",
-            "datasets": [
-              {
-                "id": "company:northstar:github-fixture:v1",
-                "anchor_at": "2026-10-17T09:09:59.453059+00:00",
-                "synthetic": true,
-                "organization_id": "northstar",
-                "clock_policy": "events=fixed offsets before persisted anchor; decay=snapshot calculated_at; staleness=actual UTC now"
-              }
-            ],
-            "event_time": "fixed offsets before persisted dataset anchor",
-            "decay_time": "expertise snapshot calculated_at",
-            "staleness_time": "actual current UTC minus calculated_at"
           },
-          "imported_pr_count": 8,
-          "supporting_pr_count": null,
-          "units_without_live_extraction": 95,
-          "github_activity_coverage": [],
-          "missing_evidence": [
-            "No proven complete GitHub activity coverage"
-          ],
-          "warnings": [
-            "Coverage describes configured scopes, not the whole company.",
-            "Fixture observations are not live synchronization."
-          ]
-        }
-      }
-    },
-    {
-      "tool": "get_neighbors",
-      "arguments": {
-        "entity_id": "company:northstar:component:resource-allocation",
-        "limit": 20,
-        "cursor": "eyJvZmZzZXQiOiAyMCwgInF1ZXJ5IjogIjUyNTE0YThhZGQ1ZGE1ZTNjMWZiNTQ3ZiJ9"
-      },
-      "result": {
-        "graph": "wayfinder_company_demo",
-        "items": [
           {
             "n": {
               "id": "company:northstar:component:resource-allocation",
@@ -6739,7 +6807,7 @@
             }
           }
         ],
-        "count": 5,
+        "count": 6,
         "next_cursor": null,
         "truncated": false,
         "pagination_consistency": "Best effort if ingestion changes the graph between pages.",
@@ -6752,8 +6820,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.158204+00:00",
-              "age_seconds": 550.273331,
-              "stale": false,
+              "age_seconds": 1489.512933,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.158204+00:00",
               "gaps": [],
               "record_count": 2
@@ -6765,8 +6833,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.199831+00:00",
-              "age_seconds": 550.231704,
-              "stale": false,
+              "age_seconds": 1489.471306,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.199831+00:00",
               "gaps": [],
               "record_count": 2
@@ -6778,8 +6846,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.244096+00:00",
-              "age_seconds": 550.187439,
-              "stale": false,
+              "age_seconds": 1489.427041,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.244096+00:00",
               "gaps": [],
               "record_count": 2
@@ -6791,8 +6859,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.283896+00:00",
-              "age_seconds": 550.147639,
-              "stale": false,
+              "age_seconds": 1489.387241,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.283896+00:00",
               "gaps": [],
               "record_count": 2
@@ -6804,8 +6872,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.322285+00:00",
-              "age_seconds": 550.10925,
-              "stale": false,
+              "age_seconds": 1489.348852,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.322285+00:00",
               "gaps": [],
               "record_count": 2
@@ -6817,8 +6885,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.361953+00:00",
-              "age_seconds": 550.069582,
-              "stale": false,
+              "age_seconds": 1489.309184,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.361953+00:00",
               "gaps": [],
               "record_count": 2
@@ -6830,8 +6898,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.406847+00:00",
-              "age_seconds": 550.024688,
-              "stale": false,
+              "age_seconds": 1489.26429,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.406847+00:00",
               "gaps": [],
               "record_count": 6
@@ -6843,8 +6911,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.411114+00:00",
-              "age_seconds": 550.020421,
-              "stale": false,
+              "age_seconds": 1489.260023,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.411114+00:00",
               "gaps": [],
               "record_count": 3
@@ -6856,8 +6924,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.467481+00:00",
-              "age_seconds": 549.964054,
-              "stale": false,
+              "age_seconds": 1489.203656,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.467481+00:00",
               "gaps": [],
               "record_count": 2
@@ -6869,8 +6937,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.531434+00:00",
-              "age_seconds": 549.900101,
-              "stale": false,
+              "age_seconds": 1489.139703,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.531434+00:00",
               "gaps": [],
               "record_count": 2
@@ -6882,8 +6950,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.572547+00:00",
-              "age_seconds": 549.858988,
-              "stale": false,
+              "age_seconds": 1489.09859,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.572547+00:00",
               "gaps": [],
               "record_count": 1
@@ -6895,8 +6963,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.610830+00:00",
-              "age_seconds": 549.820705,
-              "stale": false,
+              "age_seconds": 1489.060307,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.610830+00:00",
               "gaps": [],
               "record_count": 1
@@ -6908,8 +6976,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.642716+00:00",
-              "age_seconds": 549.788819,
-              "stale": false,
+              "age_seconds": 1489.028421,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.642716+00:00",
               "gaps": [],
               "record_count": 1
@@ -6921,8 +6989,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.677443+00:00",
-              "age_seconds": 549.754092,
-              "stale": false,
+              "age_seconds": 1488.993694,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.677443+00:00",
               "gaps": [],
               "record_count": 1
@@ -6934,8 +7002,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.728425+00:00",
-              "age_seconds": 549.70311,
-              "stale": false,
+              "age_seconds": 1488.942712,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.728425+00:00",
               "gaps": [],
               "record_count": 6
@@ -6947,8 +7015,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.731721+00:00",
-              "age_seconds": 549.699814,
-              "stale": false,
+              "age_seconds": 1488.939416,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.731721+00:00",
               "gaps": [],
               "record_count": 3
@@ -6960,8 +7028,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:59.085084+00:00",
-              "age_seconds": 549.346451,
-              "stale": false,
+              "age_seconds": 1488.586053,
+              "stale": true,
               "covered_through": null,
               "gaps": [
                 "Channel history is bounded; absence does not prove deletion or inactivity."
@@ -6974,8 +7042,8 @@
               "status": "partial",
               "mode": "fixture",
               "synthetic": true,
-              "observed_at": "2026-10-17T09:10:01.182022+00:00",
-              "age_seconds": 547.249513,
+              "observed_at": "2026-10-17T09:24:03.606656+00:00",
+              "age_seconds": 644.064481,
               "stale": false,
               "covered_through": null,
               "gaps": [
@@ -6986,7 +7054,7 @@
           ],
           "freshness": "source_observation_times_only",
           "clock": {
-            "actual_now_utc": "2026-10-17T09:19:08.431535+00:00",
+            "actual_now_utc": "2026-10-17T09:34:47.671137+00:00",
             "datasets": [
               {
                 "id": "company:northstar:github-fixture:v1",
@@ -7072,8 +7140,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.158204+00:00",
-              "age_seconds": 550.287893,
-              "stale": false,
+              "age_seconds": 1489.527819,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.158204+00:00",
               "gaps": [],
               "record_count": 2
@@ -7085,8 +7153,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.199831+00:00",
-              "age_seconds": 550.246266,
-              "stale": false,
+              "age_seconds": 1489.486192,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.199831+00:00",
               "gaps": [],
               "record_count": 2
@@ -7098,8 +7166,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.244096+00:00",
-              "age_seconds": 550.202001,
-              "stale": false,
+              "age_seconds": 1489.441927,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.244096+00:00",
               "gaps": [],
               "record_count": 2
@@ -7111,8 +7179,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.283896+00:00",
-              "age_seconds": 550.162201,
-              "stale": false,
+              "age_seconds": 1489.402127,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.283896+00:00",
               "gaps": [],
               "record_count": 2
@@ -7124,8 +7192,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.322285+00:00",
-              "age_seconds": 550.123812,
-              "stale": false,
+              "age_seconds": 1489.363738,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.322285+00:00",
               "gaps": [],
               "record_count": 2
@@ -7137,8 +7205,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.361953+00:00",
-              "age_seconds": 550.084144,
-              "stale": false,
+              "age_seconds": 1489.32407,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.361953+00:00",
               "gaps": [],
               "record_count": 2
@@ -7150,8 +7218,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.406847+00:00",
-              "age_seconds": 550.03925,
-              "stale": false,
+              "age_seconds": 1489.279176,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.406847+00:00",
               "gaps": [],
               "record_count": 6
@@ -7163,8 +7231,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.411114+00:00",
-              "age_seconds": 550.034983,
-              "stale": false,
+              "age_seconds": 1489.274909,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.411114+00:00",
               "gaps": [],
               "record_count": 3
@@ -7176,8 +7244,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.467481+00:00",
-              "age_seconds": 549.978616,
-              "stale": false,
+              "age_seconds": 1489.218542,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.467481+00:00",
               "gaps": [],
               "record_count": 2
@@ -7189,8 +7257,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.531434+00:00",
-              "age_seconds": 549.914663,
-              "stale": false,
+              "age_seconds": 1489.154589,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.531434+00:00",
               "gaps": [],
               "record_count": 2
@@ -7202,8 +7270,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.572547+00:00",
-              "age_seconds": 549.87355,
-              "stale": false,
+              "age_seconds": 1489.113476,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.572547+00:00",
               "gaps": [],
               "record_count": 1
@@ -7215,8 +7283,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.610830+00:00",
-              "age_seconds": 549.835267,
-              "stale": false,
+              "age_seconds": 1489.075193,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.610830+00:00",
               "gaps": [],
               "record_count": 1
@@ -7228,8 +7296,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.642716+00:00",
-              "age_seconds": 549.803381,
-              "stale": false,
+              "age_seconds": 1489.043307,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.642716+00:00",
               "gaps": [],
               "record_count": 1
@@ -7241,8 +7309,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.677443+00:00",
-              "age_seconds": 549.768654,
-              "stale": false,
+              "age_seconds": 1489.00858,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.677443+00:00",
               "gaps": [],
               "record_count": 1
@@ -7254,8 +7322,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.728425+00:00",
-              "age_seconds": 549.717672,
-              "stale": false,
+              "age_seconds": 1488.957598,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.728425+00:00",
               "gaps": [],
               "record_count": 6
@@ -7267,8 +7335,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.731721+00:00",
-              "age_seconds": 549.714376,
-              "stale": false,
+              "age_seconds": 1488.954302,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.731721+00:00",
               "gaps": [],
               "record_count": 3
@@ -7280,8 +7348,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:59.085084+00:00",
-              "age_seconds": 549.361013,
-              "stale": false,
+              "age_seconds": 1488.600939,
+              "stale": true,
               "covered_through": null,
               "gaps": [
                 "Channel history is bounded; absence does not prove deletion or inactivity."
@@ -7294,8 +7362,8 @@
               "status": "partial",
               "mode": "fixture",
               "synthetic": true,
-              "observed_at": "2026-10-17T09:10:01.182022+00:00",
-              "age_seconds": 547.264075,
+              "observed_at": "2026-10-17T09:24:03.606656+00:00",
+              "age_seconds": 644.079367,
               "stale": false,
               "covered_through": null,
               "gaps": [
@@ -7306,7 +7374,7 @@
           ],
           "freshness": "source_observation_times_only",
           "clock": {
-            "actual_now_utc": "2026-10-17T09:19:08.446097+00:00",
+            "actual_now_utc": "2026-10-17T09:34:47.686023+00:00",
             "datasets": [
               {
                 "id": "company:northstar:github-fixture:v1",
@@ -7377,8 +7445,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.158204+00:00",
-              "age_seconds": 550.315433,
-              "stale": false,
+              "age_seconds": 1489.557829,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.158204+00:00",
               "gaps": [],
               "record_count": 2
@@ -7390,8 +7458,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.199831+00:00",
-              "age_seconds": 550.273806,
-              "stale": false,
+              "age_seconds": 1489.516202,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.199831+00:00",
               "gaps": [],
               "record_count": 2
@@ -7403,8 +7471,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.244096+00:00",
-              "age_seconds": 550.229541,
-              "stale": false,
+              "age_seconds": 1489.471937,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.244096+00:00",
               "gaps": [],
               "record_count": 2
@@ -7416,8 +7484,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.283896+00:00",
-              "age_seconds": 550.189741,
-              "stale": false,
+              "age_seconds": 1489.432137,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.283896+00:00",
               "gaps": [],
               "record_count": 2
@@ -7429,8 +7497,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.322285+00:00",
-              "age_seconds": 550.151352,
-              "stale": false,
+              "age_seconds": 1489.393748,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.322285+00:00",
               "gaps": [],
               "record_count": 2
@@ -7442,8 +7510,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.361953+00:00",
-              "age_seconds": 550.111684,
-              "stale": false,
+              "age_seconds": 1489.35408,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.361953+00:00",
               "gaps": [],
               "record_count": 2
@@ -7455,8 +7523,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.406847+00:00",
-              "age_seconds": 550.06679,
-              "stale": false,
+              "age_seconds": 1489.309186,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.406847+00:00",
               "gaps": [],
               "record_count": 6
@@ -7468,8 +7536,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.411114+00:00",
-              "age_seconds": 550.062523,
-              "stale": false,
+              "age_seconds": 1489.304919,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.411114+00:00",
               "gaps": [],
               "record_count": 3
@@ -7481,8 +7549,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.467481+00:00",
-              "age_seconds": 550.006156,
-              "stale": false,
+              "age_seconds": 1489.248552,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.467481+00:00",
               "gaps": [],
               "record_count": 2
@@ -7494,8 +7562,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.531434+00:00",
-              "age_seconds": 549.942203,
-              "stale": false,
+              "age_seconds": 1489.184599,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.531434+00:00",
               "gaps": [],
               "record_count": 2
@@ -7507,8 +7575,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.572547+00:00",
-              "age_seconds": 549.90109,
-              "stale": false,
+              "age_seconds": 1489.143486,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.572547+00:00",
               "gaps": [],
               "record_count": 1
@@ -7520,8 +7588,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.610830+00:00",
-              "age_seconds": 549.862807,
-              "stale": false,
+              "age_seconds": 1489.105203,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.610830+00:00",
               "gaps": [],
               "record_count": 1
@@ -7533,8 +7601,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.642716+00:00",
-              "age_seconds": 549.830921,
-              "stale": false,
+              "age_seconds": 1489.073317,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.642716+00:00",
               "gaps": [],
               "record_count": 1
@@ -7546,8 +7614,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.677443+00:00",
-              "age_seconds": 549.796194,
-              "stale": false,
+              "age_seconds": 1489.03859,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.677443+00:00",
               "gaps": [],
               "record_count": 1
@@ -7559,8 +7627,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.728425+00:00",
-              "age_seconds": 549.745212,
-              "stale": false,
+              "age_seconds": 1488.987608,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.728425+00:00",
               "gaps": [],
               "record_count": 6
@@ -7572,8 +7640,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.731721+00:00",
-              "age_seconds": 549.741916,
-              "stale": false,
+              "age_seconds": 1488.984312,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.731721+00:00",
               "gaps": [],
               "record_count": 3
@@ -7585,8 +7653,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:59.085084+00:00",
-              "age_seconds": 549.388553,
-              "stale": false,
+              "age_seconds": 1488.630949,
+              "stale": true,
               "covered_through": null,
               "gaps": [
                 "Channel history is bounded; absence does not prove deletion or inactivity."
@@ -7599,8 +7667,8 @@
               "status": "partial",
               "mode": "fixture",
               "synthetic": true,
-              "observed_at": "2026-10-17T09:10:01.182022+00:00",
-              "age_seconds": 547.291615,
+              "observed_at": "2026-10-17T09:24:03.606656+00:00",
+              "age_seconds": 644.109377,
               "stale": false,
               "covered_through": null,
               "gaps": [
@@ -7611,7 +7679,7 @@
           ],
           "freshness": "source_observation_times_only",
           "clock": {
-            "actual_now_utc": "2026-10-17T09:19:08.473637+00:00",
+            "actual_now_utc": "2026-10-17T09:34:47.716033+00:00",
             "datasets": [
               {
                 "id": "company:northstar:github-fixture:v1",
@@ -7756,8 +7824,8 @@
                 "source_system": "github",
                 "source_url": "https://github.com/northstar-demo/engineering/pull/101#discussion_r1010",
                 "source_ref": "RC101-0",
-                "observed_at": "2026-10-17T09:09:59.562940+00:00",
-                "valid_from": "2026-10-17T09:09:59.564529+00:00",
+                "observed_at": "2026-10-17T09:24:02.801011+00:00",
+                "valid_from": "2026-10-17T09:24:02.802039+00:00",
                 "is_deleted": false,
                 "kind": "review_line",
                 "created_at": "2026-10-13T08:09:59.453059+00:00",
@@ -7787,8 +7855,8 @@
                 "source_system": "github",
                 "source_url": "https://github.com/northstar-demo/engineering/pull/101#discussion_r1010",
                 "source_ref": "RC101-0",
-                "observed_at": "2026-10-17T09:09:59.562940+00:00",
-                "valid_from": "2026-10-17T09:09:59.564529+00:00",
+                "observed_at": "2026-10-17T09:24:02.801011+00:00",
+                "valid_from": "2026-10-17T09:24:02.802039+00:00",
                 "is_deleted": false,
                 "kind": "review_line",
                 "created_at": "2026-10-13T08:09:59.453059+00:00",
@@ -7827,8 +7895,8 @@
                 "source_system": "github",
                 "source_url": "https://github.com/northstar-demo/engineering/pull/102#discussion_r1020",
                 "source_ref": "RC102-0",
-                "observed_at": "2026-10-17T09:09:59.799016+00:00",
-                "valid_from": "2026-10-17T09:09:59.799544+00:00",
+                "observed_at": "2026-10-17T09:24:02.911550+00:00",
+                "valid_from": "2026-10-17T09:24:02.912064+00:00",
                 "is_deleted": false,
                 "kind": "review_line",
                 "created_at": "2026-10-14T08:09:59.453059+00:00",
@@ -7858,8 +7926,8 @@
                 "source_system": "github",
                 "source_url": "https://github.com/northstar-demo/engineering/pull/102#discussion_r1020",
                 "source_ref": "RC102-0",
-                "observed_at": "2026-10-17T09:09:59.799016+00:00",
-                "valid_from": "2026-10-17T09:09:59.799544+00:00",
+                "observed_at": "2026-10-17T09:24:02.911550+00:00",
+                "valid_from": "2026-10-17T09:24:02.912064+00:00",
                 "is_deleted": false,
                 "kind": "review_line",
                 "created_at": "2026-10-14T08:09:59.453059+00:00",
@@ -7898,8 +7966,8 @@
                 "source_system": "github",
                 "source_url": "https://github.com/northstar-demo/engineering/pull/103#discussion_r1030",
                 "source_ref": "RC103-0",
-                "observed_at": "2026-10-17T09:09:59.988680+00:00",
-                "valid_from": "2026-10-17T09:09:59.989197+00:00",
+                "observed_at": "2026-10-17T09:24:03.016857+00:00",
+                "valid_from": "2026-10-17T09:24:03.017374+00:00",
                 "is_deleted": false,
                 "kind": "review_line",
                 "created_at": "2026-10-15T08:09:59.453059+00:00",
@@ -7929,8 +7997,8 @@
                 "source_system": "github",
                 "source_url": "https://github.com/northstar-demo/engineering/pull/103#discussion_r1030",
                 "source_ref": "RC103-0",
-                "observed_at": "2026-10-17T09:09:59.988680+00:00",
-                "valid_from": "2026-10-17T09:09:59.989197+00:00",
+                "observed_at": "2026-10-17T09:24:03.016857+00:00",
+                "valid_from": "2026-10-17T09:24:03.017374+00:00",
                 "is_deleted": false,
                 "kind": "review_line",
                 "created_at": "2026-10-15T08:09:59.453059+00:00",
@@ -7969,8 +8037,8 @@
                 "source_system": "github",
                 "source_url": "https://github.com/northstar-demo/engineering/pull/104#discussion_r1040",
                 "source_ref": "RC104-0",
-                "observed_at": "2026-10-17T09:10:00.220787+00:00",
-                "valid_from": "2026-10-17T09:10:00.221304+00:00",
+                "observed_at": "2026-10-17T09:24:03.148490+00:00",
+                "valid_from": "2026-10-17T09:24:03.149008+00:00",
                 "is_deleted": false,
                 "kind": "review_line",
                 "created_at": "2026-10-16T08:09:59.453059+00:00",
@@ -8000,8 +8068,8 @@
                 "source_system": "github",
                 "source_url": "https://github.com/northstar-demo/engineering/pull/104#discussion_r1040",
                 "source_ref": "RC104-0",
-                "observed_at": "2026-10-17T09:10:00.220787+00:00",
-                "valid_from": "2026-10-17T09:10:00.221304+00:00",
+                "observed_at": "2026-10-17T09:24:03.148490+00:00",
+                "valid_from": "2026-10-17T09:24:03.149008+00:00",
                 "is_deleted": false,
                 "kind": "review_line",
                 "created_at": "2026-10-16T08:09:59.453059+00:00",
@@ -8040,8 +8108,8 @@
                 "source_system": "github",
                 "source_url": "https://github.com/northstar-demo/engineering/pull/105#discussion_r1050",
                 "source_ref": "RC105-0",
-                "observed_at": "2026-10-17T09:10:00.400349+00:00",
-                "valid_from": "2026-10-17T09:10:00.401148+00:00",
+                "observed_at": "2026-10-17T09:24:03.267285+00:00",
+                "valid_from": "2026-10-17T09:24:03.267811+00:00",
                 "is_deleted": false,
                 "kind": "review_line",
                 "created_at": "2026-10-16T08:09:59.453059+00:00",
@@ -8071,8 +8139,8 @@
                 "source_system": "github",
                 "source_url": "https://github.com/northstar-demo/engineering/pull/105#discussion_r1050",
                 "source_ref": "RC105-0",
-                "observed_at": "2026-10-17T09:10:00.400349+00:00",
-                "valid_from": "2026-10-17T09:10:00.401148+00:00",
+                "observed_at": "2026-10-17T09:24:03.267285+00:00",
+                "valid_from": "2026-10-17T09:24:03.267811+00:00",
                 "is_deleted": false,
                 "kind": "review_line",
                 "created_at": "2026-10-16T08:09:59.453059+00:00",
@@ -8112,7 +8180,7 @@
                 "source_url": "https://github.com/northstar-demo/engineering/pull/101",
                 "source_ref": "northstar-demo/engineering#101",
                 "source_updated_at": "2026-10-13T09:09:59.453059+00:00",
-                "observed_at": "2026-10-17T09:09:59.562940+00:00",
+                "observed_at": "2026-10-17T09:24:02.801011+00:00",
                 "valid_from": "2026-10-12T09:09:59.453059+00:00",
                 "is_deleted": false,
                 "number": 101,
@@ -8143,7 +8211,7 @@
                 "source_url": "https://github.com/northstar-demo/engineering/pull/101",
                 "source_ref": "northstar-demo/engineering#101",
                 "source_updated_at": "2026-10-13T09:09:59.453059+00:00",
-                "observed_at": "2026-10-17T09:09:59.562940+00:00",
+                "observed_at": "2026-10-17T09:24:02.801011+00:00",
                 "valid_from": "2026-10-12T09:09:59.453059+00:00",
                 "is_deleted": false,
                 "number": 101,
@@ -8183,7 +8251,7 @@
                 "source_url": "https://github.com/northstar-demo/engineering/pull/102",
                 "source_ref": "northstar-demo/engineering#102",
                 "source_updated_at": "2026-10-14T09:09:59.453059+00:00",
-                "observed_at": "2026-10-17T09:09:59.799016+00:00",
+                "observed_at": "2026-10-17T09:24:02.911550+00:00",
                 "valid_from": "2026-10-13T09:09:59.453059+00:00",
                 "is_deleted": false,
                 "number": 102,
@@ -8214,7 +8282,7 @@
                 "source_url": "https://github.com/northstar-demo/engineering/pull/102",
                 "source_ref": "northstar-demo/engineering#102",
                 "source_updated_at": "2026-10-14T09:09:59.453059+00:00",
-                "observed_at": "2026-10-17T09:09:59.799016+00:00",
+                "observed_at": "2026-10-17T09:24:02.911550+00:00",
                 "valid_from": "2026-10-13T09:09:59.453059+00:00",
                 "is_deleted": false,
                 "number": 102,
@@ -8254,7 +8322,7 @@
                 "source_url": "https://github.com/northstar-demo/engineering/pull/103",
                 "source_ref": "northstar-demo/engineering#103",
                 "source_updated_at": "2026-10-15T09:09:59.453059+00:00",
-                "observed_at": "2026-10-17T09:09:59.988680+00:00",
+                "observed_at": "2026-10-17T09:24:03.016857+00:00",
                 "valid_from": "2026-10-14T09:09:59.453059+00:00",
                 "is_deleted": false,
                 "number": 103,
@@ -8285,7 +8353,7 @@
                 "source_url": "https://github.com/northstar-demo/engineering/pull/103",
                 "source_ref": "northstar-demo/engineering#103",
                 "source_updated_at": "2026-10-15T09:09:59.453059+00:00",
-                "observed_at": "2026-10-17T09:09:59.988680+00:00",
+                "observed_at": "2026-10-17T09:24:03.016857+00:00",
                 "valid_from": "2026-10-14T09:09:59.453059+00:00",
                 "is_deleted": false,
                 "number": 103,
@@ -8325,7 +8393,7 @@
                 "source_url": "https://github.com/northstar-demo/engineering/pull/104",
                 "source_ref": "northstar-demo/engineering#104",
                 "source_updated_at": "2026-10-16T09:09:59.453059+00:00",
-                "observed_at": "2026-10-17T09:10:00.220787+00:00",
+                "observed_at": "2026-10-17T09:24:03.148490+00:00",
                 "valid_from": "2026-10-15T09:09:59.453059+00:00",
                 "is_deleted": false,
                 "number": 104,
@@ -8356,7 +8424,7 @@
                 "source_url": "https://github.com/northstar-demo/engineering/pull/104",
                 "source_ref": "northstar-demo/engineering#104",
                 "source_updated_at": "2026-10-16T09:09:59.453059+00:00",
-                "observed_at": "2026-10-17T09:10:00.220787+00:00",
+                "observed_at": "2026-10-17T09:24:03.148490+00:00",
                 "valid_from": "2026-10-15T09:09:59.453059+00:00",
                 "is_deleted": false,
                 "number": 104,
@@ -8477,8 +8545,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.158204+00:00",
-              "age_seconds": 552.453129,
-              "stale": false,
+              "age_seconds": 1491.726276,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.158204+00:00",
               "gaps": [],
               "record_count": 2
@@ -8490,8 +8558,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.199831+00:00",
-              "age_seconds": 552.411502,
-              "stale": false,
+              "age_seconds": 1491.684649,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.199831+00:00",
               "gaps": [],
               "record_count": 2
@@ -8503,8 +8571,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.244096+00:00",
-              "age_seconds": 552.367237,
-              "stale": false,
+              "age_seconds": 1491.640384,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.244096+00:00",
               "gaps": [],
               "record_count": 2
@@ -8516,8 +8584,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.283896+00:00",
-              "age_seconds": 552.327437,
-              "stale": false,
+              "age_seconds": 1491.600584,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.283896+00:00",
               "gaps": [],
               "record_count": 2
@@ -8529,8 +8597,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.322285+00:00",
-              "age_seconds": 552.289048,
-              "stale": false,
+              "age_seconds": 1491.562195,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.322285+00:00",
               "gaps": [],
               "record_count": 2
@@ -8542,8 +8610,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.361953+00:00",
-              "age_seconds": 552.24938,
-              "stale": false,
+              "age_seconds": 1491.522527,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.361953+00:00",
               "gaps": [],
               "record_count": 2
@@ -8555,8 +8623,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.406847+00:00",
-              "age_seconds": 552.204486,
-              "stale": false,
+              "age_seconds": 1491.477633,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.406847+00:00",
               "gaps": [],
               "record_count": 6
@@ -8568,8 +8636,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.411114+00:00",
-              "age_seconds": 552.200219,
-              "stale": false,
+              "age_seconds": 1491.473366,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.411114+00:00",
               "gaps": [],
               "record_count": 3
@@ -8581,8 +8649,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.467481+00:00",
-              "age_seconds": 552.143852,
-              "stale": false,
+              "age_seconds": 1491.416999,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.467481+00:00",
               "gaps": [],
               "record_count": 2
@@ -8594,8 +8662,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.531434+00:00",
-              "age_seconds": 552.079899,
-              "stale": false,
+              "age_seconds": 1491.353046,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.531434+00:00",
               "gaps": [],
               "record_count": 2
@@ -8607,8 +8675,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.572547+00:00",
-              "age_seconds": 552.038786,
-              "stale": false,
+              "age_seconds": 1491.311933,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.572547+00:00",
               "gaps": [],
               "record_count": 1
@@ -8620,8 +8688,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.610830+00:00",
-              "age_seconds": 552.000503,
-              "stale": false,
+              "age_seconds": 1491.27365,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.610830+00:00",
               "gaps": [],
               "record_count": 1
@@ -8633,8 +8701,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.642716+00:00",
-              "age_seconds": 551.968617,
-              "stale": false,
+              "age_seconds": 1491.241764,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.642716+00:00",
               "gaps": [],
               "record_count": 1
@@ -8646,8 +8714,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.677443+00:00",
-              "age_seconds": 551.93389,
-              "stale": false,
+              "age_seconds": 1491.207037,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.677443+00:00",
               "gaps": [],
               "record_count": 1
@@ -8659,8 +8727,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.728425+00:00",
-              "age_seconds": 551.882908,
-              "stale": false,
+              "age_seconds": 1491.156055,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.728425+00:00",
               "gaps": [],
               "record_count": 6
@@ -8672,8 +8740,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.731721+00:00",
-              "age_seconds": 551.879612,
-              "stale": false,
+              "age_seconds": 1491.152759,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.731721+00:00",
               "gaps": [],
               "record_count": 3
@@ -8685,8 +8753,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:59.085084+00:00",
-              "age_seconds": 551.526249,
-              "stale": false,
+              "age_seconds": 1490.799396,
+              "stale": true,
               "covered_through": null,
               "gaps": [
                 "Channel history is bounded; absence does not prove deletion or inactivity."
@@ -8699,8 +8767,8 @@
               "status": "partial",
               "mode": "fixture",
               "synthetic": true,
-              "observed_at": "2026-10-17T09:10:01.182022+00:00",
-              "age_seconds": 549.429311,
+              "observed_at": "2026-10-17T09:24:03.606656+00:00",
+              "age_seconds": 646.277824,
               "stale": false,
               "covered_through": null,
               "gaps": [
@@ -8711,7 +8779,7 @@
           ],
           "freshness": "source_observation_times_only",
           "clock": {
-            "actual_now_utc": "2026-10-17T09:19:10.611333+00:00",
+            "actual_now_utc": "2026-10-17T09:34:49.884480+00:00",
             "datasets": [
               {
                 "id": "company:northstar:github-fixture:v1",
@@ -8768,7 +8836,7 @@
           ],
           "contributors": [
             {
-              "summary": "faye: code activity score 7.122971, supported by 4 PRs",
+              "summary": "faye: code activity score 7.119762, supported by 4 PRs",
               "evidence_ids": [
                 "github:northstar:comment:northstar-demo/engineering:RC101-0",
                 "github:northstar:comment:northstar-demo/engineering:RC102-0",
@@ -8783,18 +8851,18 @@
               ],
               "authority": "COMPUTED",
               "person_id": "company:northstar:person:faye",
-              "score": 7.122971,
+              "score": 7.119762,
               "score_breakdown": {
                 "implementation": 0.0,
-                "peer_review": 7.122971
+                "peer_review": 7.119762
               },
               "distinct_pr_count": 4,
               "evidence_strength": "multiple_prs",
-              "generation": "expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
-              "calculated_at": "2026-10-17T09:10:01.183599+00:00"
+              "generation": "expertise:v2:9302c5d35836470484fb28a83681e15b",
+              "calculated_at": "2026-10-17T09:24:03.608247+00:00"
             },
             {
-              "summary": "dee: code activity score 5.227017, supported by 3 PRs",
+              "summary": "dee: code activity score 5.224663, supported by 3 PRs",
               "evidence_ids": [
                 "github:northstar:pr:northstar-demo/engineering:101",
                 "github:northstar:pr:northstar-demo/engineering:102",
@@ -8807,18 +8875,18 @@
               ],
               "authority": "COMPUTED",
               "person_id": "company:northstar:person:dee",
-              "score": 5.227017,
+              "score": 5.224663,
               "score_breakdown": {
-                "implementation": 5.227017,
+                "implementation": 5.224663,
                 "peer_review": 0.0
               },
               "distinct_pr_count": 3,
               "evidence_strength": "multiple_prs",
-              "generation": "expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
-              "calculated_at": "2026-10-17T09:10:01.183599+00:00"
+              "generation": "expertise:v2:9302c5d35836470484fb28a83681e15b",
+              "calculated_at": "2026-10-17T09:24:03.608247+00:00"
             },
             {
-              "summary": "eli: code activity score 3.81569, supported by 2 PRs",
+              "summary": "eli: code activity score 3.813971, supported by 2 PRs",
               "evidence_ids": [
                 "github:northstar:comment:northstar-demo/engineering:RC105-0",
                 "github:northstar:pr:northstar-demo/engineering:104"
@@ -8829,15 +8897,15 @@
               ],
               "authority": "COMPUTED",
               "person_id": "company:northstar:person:eli",
-              "score": 3.81569,
+              "score": 3.813971,
               "score_breakdown": {
-                "implementation": 1.909681,
-                "peer_review": 1.906008
+                "implementation": 1.908821,
+                "peer_review": 1.905149
               },
               "distinct_pr_count": 2,
               "evidence_strength": "limited",
-              "generation": "expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
-              "calculated_at": "2026-10-17T09:10:01.183599+00:00"
+              "generation": "expertise:v2:9302c5d35836470484fb28a83681e15b",
+              "calculated_at": "2026-10-17T09:24:03.608247+00:00"
             }
           ],
           "decisions": [
@@ -8884,8 +8952,8 @@
                 "mode": "fixture",
                 "synthetic": true,
                 "observed_at": "2026-10-17T09:09:58.158204+00:00",
-                "age_seconds": 552.377425,
-                "stale": false,
+                "age_seconds": 1491.640097,
+                "stale": true,
                 "covered_through": "2026-10-17T09:09:58.158204+00:00",
                 "gaps": [],
                 "record_count": 2
@@ -8897,8 +8965,8 @@
                 "mode": "fixture",
                 "synthetic": true,
                 "observed_at": "2026-10-17T09:09:58.199831+00:00",
-                "age_seconds": 552.335798,
-                "stale": false,
+                "age_seconds": 1491.59847,
+                "stale": true,
                 "covered_through": "2026-10-17T09:09:58.199831+00:00",
                 "gaps": [],
                 "record_count": 2
@@ -8910,8 +8978,8 @@
                 "mode": "fixture",
                 "synthetic": true,
                 "observed_at": "2026-10-17T09:09:58.244096+00:00",
-                "age_seconds": 552.291533,
-                "stale": false,
+                "age_seconds": 1491.554205,
+                "stale": true,
                 "covered_through": "2026-10-17T09:09:58.244096+00:00",
                 "gaps": [],
                 "record_count": 2
@@ -8923,8 +8991,8 @@
                 "mode": "fixture",
                 "synthetic": true,
                 "observed_at": "2026-10-17T09:09:58.283896+00:00",
-                "age_seconds": 552.251733,
-                "stale": false,
+                "age_seconds": 1491.514405,
+                "stale": true,
                 "covered_through": "2026-10-17T09:09:58.283896+00:00",
                 "gaps": [],
                 "record_count": 2
@@ -8936,8 +9004,8 @@
                 "mode": "fixture",
                 "synthetic": true,
                 "observed_at": "2026-10-17T09:09:58.322285+00:00",
-                "age_seconds": 552.213344,
-                "stale": false,
+                "age_seconds": 1491.476016,
+                "stale": true,
                 "covered_through": "2026-10-17T09:09:58.322285+00:00",
                 "gaps": [],
                 "record_count": 2
@@ -8949,8 +9017,8 @@
                 "mode": "fixture",
                 "synthetic": true,
                 "observed_at": "2026-10-17T09:09:58.361953+00:00",
-                "age_seconds": 552.173676,
-                "stale": false,
+                "age_seconds": 1491.436348,
+                "stale": true,
                 "covered_through": "2026-10-17T09:09:58.361953+00:00",
                 "gaps": [],
                 "record_count": 2
@@ -8962,8 +9030,8 @@
                 "mode": "fixture",
                 "synthetic": true,
                 "observed_at": "2026-10-17T09:09:58.406847+00:00",
-                "age_seconds": 552.128782,
-                "stale": false,
+                "age_seconds": 1491.391454,
+                "stale": true,
                 "covered_through": "2026-10-17T09:09:58.406847+00:00",
                 "gaps": [],
                 "record_count": 6
@@ -8975,8 +9043,8 @@
                 "mode": "fixture",
                 "synthetic": true,
                 "observed_at": "2026-10-17T09:09:58.411114+00:00",
-                "age_seconds": 552.124515,
-                "stale": false,
+                "age_seconds": 1491.387187,
+                "stale": true,
                 "covered_through": "2026-10-17T09:09:58.411114+00:00",
                 "gaps": [],
                 "record_count": 3
@@ -8988,8 +9056,8 @@
                 "mode": "fixture",
                 "synthetic": true,
                 "observed_at": "2026-10-17T09:09:58.467481+00:00",
-                "age_seconds": 552.068148,
-                "stale": false,
+                "age_seconds": 1491.33082,
+                "stale": true,
                 "covered_through": "2026-10-17T09:09:58.467481+00:00",
                 "gaps": [],
                 "record_count": 2
@@ -9001,8 +9069,8 @@
                 "mode": "fixture",
                 "synthetic": true,
                 "observed_at": "2026-10-17T09:09:58.531434+00:00",
-                "age_seconds": 552.004195,
-                "stale": false,
+                "age_seconds": 1491.266867,
+                "stale": true,
                 "covered_through": "2026-10-17T09:09:58.531434+00:00",
                 "gaps": [],
                 "record_count": 2
@@ -9014,8 +9082,8 @@
                 "mode": "fixture",
                 "synthetic": true,
                 "observed_at": "2026-10-17T09:09:58.572547+00:00",
-                "age_seconds": 551.963082,
-                "stale": false,
+                "age_seconds": 1491.225754,
+                "stale": true,
                 "covered_through": "2026-10-17T09:09:58.572547+00:00",
                 "gaps": [],
                 "record_count": 1
@@ -9027,8 +9095,8 @@
                 "mode": "fixture",
                 "synthetic": true,
                 "observed_at": "2026-10-17T09:09:58.610830+00:00",
-                "age_seconds": 551.924799,
-                "stale": false,
+                "age_seconds": 1491.187471,
+                "stale": true,
                 "covered_through": "2026-10-17T09:09:58.610830+00:00",
                 "gaps": [],
                 "record_count": 1
@@ -9040,8 +9108,8 @@
                 "mode": "fixture",
                 "synthetic": true,
                 "observed_at": "2026-10-17T09:09:58.642716+00:00",
-                "age_seconds": 551.892913,
-                "stale": false,
+                "age_seconds": 1491.155585,
+                "stale": true,
                 "covered_through": "2026-10-17T09:09:58.642716+00:00",
                 "gaps": [],
                 "record_count": 1
@@ -9053,8 +9121,8 @@
                 "mode": "fixture",
                 "synthetic": true,
                 "observed_at": "2026-10-17T09:09:58.677443+00:00",
-                "age_seconds": 551.858186,
-                "stale": false,
+                "age_seconds": 1491.120858,
+                "stale": true,
                 "covered_through": "2026-10-17T09:09:58.677443+00:00",
                 "gaps": [],
                 "record_count": 1
@@ -9066,8 +9134,8 @@
                 "mode": "fixture",
                 "synthetic": true,
                 "observed_at": "2026-10-17T09:09:58.728425+00:00",
-                "age_seconds": 551.807204,
-                "stale": false,
+                "age_seconds": 1491.069876,
+                "stale": true,
                 "covered_through": "2026-10-17T09:09:58.728425+00:00",
                 "gaps": [],
                 "record_count": 6
@@ -9079,8 +9147,8 @@
                 "mode": "fixture",
                 "synthetic": true,
                 "observed_at": "2026-10-17T09:09:58.731721+00:00",
-                "age_seconds": 551.803908,
-                "stale": false,
+                "age_seconds": 1491.06658,
+                "stale": true,
                 "covered_through": "2026-10-17T09:09:58.731721+00:00",
                 "gaps": [],
                 "record_count": 3
@@ -9092,8 +9160,8 @@
                 "mode": "fixture",
                 "synthetic": true,
                 "observed_at": "2026-10-17T09:09:59.085084+00:00",
-                "age_seconds": 551.450545,
-                "stale": false,
+                "age_seconds": 1490.713217,
+                "stale": true,
                 "covered_through": null,
                 "gaps": [
                   "Channel history is bounded; absence does not prove deletion or inactivity."
@@ -9106,8 +9174,8 @@
                 "status": "partial",
                 "mode": "fixture",
                 "synthetic": true,
-                "observed_at": "2026-10-17T09:10:01.182022+00:00",
-                "age_seconds": 549.353607,
+                "observed_at": "2026-10-17T09:24:03.606656+00:00",
+                "age_seconds": 646.191645,
                 "stale": false,
                 "covered_through": null,
                 "gaps": [
@@ -9118,7 +9186,7 @@
             ],
             "freshness": "source_observation_times_only",
             "clock": {
-              "actual_now_utc": "2026-10-17T09:19:10.535629+00:00",
+              "actual_now_utc": "2026-10-17T09:34:49.798301+00:00",
               "datasets": [
                 {
                   "id": "company:northstar:github-fixture:v1",
@@ -9144,9 +9212,9 @@
               "Fixture observations are not live synchronization."
             ],
             "expertise": {
-              "generation": "expertise:v2:bf12284ed7744e8ebdf8ffcbcac0f910",
+              "generation": "expertise:v2:9302c5d35836470484fb28a83681e15b",
               "scoring_version": "v2",
-              "calculated_at": "2026-10-17T09:10:01.183599+00:00",
+              "calculated_at": "2026-10-17T09:24:03.608247+00:00",
               "component_id": "company:northstar:component:resource-allocation",
               "code_directories": [
                 {
@@ -9155,7 +9223,7 @@
                   "repo": "northstar-demo/engineering"
                 }
               ],
-              "snapshot_age_seconds": 549.356858,
+              "snapshot_age_seconds": 646.195404,
               "stale": false,
               "warnings": [
                 "Activity import is not proven complete; rankings describe saved evidence, not lifetime competence.",
@@ -9199,8 +9267,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.158204+00:00",
-              "age_seconds": 552.498167,
-              "stale": false,
+              "age_seconds": 1491.775894,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.158204+00:00",
               "gaps": [],
               "record_count": 2
@@ -9212,8 +9280,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.199831+00:00",
-              "age_seconds": 552.45654,
-              "stale": false,
+              "age_seconds": 1491.734267,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.199831+00:00",
               "gaps": [],
               "record_count": 2
@@ -9225,8 +9293,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.244096+00:00",
-              "age_seconds": 552.412275,
-              "stale": false,
+              "age_seconds": 1491.690002,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.244096+00:00",
               "gaps": [],
               "record_count": 2
@@ -9238,8 +9306,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.283896+00:00",
-              "age_seconds": 552.372475,
-              "stale": false,
+              "age_seconds": 1491.650202,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.283896+00:00",
               "gaps": [],
               "record_count": 2
@@ -9251,8 +9319,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.322285+00:00",
-              "age_seconds": 552.334086,
-              "stale": false,
+              "age_seconds": 1491.611813,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.322285+00:00",
               "gaps": [],
               "record_count": 2
@@ -9264,8 +9332,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.361953+00:00",
-              "age_seconds": 552.294418,
-              "stale": false,
+              "age_seconds": 1491.572145,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.361953+00:00",
               "gaps": [],
               "record_count": 2
@@ -9277,8 +9345,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.406847+00:00",
-              "age_seconds": 552.249524,
-              "stale": false,
+              "age_seconds": 1491.527251,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.406847+00:00",
               "gaps": [],
               "record_count": 6
@@ -9290,8 +9358,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.411114+00:00",
-              "age_seconds": 552.245257,
-              "stale": false,
+              "age_seconds": 1491.522984,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.411114+00:00",
               "gaps": [],
               "record_count": 3
@@ -9303,8 +9371,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.467481+00:00",
-              "age_seconds": 552.18889,
-              "stale": false,
+              "age_seconds": 1491.466617,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.467481+00:00",
               "gaps": [],
               "record_count": 2
@@ -9316,8 +9384,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.531434+00:00",
-              "age_seconds": 552.124937,
-              "stale": false,
+              "age_seconds": 1491.402664,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.531434+00:00",
               "gaps": [],
               "record_count": 2
@@ -9329,8 +9397,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.572547+00:00",
-              "age_seconds": 552.083824,
-              "stale": false,
+              "age_seconds": 1491.361551,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.572547+00:00",
               "gaps": [],
               "record_count": 1
@@ -9342,8 +9410,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.610830+00:00",
-              "age_seconds": 552.045541,
-              "stale": false,
+              "age_seconds": 1491.323268,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.610830+00:00",
               "gaps": [],
               "record_count": 1
@@ -9355,8 +9423,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.642716+00:00",
-              "age_seconds": 552.013655,
-              "stale": false,
+              "age_seconds": 1491.291382,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.642716+00:00",
               "gaps": [],
               "record_count": 1
@@ -9368,8 +9436,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.677443+00:00",
-              "age_seconds": 551.978928,
-              "stale": false,
+              "age_seconds": 1491.256655,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.677443+00:00",
               "gaps": [],
               "record_count": 1
@@ -9381,8 +9449,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.728425+00:00",
-              "age_seconds": 551.927946,
-              "stale": false,
+              "age_seconds": 1491.205673,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.728425+00:00",
               "gaps": [],
               "record_count": 6
@@ -9394,8 +9462,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:58.731721+00:00",
-              "age_seconds": 551.92465,
-              "stale": false,
+              "age_seconds": 1491.202377,
+              "stale": true,
               "covered_through": "2026-10-17T09:09:58.731721+00:00",
               "gaps": [],
               "record_count": 3
@@ -9407,8 +9475,8 @@
               "mode": "fixture",
               "synthetic": true,
               "observed_at": "2026-10-17T09:09:59.085084+00:00",
-              "age_seconds": 551.571287,
-              "stale": false,
+              "age_seconds": 1490.849014,
+              "stale": true,
               "covered_through": null,
               "gaps": [
                 "Channel history is bounded; absence does not prove deletion or inactivity."
@@ -9421,8 +9489,8 @@
               "status": "partial",
               "mode": "fixture",
               "synthetic": true,
-              "observed_at": "2026-10-17T09:10:01.182022+00:00",
-              "age_seconds": 549.474349,
+              "observed_at": "2026-10-17T09:24:03.606656+00:00",
+              "age_seconds": 646.327442,
               "stale": false,
               "covered_through": null,
               "gaps": [
@@ -9433,7 +9501,7 @@
           ],
           "freshness": "source_observation_times_only",
           "clock": {
-            "actual_now_utc": "2026-10-17T09:19:10.656371+00:00",
+            "actual_now_utc": "2026-10-17T09:34:49.934098+00:00",
             "datasets": [
               {
                 "id": "company:northstar:github-fixture:v1",
