@@ -118,6 +118,24 @@ Sync does not run semantic extraction unless explicitly requested. Native source
 
 The initial readback verified 12 assigned Issues, 6 DocPages, 50 Comments, 18 Threads, two Components, and bot authorship for all thirty discussion messages. The content revision adds two disclosure messages/threads, bringing current expected counts to 52 Comments and 20 Threads. Native indexes were prepared without provider requests. These are measurements of the recorded setup runs, not guaranteed counts after later source edits or imports.
 
+## One-command refresh
+
+`refresh` is the everyday command. It syncs every source the manifest configures: Plane always, Slack when channels are listed, GitHub when a repository is set. Then it reports or extracts what is still unextracted.
+
+```powershell
+# Sync only; no model calls. Lists pending units, pages first:
+.\.venv\Scripts\python.exe -m wayfinder.company --graph wayfinder_company_live_demo --manifest data/live-workspace/manifest.json refresh
+# Sync, then extract up to 3 pending units (one generation call each, plus embeddings):
+.\.venv\Scripts\python.exe -m wayfinder.company --graph wayfinder_company_live_demo --manifest data/live-workspace/manifest.json refresh --extract 3
+```
+
+- **Pending** means a Plane/Slack unit with no extraction for its current text: never extracted, or edited since, because a source edit clears the old extraction. The order is document sections, then the newest Plane comments, then Slack messages.
+- **Budget:** `--extract N` caps the units, each one generation call. The default 0 never calls a model.
+- **Output:** a compact summary of sources, changes, extraction results with the model used, and what remains. The full change set is appended to `data/sync-log-<graph>.jsonl`.
+- **Provenance:** each extracted claim records `llm_model`, so claims from different models stay distinguishable.
+
+`sync`, `watch` and `extract --unit-id` remain for finer control.
+
 ## Freshness: does the graph follow Plane and Slack edits?
 
 Every sync now reports what it changed (`changes`: created, updated with old/new state/title, retired, and edge changes), so freshness is observable rather than assumed. A re-sync of unchanged sources reports zero changes.
