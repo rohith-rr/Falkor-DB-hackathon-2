@@ -30,7 +30,7 @@ This yields **four Done, three In Progress, and five Todo** tasks. Twenty-three 
 3. **Connector refresh runbook:** covers access checks, readback, bot identity, source changes, unavailable scopes, and retries.
 4. **ADR-002: Require approval for an exact Plane payload:** distinguishes proposal, approval, guarded execution, and uncertain outcome reconciliation.
 5. **Evidence-backed review checklist:** requires scope, current sources, role distinctions, concern status, and approval before action.
-6. **RFC: Bounded live extraction pilot:** separates considered/rejected options from the proposed eight-unit run and its pending approval.
+6. **RFC: Bounded live extraction pilot:** separates considered/rejected options from the proposed eight-unit run and the approval it requires.
 
 ## Slack discussions follow project work
 
@@ -47,7 +47,7 @@ Use `wayfinder_company_live_demo`. Its current Components are:
 - `company:northstar-live:component:source-ingestion`
 - `company:northstar-live:component:agent-workflows`
 
-The older infrastructure Components are retired with history retained; they were not renamed to mean a different product. Source record UUIDs, authors, and message timestamps remain stable. `northstar-live` in the stored namespace is a legacy identifier, not the displayed project name. The original `wayfinder_company_demo` and Kubernetes graph are separate and preserved. The dashboard still targets the original fixture graph.
+The older infrastructure Components are retired with history retained; they were not renamed to mean a different product. Source record UUIDs, authors, and message timestamps remain stable. `northstar-live` in the stored namespace is a legacy identifier, not the displayed project name. The Northstar `wayfinder_company_demo` graph is separate and preserved. Serve this graph with `python -m wayfinder.dashboard --graph wayfinder_company_live_demo` and open `/graph`.
 
 Example MCP question:
 

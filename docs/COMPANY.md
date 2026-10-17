@@ -3,7 +3,7 @@
 Wayfinder supports an evidence-backed engineering investigation across Plane Cloud
 Project Pages/work items and optional Slack channels. This release targets fictional,
 publishable sandbox data, not confidential production workspaces. The default company
-graph is `wayfinder_company_demo`; the existing Kubernetes graph is preserved.
+graph is `wayfinder_company_demo`.
 
 A separate [live workspace walkthrough](LIVE-WORKSPACE.md) documents the actual
 Plane/Slack sandbox populated on October 17, including its separate
@@ -120,7 +120,7 @@ now includes semantic search and therefore makes one explicit embedding request:
 `python -m wayfinder.company.smoke`. It is not part of the zero-request offline path.
 
 See [local source overlay and recording instructions](DEMO.md), the
-[three-view dashboard setup](../README.md), and the [operational Cypher](QUERIES.md).
+[dashboard setup](../README.md), and the [operational Cypher](QUERIES.md).
 
 ## Proposed Plane task and human approval
 
@@ -146,9 +146,9 @@ proposing a different task. No live Plane task is created during automated tests
 
 ```powershell
 # Use the actual graph explicitly. Dry-run is default:
-.\.venv\Scripts\python.exe -m wayfinder.company --graph wayfinder_test_30d repair-knowledge
+.\.venv\Scripts\python.exe -m wayfinder.company --graph wayfinder_company_demo repair-knowledge
 # A fresh backup path inside this repository is mandatory for apply:
-.\.venv\Scripts\python.exe -m wayfinder.company --graph wayfinder_test_30d repair-knowledge --apply --backup data/backups/knowledge-before.json
+.\.venv\Scripts\python.exe -m wayfinder.company --graph wayfinder_company_demo repair-knowledge --apply --backup data/backups/knowledge-before.json
 ```
 
 Repair relabels parser alternatives as considered, removes invented status transition
