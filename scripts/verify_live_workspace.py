@@ -37,7 +37,11 @@ async def run():
     db=DatabaseManager(graph_name=GRAPH);manifest=load_manifest(FOLDER/'manifest.json')
     seed=json.loads((FOLDER/'seed-state.json').read_text(encoding='utf-8'))
     notices=sum(k.startswith('slack:notice-') for k in seed['created'])
-    counts={r[0]:r[1] for r in db.graph.ro_query('MATCH (n) WHERE n.valid_to IS NULL RETURN labels(n)[0],count(n)').result_set}
+    # Plane/Slack seed counts; GitHub PRs, review threads and comments are counted separately below.
+    counts={r[0]:r[1] for r in db.graph.ro_query("MATCH (n) WHERE n.valid_to IS NULL AND coalesce(n.source_system,'')<>'github' "
+        'RETURN labels(n)[0],count(n)').result_set}
+    github={r[0]:r[1] for r in db.graph.ro_query("MATCH (n) WHERE n.valid_to IS NULL AND n.source_system='github' "
+        'RETURN labels(n)[0],count(n)').result_set}
     assert counts['Issue']==12 and counts['DocPage']==6 and counts['Comment']==50+notices and counts['Thread']==18+notices
     assert counts['Component']==len(manifest['components'])
     assignments=db.graph.ro_query('MATCH (:Issue)-[a:ASSIGNED_TO]->(:Person) WHERE a.valid_to IS NULL RETURN count(a)').result_set[0][0]
@@ -104,7 +108,7 @@ async def run():
             validation=await call('validate_review_brief',{'brief':brief})
             assert validation['valid']
     report={'at':now_iso(),'graph':GRAPH,'mode':'real_connector_readback_and_scripted_mcp_navigation',
-        'counts':counts,'assignments':assignments,'task_states':states,'task_dependencies':dependencies,
+        'counts':counts,'github_counts':github,'assignments':assignments,'task_states':states,'task_dependencies':dependencies,
         'slack_bot_authors':bot_authors,'coverage':coverage,
         'content_revision_verification':polish,'model_requests':0,'extraction_state':extraction_state(),
         'semantic_accuracy':'not_evaluated','transcript':calls}

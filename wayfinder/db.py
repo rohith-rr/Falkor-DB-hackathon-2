@@ -22,6 +22,8 @@ NODE_LABELS_FOR_INDEX = [
     "Release",
     "Issue",
     "PullRequest",
+    "Branch",
+    "Commit",
     "Review",
     "Comment",
     "Thread",
