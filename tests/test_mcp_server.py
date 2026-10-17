@@ -139,7 +139,7 @@ def test_timeout_connection_errors_and_transport_schema():
     with pytest.raises(BrainError, match="QUERY_TIMEOUT"):
         brain.read_cypher("RETURN 1")
     tools = asyncio.run(create_server().list_tools())
-    assert len(tools) == 22
+    assert len(tools) == 23
     search = next(t for t in tools if t.name == "search_entities")
     assert search.inputSchema["properties"]["limit"]["type"] == "integer"
     assert all(t.annotations.readOnlyHint for t in tools)
@@ -161,7 +161,7 @@ async def test_stdio_protocol_from_other_directory(tmp_path):
         async with ClientSession(read, write) as session:
             response = await session.initialize()
             assert "coverage" in response.instructions
-            assert len((await session.list_tools()).tools) == 22
+            assert len((await session.list_tools()).tools) == 23
             assert len((await session.list_resources()).resources) == 2
             assert len((await session.list_prompts()).prompts) == 3
             result = await session.call_tool("read_cypher", {"query": "RETURN $value AS value", "parameters": {"value": 42}})

@@ -4,7 +4,7 @@ Directory expertise now uses v2 scoring. See [expertise calculation, repair,
 review backfill and hourly refresh](EXPERTISE.md). Restart the MCP client/server
 after upgrading to load the new tools' scoring semantics.
 
-The local stdio server exposes **22 database-read-only tools**, two resources and three prompts.
+The local stdio server exposes **23 tools** that only read the knowledge graph, two resources and three prompts.
 It uses the graph named by `FALKORDB_GRAPH`. Set it in the client configuration to
 `wayfinder_company_live_demo` or `wayfinder_company_demo`, because the repository `.env` may name
 another graph. It performs no ingestion, repair, or generation calls. The explicit
@@ -39,6 +39,27 @@ The normal server entry point is:
 A stdio server waits for an MCP client, so a quiet terminal is expected. You do
 not need to launch it separately when using the client configurations below.
 The client starts and stops the process. All logging goes to stderr.
+
+## Graph algorithms as agent tools
+
+`graph_algorithm` runs FalkorDB's native algorithms over the **current** graph:
+
+| `algorithm` | Answers | Notes |
+|---|---|---|
+| `pagerank` | Which entities matter most by incoming links? | Follows edge direction |
+| `betweenness` | Which entities broker between otherwise separate areas? | Direction ignored |
+| `components` | What is connected, and which work is an isolated island? | Direction ignored; reports singletons |
+| `shortest_path` | What is the fewest-hop connection between `source_id` and `target_id`? | Returns the entities and relationships along it |
+
+Narrow a run with `node_labels`, `relationship_types`, or `around_id` with `hops` (1–3) for one entity's neighbourhood.
+
+The knowledge graph keeps history as retired nodes and closed relationship intervals, and `algo.*` procedures can't filter by property. So each call works on a copy:
+1. Copy the selected current records into a temporary projection graph.
+2. Run the native procedure there.
+3. Map the results back to stable IDs.
+4. Delete the projection.
+
+Computed expertise edges are excluded, so the algorithms don't rank their own outputs. Scores describe structure, not correctness or authority, so retrieve evidence before relying on a result. Each call shows up in the agent-path view, and shortest-path edges are highlighted.
 
 ## Watch the agent's path in the graph
 
