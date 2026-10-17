@@ -9,7 +9,6 @@
     "elapsed_seconds": 13.95
   },
   "current_test_collection_count": 104,
-  "kubernetes_final_comparison_unchanged": true,
   "live_extraction": {
     "successful": true,
     "generation_requests": 2,

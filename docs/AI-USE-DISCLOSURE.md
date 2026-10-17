@@ -40,8 +40,8 @@ All model calls go through OpenRouter and are explicit: `extract`, `refresh --ex
 
 | Purpose | Model | Where it was used |
 |---|---|---|
-| Generation | `mistralai/mistral-nemo` | Recorded local proof on Northstar; the eight-unit live extraction ([evidence](evidence/live-connector-extraction.json)); a later three-unit run on Plane comments |
-| Generation | `deepseek/deepseek-v4-flash` | The product-brief page on the live graph (5 accepted claims); the current configuration |
+| Generation | `mistralai/mistral-nemo` | Recorded local proof on Northstar; the eight-unit live extraction ([evidence](evidence/live-connector-extraction.json)) |
+| Generation | `deepseek/deepseek-v4-flash` | Later live extraction: a three-unit run on Plane comments (1 accepted Question) and the product-brief page (5 accepted claims); the current configuration |
 | Embeddings | `nvidia/nemotron-3-embed-1b:free`, 2048 dims | Original Northstar vectors and the recorded local proof |
 | Embeddings | `perplexity/pplx-embed-v1-0.6b`, 1024 dims | Current. Both company graphs were re-embedded and their indexes rebuilt on October 17; the [capability evidence](evidence/falkordb-capabilities.json) was re-recorded |
 

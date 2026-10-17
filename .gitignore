@@ -20,3 +20,6 @@ data/sync-log-*.jsonl
 
 # Local agent tool-call traces for the dashboard path view
 data/agent-trace/
+
+# Default output of `python -m wayfinder.company.smoke`; the committed copy is docs/evidence/company-mcp-transcript.json
+data/company-mcp-transcript.json

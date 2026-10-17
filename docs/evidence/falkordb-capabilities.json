@@ -1,10 +1,38 @@
 {
-  "at": "2026-10-17T15:19:51.956221+00:00",
+  "at": "2026-10-17T23:07:40.827697+00:00",
   "graph": "wayfinder_company_demo",
   "schema": {
-    "at": "2026-10-17T15:19:49.858582+00:00",
+    "at": "2026-10-17T23:07:39.434271+00:00",
     "graph": "wayfinder_company_demo",
     "indexes": [
+      {
+        "label": "Commit",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
+      {
+        "label": "Branch",
+        "properties": [
+          "id"
+        ],
+        "types": [
+          "RANGE"
+        ],
+        "options": {},
+        "language": "english",
+        "stopwords": [],
+        "entitytype": "NODE",
+        "status": "OPERATIONAL"
+      },
       {
         "label": "ReviewThreadCoverage",
         "properties": [
@@ -728,12 +756,12 @@
     "embedding_dim": 1024
   },
   "vector_preparation": {
-    "embedding_requests": 1,
+    "embedding_requests": 0,
     "records": [
       {
         "id": "company:northstar:topic:resource-allocation",
         "label": "Topic",
-        "origin": "live_provider",
+        "origin": "cached_live_provider",
         "text": "Resource Allocation"
       },
       {
@@ -751,7 +779,7 @@
     ]
   },
   "query_embedding_requests": 1,
-  "total_embedding_requests": 2,
+  "total_embedding_requests": 1,
   "fulltext": {
     "query": "CALL db.idx.fulltext.queryNodes('Argument', $query) YIELD node,score WHERE node.valid_to IS NULL RETURN node,score ORDER BY score DESC LIMIT 10",
     "parameters": {
@@ -783,7 +811,7 @@
               "annotation_origin": "hand_authored_demo"
             }
           },
-          "score": 7.0
+          "score": 8.0
         },
         {
           "node": {
@@ -808,7 +836,7 @@
               "annotation_origin": "hand_authored_demo"
             }
           },
-          "score": 2.0
+          "score": 3.0
         },
         {
           "node": {
@@ -833,7 +861,7 @@
               "annotation_origin": "hand_authored_demo"
             }
           },
-          "score": 2.0
+          "score": 3.0
         },
         {
           "node": {
@@ -862,7 +890,7 @@
               "resolution_evidence_ids": []
             }
           },
-          "score": 1.0
+          "score": 1.5
         }
       ],
       "count": 4,
@@ -945,12 +973,12 @@
         },
         {
           "entity": {
-            "id": "k8s:topic:reservation-fairness",
+            "id": "company:northstar:topic:reservation-fairness",
             "labels": [
               "Topic"
             ],
             "properties": {
-              "id": "k8s:topic:reservation-fairness",
+              "id": "company:northstar:topic:reservation-fairness",
               "source_system": "llm-extraction",
               "source_url": "https://app.plane.so/northstar-demo/projects/allocation/pages/adr-allocation",
               "source_ref": "adr-allocation",
@@ -1011,31 +1039,6 @@
               "is_deleted": false,
               "name": "Resource Allocation",
               "seed": true
-            }
-          },
-          "native_distance": 0.828573107719421,
-          "score": 0.17142689228057895
-        },
-        {
-          "entity": {
-            "id": "k8s:topic:resource-allocation",
-            "labels": [
-              "Topic"
-            ],
-            "properties": {
-              "id": "k8s:topic:resource-allocation",
-              "source_system": "llm-extraction",
-              "source_url": "https://app.plane.so/northstar-demo/projects/allocation/pages/adr-allocation",
-              "source_ref": "adr-allocation",
-              "observed_at": "2026-10-17T09:13:15.400399+00:00",
-              "valid_from": "2026-10-17T09:13:15.400399+00:00",
-              "extractor_version": "live-proof-46dc8f685ab8438ca4398b8d4c2b8839",
-              "source_unit_id": "plane:northstar:page:adr-allocation:section:0",
-              "content_hash": "13a0fbb6278fa88fa5929a54a97363dff3830e3d3a6612ad44e7bbcbb61e5dd7",
-              "source_revision_id": "source-revision:plane:northstar:page:adr-allocation:section:0:eb2ba9c5faec6592bfcbab1e0436100bab1e08caa5a91c091e32297e1ff9d30b",
-              "authority": "EXTRACTED",
-              "link_method": "LLM_EXTRACTED",
-              "name": "Resource Allocation"
             }
           },
           "native_distance": 0.828573107719421,
