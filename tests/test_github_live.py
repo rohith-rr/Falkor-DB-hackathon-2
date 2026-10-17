@@ -249,3 +249,23 @@ def test_ambiguous_short_sha_and_unknown_keys_do_not_link():
         assert rows==[],rows
     finally:
         db.clear_graph()
+
+
+def test_link_exclusions_retire_a_known_false_reference():
+    from wayfinder.company.links import link_manifest
+    db=DatabaseManager(graph_name='test_github_excl_'+uuid.uuid4().hex)
+    if not db.ping(): pytest.skip('FalkorDB unavailable')
+    try:
+        issue=f'plane:ghtest:issue:{ITEM}'; commit=f'github:ghtest:commit:{REPO}:abc'
+        store=CompanyStore(db,MANIFEST); store.bootstrap()
+        store.node('Issue',issue,source='plane',url=PLANE_URL,title='Watcher',text='x',key='ACME-3')
+        db.upsert_node('Commit',{'id':commit,'title':'Link keys (e.g. ACME-3)','body_text':'Link keys (e.g. ACME-3)',
+            'source_system':'github','source_url':f'https://github.com/{REPO}/commit/abc','organization_id':'ghtest'})
+        current=lambda:db.graph.ro_query(f"MATCH ({{id:'{commit}'}})-[r:REFERENCES]->(t) WHERE r.valid_to IS NULL RETURN t.id").result_set
+        link_manifest(CompanyStore(db,MANIFEST))
+        assert current()==[[issue]]
+        excluded={**MANIFEST,'link_exclusions':[{'source':commit,'target':issue,'reason':'example key'}]}
+        link_manifest(CompanyStore(db,excluded))
+        assert current()==[]
+    finally:
+        db.clear_graph()

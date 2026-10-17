@@ -34,8 +34,8 @@ def load_scope(path):
 
 
 def scope_hash(scope):
-    """Identity of the Plane/Slack sandbox; the optional GitHub section does not change it."""
-    return digest({k:v for k,v in scope.items() if k!='github'})
+    """Identity of the Plane/Slack sandbox; optional GitHub and link-exclusion sections do not change it."""
+    return digest({k:v for k,v in scope.items() if k not in ('github','link_exclusions')})
 
 
 def legacy_records(owner):
@@ -289,6 +289,8 @@ class Seeder:
             'people':[{'id':'workspace-owner','name':self.owner}],
             # Optional GitHub scope: repository, since, component directories, and login -> identity.
             **({'github':{k:v for k,v in self.scope['github'].items() if k!='identities'}} if self.scope.get('github') else {}),
+            # Known false textual references (for example a key quoted as an example in a commit message).
+            **({'link_exclusions':self.scope['link_exclusions']} if self.scope.get('link_exclusions') else {}),
             'identities':{'plane:'+self.me['id']:'workspace-owner',
                 **{'github:'+login.lower():who for login,who in self.scope.get('github',{}).get('identities',{}).items()}},'teams':[],
             'components':[{**c,'owners':['workspace-owner']} for c in content()['components']],'bindings':bindings}

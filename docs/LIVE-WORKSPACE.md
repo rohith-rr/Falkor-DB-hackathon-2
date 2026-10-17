@@ -92,7 +92,7 @@ Cross-source links extend to git:
 
 - `/tree/<branch>[/<path>]` resolves to the longest matching known branch.
 - `/commit/<sha>` and `/pull/n/commits/<sha>` resolve to the commit. An abbreviated SHA resolves only if exactly one known commit matches it.
-- A Plane work-item key such as `FALKORDBTE-12` in a branch name, commit message, PR, Slack message or Plane text links to that work item (`link_method: EXACT_IDENTIFIER`). Plane supplies the key; `FALKORDBTE-120` or `XFALKORDBTE-12` do not match.
+- A Plane work-item key such as `FALKORDBTE-12` in a branch name, commit message, PR, Slack message or Plane text links to that work item (`link_method: EXACT_IDENTIFIER`). Plane supplies the key; `FALKORDBTE-120` or `XFALKORDBTE-12` do not match. When text only quotes a key as an example and can't be edited, such as a merged commit message, add a `link_exclusions` entry (`source`, `target`, `reason`) to `scope.json`. The manifest carries it, and the next sync retires that link.
 
 The latest sync (October 18) read 6 PRs, 7 branches and 21 commits from this repository.
 
