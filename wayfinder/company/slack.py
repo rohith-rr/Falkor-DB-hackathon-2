@@ -1,14 +1,23 @@
 """Optional channel-allowlisted Slack reader; no posting, DMs, or file downloads."""
 import os
 import time
+from pathlib import Path
 from datetime import datetime,timezone,timedelta
 import httpx
+from dotenv import dotenv_values
 from .core import CompanyStore
+
+
+# Channel housekeeping events are not discussion and have no human author.
+SYSTEM_SUBTYPES={'channel_join','channel_leave','channel_name','channel_topic','channel_purpose','channel_archive',
+    'channel_unarchive','channel_convert_to_private','channel_convert_to_public','pinned_item','unpinned_item',
+    'bot_add','bot_remove','group_join','group_leave'}
 
 
 class SlackClient:
     def __init__(self,token=None,session=None):
-        token=token or os.getenv('SLACK_USER_TOKEN') or os.getenv('SLACK_BOT_TOKEN')
+        local=dotenv_values(Path(__file__).resolve().parents[2]/'.env')
+        token=token or os.getenv('SLACK_USER_TOKEN') or os.getenv('SLACK_BOT_TOKEN') or local.get('SLACK_USER_TOKEN') or local.get('SLACK_BOT_TOKEN')
         if not token: raise ValueError('Set a Slack token with channel history and replies access')
         self.session=session or httpx.Client(base_url='https://slack.com/api/',timeout=30,
             headers={'Authorization':f'Bearer {token}'})
@@ -48,6 +57,8 @@ def ingest_channel(store,channel,*,mode='live'):
     cid=channel['id']; scope=f'channel:{cid}'
     for thread in channel.get('threads',[]):
         root=thread['ts']; tid=f'slack:{store.org}:thread:{cid}:{root}'
+        if thread.get('deleted'):
+            continue
         url=thread.get('url',f"https://app.slack.com/archives/{cid}/p{root.replace('.','')}")
         store.node('Thread',tid,source='slack',url=url,kind='chat',root_ref=tid,
             name=channel.get('name',cid),channel_id=cid,scope=scope)
@@ -66,6 +77,11 @@ def ingest_channel(store,channel,*,mode='live'):
                     is_bot=bool(message.get('bot_id') or message.get('subtype')=='bot_message'))
                 store.edge('Person',person,'Comment',ident,'AUTHORED','slack',permalink)
         if thread.get('complete',False): store.reconcile('slack',f'{tid}:messages',ids)
+    if channel.get('complete'):
+        # Every saved root was re-read above, so a root Slack no longer returns is a confirmed deletion.
+        deleted=[f"slack:{store.org}:thread:{cid}:{t['ts']}" for t in channel.get('threads',[]) if t.get('deleted')]
+        for tid in deleted: store.reconcile('slack',f'{tid}:messages',[])
+        store.reconcile('slack',scope,[f"slack:{store.org}:thread:{cid}:{t['ts']}" for t in channel.get('threads',[]) if not t.get('deleted')])
     store.coverage('slack',scope,'partial',count=sum(len(t['messages']) for t in channel.get('threads',[])),
         mode=mode,gaps=channel.get('gaps',['Channel history is bounded; absence does not prove deletion or inactivity.']))
 
@@ -82,18 +98,29 @@ def sync_slack(db,manifest,days=30):
                 # Replies are fetched separately; history access alone is not enough.
                 oldest=(datetime.now(timezone.utc)-timedelta(days=days,minutes=5)).timestamp()
                 messages,limited=client.messages('conversations.history',channel=cid,oldest=str(oldest))
-                roots={m.get('thread_ts',m['ts']) for m in messages}
+                # Membership events cannot have replies; treating them as thread
+                # roots makes an otherwise readable channel fail thread_not_found.
+                roots={m.get('thread_ts',m['ts']) for m in messages if m.get('subtype') not in SYSTEM_SUBTYPES}
                 saved=db.graph.ro_query('MATCH (t:Thread) WHERE t.source_system=\'slack\' AND t.channel_id=$channel '
                     'AND t.valid_to IS NULL RETURN t.source_ref',params={'channel':cid}).result_set
                 roots.update(str(r[0]).rsplit(':',1)[-1] for r in saved)
                 threads=[]
                 for root in sorted(roots):
-                    replies,thread_limited=client.messages('conversations.replies',channel=cid,ts=root)
+                    try: replies,thread_limited=client.messages('conversations.replies',channel=cid,ts=root)
+                    except RuntimeError as exc:
+                        # A previously seen root that Slack no longer has was deleted;
+                        # one missing thread must not make the whole channel unavailable.
+                        if 'thread_not_found' not in str(exc): raise
+                        threads.append({'ts':root,'messages':[],'complete':True,'deleted':True}); continue
+                    replies=[m for m in replies if m.get('subtype') not in SYSTEM_SUBTYPES]
+                    if not replies:
+                        # A saved "thread" that is only a system event is retired like a deleted one.
+                        threads.append({'ts':root,'messages':[],'complete':True,'deleted':True}); continue
                     for m in replies:
                         m['url']=client.call('chat.getPermalink',channel=cid,message_ts=m['ts'])['permalink']
                     threads.append({'ts':root,'messages':replies,'complete':not (limited or thread_limited),
                         'url':replies[0]['url'] if replies else f'https://app.slack.com/archives/{cid}'})
-                ingest_channel(store,{'id':cid,'threads':threads,'gaps':[
+                ingest_channel(store,{'id':cid,'threads':threads,'complete':not limited,'gaps':[
                     '30-day polling scope; retention and unavailable deleted parent threads may hide records.']+
                     (['Slack reports limited history.'] if limited else [])})
                 report.append({'channel':cid,'threads':len(threads)})

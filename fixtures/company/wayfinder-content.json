@@ -1,0 +1,454 @@
+{
+  "revision": "v3-wayfinder",
+  "organization_name": "Wayfinder Project",
+  "channel_components": {
+    "runtime": "source-ingestion",
+    "allocation": "agent-workflows"
+  },
+  "channel_names": {
+    "runtime": "wayfinder-connectors",
+    "allocation": "wayfinder-agents"
+  },
+  "components": [
+    {
+      "id": "source-ingestion",
+      "name": "Source Ingestion & Evidence"
+    },
+    {
+      "id": "agent-workflows",
+      "name": "Agent Review Workflow"
+    }
+  ],
+  "mcp_component": "agent-workflows",
+  "target_date": "2026-10-18",
+  "pages": [
+    {
+      "key": "ownership",
+      "component": "source-ingestion",
+      "also_components": [
+        "agent-workflows"
+      ],
+      "name": "Wayfinder: Product brief and responsibilities",
+      "description_html": "<h1>Wayfinder product brief</h1><p><strong>Problem.</strong> Engineering work is spread across project tickets, documents, chat, and repository activity. People cannot easily tell who owns a component, why a decision was made, or whether an earlier concern is still open.</p><p><strong>Product.</strong> Wayfinder imports those records into FalkorDB and exposes evidence-backed graph navigation through MCP. An agent should be able to answer a question, follow its sources, and prepare a specific follow-up for human approval.</p><p><strong>Source Ingestion &amp; Evidence.</strong> {owner} owns connector scope, identity mappings, source revisions, coverage, and retrieval indexes.</p><p><strong>Agent Review Workflow.</strong> {owner} owns MCP navigation, cited review briefs, approval controls, and demo evaluation. This sandbox currently has one actual human project member; the Slack discussion is posted by the app.</p><p><strong>Release boundary.</strong> The hackathon demo must show a real connector investigation and disclose missing evidence. It is not a production permissions system or a validated employee-ranking product. GitHub code expertise is demonstrated separately because this live graph has no imported PRs.</p><p><em>Staged Wayfinder project records for a dedicated demo workspace.</em></p>"
+    },
+    {
+      "key": "adr-runtime",
+      "component": "source-ingestion",
+      "name": "ADR-001: Import sources before semantic extraction",
+      "description_html": "<h1>ADR-001: Separate ingestion from interpretation</h1><p><strong>Decision: import source records and revisions before running semantic extraction.</strong> Plane and Slack reads must retain native IDs, authorship, source URLs, and observation times without requiring an LLM call.</p><p><strong>Reason.</strong> A connector must remain useful when a provider is unavailable or inference is not approved. Source records can be inspected before spending model requests.</p><p><strong>Freshness.</strong> Editing source text retires the previous extracted interpretation immediately. New meaning remains pending until a replacement passes quote, target, and revision checks.</p><p><strong>Coverage.</strong> A bounded or unavailable source scope must be reported as partial or unknown. Missing imported activity is not proof that a person is inactive.</p><p><strong>Current status.</strong> Real Plane work items, comments, pages, and Slack threads have been read back. Semantic extraction from this live dataset is still waiting for explicit approval to send selected text to OpenRouter.</p><p><em>Wayfinder design decision; live inference validation remains a separate task.</em></p>"
+    },
+    {
+      "key": "runbook-runtime",
+      "component": "source-ingestion",
+      "name": "Runbook: Check connectors and refresh source evidence",
+      "description_html": "<h1>Connector and source refresh runbook</h1><p><strong>Scope.</strong> Use only the designated Plane project and the two allowlisted Slack channels. Check authentication, channel membership, Pages access, and thread-reply access before importing.</p><p><strong>Readback.</strong> Confirm that the graph contains the expected work items, documents, comments, real source URLs, and actual account or bot authors. Do not map a bot to a human or infer identity from a matching display name.</p><p><strong>Source edits.</strong> Sync updated records using their existing native IDs. Preserve earlier revisions for inspection, retire old extracted claims, and keep interpretation pending until a validated replacement is published.</p><p><strong>Failures.</strong> Record inaccessible scopes as unavailable. Do not substitute fixture data, delete records based on a partial listing, or silently send source text to an unapproved provider.</p><p><strong>Recovery.</strong> Resume the scoped read after resolving authentication or rate limits. A retry must not create duplicate source records.</p>"
+    },
+    {
+      "key": "adr-allocation",
+      "component": "agent-workflows",
+      "name": "ADR-002: Require approval for an exact Plane task payload",
+      "description_html": "<h1>ADR-002: Human approval for agent-created work</h1><p><strong>Decision: require human approval of the exact payload hash before an agent creates a Plane follow-up task.</strong> The proposal contains its destination, title, description, and cited review brief.</p><p><strong>Reason.</strong> Read access and a useful recommendation do not grant permission to write. A person must be able to inspect what the agent intends to create.</p><p><strong>Execution.</strong> Revalidate source evidence and the approved payload immediately before creation. Return the recorded external ID after a confirmed success; reconcile an uncertain outcome instead of blindly creating again.</p><p><strong>Current status.</strong> Approval, changed-payload rejection, stale-evidence rejection, and duplicate-prevention behavior have controlled regression checks. The separate real hash-approved agent task exercise is still pending.</p><p><strong>Open concern.</strong> Successful source seeding and a valid structural brief do not prove that a live semantic brief is accurate or that the external action path has been verified.</p>"
+    },
+    {
+      "key": "runbook-allocation",
+      "component": "agent-workflows",
+      "name": "Review checklist: Sources, freshness, and approved actions",
+      "description_html": "<h1>Evidence-backed review checklist</h1><p><strong>Start.</strong> Confirm the selected graph, component, import coverage, and observation time. Keep the Kubernetes, fixture-company, and live connector datasets separate.</p><p><strong>Investigate.</strong> Follow the component to its owner, tasks, documents, and discussions. Read the original source and current revision before explaining a decision or concern.</p><p><strong>Distinguish.</strong> Configured ownership is different from task assignment, code expertise, and reviewer authorization. A test request is not a test result. A considered alternative is not necessarily rejected.</p><p><strong>Validate.</strong> Keep unresolved concerns visible. Mechanical brief validation checks references and freshness; independent review is still needed to judge whether the evidence supports the answer.</p><p><strong>Act.</strong> Prepare one concrete follow-up, present its exact payload for approval, and revalidate before execution. Stop if evidence or the approved payload changes.</p>"
+    },
+    {
+      "key": "rfc-retry",
+      "component": "agent-workflows",
+      "also_components": [
+        "source-ingestion"
+      ],
+      "name": "RFC: A bounded live extraction pilot",
+      "description_html": "<h1>Live extraction pilot options</h1><p><strong>Option considered.</strong> We considered extracting every imported comment during the first live connector sync. That would mix connector failures with provider failures and spend requests on setup noise.</p><p><strong>Option rejected.</strong> We rejected automatic, unbounded extraction during the initial sync. Successful source ingestion must not depend on generating claims for every record.</p><p><strong>Pilot proposal.</strong> Review eight selected source units, then obtain explicit permission to send that text to the configured OpenRouter generation and embedding models. The prepared runner permits at most eight generation requests and sixty embedding requests, with SDK retries disabled.</p><p><strong>Acceptance.</strong> Save actual proposed results, accepted and rejected claims, request counts, and brief validation. Empty or rejected results must remain visible. A local fixture annotation is not a successful live extraction.</p><p><strong>Status.</strong> Provider transfer approval is pending. The pilot, live source-edit invalidation check, and independent answer review are not complete.</p>"
+    }
+  ],
+  "items": [
+    {
+      "key": "w1",
+      "component": "source-ingestion",
+      "name": "Import Plane work items, comments, and Project Pages",
+      "status": "completed",
+      "priority": "high",
+      "depends_on": [],
+      "description_html": "<p><strong>Problem.</strong> An agent cannot investigate project decisions if it only sees task titles and misses discussions or documents.</p><p><strong>Work.</strong> Read the designated Plane project, its work items, comments, members, states, and full Page bodies. Retain real IDs, author links, source URLs, and coverage.</p><p><strong>Acceptance evidence.</strong> The designated sandbox was populated and read back through the real Plane API. This task is complete for that tested scope, not a guarantee for every account or plan.</p>",
+      "comments": [
+        {
+          "key": "pc1",
+          "comment_html": "<p>The work-item list alone is not enough for this demo. Please verify comment bodies and Project Pages through their own endpoints before marking the import complete.</p>"
+        },
+        {
+          "key": "pc13",
+          "comment_html": "<p>The real connector readback includes all twelve work items, twenty comments, and six Page bodies in the designated project. Native IDs and source revisions are present. The missing-document-body concern is resolved for this sandbox scope.</p>"
+        }
+      ]
+    },
+    {
+      "key": "w2",
+      "component": "source-ingestion",
+      "name": "Import Slack messages and complete discussion threads",
+      "status": "completed",
+      "priority": "high",
+      "depends_on": [],
+      "description_html": "<p><strong>Problem.</strong> A channel history response can omit the replies where a decision or objection was discussed.</p><p><strong>Work.</strong> Read both allowlisted channels, fetch replies separately, and retain permalinks and actual bot authorship. Exclude non-threadable membership events.</p><p><strong>Acceptance evidence.</strong> History and reply access were verified on the installed app. The seeded discussions and channel disclosures were read back without treating join events as threads.</p>",
+      "comments": [
+        {
+          "key": "pc2",
+          "comment_html": "<p>Read thread replies separately from channel history. Several explanations are replies rather than top-level messages.</p>"
+        },
+        {
+          "key": "pc14",
+          "comment_html": "<p>History, replies, permalinks, and bot attribution are verified. Channel join events are now excluded so they cannot fail the import as missing threads.</p>"
+        }
+      ]
+    },
+    {
+      "key": "w3",
+      "component": "source-ingestion",
+      "name": "Invalidate extracted claims when source text changes",
+      "status": "completed",
+      "priority": "high",
+      "depends_on": [
+        "w1",
+        "w2"
+      ],
+      "description_html": "<p><strong>Problem.</strong> An answer can repeat an obsolete decision after its source document changes.</p><p><strong>Work.</strong> Retain source revisions, retire the prior interpretation on edit, clear obsolete vectors, and require a validated replacement before publishing new meaning.</p><p><strong>Acceptance evidence.</strong> Source-edit, stale-brief, and obsolete-vector regression checks pass. The original local-overlay proof demonstrated a changed decision. Repeating the semantic proof on these live sources is tracked separately under the live extraction pilot.</p>",
+      "comments": [
+        {
+          "key": "pc3",
+          "comment_html": "<p>The old interpretation must retire as soon as the new source text is observed. Do not wait for a successful replacement model call.</p>"
+        },
+        {
+          "key": "pc15",
+          "comment_html": "<p>The invalidation regressions pass. The local-overlay result is useful evidence, but it does not finish the separate live connector extraction exercise.</p>"
+        }
+      ]
+    },
+    {
+      "key": "w4",
+      "component": "source-ingestion",
+      "name": "Validate identity mappings without merging bots into people",
+      "status": "started",
+      "priority": "high",
+      "depends_on": [
+        "w1",
+        "w2"
+      ],
+      "description_html": "<p><strong>Problem.</strong> Matching display names or bot-written dialogue can create false ownership and expertise.</p><p><strong>Work.</strong> Use explicit native-ID mappings. Verify the actual Plane member, retain Slack bot identities, and test an additional participant before claiming cross-person activity coverage.</p><p><strong>Current evidence.</strong> The sandbox has one mapped human project member and one Slack bot. That narrow case works; multi-person identity validation remains incomplete.</p>",
+      "comments": [
+        {
+          "key": "pc4",
+          "comment_html": "<p>Keep the Slack app as a bot. Writing several conversation replies does not create several employees or independent corroboration.</p>"
+        },
+        {
+          "key": "pc16",
+          "comment_html": "<p>The actual Plane user is mapped explicitly. We still need an additional participant before calling the cross-person identity exercise complete.</p>"
+        }
+      ]
+    },
+    {
+      "key": "w5",
+      "component": "source-ingestion",
+      "name": "Publish source coverage and access limitations for the demo",
+      "status": "unstarted",
+      "priority": "high",
+      "depends_on": [
+        "w1",
+        "w2"
+      ],
+      "description_html": "<p><strong>Problem.</strong> A demo can imply company-wide knowledge even when only one project and two channels were imported.</p><p><strong>Work.</strong> Present successful scopes, partial Slack history, observation time, missing GitHub evidence, and the lack of inherited source-user permissions.</p><p><strong>Acceptance.</strong> The final investigation and submission explicitly state the tested scope and production access-control gap. Existing coverage records alone do not complete the final presentation review.</p>",
+      "comments": [
+        {
+          "key": "pc5",
+          "comment_html": "<p>Report missing activity as unknown. This live graph has no imported GitHub PRs, so it cannot support a code-expertise recommendation.</p>"
+        },
+        {
+          "key": "pc17",
+          "comment_html": "<p>The final demo needs a clear access boundary: designated sandbox sources only, with no claim of production permission inheritance.</p>"
+        }
+      ]
+    },
+    {
+      "key": "w6",
+      "component": "source-ingestion",
+      "name": "Verify full-text and vector retrieval on the live source graph",
+      "status": "started",
+      "priority": "medium",
+      "depends_on": [
+        "w8"
+      ],
+      "description_html": "<p><strong>Problem.</strong> Structural traversal can miss a relevant explanation when the user does not know its exact wording or entity ID.</p><p><strong>Work.</strong> Verify native full-text matching, model-compatible stored vectors, semantic-search results, and source inspection on the live dataset.</p><p><strong>Current evidence.</strong> Native indexes are operational; vector retrieval was verified separately on the original demo. The live dataset still needs approved extraction and embeddings. Record a live result and query plan after that dependency completes.</p>",
+      "comments": [
+        {
+          "key": "pc6",
+          "comment_html": "<p>An operational vector index is not proof that this dataset has current vectors. Wait for the approved live extraction run before claiming a live semantic-search result.</p>"
+        },
+        {
+          "key": "pc18",
+          "comment_html": "<p>Retain both the retrieval result and its source. Similarity is a discovery score, not confidence that a claim is correct.</p>"
+        }
+      ]
+    },
+    {
+      "key": "w7",
+      "component": "agent-workflows",
+      "name": "Navigate live project sources through MCP and validate a brief",
+      "status": "completed",
+      "priority": "high",
+      "depends_on": [
+        "w1",
+        "w2",
+        "w3"
+      ],
+      "description_html": "<p><strong>Problem.</strong> The agent needs to explore connected work without relying on one fixed endpoint for each question.</p><p><strong>Work.</strong> Confirm the graph and coverage, resolve a component, follow source links, read a discussion and evidence, and validate a structural review brief.</p><p><strong>Acceptance evidence.</strong> A real stdio MCP client completed that scripted source-navigation path. This is an interoperability result, not an autonomous answer-accuracy result or a completed live extraction proof.</p>",
+      "comments": [
+        {
+          "key": "pc7",
+          "comment_html": "<p>I am concerned that a passing structural brief could be presented as proof that the agent correctly interpreted the source. We still need live extraction and independent answer review before making that claim.</p>"
+        },
+        {
+          "key": "pc19",
+          "comment_html": "<p>The source-navigation session passes. Keep the interpretation-accuracy concern open; this task only verifies the MCP and evidence path.</p>"
+        }
+      ]
+    },
+    {
+      "key": "w8",
+      "component": "agent-workflows",
+      "name": "Run the approved eight-unit live extraction pilot",
+      "status": "unstarted",
+      "priority": "urgent",
+      "depends_on": [
+        "w1",
+        "w2",
+        "w3",
+        "w5"
+      ],
+      "description_html": "<p><strong>Problem.</strong> Fixture annotations do not prove that Wayfinder can interpret records fetched from real connectors.</p><p><strong>Work.</strong> Review eight selected source texts, obtain explicit OpenRouter transfer approval, and run the configured generation and embedding models within the documented request caps.</p><p><strong>Acceptance.</strong> Retain actual outputs, quote/target/revision diagnostics, request counts, and brief validation. Then edit one reviewed source and verify that a brief citing its earlier interpretation fails. No run has been approved or completed for this live dataset yet.</p>",
+      "comments": [
+        {
+          "key": "pc8",
+          "comment_html": "<p>The exact source-text transfer is still awaiting approval. Do not treat the earlier local-overlay proof as extraction from these live Plane and Slack records.</p>"
+        },
+        {
+          "key": "pc20",
+          "comment_html": "<p>Use the bounded pilot and retain rejected or empty output. We need a reproducible result, not a manufactured passing demonstration.</p>"
+        }
+      ]
+    },
+    {
+      "key": "w9",
+      "component": "agent-workflows",
+      "name": "Verify a real Plane follow-up through exact-payload approval",
+      "status": "unstarted",
+      "priority": "high",
+      "depends_on": [
+        "w7",
+        "w8"
+      ],
+      "description_html": "<p><strong>Problem.</strong> An agent recommendation must not silently become an external write, and an uncertain request must not produce duplicate tasks.</p><p><strong>Work.</strong> Prepare one evidence-backed proposal, have the human approve its exact payload hash, execute it in the designated project, and confirm repeat execution returns the same external ID.</p><p><strong>Acceptance.</strong> Retain the reviewed payload, approval, resulting Plane ID, and idempotency check. Source seeding is not this approval workflow. Controlled regression checks already exist; the separate real approved action remains pending.</p>",
+      "comments": [
+        {
+          "key": "pc9",
+          "comment_html": "<p>The seeded project tasks were created as dataset preparation. They do not count as a successful hash-approved agent follow-up.</p>"
+        }
+      ]
+    },
+    {
+      "key": "w10",
+      "component": "agent-workflows",
+      "name": "Fix dashboard connection and backend error reporting",
+      "status": "unstarted",
+      "priority": "high",
+      "depends_on": [],
+      "description_html": "<p><strong>Observed defect.</strong> When FalkorDB was stopped, the dashboard kept its Connecting label and showed a JSON parsing error for the backend's plain-text failure response.</p><p><strong>Work.</strong> Distinguish loading, ready, and failed states; handle non-JSON errors; explain the unavailable database dependency and allow refresh after recovery.</p><p><strong>Acceptance.</strong> Stop the local database during a smoke check, observe a clear failure state, then restart it and successfully reload. Documentation of the defect does not count as a fix.</p>",
+      "comments": [
+        {
+          "key": "pc10",
+          "comment_html": "<p>The screenshot shows a failed state request, not an ongoing Slack or OpenRouter login. Please make the UI identify the database failure directly.</p>"
+        }
+      ]
+    },
+    {
+      "key": "w11",
+      "component": "agent-workflows",
+      "name": "Manually evaluate twenty evidence-backed agent answers",
+      "status": "unstarted",
+      "priority": "high",
+      "depends_on": [
+        "w7",
+        "w8"
+      ],
+      "description_html": "<p><strong>Problem.</strong> Valid IDs and matching quotes can still accompany an unsupported summary or reviewer recommendation.</p><p><strong>Work.</strong> Freeze the questions, collect answers and tool traces, and have a named reviewer check meaning against full source context. Update the question set for this Wayfinder project; the older infrastructure questions do not apply.</p><p><strong>Acceptance.</strong> Record twenty independent judgments, failures, and reasons, including decision-versus-proposal, considered-versus-rejected, concern closure, and missing coverage. No semantic accuracy score is established yet.</p>",
+      "comments": [
+        {
+          "key": "pc11",
+          "comment_html": "<p>The scripted MCP check is not the answer evaluation. Keep the interpretation-accuracy concern open until the independent review is recorded.</p>"
+        }
+      ]
+    },
+    {
+      "key": "w12",
+      "component": "agent-workflows",
+      "name": "Record the coherent Wayfinder demo and complete submission",
+      "status": "started",
+      "priority": "urgent",
+      "depends_on": [
+        "w5",
+        "w6",
+        "w9",
+        "w10",
+        "w11"
+      ],
+      "description_html": "<p><strong>Goal.</strong> Show how Wayfinder investigates its own project work: source ingestion, a traceable decision, an unresolved validation concern, and a reviewed next action.</p><p><strong>Current evidence.</strong> Setup, design documents, disclosure, and a video script exist. Recording, final verification, upload, and submission remain incomplete.</p><p><strong>Acceptance.</strong> The video matches the selected graph and actual verification state, clearly separates the Kubernetes appendix, discloses AI use, and is submitted before October 18 at 11:59 PM IST. Stop feature work at noon October 18 and protect the final four hours for submission.</p>",
+      "comments": [
+        {
+          "key": "pc12",
+          "comment_html": "<p>Do not describe pending extraction, the approved action exercise, or answer accuracy as completed in the video. If a live step is unavailable, label the limitation explicitly.</p>"
+        }
+      ]
+    }
+  ],
+  "threads": [
+    {
+      "channel": "runtime",
+      "links": {
+        "0": [
+          "item:w1"
+        ],
+        "1": [
+          "page:adr-runtime"
+        ],
+        "3": [
+          "item:w2"
+        ],
+        "4": [
+          "page:runbook-runtime"
+        ]
+      },
+      "messages": [
+        "The Plane task list is importing. Before we call this complete, are we also reading the comment bodies and Project Pages?",
+        "Yes. Keep source ingestion separate from interpretation: fetch and retain the records first, then request model extraction explicitly.",
+        "The real readback contains twelve tasks, twenty comments, and six Page bodies. Native IDs and source revisions are present.",
+        "Slack history and replies also work. We fixed the join-event issue and retained the app as a bot rather than inventing employee authors.",
+        "Use the connector runbook for the next refresh. Scope and missing access still need to be visible in the demo."
+      ]
+    },
+    {
+      "channel": "runtime",
+      "links": {
+        "0": [
+          "item:w3"
+        ],
+        "1": [
+          "page:adr-runtime"
+        ],
+        "3": [
+          "item:w8"
+        ]
+      },
+      "messages": [
+        "What should happen if an ADR changes while its model provider is unavailable?",
+        "Retire the old extracted interpretation as soon as the new source revision is observed. Leave the replacement pending until it validates.",
+        "The source-edit, stale-brief, and obsolete-vector regressions pass. That establishes the mechanism, not live-source answer accuracy.",
+        "We still need to repeat the semantic proof after the eight-unit live extraction is approved. The earlier proof used a local overlay.",
+        "Agreed. Keep connector success, inference success, and independent answer review as separate acceptance checks."
+      ]
+    },
+    {
+      "channel": "allocation",
+      "links": {
+        "0": [
+          "item:w8"
+        ],
+        "1": [
+          "page:rfc-retry"
+        ],
+        "3": [
+          "item:w11"
+        ],
+        "2": [
+          "item:w7"
+        ]
+      },
+      "messages": [
+        "The live sources are in FalkorDB. What is blocking a model-generated review brief?",
+        "We need explicit permission to send the selected text to OpenRouter. The pilot is bounded to eight generation requests and sixty embedding requests.",
+        "The scripted MCP source-navigation check passed. That still does not complete semantic extraction; we have not run the live pilot on this dataset yet.",
+        "I am concerned that a mechanically valid brief could still misrepresent the source. Independent answer review remains outstanding.",
+        "Keep that concern open. Record actual accepted, rejected, or empty results when the pilot is authorized."
+      ]
+    },
+    {
+      "channel": "allocation",
+      "links": {
+        "0": [
+          "page:adr-allocation"
+        ],
+        "2": [
+          "item:w9"
+        ],
+        "4": [
+          "page:runbook-allocation"
+        ]
+      },
+      "messages": [
+        "Can the agent create a follow-up as soon as it finds an unresolved concern?",
+        "It can prepare a proposal. A human must approve the exact payload hash before the external task is created.",
+        "The controlled approval and duplicate-prevention checks pass, but the separate real approved Plane action still needs to be exercised.",
+        "Please do not count these seeded project tasks as that action test. They were dataset preparation.",
+        "Revalidate the evidence before execution. If the request outcome is uncertain, reconcile it instead of blindly creating another task."
+      ]
+    },
+    {
+      "channel": "allocation",
+      "links": {
+        "0": [
+          "item:w10"
+        ],
+        "1": [
+          "page:ownership"
+        ],
+        "4": [
+          "item:w12"
+        ]
+      },
+      "messages": [
+        "The dashboard stayed on Connecting when FalkorDB was stopped. The JSON parsing message did not explain what was wrong.",
+        "{owner}, this belongs to the Agent Review Workflow workstream. Please show a clear failed state and a useful retry path.",
+        "The backend connection is to the local graph. It is not waiting for a Slack login or an OpenRouter response on page load.",
+        "Verify both failure and recovery before closing the ticket. The defect is documented but not fixed yet.",
+        "This is a visible demo issue, so include it in the remaining submission checks."
+      ]
+    },
+    {
+      "channel": "runtime",
+      "links": {
+        "0": [
+          "item:w4"
+        ],
+        "1": [
+          "page:ownership"
+        ],
+        "2": [
+          "item:w5"
+        ],
+        "3": [
+          "item:w6"
+        ],
+        "4": [
+          "item:w12"
+        ]
+      },
+      "messages": [
+        "Can this workspace support a recommendation for five distinct human reviewers?",
+        "No. We currently have one actual mapped project member and one posting app. That is not evidence of a five-person workforce.",
+        "State the source scope and missing GitHub activity. The separate Kubernetes graph is the code-expertise appendix.",
+        "The live graph has native indexes, but live semantic retrieval still needs approved embeddings. Do not present an empty index as a completed search proof.",
+        "The project story should match those limits. Record verified source navigation, show pending validation honestly, and finish the submission checks."
+      ]
+    }
+  ]
+}

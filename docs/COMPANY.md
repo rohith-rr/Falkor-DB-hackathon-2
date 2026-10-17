@@ -5,6 +5,11 @@ Project Pages/work items and optional Slack channels. This release targets ficti
 publishable sandbox data, not confidential production workspaces. The default company
 graph is `wayfinder_company_demo`; the existing Kubernetes graph is preserved.
 
+A separate [live workspace walkthrough](LIVE-WORKSPACE.md) documents the actual
+Plane/Slack sandbox populated on October 17, including its separate
+`wayfinder_company_live_demo` graph, native source IDs, actual authorship,
+repeatable seed runner, and pending external-provider extraction approval.
+
 ## Run without accounts or paid requests
 
 From the repository root:

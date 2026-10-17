@@ -34,6 +34,12 @@ The catalog below describes the logical model used by the application. FalkorDB 
 
 People, projects, and components are not interchangeable. Being assigned an Issue does not establish component ownership. Authoring a PR does not establish reviewer authorization. Team membership is an explicit relationship rather than an inference from co-occurrence in chat.
 
+### Graph and identity scope
+
+Entity IDs must be interpreted together with the selected named graph. Kubernetes source entities commonly use the `k8s:` namespace. Northstar canonical people and Components use `company:northstar:`, its synthetic GitHub activity uses `github:northstar:`, and its Plane-shaped records use `plane:northstar:`. Explicit identity mappings join those company records to the same fictional people; they do not map them to Kubernetes contributors.
+
+Namespaces are not a source-trust or access-control boundary. Some retained semantic Topic IDs can have a legacy prefix; inspect their provenance, source revision, and containing graph instead of inferring dataset origin from a prefix alone. `IMPLEMENTED_IN` connects a Northstar Component to its code Directory within the company graph, not to a Directory in the Kubernetes graph.
+
 ## Semantic and derived entities
 
 | Entity or record | Meaning | Review requirement |

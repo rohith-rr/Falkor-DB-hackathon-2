@@ -4,6 +4,10 @@
 
 ## Lifecycle overview
 
+The lifecycle runs within the explicitly selected graph. Adding the Northstar fixture did not delete, copy, or reseed `wayfinder_test_30d`. The shared GitHub processing changes were checked against saved Kubernetes rankings using the same published generation and evaluation clock. Recalculating Kubernetes expertise later is a separate operation and may legitimately change scores as time or imported evidence changes.
+
+Company fixture ingestion is distinct from the local live-proof overlay. The fixture establishes authored baseline source text and annotations; the proof then changes the allocation ADR locally, retires its old interpretation, and publishes a real model-extracted replacement. Reimporting the complete fixture can restore its seeded ADR and retire that replacement. A saved successful proof remains a historical artifact and must be marked archived when its revision no longer matches the current source. Opening a dashboard or MCP session does not perform either import.
+
 Information moves through separate stages: retrieve scoped sources, normalize and link them, retain text revisions, optionally interpret eligible text, calculate derived signals, and expose the result with coverage context. Each stage can succeed or fail independently. A source import can be useful before any model extraction succeeds.
 
 ```mermaid

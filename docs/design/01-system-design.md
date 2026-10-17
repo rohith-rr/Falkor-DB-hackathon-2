@@ -109,6 +109,17 @@ This is the implemented integration choice. It is not a current guarantee about 
 
 The reviewed deployment is a local Python application, a Docker-hosted FalkorDB instance, local caches/artifacts, and an MCP process launched by an agent client. Optional network dependencies are GitHub, Plane, Slack, and configured OpenAI-compatible generation/embedding providers.
 
+There are three separate query interfaces. The three-view dashboard is a company-specific HTTP application; FalkorDB Browser is a database query interface with explicit named-graph selection; the MCP service is a standard-input/output process launched by an agent client. Opening the dashboard does not start or connect an MCP agent.
+
+| Interface | Local endpoint or transport | Dataset selection |
+|---|---|---|
+| Company dashboard | HTTP on loopback port 8765 by default | The normal dashboard entry point explicitly selects `wayfinder_company_demo`; its Component selector changes the component within that graph |
+| FalkorDB Browser | HTTP on loopback port 3000 in the documented deployment | Reviewer explicitly selects the fixture, live connector, or Kubernetes graph |
+| Agent MCP process | Standard input/output | `FALKORDB_GRAPH` in the process configuration; client must restart the connection after a change |
+| FalkorDB database | Redis-compatible protocol on configured host/port, normally localhost:6379 | Queries address one named graph |
+
+The retained Kubernetes pilot and the unified Northstar fixture serve complementary review purposes. Northstar demonstrates docs, tickets, chats, and synthetic code in one graph. Kubernetes demonstrates the same application on imported public engineering evidence. A third graph, `wayfinder_company_live_demo`, verifies actual Plane/Slack connectors on API-created fictional source records, with no fixture claims or code activity. Its semantic extraction remains separately pending explicit external-provider transfer approval. No cross-graph join, Kubernetes-to-company identity merge, or shared ranking is implied. [Graph access and demo boundaries](06-graph-access-and-demo-boundaries.md) documents the selection and failure behavior.
+
 Named graphs separate the Kubernetes pilot, company demo, and isolated tests. This prevents accidental fixture mixing when the correct graph is selected. A named graph is not a tenant authorization mechanism: a process with database access can potentially access other graphs.
 
 Ingestion, extraction, refresh, and querying are separate activities. Starting the MCP server does not import sources, spend provider requests, or refresh derived snapshots automatically. An explicit semantic_search call makes one query-embedding request; other read tools make no provider calls. Scheduled polling and expertise refresh require explicit setup. Polling every ten minutes is a scheduling option, not a freshness guarantee.

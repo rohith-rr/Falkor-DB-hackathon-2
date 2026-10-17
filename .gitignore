@@ -6,9 +6,14 @@ data/raw/
 data/backups/
 data/sandbox*.json
 data/proof-runs/
+data/live-workspace/
+secret-key-*.csv
 data/falkordb/
 __pycache__/
 *.py[cod]
 *$py.class
 .pytest_cache/
 *.log
+
+# Watcher change logs contain native source IDs
+data/sync-log-*.jsonl

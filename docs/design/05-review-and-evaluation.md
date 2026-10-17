@@ -12,7 +12,7 @@ This document separates implemented mechanisms, repeatable demonstrations, evalu
 
 | Principle | Current design support | Remaining gap |
 |---|---|---|
-| Docs, tickets, and chats in one graph | Plane Project Pages/work items/comments plus optional Slack share identities and explicit component links | Live workspace access and a coherent live sandbox demonstration still need account-specific validation |
+| Docs, tickets, and chats in one graph | Plane Project Pages/work items/comments plus optional Slack share identities and explicit component links; the designated live sandbox was populated and read back on October 17 | Live-source semantic extraction is pending explicit transfer approval; access on this account does not prove compatibility with every account |
 | Who owns what | Manifest component owners, Plane assignments, and Kubernetes OWNERS are separate relationships | No automatic authoritative company service catalog or HR synchronization |
 | Who knows what | Versioned directory expertise for Kubernetes and Northstar synthetic code, connected by IMPLEMENTED_IN | No validated general company expertise model over ticket/chat activity; topic scoring remains legacy |
 | Trace decisions to sources | Quotes, source records, revisions, semantic links, and evidence navigation | Quote validation cannot prove a statement was actually a decision or caused an outcome |
@@ -64,7 +64,11 @@ Connector behavior is also exercised with controlled responses for pagination, u
 
 The company MCP smoke workflow opens an actual MCP session and performs a scripted investigation, including evidence retrieval and brief validation. It demonstrates tool interoperability and a scripted navigation path. It is not an independent autonomous-agent accuracy evaluation.
 
+The retained Kubernetes compatibility artifact records unchanged ranking output before and after the shared processing changes at a fixed evaluation clock and published generation. It is a preservation regression, not a new Kubernetes sync, refreshed snapshot, full database backup, or claim that every possible query is unchanged. The company demonstration contains synthetic GitHub evidence rather than copied Kubernetes PRs. See the [compatibility record](../evidence/kubernetes-ranking-compatibility.json) and [final verification record](../evidence/final-verification.json).
+
 The October 17 implementation run passed 103 automated tests against local FalkorDB and completed a real capped OpenRouter edit/invalidation proof plus native retrieval and an actual MCP protocol session. These checks do not establish independent answer accuracy. No actual Plane task creation has been verified without the required sandbox credentials and human approval.
+
+A later October 17 setup created actual source records in the designated fictional Plane project and Slack channels, read them through the real connectors into a third graph, and verified a real MCP protocol session without provider requests. It checked twelve assignments and bot attribution for all thirty Slack messages. These are source-population operations, not the separate hash-approved agent action workflow. Semantic extraction of that newly imported dataset remains pending explicit OpenRouter transfer approval; the earlier successful local-overlay proof must not be presented as proof of extraction from these live sources. See the [live workspace record](../LIVE-WORKSPACE.md).
 
 ## Answer evaluation design
 
@@ -90,7 +94,7 @@ Useful failure categories include unsupported ownership, inflated reviewer autho
 | Corrected Decision taxonomy | The two fixture ADR Decisions no longer carry `kind: goal`; label-specific validation rejects recurrence | Applied repair preserves their stable IDs, evidence, and component scope |
 | Independent support | Fictional page/chat statements were deliberately authored together | Repetition is not independent corroboration |
 | Fixture URLs | Plane/Slack URLs identify simulated records and may not open | Use retained revision text; do not claim the records exist in a live account |
-| Live capability validation | Actual Plane/Slack account permissions and endpoints need verification | Mock connector checks and fixture success are insufficient live validation |
+| Live capability validation | Plane Pages/work items/comments and Slack history/replies were verified on the designated sandbox account | This does not validate every account, plan, permission combination, or future API change |
 | Source scope | Bounded sources and incomplete activity coverage | Unknown is often the correct answer; absence is not proof of inactivity |
 | Identity mapping | Explicit configuration can be missing or wrong | Work can be split across identities or incorrectly joined by a bad mapping |
 | Ownership authority | Manifest declarations can become stale | Declared ownership should be periodically reviewed by responsible humans |
@@ -107,6 +111,7 @@ Useful failure categories include unsupported ownership, inflated reviewer autho
 | Storage | Revisions, claims, snapshots, and backups accumulate | Retention, compaction, and capacity planning remain operational work |
 | Initialization | Index creation can warn and continue | Inspect index readiness before judging retrieval performance |
 | Scheduling | Polling and refresh require explicit registration and healthy services | A stopped scheduler leaves stale results; starting MCP does not refresh them |
+| Dashboard connection reporting | The current client can leave its initial Connecting label visible after a state request fails and surface a JSON parsing error for a plain-text HTTP error | The label is not a health check; inspect the dashboard response and database availability before drawing conclusions about graph contents |
 | Approved action | Local human-name/hash approval, limited evidence revalidation | Not an authenticated production control or a guarantee that business context is unchanged |
 
 ## Security and privacy boundary

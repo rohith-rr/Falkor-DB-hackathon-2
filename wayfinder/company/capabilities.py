@@ -26,7 +26,7 @@ def indexes(db):
 
 
 def prepare_schema(db):
-    if db.graph_name!='wayfinder_company_demo' and not db.graph_name.startswith('test_'):
+    if db.graph_name not in ('wayfinder_company_demo','wayfinder_company_live_demo') and not db.graph_name.startswith('test_'):
         raise ValueError('Demo schema changes require company demo or isolated test graph')
     existing=indexes(db)
     def has(label,prop,kind):

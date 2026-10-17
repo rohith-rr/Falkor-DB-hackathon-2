@@ -6,7 +6,8 @@ The application uses the locally configured OpenRouter model for semantic extrac
 
 ## Data and interpretation origins
 
-- Northstar people, teams, components, work items, pages, chats, repository, PRs, and URLs are synthetic demonstration data. They are not records from a real company or live GitHub repository.
+- In the original Northstar fixture, people, teams, components, work items, pages, chats, repository, PRs, and URLs are synthetic demonstration data. They are not records from a real company or live GitHub repository.
+- The separate live connector sandbox contains API-created Plane work/pages/comments and Slack bot messages with real native IDs, source URLs, timestamps, and actual authorship. Codex assisted with writing the staged project story and population tooling. The current revision describes building Wayfinder itself, distinguishes recorded completed checks from outstanding work, and replaces the earlier fictional infrastructure story. This is real integration on staged content, not an actual six-person company or independent employee discussion. No fixture annotations were imported into that graph, and its semantic extraction is pending explicit external-provider transfer approval.
 - Fifty baseline interpretation records are deterministically authored fixture annotations. They are labeled FIXTURE_ANNOTATION and are not live model outputs or independent human accuracy measurements. Fixture creation and development also involved AI assistance.
 - The live-proof record contains genuine provider-generated before/after interpretations, labeled LLM_EXTRACTED, with source revisions and validation results. Local source overlays were used; no Plane page was edited externally.
 - Kubernetes records come from the project's scoped public-source imports and remain in a separate graph. Activity coverage is incomplete, and scores are heuristic evidence signals.

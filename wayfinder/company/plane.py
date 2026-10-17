@@ -84,6 +84,18 @@ class PlaneClient:
         raise ValueError('Too many attachment redirects')
 
 
+def retire_children(store,scope,keep,child_scopes,thread=False):
+    """A deleted parent is no longer listed, so its comments/sections are never re-read; retire them with it."""
+    gone=[r[0] for r in store.db.graph.ro_query("MATCH (n) WHERE n.source_system='plane' AND n.sync_scope=$scope "
+        'AND n.organization_id=$org AND n.valid_to IS NULL AND NOT n.id IN $keep RETURN n.id',
+        params={'scope':scope,'org':store.org,'keep':keep}).result_set]
+    for ident in gone:
+        for child in child_scopes: store.reconcile('plane',f'{ident}:{child}',[])
+        if thread:
+            store.db.query('MATCH (t:Thread {id:$id}) WHERE t.valid_to IS NULL SET t.valid_to=$now,t.is_deleted=true '
+                'WITH t OPTIONAL MATCH (t)-[r]-() WHERE r.valid_to IS NULL SET r.valid_to=$now',{'id':f'{ident}:thread','now':now_iso()})
+
+
 def ingest_project(store,project,*,mode='live'):
     """Same normalized records are used by API and published offline fixtures."""
     org=store.org; native=str(project['id']); scope=f'project:{native}'
@@ -93,14 +105,16 @@ def ingest_project(store,project,*,mode='live'):
     for member in project.get('members',[]):
         mid=str(member.get('member_id') or member.get('id'))
         person=store.person('plane',mid)
+        profile={'display_name':member['display_name']} if member.get('display_name') else {}
         store.node('Person',person,source='plane',url=root,login=person.rsplit(':',1)[-1],
-                   display_name=member.get('display_name'),is_bot=False)
+                   is_bot=False,**profile)
         store.edge('Person',person,'Project',pid,'MEMBER_OF','plane',root)
     for item in project.get('work_items',[]):
         ident=f"plane:{org}:issue:{item['id']}"; url=f"{root}/work-items/{item['id']}"
         store.node('Issue',ident,source='plane',url=url,native=item['id'],scope=f'{scope}:items',
             title=item['name'],number=str(item.get('sequence_id',item['id'])),
             state=item.get('state_name',item.get('state_id','unknown')),created_at=item.get('created_at'),
+            priority=item.get('priority'),start_date=item.get('start_date'),target_date=item.get('target_date'),
             updated=item.get('updated_at'),text=html_text(item.get('description_html','')),raw_html=item.get('description_html',''))
         store.edge('Project',pid,'Issue',ident,'HAS_WORK_ITEM','plane',url)
         desired=[]
@@ -159,10 +173,14 @@ def ingest_project(store,project,*,mode='live'):
             store.edge('DocPage',ident,'DocSection',sid,'HAS_SECTION','plane',url,order=index)
         store.reconcile('plane',f'{ident}:sections',sections)
     if project.get('items_complete',True):
-        store.reconcile('plane',f'{scope}:items',[f"plane:{org}:issue:{i['id']}" for i in project.get('work_items',[])])
+        keep=[f"plane:{org}:issue:{i['id']}" for i in project.get('work_items',[])]
+        retire_children(store,f'{scope}:items',keep,['comments','attachments'],thread=True)
+        store.reconcile('plane',f'{scope}:items',keep)
         store.coverage('plane',f'{scope}:items','complete',count=len(project.get('work_items',[])),mode=mode)
     if project.get('pages_complete',True):
-        store.reconcile('plane',f'{scope}:pages',[f"plane:{org}:page:{p['id']}" for p in project.get('pages',[])])
+        keep=[f"plane:{org}:page:{p['id']}" for p in project.get('pages',[])]
+        retire_children(store,f'{scope}:pages',keep,['sections'])
+        store.reconcile('plane',f'{scope}:pages',keep)
         store.coverage('plane',f'{scope}:pages','complete',count=len(project.get('pages',[])),mode=mode)
 
 

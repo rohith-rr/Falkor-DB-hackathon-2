@@ -1,0 +1,447 @@
+{
+  "organization_id": "northstar-live",
+  "name": "Wayfinder Project",
+  "synthetic": true,
+  "source_url": "https://app.plane.so/wayfinder-demo/projects/bd0573cd-e196-496b-b241-c9bc3665a1d3",
+  "content_revision": "v3-wayfinder",
+  "plane": {
+    "workspace": "wayfinder-demo",
+    "project_ids": [
+      "bd0573cd-e196-496b-b241-c9bc3665a1d3"
+    ],
+    "sandbox_project_id": "bd0573cd-e196-496b-b241-c9bc3665a1d3"
+  },
+  "slack": {
+    "channel_ids": [
+      "CYNM3SV5DU4",
+      "CGPVICX6SV4"
+    ]
+  },
+  "people": [
+    {
+      "id": "workspace-owner",
+      "name": "Sandbox Owner"
+    }
+  ],
+  "identities": {
+    "plane:b5cc778c-be15-4ca0-9bda-0ab74a37140c": "workspace-owner"
+  },
+  "teams": [],
+  "components": [
+    {
+      "id": "source-ingestion",
+      "name": "Source Ingestion & Evidence",
+      "owners": [
+        "workspace-owner"
+      ]
+    },
+    {
+      "id": "agent-workflows",
+      "name": "Agent Review Workflow",
+      "owners": [
+        "workspace-owner"
+      ]
+    }
+  ],
+  "bindings": [
+    {
+      "source": "plane:northstar-live:page:fe8e90a2-1cda-485e-9b9a-3bdab9a0a9b3",
+      "target": "company:northstar-live:component:source-ingestion",
+      "relationship": "DESCRIBES"
+    },
+    {
+      "source": "plane:northstar-live:page:fe8e90a2-1cda-485e-9b9a-3bdab9a0a9b3",
+      "target": "company:northstar-live:component:agent-workflows",
+      "relationship": "DESCRIBES"
+    },
+    {
+      "source": "plane:northstar-live:page:6e76527f-0a86-4641-80c5-477aa6eca0eb",
+      "target": "company:northstar-live:component:source-ingestion",
+      "relationship": "DESCRIBES"
+    },
+    {
+      "source": "plane:northstar-live:page:53c53201-403a-4318-bc54-98a3eb816ddf",
+      "target": "company:northstar-live:component:source-ingestion",
+      "relationship": "DESCRIBES"
+    },
+    {
+      "source": "plane:northstar-live:page:bc231eea-7630-4784-a61a-6b663e3863b6",
+      "target": "company:northstar-live:component:agent-workflows",
+      "relationship": "DESCRIBES"
+    },
+    {
+      "source": "plane:northstar-live:page:3d23cbd9-f7ac-4309-847d-262d3f7e64d6",
+      "target": "company:northstar-live:component:agent-workflows",
+      "relationship": "DESCRIBES"
+    },
+    {
+      "source": "plane:northstar-live:page:f8c549e3-8f45-4e0d-b796-2ad925263a59",
+      "target": "company:northstar-live:component:agent-workflows",
+      "relationship": "DESCRIBES"
+    },
+    {
+      "source": "plane:northstar-live:page:f8c549e3-8f45-4e0d-b796-2ad925263a59",
+      "target": "company:northstar-live:component:source-ingestion",
+      "relationship": "DESCRIBES"
+    },
+    {
+      "source": "plane:northstar-live:issue:5fb675d4-2120-497c-b0ba-f1ac1954629b",
+      "target": "company:northstar-live:component:source-ingestion",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "plane:northstar-live:issue:151e8ccf-da7b-426c-a8c1-fa5a5556b40d",
+      "target": "company:northstar-live:component:source-ingestion",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "plane:northstar-live:issue:76fc965d-77e0-469e-ab39-d39c4e42b94b",
+      "target": "company:northstar-live:component:source-ingestion",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "plane:northstar-live:issue:76fc965d-77e0-469e-ab39-d39c4e42b94b",
+      "target": "plane:northstar-live:issue:5fb675d4-2120-497c-b0ba-f1ac1954629b",
+      "relationship": "DEPENDS_ON"
+    },
+    {
+      "source": "plane:northstar-live:issue:76fc965d-77e0-469e-ab39-d39c4e42b94b",
+      "target": "plane:northstar-live:issue:151e8ccf-da7b-426c-a8c1-fa5a5556b40d",
+      "relationship": "DEPENDS_ON"
+    },
+    {
+      "source": "plane:northstar-live:issue:82a973d2-481c-4184-8e98-7888f05905c1",
+      "target": "company:northstar-live:component:source-ingestion",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "plane:northstar-live:issue:82a973d2-481c-4184-8e98-7888f05905c1",
+      "target": "plane:northstar-live:issue:5fb675d4-2120-497c-b0ba-f1ac1954629b",
+      "relationship": "DEPENDS_ON"
+    },
+    {
+      "source": "plane:northstar-live:issue:82a973d2-481c-4184-8e98-7888f05905c1",
+      "target": "plane:northstar-live:issue:151e8ccf-da7b-426c-a8c1-fa5a5556b40d",
+      "relationship": "DEPENDS_ON"
+    },
+    {
+      "source": "plane:northstar-live:issue:7c639ab7-0d6f-4959-b60f-a0a0727baacc",
+      "target": "company:northstar-live:component:source-ingestion",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "plane:northstar-live:issue:7c639ab7-0d6f-4959-b60f-a0a0727baacc",
+      "target": "plane:northstar-live:issue:5fb675d4-2120-497c-b0ba-f1ac1954629b",
+      "relationship": "DEPENDS_ON"
+    },
+    {
+      "source": "plane:northstar-live:issue:7c639ab7-0d6f-4959-b60f-a0a0727baacc",
+      "target": "plane:northstar-live:issue:151e8ccf-da7b-426c-a8c1-fa5a5556b40d",
+      "relationship": "DEPENDS_ON"
+    },
+    {
+      "source": "plane:northstar-live:issue:08f5461e-359f-4515-ae61-115e175efef1",
+      "target": "company:northstar-live:component:source-ingestion",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "plane:northstar-live:issue:08f5461e-359f-4515-ae61-115e175efef1",
+      "target": "plane:northstar-live:issue:ae80482c-187e-4c20-9567-ebc704f8da78",
+      "relationship": "DEPENDS_ON"
+    },
+    {
+      "source": "plane:northstar-live:issue:843adf69-6361-4377-b0ca-6ca4148d11db",
+      "target": "company:northstar-live:component:agent-workflows",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "plane:northstar-live:issue:843adf69-6361-4377-b0ca-6ca4148d11db",
+      "target": "plane:northstar-live:issue:5fb675d4-2120-497c-b0ba-f1ac1954629b",
+      "relationship": "DEPENDS_ON"
+    },
+    {
+      "source": "plane:northstar-live:issue:843adf69-6361-4377-b0ca-6ca4148d11db",
+      "target": "plane:northstar-live:issue:151e8ccf-da7b-426c-a8c1-fa5a5556b40d",
+      "relationship": "DEPENDS_ON"
+    },
+    {
+      "source": "plane:northstar-live:issue:843adf69-6361-4377-b0ca-6ca4148d11db",
+      "target": "plane:northstar-live:issue:76fc965d-77e0-469e-ab39-d39c4e42b94b",
+      "relationship": "DEPENDS_ON"
+    },
+    {
+      "source": "plane:northstar-live:issue:ae80482c-187e-4c20-9567-ebc704f8da78",
+      "target": "company:northstar-live:component:agent-workflows",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "plane:northstar-live:issue:ae80482c-187e-4c20-9567-ebc704f8da78",
+      "target": "plane:northstar-live:issue:5fb675d4-2120-497c-b0ba-f1ac1954629b",
+      "relationship": "DEPENDS_ON"
+    },
+    {
+      "source": "plane:northstar-live:issue:ae80482c-187e-4c20-9567-ebc704f8da78",
+      "target": "plane:northstar-live:issue:151e8ccf-da7b-426c-a8c1-fa5a5556b40d",
+      "relationship": "DEPENDS_ON"
+    },
+    {
+      "source": "plane:northstar-live:issue:ae80482c-187e-4c20-9567-ebc704f8da78",
+      "target": "plane:northstar-live:issue:76fc965d-77e0-469e-ab39-d39c4e42b94b",
+      "relationship": "DEPENDS_ON"
+    },
+    {
+      "source": "plane:northstar-live:issue:ae80482c-187e-4c20-9567-ebc704f8da78",
+      "target": "plane:northstar-live:issue:7c639ab7-0d6f-4959-b60f-a0a0727baacc",
+      "relationship": "DEPENDS_ON"
+    },
+    {
+      "source": "plane:northstar-live:issue:589b7f32-deda-4f74-8289-cef6cb1fb1f0",
+      "target": "company:northstar-live:component:agent-workflows",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "plane:northstar-live:issue:589b7f32-deda-4f74-8289-cef6cb1fb1f0",
+      "target": "plane:northstar-live:issue:843adf69-6361-4377-b0ca-6ca4148d11db",
+      "relationship": "DEPENDS_ON"
+    },
+    {
+      "source": "plane:northstar-live:issue:589b7f32-deda-4f74-8289-cef6cb1fb1f0",
+      "target": "plane:northstar-live:issue:ae80482c-187e-4c20-9567-ebc704f8da78",
+      "relationship": "DEPENDS_ON"
+    },
+    {
+      "source": "plane:northstar-live:issue:8f1c17a9-4270-4936-b33f-f5de82f36323",
+      "target": "company:northstar-live:component:agent-workflows",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "plane:northstar-live:issue:a544e56a-747c-4ae0-850a-8027e9b5c86b",
+      "target": "company:northstar-live:component:agent-workflows",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "plane:northstar-live:issue:a544e56a-747c-4ae0-850a-8027e9b5c86b",
+      "target": "plane:northstar-live:issue:843adf69-6361-4377-b0ca-6ca4148d11db",
+      "relationship": "DEPENDS_ON"
+    },
+    {
+      "source": "plane:northstar-live:issue:a544e56a-747c-4ae0-850a-8027e9b5c86b",
+      "target": "plane:northstar-live:issue:ae80482c-187e-4c20-9567-ebc704f8da78",
+      "relationship": "DEPENDS_ON"
+    },
+    {
+      "source": "plane:northstar-live:issue:d0f7468a-ab6c-483b-a796-8a07a3ec4356",
+      "target": "company:northstar-live:component:agent-workflows",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "plane:northstar-live:issue:d0f7468a-ab6c-483b-a796-8a07a3ec4356",
+      "target": "plane:northstar-live:issue:7c639ab7-0d6f-4959-b60f-a0a0727baacc",
+      "relationship": "DEPENDS_ON"
+    },
+    {
+      "source": "plane:northstar-live:issue:d0f7468a-ab6c-483b-a796-8a07a3ec4356",
+      "target": "plane:northstar-live:issue:08f5461e-359f-4515-ae61-115e175efef1",
+      "relationship": "DEPENDS_ON"
+    },
+    {
+      "source": "plane:northstar-live:issue:d0f7468a-ab6c-483b-a796-8a07a3ec4356",
+      "target": "plane:northstar-live:issue:589b7f32-deda-4f74-8289-cef6cb1fb1f0",
+      "relationship": "DEPENDS_ON"
+    },
+    {
+      "source": "plane:northstar-live:issue:d0f7468a-ab6c-483b-a796-8a07a3ec4356",
+      "target": "plane:northstar-live:issue:8f1c17a9-4270-4936-b33f-f5de82f36323",
+      "relationship": "DEPENDS_ON"
+    },
+    {
+      "source": "plane:northstar-live:issue:d0f7468a-ab6c-483b-a796-8a07a3ec4356",
+      "target": "plane:northstar-live:issue:a544e56a-747c-4ae0-850a-8027e9b5c86b",
+      "relationship": "DEPENDS_ON"
+    },
+    {
+      "source": "slack:northstar-live:thread:CYNM3SV5DU4:1792236595.960599",
+      "target": "company:northstar-live:component:source-ingestion",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:comment:CYNM3SV5DU4:1792236595.960599",
+      "target": "company:northstar-live:component:source-ingestion",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:comment:CYNM3SV5DU4:1792236596.648839",
+      "target": "company:northstar-live:component:source-ingestion",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:comment:CYNM3SV5DU4:1792236597.174079",
+      "target": "company:northstar-live:component:source-ingestion",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:comment:CYNM3SV5DU4:1792236597.903539",
+      "target": "company:northstar-live:component:source-ingestion",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:comment:CYNM3SV5DU4:1792236598.810809",
+      "target": "company:northstar-live:component:source-ingestion",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:thread:CYNM3SV5DU4:1792236599.391919",
+      "target": "company:northstar-live:component:source-ingestion",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:comment:CYNM3SV5DU4:1792236599.391919",
+      "target": "company:northstar-live:component:source-ingestion",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:comment:CYNM3SV5DU4:1792236600.101309",
+      "target": "company:northstar-live:component:source-ingestion",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:comment:CYNM3SV5DU4:1792236600.811149",
+      "target": "company:northstar-live:component:source-ingestion",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:comment:CYNM3SV5DU4:1792236601.523399",
+      "target": "company:northstar-live:component:source-ingestion",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:comment:CYNM3SV5DU4:1792236602.265369",
+      "target": "company:northstar-live:component:source-ingestion",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:thread:CGPVICX6SV4:1792236602.793239",
+      "target": "company:northstar-live:component:agent-workflows",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:comment:CGPVICX6SV4:1792236602.793239",
+      "target": "company:northstar-live:component:agent-workflows",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:comment:CGPVICX6SV4:1792236603.309059",
+      "target": "company:northstar-live:component:agent-workflows",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:comment:CGPVICX6SV4:1792236604.060669",
+      "target": "company:northstar-live:component:agent-workflows",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:comment:CGPVICX6SV4:1792236604.585909",
+      "target": "company:northstar-live:component:agent-workflows",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:comment:CGPVICX6SV4:1792236605.122819",
+      "target": "company:northstar-live:component:agent-workflows",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:thread:CGPVICX6SV4:1792236605.865529",
+      "target": "company:northstar-live:component:agent-workflows",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:comment:CGPVICX6SV4:1792236605.865529",
+      "target": "company:northstar-live:component:agent-workflows",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:comment:CGPVICX6SV4:1792236606.555629",
+      "target": "company:northstar-live:component:agent-workflows",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:comment:CGPVICX6SV4:1792236607.081719",
+      "target": "company:northstar-live:component:agent-workflows",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:comment:CGPVICX6SV4:1792236607.602879",
+      "target": "company:northstar-live:component:agent-workflows",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:comment:CGPVICX6SV4:1792236608.301039",
+      "target": "company:northstar-live:component:agent-workflows",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:thread:CGPVICX6SV4:1792236609.003979",
+      "target": "company:northstar-live:component:agent-workflows",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:comment:CGPVICX6SV4:1792236609.003979",
+      "target": "company:northstar-live:component:agent-workflows",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:comment:CGPVICX6SV4:1792236609.694999",
+      "target": "company:northstar-live:component:agent-workflows",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:comment:CGPVICX6SV4:1792236610.404619",
+      "target": "company:northstar-live:component:agent-workflows",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:comment:CGPVICX6SV4:1792236611.129939",
+      "target": "company:northstar-live:component:agent-workflows",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:comment:CGPVICX6SV4:1792236611.719109",
+      "target": "company:northstar-live:component:agent-workflows",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:thread:CYNM3SV5DU4:1792236612.414969",
+      "target": "company:northstar-live:component:source-ingestion",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:comment:CYNM3SV5DU4:1792236612.414969",
+      "target": "company:northstar-live:component:source-ingestion",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:comment:CYNM3SV5DU4:1792236612.933319",
+      "target": "company:northstar-live:component:source-ingestion",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:comment:CYNM3SV5DU4:1792236613.634829",
+      "target": "company:northstar-live:component:source-ingestion",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:comment:CYNM3SV5DU4:1792236614.151959",
+      "target": "company:northstar-live:component:source-ingestion",
+      "relationship": "CONCERNS_COMPONENT"
+    },
+    {
+      "source": "slack:northstar-live:comment:CYNM3SV5DU4:1792236614.671119",
+      "target": "company:northstar-live:component:source-ingestion",
+      "relationship": "CONCERNS_COMPONENT"
+    }
+  ],
+  "replay": {
+    "recorded_at": "2026-10-17T14:05:56.963542+00:00",
+    "source": "scrubbed recorded Plane/Slack API responses"
+  }
+}

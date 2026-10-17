@@ -6,6 +6,8 @@
 
 Wayfinder exposes a local MCP server over standard input/output. An external agent client supplies the planning and language-generation loop. The agent can discover the graph schema, resolve entities, traverse connections, inspect discussions, retrieve original evidence, and formulate a structured brief.
 
+Each MCP process queries its configured named graph. Confirm that graph with graph_stats at the beginning of an investigation: Northstar questions belong to `wayfinder_company_demo`, while Kubernetes questions belong to `wayfinder_test_30d`. Changing the client configuration requires restarting its MCP connection. Graph selection is not an MCP tool operation, and the company dashboard is not an agent chat interface. [Graph access and demo boundaries](06-graph-access-and-demo-boundaries.md) describes the separate query surfaces.
+
 The default server has twenty-two database-read-only tools, two resources, and three prompts. Optional action mode adds two tools, for a total of twenty-four. Read tools do not ingest sources, refresh scores, call generation models, or create external work items. Explicit semantic_search makes one configured query-embedding request without retries; page loading and other read tools make no provider requests.
 
 ## Tool surface
@@ -45,6 +47,8 @@ The review-component prompt encourages this workflow. It is guidance to an exter
 
 This example describes the committed fictional fixture, not a live Plane investigation.
 
+It is the seeded scenario, not a guarantee of the current ADR text. The recorded local live proof subsequently replaces bounded automatic retry with operator-initiated retry. An actual investigation must inspect the current source revision and Decision rather than repeat the seeded statement below. The proof's original baseline, edited pending state, and extracted replacement are separate states; none should be silently substituted for another.
+
 | Investigation step | Available evidence | Defensible conclusion |
 |---|---|---|
 | Resolve component | Stable ID `company:northstar:component:resource-allocation` | A named company Component exists in the demo graph |
@@ -52,6 +56,7 @@ This example describes the committed fictional fixture, not a live Plane investi
 | Follow project | Component-linked work items connect back to the Allocation project through HAS_WORK_ITEM | The project is reachable through imported work; no direct project-to-component edge is required |
 | Inspect six work items | w7–w12: Bound resize retry; Measure reservation drift; Document allocation rollback; Verify resource isolation; Audit capacity owner routing; Track allocation rollout | There is a small, connected work set, not a complete operational backlog |
 | Read documents | Reservation-fairness ADR, retry-alternatives RFC, allocation rollback runbook | The graph includes decision, option discussion, and operational guidance |
+| Follow code and activity | IMPLEMENTED_IN maps the component to allocation code; who_knows aggregates deduplicated contribution records | Faye is the fixture's leading non-owner file-review contributor; Dee and Eli remain declared owners, and neither designation implies the other |
 | Read ADR evidence | “Decision: preserve existing reservations before retrying resize.” | The source text records that decision; its semantic annotation is hand-authored fixture data |
 | Read alternatives | Immediate retry considered; unlimited retry rejected because it can starve reservations | Consideration and rejection are distinct; these are related alternatives unless explicit rationale links establish more |
 | Inspect concern | “I am concerned that resize retry can starve existing reservations.” | An imported concern targets allocation behavior |

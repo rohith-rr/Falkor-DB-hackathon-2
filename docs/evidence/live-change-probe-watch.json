@@ -1,0 +1,77 @@
+{
+  "run": "9018138d",
+  "started_at": "2026-10-17T13:48:47.307759+00:00",
+  "graph": "wayfinder_company_live_demo",
+  "mode": "watch",
+  "writes": [
+    "create 1 Plane work item + 1 comment",
+    "post 1 Slack root + 1 reply (bot)",
+    "edit item title/description/state, comment and reply",
+    "delete all four probe records"
+  ],
+  "model_requests": 0,
+  "finished_at": "2026-10-17T13:52:40.485482+00:00",
+  "passed": true,
+  "steps": [
+    {
+      "stage": "created",
+      "source_changed_at": "2026-10-17T13:48:49.199521+00:00",
+      "mode": "watch",
+      "checks": {
+        "plane item visible with title": true,
+        "plane comment visible": true,
+        "slack root visible": true,
+        "slack reply visible": true
+      },
+      "seconds_until_visible": {
+        "plane item visible with title": 62.1,
+        "plane comment visible": 62.1,
+        "slack root visible": 72.1,
+        "slack reply visible": 72.1
+      },
+      "passed": true
+    },
+    {
+      "stage": "edited",
+      "source_changed_at": "2026-10-17T13:50:03.036344+00:00",
+      "mode": "watch",
+      "checks": {
+        "plane title updated": true,
+        "plane state updated": true,
+        "plane description updated": true,
+        "previous description retained as revision": true,
+        "plane comment updated": true,
+        "slack edit visible": true
+      },
+      "seconds_until_visible": {
+        "plane title updated": 80.1,
+        "plane state updated": 80.1,
+        "plane description updated": 80.1,
+        "previous description retained as revision": 80.1,
+        "plane comment updated": 80.1,
+        "slack edit visible": 85.1
+      },
+      "passed": true
+    },
+    {
+      "stage": "deleted",
+      "source_changed_at": "2026-10-17T13:51:30.386106+00:00",
+      "mode": "watch",
+      "checks": {
+        "plane item retired": true,
+        "plane comment retired": true,
+        "slack reply retired": true,
+        "slack root retired": true,
+        "slack thread retired": true
+      },
+      "seconds_until_visible": {
+        "plane item retired": 65.1,
+        "plane comment retired": 65.1,
+        "slack reply retired": 70.1,
+        "slack root retired": 70.1,
+        "slack thread retired": 70.1
+      },
+      "passed": true
+    }
+  ]
+}

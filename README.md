@@ -6,6 +6,8 @@ Wayfinder connects people, component ownership, project work, documents, convers
 
 The main demo uses **one graph, `wayfinder_company_demo`**. Northstar is fictional: Plane/Slack/GitHub-shaped records and source URLs are synthetic. The separate `wayfinder_test_30d` graph retains the Kubernetes engineering pilot; it is an optional thirty-second appendix, not data silently mixed into Northstar.
 
+An additional [live Plane/Slack sandbox](docs/LIVE-WORKSPACE.md) uses actual API-created records about [building Wayfinder itself](docs/WAYFINDER-PROJECT-DEMO.md), with coherent tasks, documents, staged discussions, and real connector ingestion in `wayfinder_company_live_demo`. It preserves real account/bot authorship and source timestamps, contains no fixture claims or GitHub PRs, and does not replace the dashboard's original graph. Semantic extraction for this dataset is pending explicit external-provider transfer approval.
+
 ## Start here
 
 - [Design review pack](docs/design/README.md): architecture, ontology, provenance, lifecycle, agent/action design, evaluation, limitations; no implementation listings.
@@ -60,6 +62,16 @@ Provider availability and quota are account-dependent. Vector index dimension an
 Open **http://127.0.0.1:8765**. The dashboard has exactly three views: Live proof/source history, Expertise, and FalkorDB capabilities. Read-only page loading makes no provider requests. Live controls require `--enable-live`. An archived proof is labeled when it no longer matches the current source. Committed evidence logs document a past real run, not a fresh run on each checkout.
 
 Fixture import reestablishes baseline source records and recalculates v2 code expertise. It resets a local ADR overlay, so do not rerun it between proof stages. A fresh offline import has no provider-generated vectors until explicit preparation.
+
+### Offline rebuild of the live Plane/Slack graph - no credentials
+
+The live sandbox graph can be rebuilt from a committed, scrubbed recording of its real Plane and Slack API responses. The recording is replayed through the same connector code:
+
+```powershell
+.\.venv\Scripts\python.exe -m wayfinder.company.replay load --reset
+```
+
+This writes `wayfinder_company_live_replay`, with coverage marked as a replay. See [what was recorded and scrubbed](fixtures/live-replay/README.md).
 
 ### Explicit real inference and capability preparation
 
