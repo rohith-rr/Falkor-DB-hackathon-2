@@ -35,7 +35,7 @@ def create_server(db=None, enable_actions=False, manifest_path=None, trace=True,
              "graph_schema", "search_entities", "get_entity", "get_neighbors", "find_paths", "get_evidence",
              "get_thread", "person_context", "component_context", "list_questions", "recent_activity",
              "knowledge_coverage", "read_cypher", "company_context", "validate_review_brief", "semantic_search",
-             "graph_algorithm", "verify_answer", "changes_since", "stale_documents", "knowledge_risk", "action_status"]
+             "graph_algorithm", "verify_answer", "changes_since", "stale_documents", "knowledge_risk", "action_status", "fix_queue"]
     descriptions = {
         "verify_answer": ("Check a drafted answer before giving it. Pass statements, each {text, evidence_ids}. Each statement comes "
             "back VERIFIED (cited records are current and any quoted text is in them), RECITE (source changed, same claim under a "
@@ -50,6 +50,10 @@ def create_server(db=None, enable_actions=False, manifest_path=None, trace=True,
             "if they left. Measures recorded evidence, not actual knowledge; bots excluded."),
         "action_status": ("Check whether an approved or executed action still holds: its payload hash is intact, its brief "
             "validates now, and none of its cited evidence was retired or edited after approval."),
+        "fix_queue": ("List actionable findings, each with its evidence IDs and a suggested task title and description: "
+            "DISPUTED_DECISION (two current decisions about one target from different sources), STALE_DOCUMENT (merged PRs or "
+            "linked tasks changed after the page was last edited) and SINGLE_HOLDER (a component with bus factor 1). Shows any "
+            "proposals already prepared from each finding. Review signals, not verified defects."),
         "graph_algorithm": ("Run a FalkorDB native graph algorithm over the current graph (retired history excluded): "
             "'pagerank' (important entities by incoming links), 'betweenness' (brokers between areas), 'components' (connected "
             "groups and isolated islands), or 'shortest_path' (fewest relationships between source_id and target_id, returned with "
@@ -138,6 +142,14 @@ def create_server(db=None, enable_actions=False, manifest_path=None, trace=True,
             from wayfinder.company.core import response_context
             result={**actions.prepare(title,description,brief),'context':response_context(db)}
             tracer.record('prepare_plane_work_item',{'title':title,'brief':brief},result)
+            return result
+
+        @server.tool(annotations=ToolAnnotations(readOnlyHint=False,destructiveHint=False,idempotentHint=False,openWorldHint=False))
+        def prepare_fix(finding_id: str) -> dict[str, Any]:
+            """Persist a proposal for one fix_queue finding: its suggested title, description and cited evidence, bound by a payload hash. Refuses a finding that no longer holds. Does not approve or create anything in Plane; a person approves outside MCP."""
+            from wayfinder.company.core import response_context
+            result={**actions.prepare_fix(finding_id),'context':response_context(db)}
+            tracer.record('prepare_fix',{'finding_id':finding_id},result)
             return result
 
         @server.tool(annotations=ToolAnnotations(readOnlyHint=False,destructiveHint=False,idempotentHint=False,openWorldHint=True))

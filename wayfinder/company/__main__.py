@@ -23,6 +23,8 @@ def main():
     extract=sub.add_parser('extract'); extract.add_argument('--limit',type=int,default=20); extract.add_argument('--unit-id')
     brief=sub.add_parser('brief'); brief.add_argument('component'); brief.add_argument('--output')
     prepare=sub.add_parser('prepare'); prepare.add_argument('--brief',required=True); prepare.add_argument('--title',required=True); prepare.add_argument('--description',required=True)
+    fixes=sub.add_parser('fix-queue'); fixes.add_argument('--limit',type=int,default=20)
+    prepare_fix=sub.add_parser('prepare-fix'); prepare_fix.add_argument('finding_id')
     approve=sub.add_parser('approve'); approve.add_argument('action_id'); approve.add_argument('--hash',required=True); approve.add_argument('--by',required=True); approve.add_argument('--yes',action='store_true')
     execute=sub.add_parser('execute'); execute.add_argument('action_id')
     repair=sub.add_parser('repair-knowledge'); repair.add_argument('--apply',action='store_true'); repair.add_argument('--backup')
@@ -60,10 +62,14 @@ def main():
         validation=validate_brief(db,result)
         if not validation['valid']: raise SystemExit(json.dumps(validation))
         if args.output: Path(args.output).write_text(json.dumps(result,indent=2),encoding='utf-8')
-    elif args.command in ('prepare','approve','execute'):
+    elif args.command=='fix-queue':
+        from ..brain_graph import BrainGraph
+        result=BrainGraph(db).invoke('fix_queue',limit=args.limit)
+    elif args.command in ('prepare','prepare-fix','approve','execute'):
         from .actions import PlaneActions
         actions=PlaneActions(db,manifest)
         if args.command=='prepare': result=actions.prepare(args.title,args.description,json.loads(Path(args.brief).read_text(encoding='utf-8')))
+        elif args.command=='prepare-fix': result=actions.prepare_fix(args.finding_id)
         elif args.command=='execute': result=actions.execute(args.action_id)
         else:
             action=actions.get(args.action_id)

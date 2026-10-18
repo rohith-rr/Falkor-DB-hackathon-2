@@ -149,8 +149,66 @@ def test_action_status_voids_an_approval_when_cited_evidence_changes(db, monkeyp
 def test_truth_tools_are_read_only_mcp_tools(db):
     server = create_server(db, trace=False)
     tools = {t.name: t for t in asyncio.run(server.list_tools())}
-    for name in ('verify_answer', 'changes_since', 'stale_documents', 'knowledge_risk', 'action_status'):
+    for name in ('verify_answer', 'changes_since', 'stale_documents', 'knowledge_risk', 'action_status', 'fix_queue'):
         assert tools[name].annotations.readOnlyHint
     before = db.query('MATCH (n) RETURN count(n)').result_set[0][0]
     asyncio.run(server.call_tool('knowledge_risk', {'target_id': 'ingest'}))
+    asyncio.run(server.call_tool('fix_queue', {'limit': 5}))
     assert db.query('MATCH (n) RETURN count(n)').result_set[0][0] == before
+
+
+def test_fix_queue_turns_findings_into_suggested_tasks_with_evidence(db):
+    result = BrainGraph(db).invoke('fix_queue')
+    items = {i['id']: i for i in result['items']}
+    assert [i['id'] for i in result['items']] == ['fix:disputed:dec:rival', 'fix:stale:page', 'fix:bus-factor:solo']
+    assert result['summary'] == {'DISPUTED_DECISION': 1, 'STALE_DOCUMENT': 1, 'SINGLE_HOLDER': 1}
+    stale = items['fix:stale:page']
+    assert stale['title'] == 'Update Ingestion design: PR 1 changed its code since' and stale['component_id'] == 'ingest'
+    assert stale['evidence_ids'] == ['page', 'pr1'] and [e['id'] for e in stale['evidence']] == ['page', 'pr1']
+    disputed = items['fix:disputed:dec:rival']
+    assert set(disputed['evidence_ids']) == {'dec', 'rival', 'ingest', 'page', 'other'} and disputed['component_id'] == 'ingest'
+    assert 'Import sources before extraction' in disputed['title'] and 'Extract first' in disputed['title']
+    # Ingestion has two holders; Solo has only its owner.
+    holder = items['fix:bus-factor:solo']
+    assert holder['title'] == 'Add a second owner or reviewer for Solo' and holder['evidence_ids'] == ['solo', 'ana']
+    assert all(i['actions'] == [] for i in result['items'])
+    assert BrainGraph(db).invoke('fix_queue', limit=1)['total'] == 3
+    with pytest.raises(BrainError, match='limit'): BrainGraph(db).invoke('fix_queue', limit=0)
+
+
+def test_prepare_fix_uses_the_hash_approval_and_execute_rules(db):
+    from wayfinder.company.actions import PlaneActions
+    from wayfinder.company.core import load_manifest
+    from wayfinder.company.fixture import MANIFEST
+
+    class Client:
+        calls = []
+        def request(self, method, path, json=None): self.calls.append(json); return {'id': f'plane-{len(self.calls)}'}
+
+    db.query("MATCH (n) WHERE n.id IN ['page', 'pr1'] SET n.source_url = 'https://example.test/' + n.id")
+    client = Client(); actions = PlaneActions(db, load_manifest(MANIFEST), client)
+    proposal = actions.prepare_fix('fix:stale:page')
+    assert proposal['approval_required'] and proposal['finding_id'] == 'fix:stale:page'
+    payload = proposal['payload']
+    assert payload['title'] == 'Update Ingestion design: PR 1 changed its code since'
+    assert payload['brief']['finding']['id'] == 'fix:stale:page'
+    assert [c['evidence_ids'] for c in payload['brief']['concerns']] == [['page'], ['pr1']]
+    assert actions.get(proposal['action_id'])['evidence_ids'] == ['page', 'pr1']
+    # Preparing does not approve: execute refuses until a person approves this exact hash.
+    with pytest.raises(ValueError, match='approval'): actions.execute(proposal['action_id'])
+    with pytest.raises(ValueError, match='hash'): actions.approve(proposal['action_id'], 'wrong', 'A person')
+    queued = BrainGraph(db).invoke('fix_queue')['items']
+    assert [a['status'] for a in next(i for i in queued if i['id'] == 'fix:stale:page')['actions']] == ['proposed']
+    actions.approve(proposal['action_id'], proposal['payload_hash'], 'A person')
+    assert actions.execute(proposal['action_id'])['external_id'] == 'plane-1'
+    assert 'https://example.test/pr1' in client.calls[0]['description_html']
+    # A second proposal is voided when its evidence is edited after approval.
+    again = actions.prepare_fix('fix:stale:page')
+    actions.approve(again['action_id'], again['payload_hash'], 'A person')
+    db.upsert_node('SourceRevision', {'id': 'rev:page:later', 'source_unit_id': 'page', 'observed_at': '2999-01-01T00:00:00Z'})
+    with pytest.raises(ValueError, match='edited after approval'): actions.execute(again['action_id'])
+    assert len(client.calls) == 1
+    # Findings without citable sources, or that no longer hold, are refused.
+    with pytest.raises(ValueError, match='source URL'): actions.prepare_fix('fix:bus-factor:solo')
+    db.query("MATCH (p {id:'page'}) SET p.source_updated_at = $t", {'t': '2026-10-15T00:00:00Z'})
+    with pytest.raises(ValueError, match='no longer|not in the current fix queue'): actions.prepare_fix('fix:stale:page')

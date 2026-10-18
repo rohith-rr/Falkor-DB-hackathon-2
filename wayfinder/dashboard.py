@@ -28,7 +28,7 @@ READ_TOOLS={'who_knows','ownership','decisions','concerns','stale_findings','gra
     'search_entities','get_entity','get_neighbors','find_paths','get_evidence','get_thread','person_context',
     'component_context','list_questions','recent_activity','knowledge_coverage','read_cypher','company_context',
     'validate_review_brief','semantic_search','graph_algorithm',
-    'verify_answer','changes_since','stale_documents','knowledge_risk','action_status'}
+    'verify_answer','changes_since','stale_documents','knowledge_risk','action_status','fix_queue'}
 
 
 def describe(db,ids):
