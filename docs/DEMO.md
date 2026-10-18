@@ -23,7 +23,8 @@ The video is recorded side by side: an MCP agent (Codex or Claude Code) on one h
 | 0:00–0:30 | Problem, the benchmark number, then the graph view | "Context lives in Plane, Slack and GitHub. Wayfinder connects it in one FalkorDB graph, with evidence for every claim. On 45 pre-registered questions, graph tools answer 36 of 37 exactly and refuse all 8 unanswerable ones; vector search scores F1 0.106." |
 | 0:30–1:15 | Agent: "What happened with linking branches and commits to Plane? Show the task, the Slack discussion, the PR and its commits." | The graph view lights up Slack → FALKORDBTE-15 → PR #4 → branch and commits. "Real records, linked only by URLs and Plane keys found in the text." |
 | 1:15–1:30 | Agent: "Which work items and PRs connect the most other work? What is the shortest connection from the Slack announcement to the `git-history` branch?" | `graph_algorithm` runs native betweenness and shortest path on the current graph. The path view highlights Slack message → PR #4 → branch. "Graph algorithms are agent tools, not offline reports." |
-| 1:30–2:15 | Agent: "Why must a person approve agent-created tasks? Quote the source." Then: "What don't you know?" | The extracted Decision, with its exact ADR-002 quote and source revision. The agent states low extraction recall and partial commit coverage. |
+| 1:30–2:15 | Agent: "Why must a person approve agent-created tasks? Quote the source. Verify your answer before giving it." Then: "What don't you know?" | The extracted Decision, with its exact ADR-002 quote and source revision. `verify_answer` returns VERIFIED; a deliberately wrong quote comes back UNSUPPORTED. The agent states low extraction recall and partial commit coverage. |
+| (optional) | Agent: "What changed since yesterday on Agent Review Workflow? Which pages are stale? What's its bus factor?" | `changes_since`, `stale_documents`, `knowledge_risk`: "The brain says what moved, which docs to distrust, and that one person holds this component." |
 | 2:15–3:00 | Live freshness: change a task's state in Plane, or post in Slack | Cut to the watcher log line (`updated: 1`, old → new) and ask again. Pre-record this or use a jump cut, since the update takes 60–90 s. Evidence: [watch-mode probe](evidence/live-change-probe-watch.json), 15/15 checks. |
 | 3:00–4:00 | Agent: "Draft a follow-up task for the recall gap." | `prepare_plane_work_item` appears in the graph view and the agent shows the hash. You approve in the terminal, the agent executes, and the task appears in Plane. A repeat execute returns the same ID. |
 | 4:00–4:40 | Northstar: Expertise view, or `who_knows` | "Dee and Eli own Resource Allocation; Faye isn't an owner but has the most file-review evidence." Optionally show the edit proof: the ADR changes, the old Decision retires, and the old brief fails validation. |
@@ -77,6 +78,8 @@ $g='--graph','wayfinder_company_live_demo','--manifest','data/live-workspace/man
 For an uncertain outcome, reconcile the existing action instead of preparing a duplicate. `python -m wayfinder.company.action_check` runs the controlled regression on a disposable graph with a stub client (no real task).
 
 ## Final submission checks
+
+- Showcase site published on GitHub Pages (make the repo public, then Settings → Pages → Source: GitHub Actions). Re-export after the final refresh: `python scripts/build_site_data.py`.
 
 - Setup instructions, graph model and [operational Cypher](QUERIES.md).
 - [AI use disclosure](AI-USE-DISCLOSURE.md), with synthetic versus live origins and limitations.

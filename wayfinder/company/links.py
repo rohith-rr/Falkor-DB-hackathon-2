@@ -81,6 +81,14 @@ def link_manifest(store):
         params={'org':store.org}).result_set}
     prefixes=sorted({k.rsplit('-',1)[0] for k in keys})
     key_pattern=re.compile(KEY.format('|'.join(re.escape(p) for p in prefixes)),re.I) if prefixes else None
+    # One write per link: a Plane link and a literal URL to the same target are one relationship,
+    # so two writers must not close each other's interval on every refresh.
+    pending={}
+    def found_link(label,ident,tl,tid,system,url,method):
+        entry=pending.setdefault((ident,tid),{'labels':(label,tl),'system':system,'url':url,'methods':set()})
+        entry['methods'].add(method)
+        if method=='API': entry.update(system=system,url=url)
+        desired.setdefault(ident,set()).add(f'{ident}->REFERENCES->{tid}')
     for ident,label,text,url,system in records:
         text=html.unescape(text or '')
         found=[(resolve(normalize_url(u)),'EXACT_REFERENCE') for u in URL.findall(text)]
@@ -93,15 +101,17 @@ def link_manifest(store):
             tid,tl,target_system=target
             # GitHub-to-GitHub references are the activity parser's; only cross-source links are resolved here.
             if tid==ident or system==target_system=='github' or (ident,tid) in excluded: continue
-            store.edge(label,ident,tl,tid,'REFERENCES',system,url,link_method=method)
-            desired.setdefault(ident,set()).add(f'{ident}->REFERENCES->{tid}')
+            found_link(label,ident,tl,tid,system,url,method)
     links=store.db.graph.ro_query('MATCH (n:SourceLink) WHERE n.organization_id=$org AND n.valid_to IS NULL '
         'RETURN n.linked_from,n.source_url',params={'org':store.org}).result_set
     for source,url in links:
         if url and normalize_url(url) in by_url and (source,by_url[normalize_url(url)][0]) not in excluded:
             target,label,_=by_url[normalize_url(url)]
-            store.edge('Issue',source,label,target,'REFERENCES','plane',url)
-            desired.setdefault(source,set()).add(f'{source}->REFERENCES->{target}')
+            found_link('Issue',source,label,target,'plane',url,'API')
+    for (ident,tid),entry in sorted(pending.items()):
+        methods=sorted(entry['methods'])
+        store.edge(entry['labels'][0],ident,entry['labels'][1],tid,'REFERENCES',entry['system'],entry['url'],
+                   link_method='API' if 'API' in methods else methods[0],link_methods=methods)
     # Source edits can remove a literal link. Retain explicit manifest bindings,
     # but retire reference intervals that no current record or binding supports.
     existing=store.db.graph.ro_query('MATCH (n)-[r:REFERENCES]->() WHERE n.organization_id=$org '

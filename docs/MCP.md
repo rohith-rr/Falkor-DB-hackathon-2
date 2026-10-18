@@ -4,7 +4,7 @@ Directory expertise now uses v2 scoring. See [expertise calculation, repair,
 review backfill and hourly refresh](EXPERTISE.md). Restart the MCP client/server
 after upgrading to load the new tools' scoring semantics.
 
-The local stdio server exposes **23 tools** that only read the knowledge graph, two resources and three prompts.
+The local stdio server exposes **28 tools** that only read the knowledge graph, two resources and three prompts.
 It uses the graph named by `FALKORDB_GRAPH`. Set it in the client configuration to
 `wayfinder_company_live_demo` or `wayfinder_company_demo`, because the repository `.env` may name
 another graph. It performs no ingestion, repair, or generation calls. The explicit
@@ -60,6 +60,21 @@ The knowledge graph keeps history as retired nodes and closed relationship inter
 4. Delete the projection.
 
 Computed expertise edges are excluded, so the algorithms don't rank their own outputs. Scores describe structure, not correctness or authority, so retrieve evidence before relying on a result. Each call shows up in the agent-path view, and shortest-path edges are highlighted.
+
+## Keeping answers true
+
+Five tools let an agent check what it is about to say, and what changed, against the graph's own provenance:
+retained source revisions, closed relationship intervals, and extracted claims tied to the source text they quote.
+
+| Tool | Answers | How |
+|---|---|---|
+| `verify_answer` | Is each statement in my draft still supported? | Each `{text, evidence_ids}` comes back VERIFIED, RECITE, OUT_OF_DATE (with the current claim that replaced it), REMOVED, DISPUTED (a current decision from another source is about the same target) or UNSUPPORTED (no evidence, or a quoted phrase that is not in the current source) |
+| `changes_since` | What changed since Tuesday, around this component? | Created and edited records from source revisions; retired records; links made and broken from relationship intervals. Same-instant interval replacements are not counted as changes |
+| `stale_documents` | Which pages may be out of date? | A page is POSSIBLY_STALE when a merged PR touched its component's code, or a linked task changed, after the page was last edited |
+| `knowledge_risk` | What is this component's bus factor? What if this person leaves? | Weighted evidence share per person (ownership 3, PR authorship and review 2, code expertise 2, assigned task 1, discussion 0.5), bots excluded; bus factor is the fewest people holding more than half |
+| `action_status` | Does this approval still hold? | The payload hash is intact, the brief validates now, and no cited evidence was retired or edited after approval. `execute` enforces the same rule |
+
+These are review signals computed from recorded evidence. A stale flag is not proof a page is wrong, and a bus factor measures recorded work, not what people know.
 
 ## Watch the agent's path in the graph
 

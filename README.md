@@ -11,6 +11,8 @@ Wayfinder runs on two named graphs:
 
 The Plane/Slack content in the live graph is a staged scenario. Extraction there is bounded and owner-approved, and its recall is low ([evidence](docs/evidence/live-connector-extraction.json)). Models used are listed in the [AI use disclosure](docs/AI-USE-DISCLOSURE.md).
 
+**Showcase site:** [rohith-rr.github.io/Falkor-DB-hackathon-2](https://rohith-rr.github.io/Falkor-DB-hackathon-2/). It walks benchmark answers step by step and lets you explore the live graph with FalkorDB's native algorithms. It needs no setup and is static, built from `site/` by `scripts/build_site_data.py`.
+
 ## Wayfinder-Bench
 
 On 45 questions with gold answers taken from Plane, Slack (as authored) and GitHub, fixed and committed before any run, the graph tools return the exact answer for **36 of 37 answerable questions (F1 0.973) and correctly return nothing for all 8 unanswerable ones**. Vector search over the same records scores F1 0.106, and BM25 0.084; neither ever returns nothing. The single miss is a decision the extraction never captured. [Results, method and limits](benchmarks/wayfinder_bench/RESULTS.md).
@@ -140,7 +142,7 @@ Event dates are fixed offsets before a persisted dataset anchor. Decay uses the 
 
 Configure the client to launch `.venv\Scripts\python.exe` with the absolute path to `wayfinder\mcp_server.py`, and set its environment `FALKORDB_GRAPH=wayfinder_company_demo`. See [client setup](docs/MCP.md).
 
-The default server exposes **23 tools** that only read the knowledge graph. These include `graph_algorithm`: FalkorDB's native PageRank, betweenness, connected components and shortest path over the current graph, run on a temporary projection that is deleted afterwards. `semantic_search` makes one explicitly requested embedding-provider call; other tools make no model requests. Optional action mode adds 2 tools (25 in total) for proposal preparation and execution, but no approval-granting tool.
+The default server exposes **28 tools** that only read the knowledge graph. Five keep answers true: `verify_answer` checks each statement of a draft against current sources, `changes_since` catches up on what changed, `stale_documents` flags pages whose code moved on, `knowledge_risk` gives a component's bus factor, and `action_status` checks an approval still holds ([details](docs/MCP.md#keeping-answers-true)). They also include `graph_algorithm`: FalkorDB's native PageRank, betweenness, connected components and shortest path over the current graph, run on a temporary projection that is deleted afterwards. `semantic_search` makes one explicitly requested embedding-provider call; other tools make no model requests. Optional action mode adds 2 tools (30 in total) for proposal preparation and execution, but no approval-granting tool.
 
 Ask:
 
@@ -163,7 +165,7 @@ Put PLANE_API_KEY only in local config. See [setup and commands](docs/DEMO.md#ap
 
 ## Verification
 
-Tests cover expertise inflation and exclusions, overlapping Component mappings, source-edit invalidation and stale brief rejection, connectors against mocked Plane/Slack/GitHub APIs (edits, deletions, merges, moved branch heads), cross-source URL and key links, refresh and extraction budgets, the offline replay, native vector metric and filtering, MCP navigation and read-only boundaries, agent-path tracing, action approval and idempotency, and dashboard endpoints. The suite has 140 tests. Normal tests use fake inference keys; integration tests require local FalkorDB and isolate their graph names.
+Tests cover expertise inflation and exclusions, overlapping Component mappings, source-edit invalidation and stale brief rejection, connectors against mocked Plane/Slack/GitHub APIs (edits, deletions, merges, moved branch heads), cross-source URL and key links, refresh and extraction budgets, the offline replay, native vector metric and filtering, MCP navigation and read-only boundaries, agent-path tracing, action approval and idempotency, answer verification, catch-up, stale pages, bus factor and approval validity, and dashboard endpoints. The suite has 157 tests. Normal tests use fake inference keys; integration tests require local FalkorDB and isolate their graph names.
 
 ```powershell
 $env:LLM_API_KEY='sk-dummy-key'
