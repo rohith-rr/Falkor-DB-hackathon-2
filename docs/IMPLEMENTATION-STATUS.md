@@ -35,7 +35,7 @@ Snapshot: October 18, 2026. This report separates implementation checks from ver
 
 ## Tests
 
-The full suite passes 162 tests, with fake inference keys and a local FalkorDB. All twelve read-only queries in the query catalog run against the demo graph; the action-write example is intentionally not executed.
+The full suite passes 171 tests, with fake inference keys and a local FalkorDB. All twelve read-only queries in the query catalog run against the demo graph; the action-write example is intentionally not executed.
 
 ## Remaining before submission
 

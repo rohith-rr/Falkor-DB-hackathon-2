@@ -165,7 +165,7 @@ Put PLANE_API_KEY only in local config. See [setup and commands](docs/DEMO.md#ap
 
 ## Verification
 
-Tests cover expertise inflation and exclusions, overlapping Component mappings, source-edit invalidation and stale brief rejection, connectors against mocked Plane/Slack/GitHub APIs (edits, deletions, merges, moved branch heads), cross-source URL and key links, refresh and extraction budgets, the offline replay, native vector metric and filtering, MCP navigation and read-only boundaries, agent-path tracing, action approval and idempotency, answer verification, saved answers going stale on refresh, catch-up, stale pages, bus factor and approval validity, and dashboard endpoints. The suite has 164 tests. Normal tests use fake inference keys; integration tests require local FalkorDB and isolate their graph names.
+Tests cover expertise inflation and exclusions, overlapping Component mappings, source-edit invalidation and stale brief rejection, connectors against mocked Plane/Slack/GitHub APIs (edits, deletions, merges, moved branch heads), cross-source URL and key links, refresh and extraction budgets, the offline replay, native vector metric and filtering, MCP navigation and read-only boundaries, agent-path tracing, action approval and idempotency, answer verification, saved answers going stale on refresh, catch-up, stale pages, bus factor and approval validity, and dashboard endpoints. The suite has 171 tests. Normal tests use fake inference keys; integration tests require local FalkorDB and isolate their graph names.
 
 ```powershell
 $env:LLM_API_KEY='sk-dummy-key'
