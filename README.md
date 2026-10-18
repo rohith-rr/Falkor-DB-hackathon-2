@@ -11,6 +11,10 @@ Wayfinder runs on two named graphs:
 
 The Plane/Slack content in the live graph is a staged scenario. Extraction there is bounded and owner-approved, and its recall is low ([evidence](docs/evidence/live-connector-extraction.json)). Models used are listed in the [AI use disclosure](docs/AI-USE-DISCLOSURE.md).
 
+## Wayfinder-Bench
+
+On 45 questions with gold answers taken from Plane, Slack (as authored) and GitHub, fixed and committed before any run, the graph tools return the exact answer for **36 of 37 answerable questions (F1 0.973) and correctly return nothing for all 8 unanswerable ones**. Vector search over the same records scores F1 0.106, and BM25 0.084; neither ever returns nothing. The single miss is a decision the extraction never captured. [Results, method and limits](benchmarks/wayfinder_bench/RESULTS.md).
+
 ## Start here
 
 - [Design review pack](docs/design/README.md): architecture, ontology, provenance, lifecycle, agent/action design, evaluation, limitations; no implementation listings.
