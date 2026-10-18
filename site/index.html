@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wayfinder: a company brain that stays true</title>
+<meta name="description" content="Wayfinder joins live Plane, Slack and GitHub into one FalkorDB graph. An agent answers by walking it, and every step, record and source is on show.">
+<link rel="stylesheet" href="style.css">
+<script src="app.js" defer></script>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="#overview">wayfinder</a>
+  <nav>
+    <a href="#overview">Overview</a>
+    <a href="#walk">Walk an answer</a>
+    <a href="#capabilities">Capabilities</a>
+    <a href="#explore">Explore the graph</a>
+    <a href="#benchmark">Benchmark</a>
+    <a href="https://github.com/rohith-rr/Falkor-DB-hackathon-2">GitHub</a>
+  </nav>
+  <button id="theme" class="ghost" type="button">Light theme</button>
+</header>
+
+<main>
+<section id="overview" class="hero">
+  <div class="eyebrow">Graph Hacks 2026 · Company Brain · Agents That Act on Connected Data</div>
+  <h1>A company brain<br>that stays true.</h1>
+  <p class="lede">Wayfinder joins live <b>Plane</b> work, <b>Slack</b> discussion and <b>GitHub</b> code into one FalkorDB graph, and keeps it current. An agent answers by walking that graph. Every step, every record and every source is on show, and an action happens only after a person approves it.</p>
+  <div class="bars" id="bars"></div>
+  <p class="note" id="bars-note"></p>
+  <div class="links">
+    <a href="#walk">Walk an answer</a><a href="#benchmark">Every question</a><a href="#explore">Explore the graph</a>
+    <a href="https://github.com/rohith-rr/Falkor-DB-hackathon-2/blob/feat-branch/benchmarks/wayfinder_bench/RESULTS.md">Benchmark write-up</a>
+    <a href="https://github.com/rohith-rr/Falkor-DB-hackathon-2/blob/feat-branch/docs/design/README.md">Design</a>
+  </div>
+</section>
+
+<section id="walk">
+  <div class="section-head"><div class="eyebrow">One question, every step</div><h2>Walk an answer</h2></div>
+  <div class="walk card">
+    <div class="walk-q"><span class="pill" id="walk-type"></span><h3 id="walk-question"></h3></div>
+    <div class="svgwrap"><svg id="walk-svg" role="img" aria-label="The path the graph strategy walked"></svg></div>
+    <p class="note">Solid lines are relationships the tool traversed. Ringed nodes are the answer; a check means the node is in the gold answer.</p>
+    <div class="walk-grid">
+      <div><div class="label">Tool calls</div><ol id="walk-calls" class="calls"></ol></div>
+      <div><div class="label">Answer</div><div id="walk-answer"></div><div class="label">Same question, other strategies</div><div id="walk-others"></div></div>
+    </div>
+  </div>
+  <div class="label">Start here</div>
+  <div class="starters" id="starters"></div>
+</section>
+
+<section id="capabilities">
+  <div class="section-head"><div class="eyebrow">What the graph gives the agent</div><h2>Capabilities</h2></div>
+  <div class="caps" id="caps"></div>
+</section>
+
+<section id="explore">
+  <div class="section-head"><div class="eyebrow">The live graph, current records only</div><h2>Explore the graph</h2>
+    <p class="lede small">Every node is a real record from Plane, Slack or GitHub, or an interpretation quoted from one. The overlays are FalkorDB's native algorithms, which the agent can call as an MCP tool.</p></div>
+  <div class="explorer card">
+    <div class="tools" id="algo-buttons"></div>
+    <div class="explore-body">
+      <div class="canvas-wrap"><canvas id="graph"></canvas><div class="legend" id="legend"></div><div class="tip" id="tip" hidden></div></div>
+      <aside class="side"><div class="label" id="side-title">Overlay</div><div id="side"></div></aside>
+    </div>
+  </div>
+</section>
+
+<section id="benchmark">
+  <div class="section-head"><div class="eyebrow">Wayfinder-Bench</div><h2>Every question</h2>
+    <p class="lede small" id="bench-intro"></p></div>
+  <div class="filters" id="filters"></div>
+  <table class="qtable"><thead><tr><th>#</th><th>Type</th><th>Question</th><th>Graph</th><th>Vector F1</th><th>BM25 F1</th></tr></thead><tbody id="qrows"></tbody></table>
+</section>
+
+<section id="limits">
+  <div class="section-head"><div class="eyebrow">Read this before trusting a number</div><h2>Limits</h2></div>
+  <ul class="limits">
+    <li><b>Staged content, real records.</b> The Plane and Slack content is a staged scenario about building Wayfinder. The API records, authorship, timestamps and the GitHub repository are real.</li>
+    <li><b>A small benchmark.</b> 45 questions over one project, with gold annotated by the authors from the sources. It's a reproducible check, not a leaderboard. The graph strategy is a fixed planner, not an LLM agent.</li>
+    <li><b>Extraction recall is low.</b> Interpretations are quote-checked but sparse. The benchmark's one miss is a decision the model never extracted.</li>
+    <li><b>Scores are structure.</b> PageRank and betweenness rank connectivity, not importance, correctness or authority.</li>
+  </ul>
+</section>
+</main>
+<footer>Built for Graph Hacks 2026 (WeMakeDevs × FalkorDB). Data on this page is exported from the live graph with account names and private workspace links removed.</footer>
+</body>
+</html>
