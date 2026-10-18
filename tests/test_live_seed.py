@@ -164,7 +164,25 @@ def test_slack_link_prefers_the_message_over_its_thread():
         store=SimpleNamespace(org='demo',manifest={},db=SimpleNamespace(graph=SimpleNamespace(ro_query=query)),
             edge=lambda *args,**kwargs:edges.append((args,kwargs)))
         link_manifest(store)
-        assert [(a[1],a[3],a[5],k) for a,k in edges]==[('plane:i','slack:m','plane',{'link_method':'EXACT_REFERENCE'})]
+        assert [(a[1],a[3],a[5],k) for a,k in edges]==[('plane:i','slack:m','plane',
+            {'link_method':'EXACT_REFERENCE','link_methods':['EXACT_REFERENCE']})]
+
+
+def test_a_plane_link_and_a_literal_url_to_the_same_target_are_written_once():
+    from wayfinder.company.links import link_manifest
+    # Two writers for one relationship used to close each other's interval on every refresh.
+    pr='https://github.com/acme/app/pull/4'
+    records=[['github:pr','PullRequest','PR',pr,'github'],
+             ['plane:i','Issue','Done in '+pr,'https://app.plane.so/ws/projects/p/work-items/i','plane']]
+    def query(text,**kwargs):
+        if 'SourceLink' in text: return SimpleNamespace(result_set=[['plane:i',pr]])
+        return SimpleNamespace(result_set=[] if 't.source_system' in text or 'RETURN DISTINCT n.id' in text else records)
+    edges=[]
+    store=SimpleNamespace(org='demo',manifest={},db=SimpleNamespace(graph=SimpleNamespace(ro_query=query)),
+        edge=lambda *args,**kwargs:edges.append((args,kwargs)))
+    link_manifest(store)
+    assert [(a[1],a[3],k) for a,k in edges]==[('plane:i','github:pr',
+        {'link_method':'API','link_methods':['API','EXACT_REFERENCE']})]
 
 
 def test_wayfinder_backlog_is_connected_and_has_no_dependency_cycles():

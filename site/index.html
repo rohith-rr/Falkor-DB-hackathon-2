@@ -15,6 +15,7 @@
     <a href="#overview">Overview</a>
     <a href="#walk">Walk an answer</a>
     <a href="#capabilities">Capabilities</a>
+    <a href="#truth">Stays true</a>
     <a href="#explore">Explore the graph</a>
     <a href="#benchmark">Benchmark</a>
     <a href="https://github.com/rohith-rr/Falkor-DB-hackathon-2">GitHub</a>
@@ -54,6 +55,17 @@
 <section id="capabilities">
   <div class="section-head"><div class="eyebrow">What the graph gives the agent</div><h2>Capabilities</h2></div>
   <div class="caps" id="caps"></div>
+</section>
+
+<section id="truth">
+  <div class="section-head"><div class="eyebrow">Real output from five MCP tools, run on the live graph</div><h2>Stays true</h2>
+    <p class="lede small">The graph keeps every source revision and closes relationships instead of deleting them. So an agent can check its own answer before giving it, catch up on what changed, find pages the code has moved past, and see who alone holds a component.</p></div>
+  <div class="card"><div class="label">verify_answer · each statement checked against current sources</div><div id="verify"></div></div>
+  <div class="tgrid">
+    <div class="card"><div class="label">changes_since</div><div id="changes"></div></div>
+    <div class="card"><div class="label">stale_documents</div><div id="stale"></div></div>
+    <div class="card"><div class="label">knowledge_risk · action_status</div><div id="risk"></div></div>
+  </div>
 </section>
 
 <section id="explore">

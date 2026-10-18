@@ -31,6 +31,9 @@ Missing evidence in an incomplete import is unknown, not proof of inactivity.
 Expertise scores are activity scores, not probabilities. Relationship intervals
 support history; mutable node properties are not complete historical snapshots.
 Stale findings are computed review candidates, not verified defects.
+Before answering, pass your statements and their evidence IDs to verify_answer and
+fix anything not VERIFIED. Use changes_since to catch up, stale_documents before
+trusting a page, knowledge_risk for bus factor, and action_status before executing.
 Directory expertise v2 aggregates allocated implementation and file-specific peer
 reviews, not PR-wide approval or coordination. Check score_breakdown, distinct
 PR count, evidence_strength, snapshot age and scoring_version. Do not call these
@@ -38,7 +41,7 @@ people authorized reviewers without OWNERS evidence. Involvement is not expertis
 commands request actions and do not prove outcomes. Legacy scores require caution.
 """
 MEANINGS = {
-    "REFERENCES": "Source text contains the target's URL (link_method EXACT_REFERENCE) or Plane work-item key (EXACT_IDENTIFIER); not causality",
+    "REFERENCES": "Source text contains the target's URL (link_method EXACT_REFERENCE) or Plane work-item key (EXACT_IDENTIFIER), or a Plane link (API); link_methods lists every method that found it; not causality",
     "HAS_BRANCH": "Repository has a current branch (deleted branches are retired)",
     "HEAD_AT": "Branch currently points at this commit; earlier heads remain as closed intervals",
     "HAS_COMMIT": "Branch history or pull request includes this commit (bounded window; see SourceCoverage)",
@@ -300,6 +303,33 @@ class BrainGraph:
             return run(self.db, algorithm, node_labels, relationship_types, around_id, hops, source_id, target_id, max_hops, limit)
         except AlgorithmError as exc:
             raise BrainError(f"INVALID_ALGORITHM_REQUEST: {exc}") from exc
+
+    def _truth(self, name, *args, **kwargs):
+        from . import truth
+        try:
+            return getattr(truth, name)(self.rows, *args, **kwargs)
+        except truth.TruthError as exc:
+            raise BrainError(f"INVALID_REQUEST: {exc}") from exc
+
+    def verify_answer(self, statements: list[dict[str, Any]]):
+        return self._truth("verify_answer", statements)
+
+    def changes_since(self, since: str, until: str | None = None, component_id: str | None = None, limit: int = 25):
+        if component_id: self.require(component_id)
+        return self._truth("changes_since", since, until, component_id, limit)
+
+    def stale_documents(self, component_id: str | None = None, limit: int = 20):
+        return self._truth("stale_documents", component_id, limit)
+
+    def knowledge_risk(self, target_id: str):
+        return self._truth("knowledge_risk", target_id)
+
+    def action_status(self, action_id: str):
+        from . import truth
+        try:
+            return truth.action_status(self.rows, self.db, action_id)
+        except truth.TruthError as exc:
+            raise BrainError(f"INVALID_REQUEST: {exc}") from exc
 
     def get_evidence(self, evidence_ids: list[str], limit: int = 20, cursor: str | None = None, include_history: bool = False):
         if not 1 <= len(evidence_ids) <= 100:

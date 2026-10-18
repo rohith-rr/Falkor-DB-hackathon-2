@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from wayfinder.db import DatabaseManager
 from wayfinder.company.core import load_manifest
+from wayfinder.brain_graph import BrainGraph
 from wayfinder.graph_algorithms import project, run as run_algorithm, DEFAULT_LABELS
 
 GRAPH = 'wayfinder_company_live_demo'
@@ -82,6 +83,45 @@ class Scrubber:
                 'source': props.get('source_system'), 'snippet': self.text(props.get('text_content') or props.get('body_text'), 320),
                 'url': url if url.startswith('https://github.com/') else None,
                 **({'state': props['state']} if props.get('state') else {}), **({'quote': self.text(props['evidence_quote'], 240)} if props.get('evidence_quote') else {})}
+
+
+def truth_data(db, s, facts):
+    """Real outputs of the truth-maintenance tools, with aliases in place of IDs."""
+    from datetime import datetime, timedelta, timezone
+    brain = BrainGraph(db)
+    def ref(ident):
+        n = s.node(ident)
+        return {'id': n['id'], 'label': n['label'], 'name': n['name']} if n else None
+    decision = facts['action']['decision']; quote = decision.get('evidence_quote') or ''
+    found = db.graph.ro_query('MATCH (d:Decision {summary:$s}) WHERE d.valid_to IS NULL RETURN d.id LIMIT 1', params={'s': decision['summary']}).result_set
+    decision = dict(decision, evidence_ids=[found[0][0]] if found else [])
+    phrase = ' '.join(quote.split()[1:9]) if quote.lower().startswith('decision') else ' '.join(quote.split()[:8])
+    retired = db.graph.ro_query('MATCH (u)-[a:ASSERTS]->(c) WHERE a.valid_to IS NOT NULL RETURN c.id, c.summary LIMIT 1').result_set
+    statements = [{'text': f'The team requires a person to approve: "{phrase}".', 'evidence_ids': decision['evidence_ids']},
+                  {'text': 'The decision says "agents may create tasks without review".', 'evidence_ids': decision['evidence_ids']}]
+    if retired: statements.append({'text': f'An open question: {retired[0][1]}', 'evidence_ids': [retired[0][0]]})
+    statements.append({'text': 'The extraction pilot finished last month.', 'evidence_ids': []})
+    verified = brain.verify_answer(statements)['statements']
+    verify = [{'text': s.text(v['text'], 200), 'status': v['status'], 'evidence': [ref(e['id']) for e in v['evidence'] if ref(e['id'])],
+               'replaced_by': [ref(r['id']) for r in v['replaced_by'] if ref(r['id'])], 'missing_quotes': v['quotes_not_in_current_sources']}
+              for v in verified]
+    components = db.graph.ro_query('MATCH (c:Component) WHERE c.valid_to IS NULL RETURN c.id ORDER BY c.id').result_set
+    risk = []
+    for (cid,) in components:
+        r = brain.knowledge_risk(cid)
+        risk.append({'component': ref(cid), 'bus_factor': r['bus_factor'], 'risk': r['risk'],
+                     'holders': [{'name': ref(h['id'])['name'], 'share': h['share'], 'roles': h['roles']} for h in r['holders']]})
+    stale = [{'page': ref(i['page']['id']), 'status': i['status'], 'last_edited': i['last_edited'],
+              'since': [ref(x['id']) for x in (i['code_merged_since'] + i['tasks_updated_since'])[:4]]}
+             for i in brain.stale_documents(limit=10)['items']]
+    since = (datetime.now(timezone.utc) - timedelta(days=1)).isoformat()
+    ch = brain.changes_since(since, limit=6)
+    changes = {'since': since, 'summary': ch['summary'],
+               'examples': [dict(ref(x['id']), change=x['change']) for x in (ch['edited'] + ch['created'] + ch['retired'])[:8] if ref(x['id'])]}
+    action = db.graph.ro_query('MATCH (a:Action) RETURN a.id LIMIT 1').result_set
+    status = brain.action_status(action[0][0]) if action else None
+    return {'verify': verify, 'risk': risk, 'stale': stale, 'changes': changes,
+            'action': {'verdict': status['verdict'], 'evidence_changed': len(status['evidence_changed'])} if status else None}
 
 
 def main():
@@ -176,7 +216,8 @@ def main():
             'status': action['action']['status'], 'idempotency': action['idempotency'], 'readback': action['readback'],
             'decision': action['brief']['decisions'][0]},
     }
-    for name, value in (('graph', graph), ('algorithms', algorithms), ('bench', bench_out), ('facts', facts)):
+    truth = truth_data(db, s, facts)
+    for name, value in (('graph', graph), ('algorithms', algorithms), ('bench', bench_out), ('facts', facts), ('truth', truth)):
         (OUT / f'{name}.json').write_text(json.dumps(value, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
     print(json.dumps({'nodes': len(graph['nodes']), 'edges': len(graph['edges']), 'paths': len(paths), 'walks': len(walks), 'facts': facts['sources']}, indent=1))
 

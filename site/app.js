@@ -10,7 +10,7 @@ const pct=v=>v==null?'–':(v*100).toFixed(1);
 let D={};
 
 async function load(){
-  const names=['graph','algorithms','bench','facts'];
+  const names=['graph','algorithms','bench','facts','truth'];
   const parts=await Promise.all(names.map(n=>fetch(`data/${n}.json`).then(r=>r.json())));
   names.forEach((n,i)=>D[n]=parts[i]);
   D.byId=Object.assign({},D.bench.nodes); D.graph.nodes.forEach(n=>D.byId[n.id]=n);
@@ -89,8 +89,27 @@ function caps(){
     [esc(f.action.task),'Acts, with a person’s approval',`The agent drafted “${esc(f.action.title)}”. A person approved its exact payload hash (${esc(f.action.hash.slice(0,12))}…) in a terminal, and only then was the Plane task created. A second execute returned the same task.`],
     ['4','Native graph algorithms as agent tools','PageRank, betweenness, connected components and shortest path, run by FalkorDB over a temporary projection of current records only. Try them in the explorer below.'],
     [`${Object.values(f.claims).reduce((a,b)=>a+b,0)}`,'Interpretations tied to quotes',`${Object.entries(f.claims).map(([k,v])=>`${v} ${k.toLowerCase()}${v>1?'s':''}`).join(', ')}. Each records its exact quote and source revision, for example “${esc(f.action.decision.evidence_quote)}”.`],
-    ['MCP','Every step is visible','The agent uses 23 read tools and 2 action tools over MCP. A live graph view highlights each tool call’s entities and route next to the agent while it works.']];
+    ['MCP','Every step is visible','The agent uses 28 read tools and 2 action tools over MCP. A live graph view highlights each tool call’s entities and route next to the agent while it works.']];
   $('caps').innerHTML=cards.map(([big,t,p])=>`<div class="cap"><div class="big">${big}</div><h3>${t}</h3><p>${p}</p></div>`).join('');
+}
+
+// ---------------------------------------------------------------- stays true
+const VERDICT={VERIFIED:'good',RECITE:'warn',OUT_OF_DATE:'bad',REMOVED:'bad',DISPUTED:'warn',UNSUPPORTED:'bad'};
+const chip=r=>r?`<span class="chip" title="${esc(r.name)}"><i style="background:${COLORS[r.label]||'#999'}"></i>${esc(r.id)}</span>`:'';
+function truth(){
+  const T=D.truth; if(!T) return;
+  $('verify').innerHTML=T.verify.map(v=>`<div class="vrow"><span class="verdict ${VERDICT[v.status]||''}">${esc(v.status.replace(/_/g,' '))}</span>
+    <div><div>${esc(v.text)}</div><div class="cites">${v.evidence.length?'cites '+v.evidence.map(chip).join(' '):'no evidence cited'}
+    ${v.replaced_by.length?' · cite instead '+v.replaced_by.map(chip).join(' '):''}
+    ${v.missing_quotes.length?` · quote not in the source: “${esc(v.missing_quotes[0])}”`:''}</div></div></div>`).join('');
+  const s=T.changes.summary;
+  $('changes').innerHTML=`<div class="tnum">${s.created+s.edited+s.retired}</div><p>records changed in the 24 hours before this export: ${s.created} new, ${s.edited} edited, ${s.retired} retired; ${s.links_made} links made and ${s.links_broken} broken.</p>
+    <div class="cites">${T.changes.examples.map(x=>`${chip(x)} <span class="note">${esc(x.change)}</span>`).join(' ')}</div>`;
+  $('stale').innerHTML=`<div class="tnum">${T.stale.filter(x=>x.status!=='CURRENT').length}/${T.stale.length}</div><p>pages had code merged or tasks changed after their last edit.</p>`+
+    T.stale.slice(0,3).map(x=>`<div class="srow"><b>${esc(x.page.name)}</b><div class="cites">since then: ${x.since.map(chip).join(' ')}</div></div>`).join('');
+  $('risk').innerHTML=T.risk.map(r=>`<div class="srow"><b>${esc(r.component.name)}</b> <span class="verdict ${r.risk==='HIGH'?'bad':r.risk==='MEDIUM'?'warn':'good'}">bus factor ${r.bus_factor}</span>
+    <div class="cites">${r.holders.map(h=>`${esc(h.name)} ${(h.share*100).toFixed(0)}% (${Object.entries(h.roles).map(([k,v])=>`${v} ${k.replace('_',' ')}`).join(', ')})`).join('; ')}</div></div>`).join('')+
+    (T.action?`<p class="note">The approved Plane action: ${esc(T.action.verdict.replace(/_/g,' ').toLowerCase())}, ${T.action.evidence_changed} cited records changed since approval.</p>`:'');
 }
 
 // ---------------------------------------------------------------- graph explorer
@@ -189,5 +208,5 @@ function theme(){const root=document.documentElement,btn=$('theme');
   const set=l=>{root.classList.toggle('light',l);btn.textContent=l?'Dark theme':'Light theme';};
   set(matchMedia('(prefers-color-scheme: light)').matches);btn.onclick=()=>set(!root.classList.contains('light'));}
 
-load().then(()=>{theme();hero();starters();walk('q37');caps();setupGraph();algoButtons();bench();})
+load().then(()=>{theme();hero();starters();walk('q37');caps();truth();setupGraph();algoButtons();bench();})
   .catch(err=>{document.querySelector('main').insertAdjacentHTML('afterbegin',`<p class="note">Could not load data: ${esc(err.message)}</p>`);});

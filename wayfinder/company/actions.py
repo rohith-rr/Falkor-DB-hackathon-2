@@ -61,6 +61,11 @@ class PlaneActions:
             raise ValueError('Action is outside the current sandbox')
         validation=validate_brief(self.db,payload['brief'])
         if not validation['valid']: raise ValueError('Evidence changed; prepare and approve a new action')
+        # An approval covers the evidence as the approver saw it; a later source edit voids it even if quotes survive.
+        if action['status']=='approved' and self.db.graph.ro_query('MATCH (r:SourceRevision) WHERE r.source_unit_id IN $ids '
+            'AND r.observed_at > $at RETURN r.id LIMIT 1',params={'ids':action.get('evidence_ids') or [],
+            'at':action.get('approved_at')}).result_set:
+            raise ValueError('Evidence was edited after approval; prepare and approve a new action')
         client=self.client or PlaneClient(payload['workspace'])
         path=f"projects/{payload['project_id']}/work-items/"
         try:

@@ -35,8 +35,21 @@ def create_server(db=None, enable_actions=False, manifest_path=None, trace=True,
              "graph_schema", "search_entities", "get_entity", "get_neighbors", "find_paths", "get_evidence",
              "get_thread", "person_context", "component_context", "list_questions", "recent_activity",
              "knowledge_coverage", "read_cypher", "company_context", "validate_review_brief", "semantic_search",
-             "graph_algorithm"]
+             "graph_algorithm", "verify_answer", "changes_since", "stale_documents", "knowledge_risk", "action_status"]
     descriptions = {
+        "verify_answer": ("Check a drafted answer before giving it. Pass statements, each {text, evidence_ids}. Each statement comes "
+            "back VERIFIED (cited records are current and any quoted text is in them), RECITE (source changed, same claim under a "
+            "new ID), OUT_OF_DATE (the cited claim was retired; replaced_by holds the current one), REMOVED, DISPUTED (another "
+            "source's current decision is about the same target) or UNSUPPORTED (no evidence, or a quote not in the source)."),
+        "changes_since": ("Catch up on what changed since an ISO time, optionally around a component_id: records created and "
+            "edited (from retained source revisions), records retired, and links made and broken (from relationship intervals)."),
+        "stale_documents": ("List pages that may be out of date: merged pull requests changed the described component's code, or "
+            "a linked task changed, after the page was last edited. A review signal, not proof the page is wrong."),
+        "knowledge_risk": ("For a Component ID: who holds its knowledge (ownership, assigned tasks, authored and reviewed PRs, "
+            "code expertise, discussion) and its bus factor. For a Person ID: what would lose its only owner, assignee or expert "
+            "if they left. Measures recorded evidence, not actual knowledge; bots excluded."),
+        "action_status": ("Check whether an approved or executed action still holds: its payload hash is intact, its brief "
+            "validates now, and none of its cited evidence was retired or edited after approval."),
         "graph_algorithm": ("Run a FalkorDB native graph algorithm over the current graph (retired history excluded): "
             "'pagerank' (important entities by incoming links), 'betweenness' (brokers between areas), 'components' (connected "
             "groups and isolated islands), or 'shortest_path' (fewest relationships between source_id and target_id, returned with "

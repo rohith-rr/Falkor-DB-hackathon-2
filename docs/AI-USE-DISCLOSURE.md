@@ -19,6 +19,8 @@ Claude Code was used for:
 - **Plane action:** preparing and executing the human-approved Plane action. The owner approved it in a terminal; the agent cannot approve.
 - **Agent path view:** the graph view and its MCP tool-call tracing.
 - **Refresh:** the `refresh` command with budgeted extraction, and model provenance on extracted claims.
+- **Agent tools:** the `graph_algorithm` tool, and the truth-maintenance tools (`verify_answer`, `changes_since`, `stale_documents`, `knowledge_risk`, `action_status`), which were modelled on strengths of other hackathon entries.
+- **Benchmark and site:** Wayfinder-Bench and the static showcase site.
 - **Documentation**, including this page.
 
 Commits from that work carry a `Co-Authored-By: Claude` trailer. One linking change was made in a separate Claude Code session and merged through the same pull requests.
