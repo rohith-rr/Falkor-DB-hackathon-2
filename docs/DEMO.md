@@ -24,9 +24,11 @@ The video is recorded side by side: an MCP agent (Codex or Claude Code) on one h
 | 0:30–1:15 | Agent: "What happened with linking branches and commits to Plane? Show the task, the Slack discussion, the PR and its commits." | The graph view lights up Slack → FALKORDBTE-15 → PR #4 → branch and commits. "Real records, linked only by URLs and Plane keys found in the text." |
 | 1:15–1:30 | Agent: "Which work items and PRs connect the most other work? What is the shortest connection from the Slack announcement to the `git-history` branch?" | `graph_algorithm` runs native betweenness and shortest path on the current graph. The path view highlights Slack message → PR #4 → branch. "Graph algorithms are agent tools, not offline reports." |
 | 1:30–2:15 | Agent: "Why must a person approve agent-created tasks? Quote the source. Verify your answer before giving it." Then: "What don't you know?" | The extracted Decision, with its exact ADR-002 quote and source revision. `verify_answer` returns VERIFIED; a deliberately wrong quote comes back UNSUPPORTED. The agent states low extraction recall and partial commit coverage. |
+| (optional) | Agent: "Save that answer." Then edit the cited source, run `refresh`, and ask: "Is the answer you saved still true?" | `save_answer` stores the verified answer with CITES edges. After the edit and `refresh`, the refresh summary lists it under `answers.newly_stale` with the reason, the dashboard's **Saved answers** view shows it as stale, and `answer_status` reports VERIFIED → OUT_OF_DATE with the claim that replaced it. "Answers expire when their sources change." Add `--notify-slack` to show the notice arrive in the sandbox channel. |
 | (optional) | Agent: "What changed since yesterday on Agent Review Workflow? Which pages are stale? What's its bus factor?" | `changes_since`, `stale_documents`, `knowledge_risk`: "The brain says what moved, which docs to distrust, and that one person holds this component." |
 | 2:15–3:00 | Live freshness: change a task's state in Plane, or post in Slack | Cut to the watcher log line (`updated: 1`, old → new) and ask again. Pre-record this or use a jump cut, since the update takes 60–90 s. Evidence: [watch-mode probe](evidence/live-change-probe-watch.json), 15/15 checks. |
 | 3:00–4:00 | Agent: "Draft a follow-up task for the recall gap." | `prepare_plane_work_item` appears in the graph view and the agent shows the hash. You approve in the terminal, the agent executes, and the task appears in Plane. A repeat execute returns the same ID. |
+| (alternative) | Agent: "What should we fix first? Turn the top finding into a task." | `fix_queue` lists disputed decisions, stale pages and single-holder components, each with evidence and a suggested title. `prepare_fix` makes a proposal from one finding and shows the hash; you approve in the terminal and the agent executes. Asking again shows the finding's action as executed. "Findings become work, and a person still approves every task." |
 | 4:00–4:40 | Northstar: Expertise view, or `who_knows` | "Dee and Eli own Resource Allocation; Faye isn't an owner but has the most file-review evidence." Optionally show the edit proof: the ADR changes, the old Decision retires, and the old brief fails validation. |
 | 4:40–5:00 | FalkorDB capabilities view, then close | Full-text, vector and query-plan evidence. "One graph, real sources, cited answers, safe actions." |
 
@@ -73,6 +75,14 @@ $g='--graph','wayfinder_company_live_demo','--manifest','data/live-workspace/man
 # Inspect the exact payload and hash. Approval is by a human, outside MCP:
 .\.venv\Scripts\python.exe -m wayfinder.company @g approve ACTION_ID --hash PAYLOAD_HASH --by "Your name"
 .\.venv\Scripts\python.exe -m wayfinder.company @g execute ACTION_ID
+```
+
+To start from the fix queue instead of a hand-written brief:
+
+```powershell
+.\.venv\Scripts\python.exe -m wayfinder.company @g fix-queue --limit 5
+.\.venv\Scripts\python.exe -m wayfinder.company @g prepare-fix FINDING_ID
+# Then approve and execute as above.
 ```
 
 For an uncertain outcome, reconcile the existing action instead of preparing a duplicate. `python -m wayfinder.company.action_check` runs the controlled regression on a disposable graph with a stub client (no real task).

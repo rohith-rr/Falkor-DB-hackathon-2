@@ -34,6 +34,8 @@ Stale findings are computed review candidates, not verified defects.
 Before answering, pass your statements and their evidence IDs to verify_answer and
 fix anything not VERIFIED. Use changes_since to catch up, stale_documents before
 trusting a page, knowledge_risk for bus factor, and action_status before executing.
+answer_status re-checks saved answers; one marked stale must be re-verified before reuse.
+fix_queue turns those findings into suggested tasks with their evidence.
 Directory expertise v2 aggregates allocated implementation and file-specific peer
 reviews, not PR-wide approval or coordination. Check score_breakdown, distinct
 PR count, evidence_strength, snapshot age and scoring_version. Do not call these
@@ -325,10 +327,20 @@ class BrainGraph:
     def knowledge_risk(self, target_id: str):
         return self._truth("knowledge_risk", target_id)
 
+    def fix_queue(self, limit: int = 20):
+        return self._truth("fix_queue", limit)
+
     def action_status(self, action_id: str):
         from . import truth
         try:
             return truth.action_status(self.rows, self.db, action_id)
+        except truth.TruthError as exc:
+            raise BrainError(f"INVALID_REQUEST: {exc}") from exc
+
+    def answer_status(self, answer_id: str | None = None):
+        from . import answers, truth
+        try:
+            return answers.answer_status(self.rows, answer_id)
         except truth.TruthError as exc:
             raise BrainError(f"INVALID_REQUEST: {exc}") from exc
 

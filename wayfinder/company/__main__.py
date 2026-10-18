@@ -17,12 +17,15 @@ def main():
     refresh=sub.add_parser('refresh',help='Sync every configured source, then extract up to N pending units (pages first)')
     refresh.add_argument('--extract',type=int,default=0,help='Max units to extract (one generation call each); 0 makes no model calls')
     refresh.add_argument('--no-slack',action='store_true'); refresh.add_argument('--no-github',action='store_true')
+    refresh.add_argument('--notify-slack',action='store_true',help='Post one message per newly stale saved answer to the sandbox channel')
     watch=sub.add_parser('watch',help='Poll allowlisted sources and log what each sync changed')
     watch.add_argument('--slack',action='store_true'); watch.add_argument('--github',action='store_true'); watch.add_argument('--interval',type=int,default=120)
     watch.add_argument('--iterations',type=int); watch.add_argument('--log')
     extract=sub.add_parser('extract'); extract.add_argument('--limit',type=int,default=20); extract.add_argument('--unit-id')
     brief=sub.add_parser('brief'); brief.add_argument('component'); brief.add_argument('--output')
     prepare=sub.add_parser('prepare'); prepare.add_argument('--brief',required=True); prepare.add_argument('--title',required=True); prepare.add_argument('--description',required=True)
+    fixes=sub.add_parser('fix-queue'); fixes.add_argument('--limit',type=int,default=20)
+    prepare_fix=sub.add_parser('prepare-fix'); prepare_fix.add_argument('finding_id')
     approve=sub.add_parser('approve'); approve.add_argument('action_id'); approve.add_argument('--hash',required=True); approve.add_argument('--by',required=True); approve.add_argument('--yes',action='store_true')
     execute=sub.add_parser('execute'); execute.add_argument('action_id')
     repair=sub.add_parser('repair-knowledge'); repair.add_argument('--apply',action='store_true'); repair.add_argument('--backup')
@@ -42,7 +45,7 @@ def main():
         from .freshness import refresh
         if not 0<=args.extract<=100: raise SystemExit('--extract must be 0..100')
         result=refresh(db,manifest,extract=args.extract,slack=False if args.no_slack else None,
-            github=False if args.no_github else None,log=Path('data')/f'sync-log-{args.graph}.jsonl')
+            github=False if args.no_github else None,log=Path('data')/f'sync-log-{args.graph}.jsonl',notify_slack=args.notify_slack)
     elif args.command=='watch':
         from .freshness import watch
         if args.interval<60: raise SystemExit('Plane allows about 60 API requests per minute; use --interval 60 or more')
@@ -60,10 +63,14 @@ def main():
         validation=validate_brief(db,result)
         if not validation['valid']: raise SystemExit(json.dumps(validation))
         if args.output: Path(args.output).write_text(json.dumps(result,indent=2),encoding='utf-8')
-    elif args.command in ('prepare','approve','execute'):
+    elif args.command=='fix-queue':
+        from ..brain_graph import BrainGraph
+        result=BrainGraph(db).invoke('fix_queue',limit=args.limit)
+    elif args.command in ('prepare','prepare-fix','approve','execute'):
         from .actions import PlaneActions
         actions=PlaneActions(db,manifest)
         if args.command=='prepare': result=actions.prepare(args.title,args.description,json.loads(Path(args.brief).read_text(encoding='utf-8')))
+        elif args.command=='prepare-fix': result=actions.prepare_fix(args.finding_id)
         elif args.command=='execute': result=actions.execute(args.action_id)
         else:
             action=actions.get(args.action_id)

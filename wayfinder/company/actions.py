@@ -35,6 +35,27 @@ class PlaneActions:
                     {'id':ident,'evidence':evidence,'edge':f'{ident}->BASED_ON->{evidence}','now':now_iso()})
         return {'action_id':ident,'payload_hash':hashed,'payload':payload,'approval_required':True}
 
+    def prepare_fix(self,finding_id):
+        """Propose the suggested task for one fix_queue finding; the same approval and execute rules apply."""
+        from ..brain_graph import BrainGraph
+        from ..truth import find_fix
+        from .core import response_context
+        finding=find_fix(BrainGraph(self.db).rows,finding_id)
+        if not finding['component_id']: raise ValueError('Finding has no current component; prepare_plane_work_item with a brief instead')
+        cited=[e for e in finding['evidence'] if e.get('url')]
+        if not cited: raise ValueError('Finding has no evidence with a source URL to cite')
+        # The finding is computed; its records are cited as they are, not promoted to confirmed facts.
+        claims=[{'summary':f"{e['labels'][0]}: {e['name']}",'evidence_ids':[e['id']],'source_urls':[e['url']],
+            'authority':'COMPUTED'} for e in cited]
+        brief={'component_id':finding['component_id'],'ownership':[],'contributors':[],'decisions':[],'concerns':[],
+            'missing_evidence':[f'{i} has no source URL, so it is not cited' for i in finding['evidence_ids'] if i not in {e['id'] for e in cited}],
+            'next_action':finding['title'],'context':response_context(self.db),
+            'finding':{'id':finding['id'],'kind':finding['kind'],'evidence_ids':finding['evidence_ids']}}
+        brief['decisions' if finding['kind']=='DISPUTED_DECISION' else 'concerns']=claims
+        result=self.prepare(finding['title'],finding['description'],brief)
+        self.db.query('MATCH (a:Action {id:$id}) SET a.finding_id=$finding',{'id':result['action_id'],'finding':finding['id']})
+        return {**result,'finding_id':finding['id']}
+
     def get(self,ident):
         rows=self.db.graph.ro_query('MATCH (a:Action {id:$id}) RETURN properties(a)',params={'id':ident}).result_set
         if not rows: raise ValueError('Action not found')

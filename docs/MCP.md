@@ -4,7 +4,7 @@ Directory expertise now uses v2 scoring. See [expertise calculation, repair,
 review backfill and hourly refresh](EXPERTISE.md). Restart the MCP client/server
 after upgrading to load the new tools' scoring semantics.
 
-The local stdio server exposes **28 tools** that only read the knowledge graph, two resources and three prompts.
+The local stdio server exposes **30 tools** that only read the knowledge graph, two resources and three prompts.
 It uses the graph named by `FALKORDB_GRAPH`. Set it in the client configuration to
 `wayfinder_company_live_demo` or `wayfinder_company_demo`, because the repository `.env` may name
 another graph. It performs no ingestion, repair, or generation calls. The explicit
@@ -63,7 +63,7 @@ Computed expertise edges are excluded, so the algorithms don't rank their own ou
 
 ## Keeping answers true
 
-Five tools let an agent check what it is about to say, and what changed, against the graph's own provenance:
+Six tools let an agent check what it is about to say, and what changed, against the graph's own provenance:
 retained source revisions, closed relationship intervals, and extracted claims tied to the source text they quote.
 
 | Tool | Answers | How |
@@ -73,6 +73,25 @@ retained source revisions, closed relationship intervals, and extracted claims t
 | `stale_documents` | Which pages may be out of date? | A page is POSSIBLY_STALE when a merged PR touched its component's code, or a linked task changed, after the page was last edited |
 | `knowledge_risk` | What is this component's bus factor? What if this person leaves? | Weighted evidence share per person (ownership 3, PR authorship and review 2, code expertise 2, assigned task 1, discussion 0.5), bots excluded; bus factor is the fewest people holding more than half |
 | `action_status` | Does this approval still hold? | The payload hash is intact, the brief validates now, and no cited evidence was retired or edited after approval. `execute` enforces the same rule |
+| `answer_status` | Is an answer I saved earlier still true? | Re-runs `verify_answer` on each saved answer's statements and lists the ones whose verdict changed since saving or the last refresh, and the ones refresh already marked stale. With `answer_id`, it returns that answer's statements with full detail. It only reads |
+
+### Saved answers that invalidate themselves
+
+With `--enable-actions`, `save_answer(question, statements)` stores an answer so it can expire later. Statements use the
+`verify_answer` shape, `{text, evidence_ids}`. The tool verifies them, then writes an `Answer` node holding the question, the
+exact statements and the verdict, with a `CITES` edge to each cited node. Relationship IDs stay in `evidence_ids`, since an
+edge cannot be a `CITES` target. The answer's verdict is its worst statement's. Saving the same question and statements
+again re-verifies the existing node instead of making a duplicate.
+
+Each `refresh` re-verifies every saved answer after syncing. When an answer that was VERIFIED stops being VERIFIED, refresh
+sets `stale=true`, `stale_since`, and a `stale_reason` such as *Statement 1 is OUT_OF_DATE: … retired at …; now replaced by …*.
+If its sources later support it again, the stale flag is cleared. The refresh summary reports `answers.newly_stale`,
+`recovered` and `still_stale`. The dashboard's **Saved answers** view lists stale answers first, with the reasons.
+
+`refresh --notify-slack` also posts one message per newly stale answer to the sandbox channel (`slack.notify_channel_id`,
+else the first allowlisted channel), using `SLACK_BOT_TOKEN`. The message gives the question, the old and new verdict, the
+reason and the answer ID. URLs are dropped and work-item keys are written with a non-breaking hyphen, so the next sync cannot
+turn the notice into false graph links. Without the flag, refresh posts nothing.
 
 ### Which decision holds
 
@@ -94,6 +113,20 @@ the chain it supersedes, and marks each decision row with `holds` and `supersede
 superseded decision as SUPERSEDED evidence and the statement as OUT_OF_DATE, with `replaced_by` pointing at the holder.
 
 These are review signals computed from recorded evidence. A stale flag is not proof a page is wrong, and a bus factor measures recorded work, not what people know.
+
+## Fix queue
+
+`fix_queue(limit)` gathers the findings worth turning into work, each with its evidence IDs and a suggested task title and description:
+
+| Kind | Source | Suggested title |
+|---|---|---|
+| `DISPUTED_DECISION` | Two current decisions about the same target, extracted from different source units (what `verify_answer` calls DISPUTED) | Resolve conflicting decisions about *target*: "*a*" vs "*b*" |
+| `STALE_DOCUMENT` | A page `stale_documents` marks POSSIBLY_STALE | Update *page*: *PRs* changed its code since |
+| `SINGLE_HOLDER` | A component whose `knowledge_risk` bus factor is 1 | Add a second owner or reviewer for *component* |
+
+Disputed decisions come first, then stale pages, then single holders. Each finding has a stable ID (for example `fix:stale:<page id>`), the component it belongs to, and `actions`: proposals already prepared from it, with their status.
+
+With `--enable-actions`, `prepare_fix(finding_id)` turns one finding into a proposal. It recomputes the queue and refuses a finding that no longer holds, then builds a brief that cites each evidence record with a source URL as COMPUTED, and calls the same `prepare` as `prepare_plane_work_item`. The proposal is bound to its payload hash. A person approves it outside MCP, and `execute_plane_work_item` refuses if the approval does not match the hash or if any cited evidence was retired or edited since. The CLI has the same path: `python -m wayfinder.company fix-queue` and `prepare-fix FINDING_ID`.
 
 ## Watch the agent's path in the graph
 
@@ -189,6 +222,8 @@ in `.env`, not in client configurations or tool arguments.
 | `person_context`, `component_context` | Explore people, ownership, expertise, collaborators, directory descendants and linked PRs |
 | `list_questions`, `recent_activity` | Find unanswered questions and relevant imported contributions |
 | `read_cypher` | Run custom parameterized read-only Cypher |
+| `verify_answer`, `answer_status`, `changes_since`, `stale_documents`, `knowledge_risk`, `action_status` | Keep answers true ([above](#keeping-answers-true)) |
+| `save_answer` (action mode) | Store an answer that refresh re-verifies and marks stale when its sources change |
 
 Resources: `wayfinder://schema`, `wayfinder://coverage`.
 Prompts: `investigate_component(component)`, `explain_decision(target)`, `review_component(component)`.

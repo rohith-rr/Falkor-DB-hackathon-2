@@ -78,7 +78,7 @@ Fixture import reestablishes baseline source records and recalculates v2 code ex
 .\.venv\Scripts\python.exe -m wayfinder.company --graph wayfinder_company_live_demo --manifest data/live-workspace/manifest.json refresh --extract 3
 ```
 
-This syncs Plane, Slack and GitHub, then extracts up to three pending units, pages first. Without `--extract` it makes no model calls. See [one-command refresh](docs/LIVE-WORKSPACE.md#one-command-refresh).
+This syncs Plane, Slack and GitHub, then extracts up to three pending units, pages first. Without `--extract` it makes no model calls. It then re-verifies saved answers and marks the ones that stopped being VERIFIED as stale. Add `--notify-slack` to post one message per newly stale answer to the sandbox channel. See [one-command refresh](docs/LIVE-WORKSPACE.md#one-command-refresh).
 
 ### Offline rebuild of the live Plane/Slack graph - no credentials
 
@@ -142,7 +142,7 @@ Event dates are fixed offsets before a persisted dataset anchor. Decay uses the 
 
 Configure the client to launch `.venv\Scripts\python.exe` with the absolute path to `wayfinder\mcp_server.py`, and set its environment `FALKORDB_GRAPH=wayfinder_company_demo`. See [client setup](docs/MCP.md).
 
-The default server exposes **28 tools** that only read the knowledge graph. Five keep answers true: `verify_answer` checks each statement of a draft against current sources, `changes_since` catches up on what changed, `stale_documents` flags pages whose code moved on, `knowledge_risk` gives a component's bus factor, and `action_status` checks an approval still holds ([details](docs/MCP.md#keeping-answers-true)). They also include `graph_algorithm`: FalkorDB's native PageRank, betweenness, connected components and shortest path over the current graph, run on a temporary projection that is deleted afterwards. `semantic_search` makes one explicitly requested embedding-provider call; other tools make no model requests. Optional action mode adds 2 tools (30 in total) for proposal preparation and execution, but no approval-granting tool.
+The default server exposes **30 tools** that only read the knowledge graph. Six keep answers true: `verify_answer` checks each statement of a draft against current sources, `answer_status` re-checks answers saved earlier, `changes_since` catches up on what changed, `stale_documents` flags pages whose code moved on, `knowledge_risk` gives a component's bus factor, and `action_status` checks an approval still holds ([details](docs/MCP.md#keeping-answers-true)). `fix_queue` turns those findings into work: disputed decisions, stale pages and single-holder components, each with its evidence and a suggested task ([fix queue](docs/MCP.md#fix-queue)). They also include `graph_algorithm`: FalkorDB's native PageRank, betweenness, connected components and shortest path over the current graph, run on a temporary projection that is deleted afterwards. `semantic_search` makes one explicitly requested embedding-provider call; other tools make no model requests. Optional action mode adds 4 tools (34 in total): `prepare_plane_work_item`, `prepare_fix` (a proposal from one fix-queue finding), `execute_plane_work_item`, and `save_answer`, which stores an answer that later refreshes re-verify and mark stale, with the reason, once its sources change ([saved answers](docs/MCP.md#saved-answers-that-invalidate-themselves)). There is no approval-granting tool.
 
 Ask:
 
@@ -165,7 +165,7 @@ Put PLANE_API_KEY only in local config. See [setup and commands](docs/DEMO.md#ap
 
 ## Verification
 
-Tests cover expertise inflation and exclusions, overlapping Component mappings, source-edit invalidation and stale brief rejection, connectors against mocked Plane/Slack/GitHub APIs (edits, deletions, merges, moved branch heads), cross-source URL and key links, refresh and extraction budgets, the offline replay, native vector metric and filtering, MCP navigation and read-only boundaries, agent-path tracing, action approval and idempotency, answer verification, catch-up, stale pages, bus factor and approval validity, and dashboard endpoints. The suite has 157 tests. Normal tests use fake inference keys; integration tests require local FalkorDB and isolate their graph names.
+Tests cover expertise inflation and exclusions, overlapping Component mappings, source-edit invalidation and stale brief rejection, connectors against mocked Plane/Slack/GitHub APIs (edits, deletions, merges, moved branch heads), cross-source URL and key links, refresh and extraction budgets, the offline replay, native vector metric and filtering, MCP navigation and read-only boundaries, agent-path tracing, action approval and idempotency, answer verification, saved answers going stale on refresh, catch-up, stale pages, bus factor and approval validity, and dashboard endpoints. The suite has 171 tests. Normal tests use fake inference keys; integration tests require local FalkorDB and isolate their graph names.
 
 ```powershell
 $env:LLM_API_KEY='sk-dummy-key'

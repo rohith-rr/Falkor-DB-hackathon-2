@@ -3,7 +3,7 @@
 const COLORS={Component:'#f2c14e',Person:'#7bdff2',Team:'#7bdff2',Project:'#cdb4db',Issue:'#90e0ef',DocPage:'#b8f2a1',
   Thread:'#5c6b65',Comment:'#8aa39a',PullRequest:'#f28482',Review:'#f5cac3',Branch:'#ff9f1c',Commit:'#e9c46a',
   Repository:'#f4a261',Directory:'#c9ada7',Decision:'#d8f26a',Question:'#a0c4ff',Argument:'#bdb2ff',Rationale:'#ffc6ff',
-  Action:'#ff6b6b',Topic:'#4f6d64'};
+  Action:'#ff6b6b',Topic:'#4f6d64',Answer:'#ffd6a5'};
 const PATH='#ffb347';
 const canvas=document.getElementById('canvas'),ctx=canvas.getContext('2d');
 const S={nodes:[],byId:new Map(),edges:[],adj:new Map(),view:{x:0,y:0,k:1},alpha:1,hidden:new Set(),hover:null,selected:null,

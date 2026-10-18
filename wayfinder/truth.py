@@ -177,7 +177,7 @@ def _scope(rows, component_id, hops=2):
     if not component_id: return None
     found = rows(f'MATCH (c {{id:$id}}) MATCH p=(c)-[*0..{int(hops)}]-(n) WHERE all(r IN relationships(p) WHERE r.valid_to IS NULL) '
                  # A person links everything they touch; walking through one would widen the scope to all their work.
-                 "AND none(x IN nodes(p)[1..size(nodes(p))-1] WHERE 'Person' IN labels(x)) "
+                 "AND none(x IN nodes(p)[1..size(nodes(p))-1] WHERE 'Person' IN labels(x) OR 'Answer' IN labels(x)) "
                  'RETURN collect(DISTINCT n.id) AS ids', {'id': component_id})
     if not found or not found[0]['ids']: raise TruthError('component_id is not a current entity')
     return found[0]['ids']
@@ -294,8 +294,8 @@ def _component_evidence(rows, cid):
     return people
 
 
-def _component_risk(rows, cid):
-    people = _component_evidence(rows, cid)
+def _component_risk(rows, cid, people=None):
+    people = _component_evidence(rows, cid) if people is None else people
     weight = {p: sum(WEIGHTS[r] * n for r, n in e['roles'].items()) for p, e in people.items()}
     total = sum(weight.values()) or 1.0
     ranked = sorted(weight.items(), key=lambda x: -x[1]); cumulative = 0.0; bus = 0
@@ -333,6 +333,119 @@ def _person_risk(rows, pid):
         'directories_without_expert': only_expert, 'components_where_they_hold_majority': majority},
         'summary': {'components_without_owner': len(only_owner), 'open_tasks_without_assignee': len(open_tasks),
                     'directories_without_expert': len(only_expert), 'majority_components': len(majority)}}
+
+
+# ---------------------------------------------------------------- fix_queue
+
+FIX_ORDER = {'DISPUTED_DECISION': 0, 'STALE_DOCUMENT': 1, 'SINGLE_HOLDER': 2}
+
+
+def _evidence(rows, ids):
+    ids = list(dict.fromkeys(i for i in ids if i))
+    found = {r['id']: r for r in rows(f'MATCH (n) WHERE n.id IN $ids RETURN n.id AS id, labels(n) AS labels, {NAME} AS name, '
+                                      'n.source_url AS url', {'ids': ids})}
+    return [found[i] for i in ids if i in found]
+
+
+def _names(items, n=3):
+    names = [str(i.get('name') or i['id']) for i in items[:n]]
+    return ', '.join(names) + (f' and {len(items) - n} more' if len(items) > n else '')
+
+
+def _component_of(rows, ident):
+    found = rows('MATCH (x {id:$id}) WHERE x.valid_to IS NULL AND (x:Component OR x:Directory) RETURN x.id AS id', {'id': ident})
+    if found: return found[0]['id']
+    found = rows('MATCH (x {id:$id})-[r:DESCRIBES|CONCERNS_COMPONENT]->(c:Component) WHERE r.valid_to IS NULL AND c.valid_to IS NULL '
+                 'RETURN c.id AS id ORDER BY c.id LIMIT 1', {'id': ident})
+    return found[0]['id'] if found else None
+
+
+def _finding(rows, ident, kind, component_id, title, description, evidence_ids):
+    return {'id': ident, 'kind': kind, 'component_id': component_id, 'title': title[:255], 'description': description,
+            'evidence_ids': list(dict.fromkeys(evidence_ids)), 'evidence': _evidence(rows, evidence_ids)}
+
+
+def _disputed(rows):
+    pairs = rows('MATCH (d:Decision)-[a:ABOUT]->(t)<-[b:ABOUT]-(o:Decision) WHERE d.id < o.id AND d.valid_to IS NULL AND o.valid_to IS NULL '
+                 'AND t.valid_to IS NULL AND a.valid_to IS NULL AND b.valid_to IS NULL '
+                 'MATCH (u1)-[x:ASSERTS]->(d), (u2)-[y:ASSERTS]->(o) WHERE x.valid_to IS NULL AND y.valid_to IS NULL AND u1.id <> u2.id '
+                 'RETURN d.id AS a, d.summary AS a_name, o.id AS b, o.summary AS b_name, t.id AS target, '
+                 'collect(DISTINCT u1.id) AS a_sources, collect(DISTINCT u2.id) AS b_sources ORDER BY a, b')
+    out = []
+    for p in pairs:
+        target = _evidence(rows, [p['target']])[0]
+        sources = _evidence(rows, p['a_sources'][:2] + p['b_sources'][:2])
+        where = lambda ids: _names([s for s in sources if s['id'] in ids], 2) or 'unknown source'
+        out.append(_finding(rows, f"fix:disputed:{p['a']}:{p['b']}", 'DISPUTED_DECISION', _component_of(rows, p['target']),
+            f"Resolve conflicting decisions about {target['name']}: \"{p['a_name']}\" vs \"{p['b_name']}\"",
+            f"Two current decisions about {target['name']} come from different sources: \"{p['a_name']}\" ({where(p['a_sources'])}) "
+            f"and \"{p['b_name']}\" ({where(p['b_sources'])}). Decide which one holds, record it in the source, and retire or "
+            'reword the other. Found by Wayfinder: both are current and extracted from different source units.',
+            [p['a'], p['b'], p['target']] + p['a_sources'][:2] + p['b_sources'][:2]))
+    return out
+
+
+def _stale(rows):
+    out = []
+    for item in stale_documents(rows, limit=50)['items']:
+        if item['status'] != 'POSSIBLY_STALE': continue
+        page, prs, tasks = item['page'], item['code_merged_since'], item['tasks_updated_since']
+        title = (f"Update {page['name']}: {_names(prs)} changed its code since" if prs else
+                 f"Update {page['name']}: {_names(tasks)} changed since it was edited")
+        changes = [f"merged {p['name']} ({p['at']})" for p in prs] + [f"updated {t['name']} ({t['at'] or 'time unknown'})" for t in tasks]
+        out.append(_finding(rows, f"fix:stale:{page['id']}", 'STALE_DOCUMENT', _component_of(rows, page['id']), title,
+            f"{page['name']} was last edited {item['last_edited']}. Since then: {'; '.join(changes)}. Review the page against "
+            'these changes and update it, or confirm it is still right. Found by Wayfinder stale_documents: a review signal, '
+            'not proof the page is wrong.',
+            [page['id']] + [p['id'] for p in prs] + [t['id'] for t in tasks]))
+    return out
+
+
+def _single_holder(rows):
+    out = []
+    for c in rows('MATCH (c:Component) WHERE c.valid_to IS NULL RETURN c.id AS id, c.name AS name ORDER BY c.id'):
+        people = _component_evidence(rows, c['id'])
+        risk = _component_risk(rows, c['id'], people)
+        if risk['bus_factor'] != 1: continue
+        holder = risk['holders'][0]
+        roles = ', '.join(f'{role} x{n}' for role, n in sorted(holder['roles'].items()))
+        out.append(_finding(rows, f"fix:bus-factor:{c['id']}", 'SINGLE_HOLDER', c['id'],
+            f"Add a second owner or reviewer for {c['name'] or c['id']}",
+            f"{holder['name']} holds {holder['share']:.0%} of the recorded evidence for {c['name'] or c['id']} ({roles}); "
+            f"{risk['people_with_evidence']} people have any. Name a second owner or reviewer and have them review the next change. "
+            'Found by Wayfinder knowledge_risk: bus factor 1 measures recorded evidence, not actual knowledge.',
+            [c['id'], holder['id']] + sorted(people[holder['id']]['evidence'])[:10]))
+    return out
+
+
+def _all_fixes(rows):
+    findings = _disputed(rows) + _stale(rows) + _single_holder(rows)
+    findings.sort(key=lambda f: (FIX_ORDER[f['kind']], -len(f['evidence_ids']), f['id']))
+    actions = rows('MATCH (a:Action) WHERE a.finding_id IN $ids RETURN a.finding_id AS finding, a.id AS id, a.status AS status, '
+                   'a.created_at AS created_at ORDER BY created_at', {'ids': [f['id'] for f in findings]})
+    for f in findings:
+        f['actions'] = [{k: a[k] for k in ('id', 'status', 'created_at')} for a in actions if a['finding'] == f['id']]
+    return findings
+
+
+def fix_queue(rows, limit=20):
+    """Actionable findings, each with its evidence and a suggested task: disputed decisions, stale pages, single holders."""
+    if not 1 <= limit <= 50: raise TruthError('Use limit 1..50')
+    findings = _all_fixes(rows)
+    counts = {}
+    for f in findings: counts[f['kind']] = counts.get(f['kind'], 0) + 1
+    return {'items': findings[:limit], 'total': len(findings), 'summary': counts,
+        'meaning': 'DISPUTED_DECISION: two current decisions about the same target from different sources. STALE_DOCUMENT: '
+                   'stale_documents flagged the page POSSIBLY_STALE. SINGLE_HOLDER: knowledge_risk bus factor is 1. Each item '
+                   'suggests a task title and description; actions lists proposals already prepared from it. With actions '
+                   'enabled, prepare_fix(finding_id) turns one into a proposal that a person must approve before execution.'}
+
+
+def find_fix(rows, finding_id):
+    """Recompute the queue and return one finding, so a proposal is only made from a finding that still holds."""
+    found = next((f for f in _all_fixes(rows) if f['id'] == finding_id), None)
+    if found is None: raise TruthError('Finding is not in the current fix queue; it may already be fixed. Call fix_queue again.')
+    return found
 
 
 # ---------------------------------------------------------------- action_status

@@ -1,4 +1,7 @@
-"""Optional channel-allowlisted Slack reader; no posting, DMs, or file downloads."""
+"""Optional channel-allowlisted Slack reader; no DMs or file downloads.
+
+The only write is notify_stale_answers, which posts to the sandbox channel when refresh is run with --notify-slack.
+"""
 import os
 import time
 from pathlib import Path
@@ -129,3 +132,28 @@ def sync_slack(db,manifest,days=30):
                 report.append({'channel':cid,'status':'unavailable','reason':str(exc)})
         return report
     finally: client.close()
+
+
+def notify_stale_answers(manifest,items,session=None):
+    """Post one message per newly stale answer to the configured sandbox channel. Failures are reported, not raised."""
+    from ..answers import notice
+    if not items: return []
+    slack=manifest.get('slack',{}); channel=slack.get('notify_channel_id') or (slack.get('channel_ids') or [None])[0]
+    if not channel or not channel.startswith('C'): return [{'status':'skipped','reason':'No allowlisted public sandbox channel'}]
+    local=dotenv_values(Path(__file__).resolve().parents[2]/'.env')
+    token=os.getenv('SLACK_BOT_TOKEN') or local.get('SLACK_BOT_TOKEN')
+    if not token and session is None: return [{'status':'skipped','reason':'Set SLACK_BOT_TOKEN to post notifications'}]
+    http=session or httpx.Client(base_url='https://slack.com/api/',timeout=30,headers={'Authorization':f'Bearer {token}'})
+    out=[]
+    try:
+        for item in items:
+            try:
+                response=http.post('chat.postMessage',json={'channel':channel,'text':notice(item),'unfurl_links':False,'unfurl_media':False})
+                response.raise_for_status(); data=response.json()
+                if not data.get('ok'): raise RuntimeError(data.get('error','unknown_error'))
+                out.append({'answer_id':item['answer_id'],'status':'posted','channel':channel,'ts':data.get('ts')})
+            except Exception as exc:
+                out.append({'answer_id':item['answer_id'],'status':'failed','reason':f'{type(exc).__name__}: {exc}'})
+    finally:
+        if session is None: http.close()
+    return out
