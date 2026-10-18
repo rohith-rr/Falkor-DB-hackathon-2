@@ -40,6 +40,52 @@ def _record(rows, ident):
     return found[0] if found else None
 
 
+# ---------------------------------------------------------------- supersession
+
+SUPERSEDED_BY = ('MATCH (s:Decision)-[r:SUPERSEDES]->(d:Decision {id:$id}) WHERE r.valid_to IS NULL AND s.valid_to IS NULL '
+                 'AND coalesce(s.is_deleted, false) = false ')
+
+
+def _holders(rows, decision_id):
+    """The decisions that currently hold over this one, with the chain from each holder down to it."""
+    direct = rows(SUPERSEDED_BY + 'RETURN s.id AS id, r.reason AS reason, r.basis AS basis, r.valid_from AS since, '
+                  'r.authority AS authority ORDER BY id', {'id': decision_id})
+    if not direct: return direct, []
+    tops = rows('MATCH p=(h:Decision)-[:SUPERSEDES*1..8]->(d:Decision {id:$id}) '
+                'WHERE all(r IN relationships(p) WHERE r.valid_to IS NULL) AND h.valid_to IS NULL '
+                'OPTIONAL MATCH (x:Decision)-[above:SUPERSEDES]->(h) WHERE above.valid_to IS NULL AND x.valid_to IS NULL '
+                'WITH h, count(above) AS over WHERE over = 0 '
+                'RETURN DISTINCT h.id AS id, labels(h) AS labels, h.summary AS name, h.evidence_quote AS quote ORDER BY id',
+                {'id': decision_id})
+    return direct, tops
+
+
+def holding_decisions(rows, target_id):
+    """Which current decisions about a target hold, and what each one superseded, newest authority first."""
+    decisions = rows('MATCH (d:Decision)-[a:ABOUT]->(t) WHERE (t.id=$id OR (t:KEP AND t.number=$id)) '
+                     'AND a.valid_to IS NULL AND d.valid_to IS NULL AND t.valid_to IS NULL '
+                     'OPTIONAL MATCH (s:Decision)-[r:SUPERSEDES]->(d) WHERE r.valid_to IS NULL AND s.valid_to IS NULL '
+                     'WITH d, count(r) AS over OPTIONAL MATCH (u)-[x:ASSERTS]->(d) WHERE x.valid_to IS NULL '
+                     'WITH d, over, collect(u)[0] AS u '
+                     'RETURN d.id AS id, labels(d) AS labels, d.summary AS name, d.evidence_quote AS quote, '
+                     'u.id AS source_id, labels(u)[0] AS source_label, over = 0 AS holds ORDER BY id', {'id': target_id})
+    holds = []
+    for d in [d for d in decisions if d['holds']]:
+        chain = rows('MATCH p=(h:Decision {id:$id})-[:SUPERSEDES*1..8]->(o:Decision) '
+                     'WHERE all(r IN relationships(p) WHERE r.valid_to IS NULL) '
+                     'WITH o, min(length(p)) AS depth, collect(last(relationships(p))) AS links '
+                     'WITH o, depth, links[0] AS r '
+                     'RETURN o.id AS id, labels(o) AS labels, o.summary AS name, depth, r.reason AS reason, r.basis AS basis, '
+                     'r.authority AS authority, r.valid_from AS since ORDER BY depth, id', {'id': d['id']})
+        holds.append({**{k: d[k] for k in ('id', 'labels', 'name', 'quote', 'source_id', 'source_label')}, 'supersedes': chain})
+    status = 'NONE' if not decisions else 'HOLDS' if len(holds) == 1 else 'DISPUTED'
+    return {'target_id': target_id, 'status': status, 'holding': holds,
+            'superseded': [d['id'] for d in decisions if not d['holds']],
+            'meaning': 'HOLDS: one current decision outranks the others about this target. DISPUTED: several hold with equal '
+                       'source authority and time. SUPERSEDES is COMPUTED: a page or ADR outranks a Plane issue or comment, '
+                       'which outranks a Slack message; then the newer decision wins. Superseded decisions are kept as history.'}
+
+
 # ---------------------------------------------------------------- verify_answer
 
 def verify_answer(rows, statements):
@@ -77,6 +123,12 @@ def verify_answer(rows, statements):
                         for n in newer: n['same_meaning'] = _norm(n['name']) == _norm(rec['name'])
                         replacements += newer
                     retired.append(rec['id'])
+                elif label == 'Decision' and (held := _holders(rows, rec['id']))[0]:
+                    # Still asserted by its source, but a higher-authority or newer decision about the same target holds.
+                    direct, tops = held
+                    entry.update(status='SUPERSEDED', superseded_by=direct, holding=[t['id'] for t in tops])
+                    for t in tops: t['same_meaning'] = _norm(t['name']) == _norm(rec['name'])
+                    replacements += tops; retired.append(rec['id']); current_text.append(rec['text'])
                 else:
                     entry['status'] = 'CURRENT'; current_text.append(rec['text'])
             elif rec['valid_to'] or rec['deleted']:
@@ -86,14 +138,16 @@ def verify_answer(rows, statements):
             evidence.append(entry)
         quotes = QUOTE.findall(text); haystack = _norm(' '.join(current_text))
         missing = [q for q in quotes if _norm(q) not in haystack]
-        # Two current decisions about the same target from different sources is a conflict, not a choice.
+        # Two current decisions about the same target from different sources conflict unless one supersedes the other.
         disputes = []
         for e in evidence:
             if e.get('status') == 'CURRENT' and e.get('labels', [''])[0] == 'Decision':
                 disputes += rows('MATCH (d {id:$id})-[a:ABOUT]->(t)<-[b:ABOUT]-(o:Decision) WHERE a.valid_to IS NULL AND b.valid_to IS NULL '
                                  'AND o.valid_to IS NULL AND o.id<>d.id MATCH (u1)-[:ASSERTS]->(d), (u2)-[x:ASSERTS]->(o) '
-                                 'WHERE x.valid_to IS NULL AND u1.id<>u2.id RETURN DISTINCT o.id AS id, labels(o) AS labels, o.summary AS name, '
-                                 't.id AS about LIMIT 5', {'id': e['id']})
+                                 'WHERE x.valid_to IS NULL AND u1.id<>u2.id '
+                                 'OPTIONAL MATCH (:Decision)-[s:SUPERSEDES]->(o) WHERE s.valid_to IS NULL '
+                                 'WITH DISTINCT o, t, count(s) AS over WHERE over = 0 '
+                                 'RETURN o.id AS id, labels(o) AS labels, o.summary AS name, t.id AS about LIMIT 5', {'id': e['id']})
         valid = [e for e in evidence if e.get('status') == 'CURRENT']
         if not ids or not any(e.get('status') != 'NOT_FOUND' for e in evidence): status = 'UNSUPPORTED'
         elif retired and replacements and all(r['same_meaning'] for r in replacements) and not missing: status = 'RECITE'
@@ -109,9 +163,11 @@ def verify_answer(rows, statements):
     for s in out: counts[s['status']] = counts.get(s['status'], 0) + 1
     return {'statements': out, 'summary': counts,
             'meaning': 'VERIFIED: every cited record is current and every quote appears in it. OUT_OF_DATE: a cited claim was retired '
-                       'because its source changed; replaced_by holds the current claim. RECITE: the source changed but the re-extracted '
+                       'because its source changed, or a cited decision is SUPERSEDED by a higher-authority or newer decision about '
+                       'the same target; replaced_by holds the claim that holds now. RECITE: the source changed but the re-extracted '
                        'claim says the same; cite replaced_by instead. REMOVED: the cited record was deleted. '
-                       'DISPUTED: another current decision about the same target comes from a different source. '
+                       'DISPUTED: another current decision about the same target comes from a different source and neither '
+                       'supersedes the other. '
                        'UNSUPPORTED: no evidence, or a quote that is not in the current source.'}
 
 
