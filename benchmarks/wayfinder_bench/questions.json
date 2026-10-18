@@ -1,0 +1,658 @@
+{
+  "benchmark": "Wayfinder-Bench",
+  "version": 1,
+  "graph": "wayfinder_company_live_demo",
+  "gold_sources": [
+    "fixtures/company/wayfinder-content.json",
+    "GitHub REST API (pull requests, commits)",
+    "Plane API (work-item descriptions and links)"
+  ],
+  "questions": [
+    {
+      "id": "q01",
+      "type": "ownership",
+      "question": "Who owns the Agent Review Workflow component?",
+      "anchor": "Agent Review Workflow",
+      "intent": "owner_of_component",
+      "answerable": true,
+      "gold": [
+        {
+          "person": "workspace-owner"
+        }
+      ]
+    },
+    {
+      "id": "q02",
+      "type": "ownership",
+      "question": "Who owns the Source Ingestion & Evidence component?",
+      "anchor": "Source Ingestion & Evidence",
+      "intent": "owner_of_component",
+      "answerable": true,
+      "gold": [
+        {
+          "person": "workspace-owner"
+        }
+      ]
+    },
+    {
+      "id": "q03",
+      "type": "ownership",
+      "question": "Who is assigned FALKORDBTE-1?",
+      "anchor": "FALKORDBTE-1",
+      "intent": "assignee_of_task",
+      "answerable": true,
+      "gold": [
+        {
+          "person": "workspace-owner"
+        }
+      ]
+    },
+    {
+      "id": "q04",
+      "type": "ownership",
+      "question": "Who is assigned FALKORDBTE-8?",
+      "anchor": "FALKORDBTE-8",
+      "intent": "assignee_of_task",
+      "answerable": true,
+      "gold": [
+        {
+          "person": "workspace-owner"
+        }
+      ]
+    },
+    {
+      "id": "q05",
+      "type": "ownership",
+      "question": "Who is assigned FALKORDBTE-12?",
+      "anchor": "FALKORDBTE-12",
+      "intent": "assignee_of_task",
+      "answerable": true,
+      "gold": [
+        {
+          "person": "workspace-owner"
+        }
+      ]
+    },
+    {
+      "id": "q06",
+      "type": "dependencies",
+      "question": "Which tasks must finish before FALKORDBTE-3?",
+      "anchor": "FALKORDBTE-3",
+      "intent": "depends_on",
+      "answerable": true,
+      "gold": [
+        {
+          "issue": "FALKORDBTE-1"
+        },
+        {
+          "issue": "FALKORDBTE-2"
+        }
+      ]
+    },
+    {
+      "id": "q07",
+      "type": "dependencies",
+      "question": "Which tasks must finish before FALKORDBTE-6?",
+      "anchor": "FALKORDBTE-6",
+      "intent": "depends_on",
+      "answerable": true,
+      "gold": [
+        {
+          "issue": "FALKORDBTE-8"
+        }
+      ]
+    },
+    {
+      "id": "q08",
+      "type": "dependencies",
+      "question": "Which tasks must finish before FALKORDBTE-8?",
+      "anchor": "FALKORDBTE-8",
+      "intent": "depends_on",
+      "answerable": true,
+      "gold": [
+        {
+          "issue": "FALKORDBTE-1"
+        },
+        {
+          "issue": "FALKORDBTE-2"
+        },
+        {
+          "issue": "FALKORDBTE-3"
+        },
+        {
+          "issue": "FALKORDBTE-5"
+        }
+      ]
+    },
+    {
+      "id": "q09",
+      "type": "dependencies",
+      "question": "Which tasks must finish before FALKORDBTE-9?",
+      "anchor": "FALKORDBTE-9",
+      "intent": "depends_on",
+      "answerable": true,
+      "gold": [
+        {
+          "issue": "FALKORDBTE-7"
+        },
+        {
+          "issue": "FALKORDBTE-8"
+        }
+      ]
+    },
+    {
+      "id": "q10",
+      "type": "dependencies",
+      "question": "Which tasks must finish before FALKORDBTE-11?",
+      "anchor": "FALKORDBTE-11",
+      "intent": "depends_on",
+      "answerable": true,
+      "gold": [
+        {
+          "issue": "FALKORDBTE-7"
+        },
+        {
+          "issue": "FALKORDBTE-8"
+        }
+      ]
+    },
+    {
+      "id": "q11",
+      "type": "dependencies",
+      "question": "Which tasks must finish before FALKORDBTE-12?",
+      "anchor": "FALKORDBTE-12",
+      "intent": "depends_on",
+      "answerable": true,
+      "gold": [
+        {
+          "issue": "FALKORDBTE-5"
+        },
+        {
+          "issue": "FALKORDBTE-6"
+        },
+        {
+          "issue": "FALKORDBTE-9"
+        },
+        {
+          "issue": "FALKORDBTE-10"
+        },
+        {
+          "issue": "FALKORDBTE-11"
+        }
+      ]
+    },
+    {
+      "id": "q12",
+      "type": "component",
+      "question": "Which work items belong to Source Ingestion & Evidence?",
+      "anchor": "Source Ingestion & Evidence",
+      "intent": "tasks_in_component",
+      "answerable": true,
+      "gold": [
+        {
+          "issue": "FALKORDBTE-1"
+        },
+        {
+          "issue": "FALKORDBTE-2"
+        },
+        {
+          "issue": "FALKORDBTE-3"
+        },
+        {
+          "issue": "FALKORDBTE-4"
+        },
+        {
+          "issue": "FALKORDBTE-5"
+        },
+        {
+          "issue": "FALKORDBTE-6"
+        }
+      ]
+    },
+    {
+      "id": "q13",
+      "type": "documents",
+      "question": "Which pages describe Source Ingestion & Evidence?",
+      "anchor": "Source Ingestion & Evidence",
+      "intent": "pages_for_component",
+      "answerable": true,
+      "gold": [
+        {
+          "page": "ownership"
+        },
+        {
+          "page": "adr-runtime"
+        },
+        {
+          "page": "runbook-runtime"
+        },
+        {
+          "page": "rfc-retry"
+        }
+      ]
+    },
+    {
+      "id": "q14",
+      "type": "component",
+      "question": "Which work items belong to Agent Review Workflow?",
+      "anchor": "Agent Review Workflow",
+      "intent": "tasks_in_component",
+      "answerable": true,
+      "gold": [
+        {
+          "issue": "FALKORDBTE-7"
+        },
+        {
+          "issue": "FALKORDBTE-8"
+        },
+        {
+          "issue": "FALKORDBTE-9"
+        },
+        {
+          "issue": "FALKORDBTE-10"
+        },
+        {
+          "issue": "FALKORDBTE-11"
+        },
+        {
+          "issue": "FALKORDBTE-12"
+        }
+      ]
+    },
+    {
+      "id": "q15",
+      "type": "documents",
+      "question": "Which pages describe Agent Review Workflow?",
+      "anchor": "Agent Review Workflow",
+      "intent": "pages_for_component",
+      "answerable": true,
+      "gold": [
+        {
+          "page": "ownership"
+        },
+        {
+          "page": "adr-allocation"
+        },
+        {
+          "page": "runbook-allocation"
+        },
+        {
+          "page": "rfc-retry"
+        }
+      ]
+    },
+    {
+      "id": "q16",
+      "type": "cross_source",
+      "question": "Which Plane tasks or pages does the Slack message \"The Plane task list is importing. Before we call\" point to?",
+      "anchor": "The Plane task list is importing. Before we call",
+      "intent": "links_in_message",
+      "answerable": true,
+      "gold": [
+        {
+          "issue": "FALKORDBTE-1"
+        }
+      ]
+    },
+    {
+      "id": "q17",
+      "type": "cross_source",
+      "question": "Which Plane tasks or pages does the Slack message \"We still need to repeat the semantic proof after\" point to?",
+      "anchor": "We still need to repeat the semantic proof after",
+      "intent": "links_in_message",
+      "answerable": true,
+      "gold": [
+        {
+          "issue": "FALKORDBTE-8"
+        }
+      ]
+    },
+    {
+      "id": "q18",
+      "type": "cross_source",
+      "question": "Which Plane tasks or pages does the Slack message \"We need explicit permission to send the selected text\" point to?",
+      "anchor": "We need explicit permission to send the selected text",
+      "intent": "links_in_message",
+      "answerable": true,
+      "gold": [
+        {
+          "page": "rfc-retry"
+        }
+      ]
+    },
+    {
+      "id": "q19",
+      "type": "cross_source",
+      "question": "Which Plane tasks or pages does the Slack message \"Can the agent create a follow-up as soon as\" point to?",
+      "anchor": "Can the agent create a follow-up as soon as",
+      "intent": "links_in_message",
+      "answerable": true,
+      "gold": [
+        {
+          "page": "adr-allocation"
+        }
+      ]
+    },
+    {
+      "id": "q20",
+      "type": "cross_source",
+      "question": "Which Plane tasks or pages does the Slack message \"This is a visible demo issue, so include it\" point to?",
+      "anchor": "This is a visible demo issue, so include it",
+      "intent": "links_in_message",
+      "answerable": true,
+      "gold": [
+        {
+          "issue": "FALKORDBTE-12"
+        }
+      ]
+    },
+    {
+      "id": "q21",
+      "type": "cross_source",
+      "question": "Which Plane tasks or pages does the Slack message \"State the source scope and missing GitHub activity. The\" point to?",
+      "anchor": "State the source scope and missing GitHub activity. The",
+      "intent": "links_in_message",
+      "answerable": true,
+      "gold": [
+        {
+          "issue": "FALKORDBTE-5"
+        }
+      ]
+    },
+    {
+      "id": "q22",
+      "type": "cross_source",
+      "question": "Which Slack messages discuss FALKORDBTE-8?",
+      "anchor": "FALKORDBTE-8",
+      "intent": "messages_about_task",
+      "answerable": true,
+      "gold": [
+        {
+          "slack": "t1-3"
+        },
+        {
+          "slack": "t2-0"
+        }
+      ]
+    },
+    {
+      "id": "q23",
+      "type": "cross_source",
+      "question": "Which Slack messages discuss FALKORDBTE-12?",
+      "anchor": "FALKORDBTE-12",
+      "intent": "messages_about_task",
+      "answerable": true,
+      "gold": [
+        {
+          "slack": "t4-4"
+        },
+        {
+          "slack": "t5-4"
+        }
+      ]
+    },
+    {
+      "id": "q24",
+      "type": "code",
+      "question": "Which branch did pull request #1 come from?",
+      "anchor": "#1",
+      "intent": "branch_of_pr",
+      "answerable": true,
+      "gold": [
+        {
+          "branch": "embeddings-1024"
+        }
+      ]
+    },
+    {
+      "id": "q25",
+      "type": "code",
+      "question": "Which branch did pull request #2 come from?",
+      "anchor": "#2",
+      "intent": "branch_of_pr",
+      "answerable": true,
+      "gold": [
+        {
+          "branch": "github-connector"
+        }
+      ]
+    },
+    {
+      "id": "q26",
+      "type": "code",
+      "question": "Which branch did pull request #4 come from?",
+      "anchor": "#4",
+      "intent": "branch_of_pr",
+      "answerable": true,
+      "gold": [
+        {
+          "branch": "git-history"
+        }
+      ]
+    },
+    {
+      "id": "q27",
+      "type": "code",
+      "question": "Which branch did pull request #6 come from?",
+      "anchor": "#6",
+      "intent": "branch_of_pr",
+      "answerable": true,
+      "gold": [
+        {
+          "branch": "agent-path-view"
+        }
+      ]
+    },
+    {
+      "id": "q28",
+      "type": "code",
+      "question": "Which branch did pull request #2 merge into?",
+      "anchor": "#2",
+      "intent": "base_of_pr",
+      "answerable": true,
+      "gold": [
+        {
+          "branch": "embeddings-1024"
+        }
+      ]
+    },
+    {
+      "id": "q29",
+      "type": "code",
+      "question": "Which branch did pull request #4 merge into?",
+      "anchor": "#4",
+      "intent": "base_of_pr",
+      "answerable": true,
+      "gold": [
+        {
+          "branch": "github-pr-linking"
+        }
+      ]
+    },
+    {
+      "id": "q30",
+      "type": "code",
+      "question": "Which commits are in pull request #4?",
+      "anchor": "#4",
+      "intent": "commits_of_pr",
+      "answerable": true,
+      "gold": [
+        {
+          "commit": "55085d42746824454daf3fafab94cfcf509da93c"
+        }
+      ]
+    },
+    {
+      "id": "q31",
+      "type": "code",
+      "question": "Which commits are in pull request #6?",
+      "anchor": "#6",
+      "intent": "commits_of_pr",
+      "answerable": true,
+      "gold": [
+        {
+          "commit": "cd74fb68971aadfdbaf6301de2a5ab046d66a1ae"
+        }
+      ]
+    },
+    {
+      "id": "q32",
+      "type": "cross_source",
+      "question": "Which pull requests mention or are linked from FALKORDBTE-15?",
+      "anchor": "FALKORDBTE-15",
+      "intent": "prs_for_task",
+      "answerable": true,
+      "gold": [
+        {
+          "pr": 4
+        },
+        {
+          "pr": 6
+        }
+      ]
+    },
+    {
+      "id": "q33",
+      "type": "cross_source",
+      "question": "Which pull requests mention or are linked from FALKORDBTE-16?",
+      "anchor": "FALKORDBTE-16",
+      "intent": "prs_for_task",
+      "answerable": true,
+      "gold": [
+        {
+          "pr": 5
+        },
+        {
+          "pr": 6
+        },
+        {
+          "pr": 8
+        }
+      ]
+    },
+    {
+      "id": "q34",
+      "type": "decisions",
+      "question": "Which document records the decision that agent-created Plane tasks need approval?",
+      "anchor": "Agent Review Workflow",
+      "intent": "decision_source_for_component",
+      "answerable": true,
+      "gold": [
+        {
+          "page": "adr-allocation"
+        }
+      ]
+    },
+    {
+      "id": "q35",
+      "type": "decisions",
+      "question": "Which document records the decision to import sources before semantic extraction?",
+      "anchor": "Source Ingestion & Evidence",
+      "intent": "decision_source_for_component",
+      "answerable": true,
+      "gold": [
+        {
+          "page": "adr-runtime"
+        }
+      ]
+    },
+    {
+      "id": "q36",
+      "type": "multi_hop",
+      "question": "Who owns the component that FALKORDBTE-9 belongs to?",
+      "anchor": "FALKORDBTE-9",
+      "intent": "owner_of_task_component",
+      "answerable": true,
+      "gold": [
+        {
+          "person": "workspace-owner"
+        }
+      ]
+    },
+    {
+      "id": "q37",
+      "type": "multi_hop",
+      "question": "Which branch carried the work announced in the Slack message \"Branch and commit linking is merged in\"?",
+      "anchor": "Branch and commit linking is merged in",
+      "intent": "branch_of_pr_linked_from_message",
+      "answerable": true,
+      "gold": [
+        {
+          "branch": "git-history"
+        }
+      ]
+    },
+    {
+      "id": "q38",
+      "type": "ownership",
+      "question": "Who owns the Billing Service component?",
+      "anchor": "Billing Service",
+      "intent": "owner_of_component",
+      "answerable": false,
+      "gold": []
+    },
+    {
+      "id": "q39",
+      "type": "ownership",
+      "question": "Who is assigned FALKORDBTE-99?",
+      "anchor": "FALKORDBTE-99",
+      "intent": "assignee_of_task",
+      "answerable": false,
+      "gold": []
+    },
+    {
+      "id": "q40",
+      "type": "dependencies",
+      "question": "Which tasks must finish before FALKORDBTE-77?",
+      "anchor": "FALKORDBTE-77",
+      "intent": "depends_on",
+      "answerable": false,
+      "gold": []
+    },
+    {
+      "id": "q41",
+      "type": "code",
+      "question": "Which branch did pull request #99 come from?",
+      "anchor": "#99",
+      "intent": "branch_of_pr",
+      "answerable": false,
+      "gold": []
+    },
+    {
+      "id": "q42",
+      "type": "code",
+      "question": "Which commits are in pull request #98?",
+      "anchor": "#98",
+      "intent": "commits_of_pr",
+      "answerable": false,
+      "gold": []
+    },
+    {
+      "id": "q43",
+      "type": "documents",
+      "question": "Which pages describe the Payments Gateway component?",
+      "anchor": "Payments Gateway",
+      "intent": "pages_for_component",
+      "answerable": false,
+      "gold": []
+    },
+    {
+      "id": "q44",
+      "type": "cross_source",
+      "question": "Which Plane tasks does the Slack message \"we migrated the payroll database to Postgres\" point to?",
+      "anchor": "we migrated the payroll database to Postgres",
+      "intent": "links_in_message",
+      "answerable": false,
+      "gold": []
+    },
+    {
+      "id": "q45",
+      "type": "decisions",
+      "question": "Which document records the decision to adopt Kafka for the event bus?",
+      "anchor": "Kafka event bus",
+      "intent": "decision_source_for_component",
+      "answerable": false,
+      "gold": []
+    }
+  ]
+}
