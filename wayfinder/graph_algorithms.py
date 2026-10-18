@@ -13,7 +13,7 @@ ALGORITHMS = ('pagerank', 'betweenness', 'components', 'shortest_path')
 DEFAULT_LABELS = ['Component', 'Person', 'Team', 'Project', 'Issue', 'DocPage', 'DocSection', 'Thread', 'Comment', 'PullRequest',
     'Review', 'Branch', 'Commit', 'Repository', 'Directory', 'Decision', 'Question', 'Argument', 'Rationale', 'Action', 'Topic']
 # Computed signals would make algorithms rank their own outputs.
-DERIVED_TYPES = ['EXPERT_IN', 'UNLISTED_EXPERT', 'BASED_ON']
+DERIVED_TYPES = ['EXPERT_IN', 'UNLISTED_EXPERT', 'BASED_ON', 'SUPERSEDES']
 MAX_NODES = 3000
 MAX_EDGES = 20000
 DISPLAY = ("coalesce(n.key,n.title,n.name,n.display_name,n.login,n.short_sha,n.summary,n.path,"

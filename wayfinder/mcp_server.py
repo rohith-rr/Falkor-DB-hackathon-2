@@ -39,8 +39,9 @@ def create_server(db=None, enable_actions=False, manifest_path=None, trace=True,
     descriptions = {
         "verify_answer": ("Check a drafted answer before giving it. Pass statements, each {text, evidence_ids}. Each statement comes "
             "back VERIFIED (cited records are current and any quoted text is in them), RECITE (source changed, same claim under a "
-            "new ID), OUT_OF_DATE (the cited claim was retired; replaced_by holds the current one), REMOVED, DISPUTED (another "
-            "source's current decision is about the same target) or UNSUPPORTED (no evidence, or a quote not in the source)."),
+            "new ID), OUT_OF_DATE (the cited claim was retired or a higher-authority or newer decision supersedes it; replaced_by "
+            "holds the one that holds now), REMOVED, DISPUTED (another source's current decision is about the same target and "
+            "neither supersedes the other) or UNSUPPORTED (no evidence, or a quote not in the source)."),
         "changes_since": ("Catch up on what changed since an ISO time, optionally around a component_id: records created and "
             "edited (from retained source revisions), records retired, and links made and broken (from relationship intervals)."),
         "stale_documents": ("List pages that may be out of date: merged pull requests changed the described component's code, or "
@@ -64,7 +65,9 @@ def create_server(db=None, enable_actions=False, manifest_path=None, trace=True,
         "validate_review_brief": "Check structured brief sections, evidence IDs, URLs, source revisions and quote presence. Does not prove semantic correctness.",
         "who_knows": "Rank distinct humans by strong code expertise for a directory, topic, or stable company Component ID (via IMPLEMENTED_IN). Includes implementation/review breakdown, PR counts, coverage and freshness. Scores are not reviewer authorization.",
         "ownership": "Read inherited declared OWNERS with activity status and top unlisted human experts; missing evidence remains unknown.",
-        "decisions": "Read decisions, rationale and arguments for a stable ID or exact KEP number, with provenance.",
+        "decisions": ("Read decisions, rationale and arguments for a stable ID or exact KEP number, with provenance. 'current' "
+            "names the decision that holds now and the chain it SUPERSEDES (computed: page or ADR > Plane > Slack, then newer); "
+            "each decision row says whether it holds and what superseded it. Superseded decisions are history, not current policy."),
         "concerns": "Read concerns and their stored resolution status for an exact target ID.",
         "stale_findings": "Read unresolved computed findings, which require source verification.",
         "graph_stats": "Count retained nodes and active versus retained relationship intervals.",

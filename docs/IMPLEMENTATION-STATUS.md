@@ -27,6 +27,7 @@ Snapshot: October 18, 2026. This report separates implementation checks from ver
 | Human-approved Plane action | Verified live: validated brief, owner approval against the payload hash, one task created, the repeat returned the same task | docs/evidence/plane-action-live.json (FALKORDBTE-16), then ingested and linked by the next sync |
 | Graph algorithms as agent tools | `graph_algorithm`: native PageRank, betweenness, connected components and shortest path over a temporary projection of current records | tests/test_graph_algorithms.py (retired history excluded, no leftover projection, traced path edges); live run: Slack message → PR #4 → `git-history` branch |
 | Truth maintenance tools | `verify_answer`, `changes_since`, `stale_documents`, `knowledge_risk`, `action_status`; plane links found by two linkers are now written once instead of flapping | tests/test_truth.py; live: a re-extracted question comes back RECITE, a quote not in the source UNSUPPORTED; both components have bus factor 1; the executed action's evidence is still current |
+| Decision supersession | `refresh` writes COMPUTED SUPERSEDES edges between current decisions about the same target: page or ADR > Plane record > Slack message, then newer; each with a reason and an interval, closed rather than deleted. `decisions` reports the holder and its chain; `verify_answer` returns OUT_OF_DATE for a superseded citation | tests/test_supersession.py (isolated graph: authority over recency, recency within a tier, scope, ties, explicit extracted supersession, retiring the holder); not yet run on the live graph |
 | Wayfinder-Bench | 45 questions committed before running, with gold from the sources; graph tools vs vector vs BM25 | benchmarks/wayfinder_bench/RESULTS.md: graph F1 0.973 (36/37 exact, 8/8 unanswerable correctly empty); vector 0.106; BM25 0.084 |
 | Agent path view | `/graph` draws the graph and highlights each MCP call's entities and route, live | Browser check with a 7-call scripted session: 13 entities highlighted in order |
 | Embedding migration | Both company graphs on perplexity/pplx-embed-v1-0.6b at 1024 dimensions | `capabilities --migrate-embeddings`; pre-migration graph copies kept locally |
@@ -34,7 +35,7 @@ Snapshot: October 18, 2026. This report separates implementation checks from ver
 
 ## Tests
 
-The full suite passes 157 tests, with fake inference keys and a local FalkorDB. All twelve read-only queries in the query catalog run against the demo graph; the action-write example is intentionally not executed.
+The full suite passes 162 tests, with fake inference keys and a local FalkorDB. All twelve read-only queries in the query catalog run against the demo graph; the action-write example is intentionally not executed.
 
 ## Remaining before submission
 

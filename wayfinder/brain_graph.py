@@ -67,6 +67,7 @@ MEANINGS = {
     "UNLISTED_EXPERT": "Computed expert absent from declared ownership",
     "ASSERTS": "Source text asserts an extracted claim",
     "ABOUT": "Decision or other knowledge concerns an entity",
+    "SUPERSEDES": "Decision outranks an older or lower-authority decision ABOUT the same target. COMPUTED by the refresh supersession pass (page or ADR > Plane issue or comment > Slack message, then newer wins), with reason, basis, scope_id and an interval; EXTRACTED when the source text says so. The superseded decision is kept as history",
     "ABOUT_TOPIC": "Source or claim is associated with a topic",
     "HAS_RATIONALE": "KEP or decision has a rationale",
     "SUPPORTS": "Argument supports an entity or proposal",
@@ -522,11 +523,18 @@ class BrainGraph:
         return result
 
     def decisions(self, target_id: str, limit: int = 20, cursor: str | None = None):
-        return self.page("""MATCH (t) WHERE t.id=$id OR (t:KEP AND t.number=$id)
+        result = self.page("""MATCH (t) WHERE t.id=$id OR (t:KEP AND t.number=$id)
             MATCH (t)-[r:HAS_RATIONALE|ABOUT|SUPPORTS|OPPOSES|RAISES_CONCERN_ON]-(n)
             WHERE r.valid_to IS NULL AND n.valid_to IS NULL AND t.valid_to IS NULL
             AND any(l IN labels(n) WHERE l IN ['Decision','Rationale','Argument'])
-            RETURN t.id AS target_id, n, r ORDER BY n.id, r.id""", {"id": target_id}, limit, cursor)
+            OPTIONAL MATCH (s:Decision)-[sup:SUPERSEDES]->(n) WHERE sup.valid_to IS NULL AND s.valid_to IS NULL
+            WITH t, n, r, collect(s.id) AS superseded_by
+            RETURN t.id AS target_id, n, r, superseded_by,
+                   CASE WHEN 'Decision' IN labels(n) THEN size(superseded_by) = 0 ELSE null END AS holds
+            ORDER BY n.id, r.id""", {"id": target_id}, limit, cursor)
+        # The decision that holds now, and the chain of decisions it superseded.
+        result["current"] = self._truth("holding_decisions", target_id)
+        return result
 
     def concerns(self, target_id: str, limit: int = 20, cursor: str | None = None):
         return self.page("MATCH (a:Argument {kind:'concern'})-[r:RAISES_CONCERN_ON]->(t) "
