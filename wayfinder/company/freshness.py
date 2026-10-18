@@ -103,7 +103,8 @@ def counts(units):
 
 
 def refresh(db,manifest,*,extract=0,slack=None,github=None,log=None):
-    """One pass: sync every configured source, then extract up to `extract` pending units (pages first).
+    """One pass: sync every configured source, extract up to `extract` pending units (pages first),
+    then recompute which decision holds for each target.
 
     extract=0 makes no model calls; it reports what is pending.
     """
@@ -127,6 +128,9 @@ def refresh(db,manifest,*,extract=0,slack=None,github=None,log=None):
             'accepted':run['diagnostics']['accepted'],'rejected':run['diagnostics']['rejected'],
             'rejection_reasons':run['diagnostics']['rejection_reasons'],'concerns':resolved,
             'results':[{k:r.get(k) for k in ('unit','accepted','rejected','skipped','error') if r.get(k) is not None} for r in run['results']]}
+    # Ranking is recomputed after extraction so new decisions take their place in each chain.
+    from ..derived.supersession import compute_supersession
+    summary['supersession']=compute_supersession(db)
     after=pending_units(db,org) if extract else before
     summary['pending_after']=counts(after)
     summary['next_pending']=[f"{u['label']} {u['source']}: {u['preview']}" for u in after[:5]]

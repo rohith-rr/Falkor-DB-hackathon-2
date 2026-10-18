@@ -68,11 +68,30 @@ retained source revisions, closed relationship intervals, and extracted claims t
 
 | Tool | Answers | How |
 |---|---|---|
-| `verify_answer` | Is each statement in my draft still supported? | Each `{text, evidence_ids}` comes back VERIFIED, RECITE, OUT_OF_DATE (with the current claim that replaced it), REMOVED, DISPUTED (a current decision from another source is about the same target) or UNSUPPORTED (no evidence, or a quoted phrase that is not in the current source) |
+| `verify_answer` | Is each statement in my draft still supported? | Each `{text, evidence_ids}` comes back VERIFIED, RECITE, OUT_OF_DATE (the cited claim was retired, or a cited decision is superseded; `replaced_by` holds the claim that holds now), REMOVED, DISPUTED (a current decision from another source is about the same target and neither supersedes the other) or UNSUPPORTED (no evidence, or a quoted phrase that is not in the current source) |
 | `changes_since` | What changed since Tuesday, around this component? | Created and edited records from source revisions; retired records; links made and broken from relationship intervals. Same-instant interval replacements are not counted as changes |
 | `stale_documents` | Which pages may be out of date? | A page is POSSIBLY_STALE when a merged PR touched its component's code, or a linked task changed, after the page was last edited |
 | `knowledge_risk` | What is this component's bus factor? What if this person leaves? | Weighted evidence share per person (ownership 3, PR authorship and review 2, code expertise 2, assigned task 1, discussion 0.5), bots excluded; bus factor is the fewest people holding more than half |
 | `action_status` | Does this approval still hold? | The payload hash is intact, the brief validates now, and no cited evidence was retired or edited after approval. `execute` enforces the same rule |
+
+### Which decision holds
+
+Several current decisions can be ABOUT the same target: an ADR, a later Plane comment, a Slack message after that.
+`refresh` runs a supersession pass after extraction (and makes no model calls for it) that writes COMPUTED
+`SUPERSEDES` edges between them:
+
+1. **Source authority first.** A page or ADR (DocPage, DocSection) outranks a Plane or GitHub record (issue, comment,
+   pull request, review), which outranks a Slack message.
+2. **Then time.** Within one authority tier the newer decision wins.
+3. **Scope.** Only decisions ABOUT the same target are compared, so a decision about a component never overrides one
+   about a single work item. Decisions with equal authority and time stay co-holders, and an explicit SUPERSEDES that
+   extraction found in the source text wins over the computed ranking.
+
+Each edge carries `reason` (for example "page outranks slack message"), `basis` (`source_authority` or `recency`),
+`scope_id`, `effective_at` and an interval. When a later run no longer derives an edge, it is closed, not deleted, and
+the older decision itself is never retired or deleted. `decisions` returns `current`: the decision that holds now and
+the chain it supersedes, and marks each decision row with `holds` and `superseded_by`. `verify_answer` reports a cited
+superseded decision as SUPERSEDED evidence and the statement as OUT_OF_DATE, with `replaced_by` pointing at the holder.
 
 These are review signals computed from recorded evidence. A stale flag is not proof a page is wrong, and a bus factor measures recorded work, not what people know.
 
@@ -160,7 +179,7 @@ in `.env`, not in client configurations or tool arguments.
 | Tools | Use |
 |---|---|
 | `who_knows`, `ownership` | Distinct human experts and inherited declared owners; activity scores and evidence |
-| `decisions`, `concerns`, `stale_findings` | Rationale, arguments, concern status, unresolved computed findings |
+| `decisions`, `concerns`, `stale_findings` | Rationale, arguments, which decision holds and what it superseded, concern status, unresolved computed findings |
 | `graph_stats`, `graph_schema`, `knowledge_coverage` | Discover graph structure, retained/active counts and coverage limitations |
 | `search_entities`, `get_entity` | Resolve names to IDs; inspect properties, provenance and source text |
 | `semantic_search` | One explicit query embedding followed by native Topic/Argument/Comment vector retrieval; no database writes |
