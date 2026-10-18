@@ -35,7 +35,7 @@ def create_server(db=None, enable_actions=False, manifest_path=None, trace=True,
              "graph_schema", "search_entities", "get_entity", "get_neighbors", "find_paths", "get_evidence",
              "get_thread", "person_context", "component_context", "list_questions", "recent_activity",
              "knowledge_coverage", "read_cypher", "company_context", "validate_review_brief", "semantic_search",
-             "graph_algorithm", "verify_answer", "changes_since", "stale_documents", "knowledge_risk", "action_status"]
+             "graph_algorithm", "verify_answer", "changes_since", "stale_documents", "knowledge_risk", "action_status", "answer_status"]
     descriptions = {
         "verify_answer": ("Check a drafted answer before giving it. Pass statements, each {text, evidence_ids}. Each statement comes "
             "back VERIFIED (cited records are current and any quoted text is in them), RECITE (source changed, same claim under a "
@@ -48,6 +48,9 @@ def create_server(db=None, enable_actions=False, manifest_path=None, trace=True,
         "knowledge_risk": ("For a Component ID: who holds its knowledge (ownership, assigned tasks, authored and reviewed PRs, "
             "code expertise, discussion) and its bus factor. For a Person ID: what would lose its only owner, assignee or expert "
             "if they left. Measures recorded evidence, not actual knowledge; bots excluded."),
+        "answer_status": ("Re-verify saved answers against the current graph without writing. With answer_id: that answer's "
+            "verdict now, per statement, and why it changed. Without: every saved answer, listing those whose verdict changed "
+            "since it was saved or last refreshed, and those already marked stale."),
         "action_status": ("Check whether an approved or executed action still holds: its payload hash is intact, its brief "
             "validates now, and none of its cited evidence was retired or edited after approval."),
         "graph_algorithm": ("Run a FalkorDB native graph algorithm over the current graph (retired history excluded): "
@@ -146,6 +149,22 @@ def create_server(db=None, enable_actions=False, manifest_path=None, trace=True,
             from wayfinder.company.core import response_context
             result={**actions.execute(action_id),'context':response_context(db)}
             tracer.record('execute_plane_work_item',{'action_id':action_id},result)
+            return result
+
+        from wayfinder import answers, truth
+
+        @server.tool(annotations=ToolAnnotations(readOnlyHint=False,destructiveHint=False,idempotentHint=True,openWorldHint=False))
+        def save_answer(question: str, statements: list[dict[str, Any]]) -> dict[str, Any]:
+            """Save an answer so it can invalidate itself. Pass the question and statements, each {text, evidence_ids}. The
+            statements are checked with verify_answer and stored as an Answer node with CITES edges to the cited records.
+            Every refresh re-verifies saved answers and marks one stale, with the reason, once it stops being VERIFIED."""
+            from wayfinder.company.core import response_context
+            try: result=answers.save_answer(db,brain.rows,question,statements)
+            except truth.TruthError as exc:
+                tracer.record('save_answer',{'question':question,'statements':statements},error=f'INVALID_REQUEST: {exc}')
+                raise ValueError(f'INVALID_REQUEST: {exc}') from exc
+            result={**result,'context':response_context(db)}
+            tracer.record('save_answer',{'question':question,'statements':statements},result)
             return result
 
     return server

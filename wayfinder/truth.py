@@ -121,7 +121,7 @@ def _scope(rows, component_id, hops=2):
     if not component_id: return None
     found = rows(f'MATCH (c {{id:$id}}) MATCH p=(c)-[*0..{int(hops)}]-(n) WHERE all(r IN relationships(p) WHERE r.valid_to IS NULL) '
                  # A person links everything they touch; walking through one would widen the scope to all their work.
-                 "AND none(x IN nodes(p)[1..size(nodes(p))-1] WHERE 'Person' IN labels(x)) "
+                 "AND none(x IN nodes(p)[1..size(nodes(p))-1] WHERE 'Person' IN labels(x) OR 'Answer' IN labels(x)) "
                  'RETURN collect(DISTINCT n.id) AS ids', {'id': component_id})
     if not found or not found[0]['ids']: raise TruthError('component_id is not a current entity')
     return found[0]['ids']

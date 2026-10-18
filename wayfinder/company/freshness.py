@@ -102,10 +102,12 @@ def counts(units):
     return out
 
 
-def refresh(db,manifest,*,extract=0,slack=None,github=None,log=None):
-    """One pass: sync every configured source, then extract up to `extract` pending units (pages first).
+def refresh(db,manifest,*,extract=0,slack=None,github=None,log=None,notify_slack=False):
+    """One pass: sync every configured source, then extract up to `extract` pending units (pages first),
+    then re-verify saved answers and mark the ones that stopped being VERIFIED as stale.
 
-    extract=0 makes no model calls; it reports what is pending.
+    extract=0 makes no model calls; it reports what is pending. notify_slack posts one message
+    per newly stale answer to the sandbox channel.
     """
     from .extract import pending_units,extract_units
     from ..derived.concerns import ConcernResolver
@@ -130,6 +132,12 @@ def refresh(db,manifest,*,extract=0,slack=None,github=None,log=None):
     after=pending_units(db,org) if extract else before
     summary['pending_after']=counts(after)
     summary['next_pending']=[f"{u['label']} {u['source']}: {u['preview']}" for u in after[:5]]
+    from ..answers import mark_stale
+    from ..brain_graph import BrainGraph
+    summary['answers']=mark_stale(db,BrainGraph(db).rows)
+    if notify_slack:
+        from .slack import notify_stale_answers
+        summary['answers']['notifications']=notify_stale_answers(manifest,summary['answers']['newly_stale'])
     summary['duration_seconds']=round(time.monotonic()-clock,2)
     if log:
         log=Path(log); log.parent.mkdir(parents=True,exist_ok=True)

@@ -21,14 +21,14 @@ from . import agent_trace
 ASSETS=Path(__file__).parent/'web'
 # Shown in the graph view; provenance and calculation records (revisions, coverage, files) would drown it.
 VIEW_LABELS=['Component','Person','Team','Project','Issue','DocPage','Thread','Comment','PullRequest','Review',
-    'Branch','Commit','Repository','Directory','Decision','Question','Argument','Rationale','Action','Topic']
+    'Branch','Commit','Repository','Directory','Decision','Question','Argument','Rationale','Action','Topic','Answer']
 DISPLAY=("coalesce(n.key,n.title,n.name,n.display_name,n.login,n.short_sha,n.summary,n.path,"
     "substring(coalesce(n.text_content,n.body_text,''),0,70),n.id)")
 READ_TOOLS={'who_knows','ownership','decisions','concerns','stale_findings','graph_stats','graph_schema',
     'search_entities','get_entity','get_neighbors','find_paths','get_evidence','get_thread','person_context',
     'component_context','list_questions','recent_activity','knowledge_coverage','read_cypher','company_context',
     'validate_review_brief','semantic_search','graph_algorithm',
-    'verify_answer','changes_since','stale_documents','knowledge_risk','action_status'}
+    'verify_answer','changes_since','stale_documents','knowledge_risk','action_status','answer_status'}
 
 
 def describe(db,ids):
@@ -75,6 +75,11 @@ def create_app(db=None,enable_live=False):
             value['nodes']=describe(db,mentioned); value['graph']=db.graph_name
             return value
         return JSONResponse(await run_in_threadpool(read))
+    async def saved_answers(request):
+        # Stored verdicts as the last refresh left them; works on any graph, unlike /api/state.
+        from .answers import stale_answers
+        try: return JSONResponse(await run_in_threadpool(lambda:{**stale_answers(brain.rows),'graph':db.graph_name}))
+        except Exception: return JSONResponse({'error':'Saved answers are unavailable','graph':db.graph_name},status_code=503)
     async def session(request): return JSONResponse({'token':token,'enable_live':enable_live})
     async def state(request):
         component=request.query_params.get('component','company:northstar:component:resource-allocation')
@@ -128,7 +133,7 @@ def create_app(db=None,enable_live=False):
             finally: proof_lock.release()
         except Exception as exc:
             return JSONResponse({'error':type(exc).__name__,'message':'Proof step failed; inspect its saved run log. No substitute result was inserted.'},status_code=400)
-    app=Starlette(routes=[Route('/',home),Route('/graph',graph_page),Route('/api/graph',graph_data),Route('/api/trace',trace),Route('/api/session',session),Route('/api/state',state),
+    app=Starlette(routes=[Route('/',home),Route('/graph',graph_page),Route('/api/graph',graph_data),Route('/api/trace',trace),Route('/api/session',session),Route('/api/state',state),Route('/api/answers',saved_answers),
         Route('/api/tools/{name}',tool,methods=['POST']),Route('/api/proofs',create_proof,methods=['POST']),
         Route('/api/proofs/{run_id}/advance',advance_proof,methods=['POST']),Mount('/assets',StaticFiles(directory=ASSETS))])
     app.add_middleware(TrustedHostMiddleware,allowed_hosts=['127.0.0.1','localhost','testserver'])

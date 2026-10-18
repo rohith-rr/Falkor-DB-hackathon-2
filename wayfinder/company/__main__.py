@@ -17,6 +17,7 @@ def main():
     refresh=sub.add_parser('refresh',help='Sync every configured source, then extract up to N pending units (pages first)')
     refresh.add_argument('--extract',type=int,default=0,help='Max units to extract (one generation call each); 0 makes no model calls')
     refresh.add_argument('--no-slack',action='store_true'); refresh.add_argument('--no-github',action='store_true')
+    refresh.add_argument('--notify-slack',action='store_true',help='Post one message per newly stale saved answer to the sandbox channel')
     watch=sub.add_parser('watch',help='Poll allowlisted sources and log what each sync changed')
     watch.add_argument('--slack',action='store_true'); watch.add_argument('--github',action='store_true'); watch.add_argument('--interval',type=int,default=120)
     watch.add_argument('--iterations',type=int); watch.add_argument('--log')
@@ -42,7 +43,7 @@ def main():
         from .freshness import refresh
         if not 0<=args.extract<=100: raise SystemExit('--extract must be 0..100')
         result=refresh(db,manifest,extract=args.extract,slack=False if args.no_slack else None,
-            github=False if args.no_github else None,log=Path('data')/f'sync-log-{args.graph}.jsonl')
+            github=False if args.no_github else None,log=Path('data')/f'sync-log-{args.graph}.jsonl',notify_slack=args.notify_slack)
     elif args.command=='watch':
         from .freshness import watch
         if args.interval<60: raise SystemExit('Plane allows about 60 API requests per minute; use --interval 60 or more')
