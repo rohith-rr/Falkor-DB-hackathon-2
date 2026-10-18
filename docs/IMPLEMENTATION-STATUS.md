@@ -26,6 +26,7 @@ Snapshot: October 18, 2026. This report separates implementation checks from ver
 | Semantic extraction | Owner-approved bounded runs; low recall | docs/evidence/live-connector-extraction.json (eight units, mistral-nemo); later runs on three Plane comments and the product-brief page with deepseek-v4-flash. 10 current claims: 1 Decision, 3 Rationales, 2 Arguments, 4 Questions |
 | Human-approved Plane action | Verified live: validated brief, owner approval against the payload hash, one task created, the repeat returned the same task | docs/evidence/plane-action-live.json (FALKORDBTE-16), then ingested and linked by the next sync |
 | Graph algorithms as agent tools | `graph_algorithm`: native PageRank, betweenness, connected components and shortest path over a temporary projection of current records | tests/test_graph_algorithms.py (retired history excluded, no leftover projection, traced path edges); live run: Slack message → PR #4 → `git-history` branch |
+| Wayfinder-Bench | 45 questions committed before running, with gold from the sources; graph tools vs vector vs BM25 | benchmarks/wayfinder_bench/RESULTS.md: graph F1 0.973 (36/37 exact, 8/8 unanswerable correctly empty); vector 0.106; BM25 0.084 |
 | Agent path view | `/graph` draws the graph and highlights each MCP call's entities and route, live | Browser check with a 7-call scripted session: 13 entities highlighted in order |
 | Embedding migration | Both company graphs on perplexity/pplx-embed-v1-0.6b at 1024 dimensions | `capabilities --migrate-embeddings`; pre-migration graph copies kept locally |
 | Offline rebuild | A scrubbed recording of 104 real Plane/Slack responses replays through the connectors without credentials | fixtures/live-replay; tests/test_live_replay.py includes a leak scan |
@@ -39,4 +40,4 @@ The full suite passes 140 tests, with fake inference keys and a local FalkorDB. 
 - **Record the video.** See [DEMO.md](DEMO.md) for the side-by-side agent and graph setup.
 - **Make the repository readable to judges.** It is currently private.
 - **Optional:** extract the two remaining pages (the review checklist and runbook) with `refresh --extract 2`.
-- **Not done:** independent evaluation of agent answers (FALKORDBTE-11). Semantic accuracy remains unmeasured.
+- **Partly done:** Wayfinder-Bench measures retrieval with a templated planner. An LLM-agent run (the same model with graph tools, with vector search, or with everything in one prompt) and independent review of answers (FALKORDBTE-11) remain.

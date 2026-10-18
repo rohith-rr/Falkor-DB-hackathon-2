@@ -1,0 +1,2524 @@
+{
+  "benchmark": "Wayfinder-Bench",
+  "version": 1,
+  "graph": "wayfinder_company_live_demo",
+  "run_at": "2026-10-18T07:30:00.822786+00:00",
+  "questions": 45,
+  "answerable": 37,
+  "top_k_for_text_baselines": 5,
+  "corpus_records": 134,
+  "embedding_model": "perplexity/pplx-embed-v1-0.6b",
+  "embedding_requests": 0,
+  "graph_tool_calls": 90,
+  "llm_generation_requests": 0,
+  "summary": {
+    "graph": {
+      "answerable_f1": 0.973,
+      "answerable_recall": 0.973,
+      "answerable_exact": 0.973,
+      "unanswerable_correct": 1.0,
+      "overall_correct": 0.978,
+      "f1_by_type": {
+        "code": 1.0,
+        "component": 1.0,
+        "cross_source": 1.0,
+        "decisions": 0.5,
+        "dependencies": 1.0,
+        "documents": 1.0,
+        "multi_hop": 1.0,
+        "ownership": 1.0
+      }
+    },
+    "vector": {
+      "answerable_f1": 0.106,
+      "answerable_recall": 0.234,
+      "answerable_exact": 0.0,
+      "unanswerable_correct": 0.0,
+      "overall_correct": 0.0,
+      "f1_by_type": {
+        "code": 0.0,
+        "component": 0.091,
+        "cross_source": 0.1,
+        "decisions": 0.333,
+        "dependencies": 0.235,
+        "documents": 0.333,
+        "multi_hop": 0.0,
+        "ownership": 0.0
+      }
+    },
+    "bm25": {
+      "answerable_f1": 0.084,
+      "answerable_recall": 0.197,
+      "answerable_exact": 0.0,
+      "unanswerable_correct": 0.0,
+      "overall_correct": 0.0,
+      "f1_by_type": {
+        "code": 0.042,
+        "component": 0.091,
+        "cross_source": 0.15,
+        "decisions": 0.333,
+        "dependencies": 0.033,
+        "documents": 0.111,
+        "multi_hop": 0.0,
+        "ownership": 0.0
+      }
+    }
+  },
+  "seconds": {
+    "graph": 0.81,
+    "vector": 0.31,
+    "bm25": 0.01
+  },
+  "embedding_seconds": 0.2,
+  "results": {
+    "graph": [
+      {
+        "id": "q01",
+        "type": "ownership",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "person:workspace-owner"
+        ],
+        "gold": [
+          "person:workspace-owner"
+        ]
+      },
+      {
+        "id": "q02",
+        "type": "ownership",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "person:workspace-owner"
+        ],
+        "gold": [
+          "person:workspace-owner"
+        ]
+      },
+      {
+        "id": "q03",
+        "type": "ownership",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "person:workspace-owner"
+        ],
+        "gold": [
+          "person:workspace-owner"
+        ]
+      },
+      {
+        "id": "q04",
+        "type": "ownership",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "person:workspace-owner"
+        ],
+        "gold": [
+          "person:workspace-owner"
+        ]
+      },
+      {
+        "id": "q05",
+        "type": "ownership",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "person:workspace-owner"
+        ],
+        "gold": [
+          "person:workspace-owner"
+        ]
+      },
+      {
+        "id": "q06",
+        "type": "dependencies",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "issue:FALKORDBTE-1",
+          "issue:FALKORDBTE-2"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-1",
+          "issue:FALKORDBTE-2"
+        ]
+      },
+      {
+        "id": "q07",
+        "type": "dependencies",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "issue:FALKORDBTE-8"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-8"
+        ]
+      },
+      {
+        "id": "q08",
+        "type": "dependencies",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "issue:FALKORDBTE-1",
+          "issue:FALKORDBTE-5",
+          "issue:FALKORDBTE-3",
+          "issue:FALKORDBTE-2"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-1",
+          "issue:FALKORDBTE-2",
+          "issue:FALKORDBTE-3",
+          "issue:FALKORDBTE-5"
+        ]
+      },
+      {
+        "id": "q09",
+        "type": "dependencies",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "issue:FALKORDBTE-7",
+          "issue:FALKORDBTE-8"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-7",
+          "issue:FALKORDBTE-8"
+        ]
+      },
+      {
+        "id": "q10",
+        "type": "dependencies",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "issue:FALKORDBTE-7",
+          "issue:FALKORDBTE-8"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-7",
+          "issue:FALKORDBTE-8"
+        ]
+      },
+      {
+        "id": "q11",
+        "type": "dependencies",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "issue:FALKORDBTE-6",
+          "issue:FALKORDBTE-10",
+          "issue:FALKORDBTE-11",
+          "issue:FALKORDBTE-5",
+          "issue:FALKORDBTE-9"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-5",
+          "issue:FALKORDBTE-6",
+          "issue:FALKORDBTE-9",
+          "issue:FALKORDBTE-10",
+          "issue:FALKORDBTE-11"
+        ]
+      },
+      {
+        "id": "q12",
+        "type": "component",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "issue:FALKORDBTE-1",
+          "issue:FALKORDBTE-6",
+          "issue:FALKORDBTE-5",
+          "issue:FALKORDBTE-4",
+          "issue:FALKORDBTE-3",
+          "issue:FALKORDBTE-2"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-1",
+          "issue:FALKORDBTE-2",
+          "issue:FALKORDBTE-3",
+          "issue:FALKORDBTE-4",
+          "issue:FALKORDBTE-5",
+          "issue:FALKORDBTE-6"
+        ]
+      },
+      {
+        "id": "q13",
+        "type": "documents",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "page:rfc-retry",
+          "page:runbook-runtime",
+          "page:ownership",
+          "page:adr-runtime"
+        ],
+        "gold": [
+          "page:ownership",
+          "page:adr-runtime",
+          "page:runbook-runtime",
+          "page:rfc-retry"
+        ]
+      },
+      {
+        "id": "q14",
+        "type": "component",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "issue:FALKORDBTE-10",
+          "issue:FALKORDBTE-11",
+          "issue:FALKORDBTE-7",
+          "issue:FALKORDBTE-12",
+          "issue:FALKORDBTE-9",
+          "issue:FALKORDBTE-8"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-7",
+          "issue:FALKORDBTE-8",
+          "issue:FALKORDBTE-9",
+          "issue:FALKORDBTE-10",
+          "issue:FALKORDBTE-11",
+          "issue:FALKORDBTE-12"
+        ]
+      },
+      {
+        "id": "q15",
+        "type": "documents",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "page:rfc-retry",
+          "page:adr-allocation",
+          "page:runbook-allocation",
+          "page:ownership"
+        ],
+        "gold": [
+          "page:ownership",
+          "page:adr-allocation",
+          "page:runbook-allocation",
+          "page:rfc-retry"
+        ]
+      },
+      {
+        "id": "q16",
+        "type": "cross_source",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "issue:FALKORDBTE-1"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-1"
+        ]
+      },
+      {
+        "id": "q17",
+        "type": "cross_source",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "issue:FALKORDBTE-8"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-8"
+        ]
+      },
+      {
+        "id": "q18",
+        "type": "cross_source",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "page:rfc-retry"
+        ],
+        "gold": [
+          "page:rfc-retry"
+        ]
+      },
+      {
+        "id": "q19",
+        "type": "cross_source",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "page:adr-allocation"
+        ],
+        "gold": [
+          "page:adr-allocation"
+        ]
+      },
+      {
+        "id": "q20",
+        "type": "cross_source",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "issue:FALKORDBTE-12"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-12"
+        ]
+      },
+      {
+        "id": "q21",
+        "type": "cross_source",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "issue:FALKORDBTE-5"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-5"
+        ]
+      },
+      {
+        "id": "q22",
+        "type": "cross_source",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "slack:t2-0",
+          "slack:t1-3"
+        ],
+        "gold": [
+          "slack:t1-3",
+          "slack:t2-0"
+        ]
+      },
+      {
+        "id": "q23",
+        "type": "cross_source",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "slack:t4-4",
+          "slack:t5-4"
+        ],
+        "gold": [
+          "slack:t4-4",
+          "slack:t5-4"
+        ]
+      },
+      {
+        "id": "q24",
+        "type": "code",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "branch:embeddings-1024"
+        ],
+        "gold": [
+          "branch:embeddings-1024"
+        ]
+      },
+      {
+        "id": "q25",
+        "type": "code",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "branch:github-connector"
+        ],
+        "gold": [
+          "branch:github-connector"
+        ]
+      },
+      {
+        "id": "q26",
+        "type": "code",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "branch:git-history"
+        ],
+        "gold": [
+          "branch:git-history"
+        ]
+      },
+      {
+        "id": "q27",
+        "type": "code",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "branch:agent-path-view"
+        ],
+        "gold": [
+          "branch:agent-path-view"
+        ]
+      },
+      {
+        "id": "q28",
+        "type": "code",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "branch:embeddings-1024"
+        ],
+        "gold": [
+          "branch:embeddings-1024"
+        ]
+      },
+      {
+        "id": "q29",
+        "type": "code",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "branch:github-pr-linking"
+        ],
+        "gold": [
+          "branch:github-pr-linking"
+        ]
+      },
+      {
+        "id": "q30",
+        "type": "code",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "commit:55085d42746824454daf3fafab94cfcf509da93c"
+        ],
+        "gold": [
+          "commit:55085d42746824454daf3fafab94cfcf509da93c"
+        ]
+      },
+      {
+        "id": "q31",
+        "type": "code",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "commit:cd74fb68971aadfdbaf6301de2a5ab046d66a1ae"
+        ],
+        "gold": [
+          "commit:cd74fb68971aadfdbaf6301de2a5ab046d66a1ae"
+        ]
+      },
+      {
+        "id": "q32",
+        "type": "cross_source",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "pr:4",
+          "pr:6"
+        ],
+        "gold": [
+          "pr:4",
+          "pr:6"
+        ]
+      },
+      {
+        "id": "q33",
+        "type": "cross_source",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "pr:5",
+          "pr:6",
+          "pr:8"
+        ],
+        "gold": [
+          "pr:5",
+          "pr:6",
+          "pr:8"
+        ]
+      },
+      {
+        "id": "q34",
+        "type": "decisions",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "page:adr-allocation"
+        ],
+        "gold": [
+          "page:adr-allocation"
+        ]
+      },
+      {
+        "id": "q35",
+        "type": "decisions",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [],
+        "gold": [
+          "page:adr-runtime"
+        ]
+      },
+      {
+        "id": "q36",
+        "type": "multi_hop",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "person:workspace-owner"
+        ],
+        "gold": [
+          "person:workspace-owner"
+        ]
+      },
+      {
+        "id": "q37",
+        "type": "multi_hop",
+        "answerable": true,
+        "correct": true,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "predicted": [
+          "branch:git-history"
+        ],
+        "gold": [
+          "branch:git-history"
+        ]
+      },
+      {
+        "id": "q38",
+        "type": "ownership",
+        "answerable": false,
+        "correct": true,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "predicted": [],
+        "gold": []
+      },
+      {
+        "id": "q39",
+        "type": "ownership",
+        "answerable": false,
+        "correct": true,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "predicted": [],
+        "gold": []
+      },
+      {
+        "id": "q40",
+        "type": "dependencies",
+        "answerable": false,
+        "correct": true,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "predicted": [],
+        "gold": []
+      },
+      {
+        "id": "q41",
+        "type": "code",
+        "answerable": false,
+        "correct": true,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "predicted": [],
+        "gold": []
+      },
+      {
+        "id": "q42",
+        "type": "code",
+        "answerable": false,
+        "correct": true,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "predicted": [],
+        "gold": []
+      },
+      {
+        "id": "q43",
+        "type": "documents",
+        "answerable": false,
+        "correct": true,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "predicted": [],
+        "gold": []
+      },
+      {
+        "id": "q44",
+        "type": "cross_source",
+        "answerable": false,
+        "correct": true,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "predicted": [],
+        "gold": []
+      },
+      {
+        "id": "q45",
+        "type": "decisions",
+        "answerable": false,
+        "correct": true,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "predicted": [],
+        "gold": []
+      }
+    ],
+    "vector": [
+      {
+        "id": "q01",
+        "type": "ownership",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Component:Agent Review Workflow",
+          "Issue:FALKORDBTE-16",
+          "Comment:<owner>, this belongs to the Age",
+          "DocPage:Wayfinder: Product brief and responsibilities",
+          "DocPage:Review checklist: Sources, freshness, and approved actions"
+        ],
+        "gold": [
+          "person:workspace-owner"
+        ]
+      },
+      {
+        "id": "q02",
+        "type": "ownership",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Component:Source Ingestion & Evidence",
+          "Comment:The source-navigation session passes. Ke",
+          "DocPage:Wayfinder: Product brief and responsibilities",
+          "DocPage:ADR-001: Import sources before semantic extraction",
+          "PullRequest:9"
+        ],
+        "gold": [
+          "person:workspace-owner"
+        ]
+      },
+      {
+        "id": "q03",
+        "type": "ownership",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Comment:FALKORDBTE-9 is still open: the approved",
+          "Comment:Branch and commit linking is merged in <",
+          "Issue:FALKORDBTE-1",
+          "Issue:FALKORDBTE-16",
+          "Issue:FALKORDBTE-10"
+        ],
+        "gold": [
+          "person:workspace-owner"
+        ]
+      },
+      {
+        "id": "q04",
+        "type": "ownership",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Comment:FALKORDBTE-9 is still open: the approved",
+          "Issue:FALKORDBTE-8",
+          "Comment:Branch and commit linking is merged in <",
+          "Issue:FALKORDBTE-9",
+          "Issue:FALKORDBTE-16"
+        ],
+        "gold": [
+          "person:workspace-owner"
+        ]
+      },
+      {
+        "id": "q05",
+        "type": "ownership",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Comment:FALKORDBTE-9 is still open: the approved",
+          "Comment:Branch and commit linking is merged in <",
+          "Issue:FALKORDBTE-12",
+          "Issue:FALKORDBTE-10",
+          "Issue:FALKORDBTE-1"
+        ],
+        "gold": [
+          "person:workspace-owner"
+        ]
+      },
+      {
+        "id": "q06",
+        "type": "dependencies",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.2,
+        "recall": 0.5,
+        "f1": 0.28571428571428575,
+        "predicted": [
+          "Comment:FALKORDBTE-9 is still open: the approved",
+          "Issue:FALKORDBTE-12",
+          "Comment:Branch and commit linking is merged in <",
+          "issue:FALKORDBTE-1",
+          "Issue:FALKORDBTE-8"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-1",
+          "issue:FALKORDBTE-2"
+        ]
+      },
+      {
+        "id": "q07",
+        "type": "dependencies",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "predicted": [
+          "Comment:FALKORDBTE-9 is still open: the approved",
+          "Issue:FALKORDBTE-12",
+          "issue:FALKORDBTE-1",
+          "issue:FALKORDBTE-8",
+          "Comment:Branch and commit linking is merged in <"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-8"
+        ]
+      },
+      {
+        "id": "q08",
+        "type": "dependencies",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.2,
+        "recall": 0.25,
+        "f1": 0.22222222222222224,
+        "predicted": [
+          "issue:FALKORDBTE-8",
+          "Comment:FALKORDBTE-9 is still open: the approved",
+          "Issue:FALKORDBTE-12",
+          "Issue:FALKORDBTE-9",
+          "issue:FALKORDBTE-1"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-1",
+          "issue:FALKORDBTE-2",
+          "issue:FALKORDBTE-3",
+          "issue:FALKORDBTE-5"
+        ]
+      },
+      {
+        "id": "q09",
+        "type": "dependencies",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.2,
+        "recall": 0.5,
+        "f1": 0.28571428571428575,
+        "predicted": [
+          "Comment:FALKORDBTE-9 is still open: the approved",
+          "Issue:FALKORDBTE-9",
+          "Issue:FALKORDBTE-12",
+          "issue:FALKORDBTE-1",
+          "issue:FALKORDBTE-8"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-7",
+          "issue:FALKORDBTE-8"
+        ]
+      },
+      {
+        "id": "q10",
+        "type": "dependencies",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.2,
+        "recall": 0.5,
+        "f1": 0.28571428571428575,
+        "predicted": [
+          "Comment:FALKORDBTE-9 is still open: the approved",
+          "Issue:FALKORDBTE-12",
+          "issue:FALKORDBTE-1",
+          "Issue:FALKORDBTE-11",
+          "issue:FALKORDBTE-8"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-7",
+          "issue:FALKORDBTE-8"
+        ]
+      },
+      {
+        "id": "q11",
+        "type": "dependencies",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Issue:FALKORDBTE-12",
+          "Comment:FALKORDBTE-9 is still open: the approved",
+          "issue:FALKORDBTE-1",
+          "Comment:Branch and commit linking is merged in <",
+          "Comment:Wayfinder project demo: these staged con"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-5",
+          "issue:FALKORDBTE-6",
+          "issue:FALKORDBTE-9",
+          "issue:FALKORDBTE-10",
+          "issue:FALKORDBTE-11"
+        ]
+      },
+      {
+        "id": "q12",
+        "type": "component",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.2,
+        "recall": 0.16666666666666666,
+        "f1": 0.1818181818181818,
+        "predicted": [
+          "Component:Source Ingestion & Evidence",
+          "Comment:The source-navigation session passes. Ke",
+          "DocPage:ADR-001: Import sources before semantic extraction",
+          "DocPage:Runbook: Check connectors and refresh source evidence",
+          "issue:FALKORDBTE-1"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-1",
+          "issue:FALKORDBTE-2",
+          "issue:FALKORDBTE-3",
+          "issue:FALKORDBTE-4",
+          "issue:FALKORDBTE-5",
+          "issue:FALKORDBTE-6"
+        ]
+      },
+      {
+        "id": "q13",
+        "type": "documents",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.4,
+        "recall": 0.5,
+        "f1": 0.4444444444444445,
+        "predicted": [
+          "Component:Source Ingestion & Evidence",
+          "Comment:The source-navigation session passes. Ke",
+          "page:runbook-runtime",
+          "page:adr-runtime",
+          "DocPage:Review checklist: Sources, freshness, and approved actions"
+        ],
+        "gold": [
+          "page:ownership",
+          "page:adr-runtime",
+          "page:runbook-runtime",
+          "page:rfc-retry"
+        ]
+      },
+      {
+        "id": "q14",
+        "type": "component",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Component:Agent Review Workflow",
+          "Issue:FALKORDBTE-16",
+          "Comment:<owner>, this belongs to the Age",
+          "PullRequest:5",
+          "Commit:66d6e8e"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-7",
+          "issue:FALKORDBTE-8",
+          "issue:FALKORDBTE-9",
+          "issue:FALKORDBTE-10",
+          "issue:FALKORDBTE-11",
+          "issue:FALKORDBTE-12"
+        ]
+      },
+      {
+        "id": "q15",
+        "type": "documents",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.2,
+        "recall": 0.25,
+        "f1": 0.22222222222222224,
+        "predicted": [
+          "Component:Agent Review Workflow",
+          "Comment:<owner>, this belongs to the Age",
+          "Issue:FALKORDBTE-16",
+          "page:runbook-allocation",
+          "PullRequest:5"
+        ],
+        "gold": [
+          "page:ownership",
+          "page:adr-allocation",
+          "page:runbook-allocation",
+          "page:rfc-retry"
+        ]
+      },
+      {
+        "id": "q16",
+        "type": "cross_source",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "predicted": [
+          "Comment:The Plane task list is importing. Before",
+          "issue:FALKORDBTE-1",
+          "Comment:Slack history and replies also work. We ",
+          "page:adr-runtime",
+          "Commit:0ab144d"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-1"
+        ]
+      },
+      {
+        "id": "q17",
+        "type": "cross_source",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Commit:0ab144d",
+          "Comment:We still need to repeat the semantic pro",
+          "Comment:The exact source-text transfer is still ",
+          "issue:FALKORDBTE-9",
+          "issue:FALKORDBTE-3"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-8"
+        ]
+      },
+      {
+        "id": "q18",
+        "type": "cross_source",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "page:adr-allocation",
+          "Comment:Slack history and replies also work. We ",
+          "Comment:The exact source-text transfer is still ",
+          "Comment:We need explicit permission to send the ",
+          "issue:FALKORDBTE-1"
+        ],
+        "gold": [
+          "page:rfc-retry"
+        ]
+      },
+      {
+        "id": "q19",
+        "type": "cross_source",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "predicted": [
+          "Comment:Can the agent create a follow-up as soon",
+          "page:adr-allocation",
+          "Commit:0ab144d",
+          "issue:FALKORDBTE-1",
+          "Commit:66d6e8e"
+        ],
+        "gold": [
+          "page:adr-allocation"
+        ]
+      },
+      {
+        "id": "q20",
+        "type": "cross_source",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "issue:FALKORDBTE-5",
+          "issue:FALKORDBTE-1",
+          "issue:FALKORDBTE-4",
+          "PullRequest:3",
+          "Commit:0ab144d"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-12"
+        ]
+      },
+      {
+        "id": "q21",
+        "type": "cross_source",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "predicted": [
+          "Comment:State the source scope and missing GitHu",
+          "PullRequest:3",
+          "Commit:f5e9179",
+          "Commit:d897621",
+          "issue:FALKORDBTE-5"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-5"
+        ]
+      },
+      {
+        "id": "q22",
+        "type": "cross_source",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "issue:FALKORDBTE-2",
+          "issue:FALKORDBTE-8",
+          "Comment:Slack history and replies also work. We ",
+          "issue:FALKORDBTE-5",
+          "Comment:FALKORDBTE-9 is still open: the approved"
+        ],
+        "gold": [
+          "slack:t1-3",
+          "slack:t2-0"
+        ]
+      },
+      {
+        "id": "q23",
+        "type": "cross_source",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "issue:FALKORDBTE-2",
+          "Comment:Slack history and replies also work. We ",
+          "Comment:Branch and commit linking is merged in <",
+          "issue:FALKORDBTE-5",
+          "issue:FALKORDBTE-4"
+        ],
+        "gold": [
+          "slack:t4-4",
+          "slack:t5-4"
+        ]
+      },
+      {
+        "id": "q24",
+        "type": "code",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Commit:2399e96",
+          "Commit:f4dd1a3",
+          "PullRequest:2",
+          "PullRequest:4",
+          "Commit:d897621"
+        ],
+        "gold": [
+          "branch:embeddings-1024"
+        ]
+      },
+      {
+        "id": "q25",
+        "type": "code",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Commit:f4dd1a3",
+          "Commit:2399e96",
+          "PullRequest:2",
+          "PullRequest:4",
+          "Commit:0ea66a7"
+        ],
+        "gold": [
+          "branch:github-connector"
+        ]
+      },
+      {
+        "id": "q26",
+        "type": "code",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Commit:2399e96",
+          "PullRequest:4",
+          "Commit:f4dd1a3",
+          "PullRequest:2",
+          "Commit:0ea66a7"
+        ],
+        "gold": [
+          "branch:git-history"
+        ]
+      },
+      {
+        "id": "q27",
+        "type": "code",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Commit:2399e96",
+          "Commit:d897621",
+          "PullRequest:2",
+          "Commit:0ea66a7",
+          "Commit:f4dd1a3"
+        ],
+        "gold": [
+          "branch:agent-path-view"
+        ]
+      },
+      {
+        "id": "q28",
+        "type": "code",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Commit:f4dd1a3",
+          "Commit:2399e96",
+          "Commit:0ea66a7",
+          "PullRequest:2",
+          "PullRequest:4"
+        ],
+        "gold": [
+          "branch:embeddings-1024"
+        ]
+      },
+      {
+        "id": "q29",
+        "type": "code",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Commit:2399e96",
+          "Commit:f4dd1a3",
+          "Commit:0ea66a7",
+          "PullRequest:2",
+          "Commit:4b19a26"
+        ],
+        "gold": [
+          "branch:github-pr-linking"
+        ]
+      },
+      {
+        "id": "q30",
+        "type": "code",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Commit:2399e96",
+          "Commit:f4dd1a3",
+          "Commit:0ea66a7",
+          "Commit:d897621",
+          "Comment:Branch and commit linking is merged in <"
+        ],
+        "gold": [
+          "commit:55085d42746824454daf3fafab94cfcf509da93c"
+        ]
+      },
+      {
+        "id": "q31",
+        "type": "code",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Commit:f4dd1a3",
+          "Commit:2399e96",
+          "Commit:0ea66a7",
+          "Commit:d897621",
+          "Commit:4b19a26"
+        ],
+        "gold": [
+          "commit:cd74fb68971aadfdbaf6301de2a5ab046d66a1ae"
+        ]
+      },
+      {
+        "id": "q32",
+        "type": "cross_source",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Comment:Branch and commit linking is merged in <",
+          "Commit:f745d2f",
+          "Issue:FALKORDBTE-15",
+          "PullRequest:10",
+          "Issue:FALKORDBTE-16"
+        ],
+        "gold": [
+          "pr:4",
+          "pr:6"
+        ]
+      },
+      {
+        "id": "q33",
+        "type": "cross_source",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Comment:Branch and commit linking is merged in <",
+          "Commit:f745d2f",
+          "PullRequest:10",
+          "Issue:FALKORDBTE-16",
+          "Issue:FALKORDBTE-15"
+        ],
+        "gold": [
+          "pr:5",
+          "pr:6",
+          "pr:8"
+        ]
+      },
+      {
+        "id": "q34",
+        "type": "decisions",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "predicted": [
+          "page:adr-allocation",
+          "Commit:66d6e8e",
+          "pr:5",
+          "Comment:Can the agent create a follow-up as soon",
+          "issue:FALKORDBTE-1"
+        ],
+        "gold": [
+          "page:adr-allocation"
+        ]
+      },
+      {
+        "id": "q35",
+        "type": "decisions",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "predicted": [
+          "page:adr-runtime",
+          "Comment:Yes. Keep source ingestion separate from",
+          "Comment:Retire the old extracted interpretation ",
+          "page:rfc-retry",
+          "issue:FALKORDBTE-3"
+        ],
+        "gold": [
+          "page:adr-runtime"
+        ]
+      },
+      {
+        "id": "q36",
+        "type": "multi_hop",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Comment:FALKORDBTE-9 is still open: the approved",
+          "Comment:Branch and commit linking is merged in <",
+          "issue:FALKORDBTE-5",
+          "issue:FALKORDBTE-9",
+          "issue:FALKORDBTE-10"
+        ],
+        "gold": [
+          "person:workspace-owner"
+        ]
+      },
+      {
+        "id": "q37",
+        "type": "multi_hop",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "pr:4",
+          "branch:github-pr-linking",
+          "Issue:FALKORDBTE-15",
+          "Commit:0ea66a7",
+          "PullRequest:3"
+        ],
+        "gold": [
+          "branch:git-history"
+        ]
+      },
+      {
+        "id": "q38",
+        "type": "ownership",
+        "answerable": false,
+        "correct": false,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "predicted": [
+          "Component:Source Ingestion & Evidence",
+          "page:ownership",
+          "Component:Agent Review Workflow",
+          "Comment:The backend connection is to the local g",
+          "Comment:The screenshot shows a failed state requ"
+        ],
+        "gold": []
+      },
+      {
+        "id": "q39",
+        "type": "ownership",
+        "answerable": false,
+        "correct": false,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "predicted": [
+          "Comment:FALKORDBTE-9 is still open: the approved",
+          "Comment:Branch and commit linking is merged in <",
+          "Issue:FALKORDBTE-16",
+          "issue:FALKORDBTE-9",
+          "issue:FALKORDBTE-10"
+        ],
+        "gold": []
+      },
+      {
+        "id": "q40",
+        "type": "dependencies",
+        "answerable": false,
+        "correct": false,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "predicted": [
+          "Comment:FALKORDBTE-9 is still open: the approved",
+          "issue:FALKORDBTE-12",
+          "issue:FALKORDBTE-1",
+          "Issue:FALKORDBTE-16",
+          "Comment:Branch and commit linking is merged in <"
+        ],
+        "gold": []
+      },
+      {
+        "id": "q41",
+        "type": "code",
+        "answerable": false,
+        "correct": false,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "predicted": [
+          "PullRequest:2",
+          "Commit:f4dd1a3",
+          "Commit:2399e96",
+          "Commit:d897621",
+          "Commit:e0eb185"
+        ],
+        "gold": []
+      },
+      {
+        "id": "q42",
+        "type": "code",
+        "answerable": false,
+        "correct": false,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "predicted": [
+          "Commit:f4dd1a3",
+          "Commit:d897621",
+          "Commit:2399e96",
+          "Commit:0ea66a7",
+          "PullRequest:2"
+        ],
+        "gold": []
+      },
+      {
+        "id": "q43",
+        "type": "documents",
+        "answerable": false,
+        "correct": false,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "predicted": [
+          "Component:Source Ingestion & Evidence",
+          "Comment:The real connector readback includes all",
+          "pr:8",
+          "Component:Agent Review Workflow",
+          "issue:FALKORDBTE-1"
+        ],
+        "gold": []
+      },
+      {
+        "id": "q44",
+        "type": "cross_source",
+        "answerable": false,
+        "correct": false,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "predicted": [
+          "Comment:Slack history and replies also work. We ",
+          "Commit:0ab144d",
+          "issue:FALKORDBTE-1",
+          "issue:FALKORDBTE-4",
+          "Commit:0ea66a7"
+        ],
+        "gold": []
+      },
+      {
+        "id": "q45",
+        "type": "decisions",
+        "answerable": false,
+        "correct": false,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "predicted": [
+          "Commit:574ea0b",
+          "pr:8",
+          "page:runbook-allocation",
+          "pr:5",
+          "Commit:bf7fd13"
+        ],
+        "gold": []
+      }
+    ],
+    "bm25": [
+      {
+        "id": "q01",
+        "type": "ownership",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "DocPage:Wayfinder: Product brief and responsibilities",
+          "Component:Agent Review Workflow",
+          "Issue:FALKORDBTE-16",
+          "Comment:<owner>, this belongs to the Age",
+          "PullRequest:5"
+        ],
+        "gold": [
+          "person:workspace-owner"
+        ]
+      },
+      {
+        "id": "q02",
+        "type": "ownership",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "DocPage:Wayfinder: Product brief and responsibilities",
+          "Component:Source Ingestion & Evidence",
+          "DocPage:Review checklist: Sources, freshness, and approved actions",
+          "Comment:Yes. Keep source ingestion separate from",
+          "Issue:FALKORDBTE-7"
+        ],
+        "gold": [
+          "person:workspace-owner"
+        ]
+      },
+      {
+        "id": "q03",
+        "type": "ownership",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Issue:FALKORDBTE-1",
+          "Commit:8af83c5",
+          "Comment:Ran with owner approval: 8 generation an",
+          "DocPage:Wayfinder: Product brief and responsibilities",
+          "Comment:FALKORDBTE-9 is still open: the approved"
+        ],
+        "gold": [
+          "person:workspace-owner"
+        ]
+      },
+      {
+        "id": "q04",
+        "type": "ownership",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Commit:bf7fd13",
+          "Comment:Ran with owner approval: 8 generation an",
+          "DocPage:Wayfinder: Product brief and responsibilities",
+          "Comment:FALKORDBTE-9 is still open: the approved",
+          "Comment:Branch and commit linking is merged in <"
+        ],
+        "gold": [
+          "person:workspace-owner"
+        ]
+      },
+      {
+        "id": "q05",
+        "type": "ownership",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Commit:4601425",
+          "PullRequest:10",
+          "DocPage:Wayfinder: Product brief and responsibilities",
+          "Comment:FALKORDBTE-9 is still open: the approved",
+          "Comment:Branch and commit linking is merged in <"
+        ],
+        "gold": [
+          "person:workspace-owner"
+        ]
+      },
+      {
+        "id": "q06",
+        "type": "dependencies",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Comment:It can prepare a proposal. A human must ",
+          "Issue:FALKORDBTE-9",
+          "Comment:The invalidation regressions pass. The l",
+          "DocPage:ADR-001: Import sources before semantic extraction",
+          "PullRequest:11"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-1",
+          "issue:FALKORDBTE-2"
+        ]
+      },
+      {
+        "id": "q07",
+        "type": "dependencies",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Comment:It can prepare a proposal. A human must ",
+          "Issue:FALKORDBTE-9",
+          "PullRequest:8",
+          "Comment:The invalidation regressions pass. The l",
+          "DocPage:ADR-001: Import sources before semantic extraction"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-8"
+        ]
+      },
+      {
+        "id": "q08",
+        "type": "dependencies",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Comment:It can prepare a proposal. A human must ",
+          "Issue:FALKORDBTE-9",
+          "Comment:The invalidation regressions pass. The l",
+          "DocPage:ADR-001: Import sources before semantic extraction",
+          "Commit:bf7fd13"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-1",
+          "issue:FALKORDBTE-2",
+          "issue:FALKORDBTE-3",
+          "issue:FALKORDBTE-5"
+        ]
+      },
+      {
+        "id": "q09",
+        "type": "dependencies",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Issue:FALKORDBTE-9",
+          "Comment:FALKORDBTE-9 is still open: the approved",
+          "Comment:It can prepare a proposal. A human must ",
+          "Commit:e0eb185",
+          "Comment:The invalidation regressions pass. The l"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-7",
+          "issue:FALKORDBTE-8"
+        ]
+      },
+      {
+        "id": "q10",
+        "type": "dependencies",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Issue:FALKORDBTE-16",
+          "Comment:It can prepare a proposal. A human must ",
+          "Issue:FALKORDBTE-9",
+          "Commit:66d6e8e",
+          "Comment:The invalidation regressions pass. The l"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-7",
+          "issue:FALKORDBTE-8"
+        ]
+      },
+      {
+        "id": "q11",
+        "type": "dependencies",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.2,
+        "recall": 0.2,
+        "f1": 0.20000000000000004,
+        "predicted": [
+          "Comment:It can prepare a proposal. A human must ",
+          "issue:FALKORDBTE-9",
+          "Commit:4601425",
+          "Comment:The invalidation regressions pass. The l",
+          "DocPage:ADR-001: Import sources before semantic extraction"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-5",
+          "issue:FALKORDBTE-6",
+          "issue:FALKORDBTE-9",
+          "issue:FALKORDBTE-10",
+          "issue:FALKORDBTE-11"
+        ]
+      },
+      {
+        "id": "q12",
+        "type": "component",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.2,
+        "recall": 0.16666666666666666,
+        "f1": 0.1818181818181818,
+        "predicted": [
+          "Component:Source Ingestion & Evidence",
+          "issue:FALKORDBTE-7",
+          "Issue:FALKORDBTE-12",
+          "DocPage:ADR-001: Import sources before semantic extraction",
+          "issue:FALKORDBTE-3"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-1",
+          "issue:FALKORDBTE-2",
+          "issue:FALKORDBTE-3",
+          "issue:FALKORDBTE-4",
+          "issue:FALKORDBTE-5",
+          "issue:FALKORDBTE-6"
+        ]
+      },
+      {
+        "id": "q13",
+        "type": "documents",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.2,
+        "recall": 0.25,
+        "f1": 0.22222222222222224,
+        "predicted": [
+          "Component:Source Ingestion & Evidence",
+          "Comment:Yes. Keep source ingestion separate from",
+          "Comment:Do not describe pending extraction, the ",
+          "Comment:Use the connector runbook for the next r",
+          "page:adr-runtime"
+        ],
+        "gold": [
+          "page:ownership",
+          "page:adr-runtime",
+          "page:runbook-runtime",
+          "page:rfc-retry"
+        ]
+      },
+      {
+        "id": "q14",
+        "type": "component",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Component:Agent Review Workflow",
+          "Issue:FALKORDBTE-16",
+          "Comment:<owner>, this belongs to the Age",
+          "PullRequest:5",
+          "Commit:66d6e8e"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-7",
+          "issue:FALKORDBTE-8",
+          "issue:FALKORDBTE-9",
+          "issue:FALKORDBTE-10",
+          "issue:FALKORDBTE-11",
+          "issue:FALKORDBTE-12"
+        ]
+      },
+      {
+        "id": "q15",
+        "type": "documents",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Component:Agent Review Workflow",
+          "Issue:FALKORDBTE-16",
+          "Comment:<owner>, this belongs to the Age",
+          "PullRequest:5",
+          "Commit:66d6e8e"
+        ],
+        "gold": [
+          "page:ownership",
+          "page:adr-allocation",
+          "page:runbook-allocation",
+          "page:rfc-retry"
+        ]
+      },
+      {
+        "id": "q16",
+        "type": "cross_source",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Comment:The Plane task list is importing. Before",
+          "page:adr-runtime",
+          "Commit:d897621",
+          "page:runbook-runtime",
+          "Comment:The work-item list alone is not enough f"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-1"
+        ]
+      },
+      {
+        "id": "q17",
+        "type": "cross_source",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Comment:We still need to repeat the semantic pro",
+          "Comment:We need explicit permission to send the ",
+          "Comment:I am concerned that a passing structural",
+          "page:adr-runtime",
+          "issue:FALKORDBTE-3"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-8"
+        ]
+      },
+      {
+        "id": "q18",
+        "type": "cross_source",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "predicted": [
+          "Comment:We need explicit permission to send the ",
+          "page:rfc-retry",
+          "page:adr-runtime",
+          "page:runbook-runtime",
+          "PullRequest:3"
+        ],
+        "gold": [
+          "page:rfc-retry"
+        ]
+      },
+      {
+        "id": "q19",
+        "type": "cross_source",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "predicted": [
+          "Comment:Can the agent create a follow-up as soon",
+          "Comment:The seeded project tasks were created as",
+          "Comment:Keep the Slack app as a bot. Writing sev",
+          "Commit:f5e9179",
+          "page:adr-allocation"
+        ],
+        "gold": [
+          "page:adr-allocation"
+        ]
+      },
+      {
+        "id": "q20",
+        "type": "cross_source",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Comment:This is a visible demo issue, so include",
+          "PullRequest:3",
+          "Commit:d897621",
+          "Comment:Use the connector runbook for the next r",
+          "PullRequest:5"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-12"
+        ]
+      },
+      {
+        "id": "q21",
+        "type": "cross_source",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "predicted": [
+          "Comment:State the source scope and missing GitHu",
+          "Commit:f5e9179",
+          "page:adr-runtime",
+          "PullRequest:3",
+          "issue:FALKORDBTE-5"
+        ],
+        "gold": [
+          "issue:FALKORDBTE-5"
+        ]
+      },
+      {
+        "id": "q22",
+        "type": "cross_source",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "issue:FALKORDBTE-2",
+          "Comment:Slack history and replies also work. We ",
+          "issue:FALKORDBTE-4",
+          "Commit:bf7fd13",
+          "PullRequest:8"
+        ],
+        "gold": [
+          "slack:t1-3",
+          "slack:t2-0"
+        ]
+      },
+      {
+        "id": "q23",
+        "type": "cross_source",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "issue:FALKORDBTE-2",
+          "Commit:4601425",
+          "Comment:Slack history and replies also work. We ",
+          "PullRequest:10",
+          "issue:FALKORDBTE-4"
+        ],
+        "gold": [
+          "slack:t4-4",
+          "slack:t5-4"
+        ]
+      },
+      {
+        "id": "q24",
+        "type": "code",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Commit:8af83c5",
+          "PullRequest:4",
+          "Commit:55085d4",
+          "Commit:e0eb185",
+          "Commit:4b19a26"
+        ],
+        "gold": [
+          "branch:embeddings-1024"
+        ]
+      },
+      {
+        "id": "q25",
+        "type": "code",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Commit:f4dd1a3",
+          "Comment:Branch and commit linking is merged in <",
+          "PullRequest:4",
+          "Commit:e0eb185",
+          "Commit:55085d4"
+        ],
+        "gold": [
+          "branch:github-connector"
+        ]
+      },
+      {
+        "id": "q26",
+        "type": "code",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Commit:2399e96",
+          "Comment:Branch and commit linking is merged in <",
+          "Issue:FALKORDBTE-15",
+          "PullRequest:4",
+          "Commit:55085d4"
+        ],
+        "gold": [
+          "branch:git-history"
+        ]
+      },
+      {
+        "id": "q27",
+        "type": "code",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Commit:c7527c5",
+          "Commit:e0eb185",
+          "Commit:4b19a26",
+          "Commit:2399e96",
+          "Commit:8af83c5"
+        ],
+        "gold": [
+          "branch:agent-path-view"
+        ]
+      },
+      {
+        "id": "q28",
+        "type": "code",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Commit:f4dd1a3",
+          "PullRequest:4",
+          "Commit:4b19a26",
+          "Commit:2399e96",
+          "Commit:e0eb185"
+        ],
+        "gold": [
+          "branch:embeddings-1024"
+        ]
+      },
+      {
+        "id": "q29",
+        "type": "code",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Commit:2399e96",
+          "Comment:Branch and commit linking is merged in <",
+          "PullRequest:4",
+          "Commit:4b19a26",
+          "Commit:e0eb185"
+        ],
+        "gold": [
+          "branch:github-pr-linking"
+        ]
+      },
+      {
+        "id": "q30",
+        "type": "code",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "predicted": [
+          "Issue:FALKORDBTE-15",
+          "Commit:2399e96",
+          "commit:55085d42746824454daf3fafab94cfcf509da93c",
+          "PullRequest:11",
+          "Comment:Branch and commit linking is merged in <"
+        ],
+        "gold": [
+          "commit:55085d42746824454daf3fafab94cfcf509da93c"
+        ]
+      },
+      {
+        "id": "q31",
+        "type": "code",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Issue:FALKORDBTE-15",
+          "Commit:c7527c5",
+          "Commit:2399e96",
+          "commit:55085d42746824454daf3fafab94cfcf509da93c",
+          "PullRequest:8"
+        ],
+        "gold": [
+          "commit:cd74fb68971aadfdbaf6301de2a5ab046d66a1ae"
+        ]
+      },
+      {
+        "id": "q32",
+        "type": "cross_source",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Issue:FALKORDBTE-15",
+          "Comment:Branch and commit linking is merged in <",
+          "Commit:66d6e8e",
+          "Commit:d897621",
+          "PullRequest:5"
+        ],
+        "gold": [
+          "pr:4",
+          "pr:6"
+        ]
+      },
+      {
+        "id": "q33",
+        "type": "cross_source",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.4,
+        "recall": 0.6666666666666666,
+        "f1": 0.5,
+        "predicted": [
+          "Commit:66d6e8e",
+          "Commit:d897621",
+          "pr:5",
+          "pr:8",
+          "PullRequest:1"
+        ],
+        "gold": [
+          "pr:5",
+          "pr:6",
+          "pr:8"
+        ]
+      },
+      {
+        "id": "q34",
+        "type": "decisions",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "predicted": [
+          "page:adr-allocation",
+          "pr:5",
+          "Comment:The seeded project tasks were created as",
+          "Commit:66d6e8e",
+          "Comment:I am concerned that a passing structural"
+        ],
+        "gold": [
+          "page:adr-allocation"
+        ]
+      },
+      {
+        "id": "q35",
+        "type": "decisions",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "predicted": [
+          "page:adr-runtime",
+          "Comment:Yes. Keep source ingestion separate from",
+          "issue:FALKORDBTE-3",
+          "Comment:Retire the old extracted interpretation ",
+          "PullRequest:7"
+        ],
+        "gold": [
+          "page:adr-runtime"
+        ]
+      },
+      {
+        "id": "q36",
+        "type": "multi_hop",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "page:ownership",
+          "Comment:FALKORDBTE-9 is still open: the approved",
+          "Comment:<owner>, this belongs to the Age",
+          "Commit:e0eb185",
+          "pr:5"
+        ],
+        "gold": [
+          "person:workspace-owner"
+        ]
+      },
+      {
+        "id": "q37",
+        "type": "multi_hop",
+        "answerable": true,
+        "correct": false,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "predicted": [
+          "Comment:Branch and commit linking is merged in <",
+          "pr:4",
+          "commit:55085d42746824454daf3fafab94cfcf509da93c",
+          "Issue:FALKORDBTE-15",
+          "branch:github-pr-linking"
+        ],
+        "gold": [
+          "branch:git-history"
+        ]
+      },
+      {
+        "id": "q38",
+        "type": "ownership",
+        "answerable": false,
+        "correct": false,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "predicted": [
+          "page:ownership",
+          "Component:Agent Review Workflow",
+          "Component:Source Ingestion & Evidence",
+          "page:runbook-allocation",
+          "Issue:FALKORDBTE-16"
+        ],
+        "gold": []
+      },
+      {
+        "id": "q39",
+        "type": "ownership",
+        "answerable": false,
+        "correct": false,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "predicted": [
+          "page:ownership",
+          "Comment:FALKORDBTE-9 is still open: the approved",
+          "Comment:Branch and commit linking is merged in <",
+          "pr:5",
+          "issue:FALKORDBTE-1"
+        ],
+        "gold": []
+      },
+      {
+        "id": "q40",
+        "type": "dependencies",
+        "answerable": false,
+        "correct": false,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "predicted": [
+          "Comment:It can prepare a proposal. A human must ",
+          "issue:FALKORDBTE-9",
+          "Comment:The invalidation regressions pass. The l",
+          "page:adr-runtime",
+          "Comment:Please do not count these seeded project"
+        ],
+        "gold": []
+      },
+      {
+        "id": "q41",
+        "type": "code",
+        "answerable": false,
+        "correct": false,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "predicted": [
+          "Commit:e0eb185",
+          "Commit:4b19a26",
+          "Commit:2399e96",
+          "Commit:8af83c5",
+          "Commit:bf7fd13"
+        ],
+        "gold": []
+      },
+      {
+        "id": "q42",
+        "type": "code",
+        "answerable": false,
+        "correct": false,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "predicted": [
+          "Issue:FALKORDBTE-15",
+          "Commit:2399e96",
+          "commit:55085d42746824454daf3fafab94cfcf509da93c",
+          "pr:4",
+          "PullRequest:11"
+        ],
+        "gold": []
+      },
+      {
+        "id": "q43",
+        "type": "documents",
+        "answerable": false,
+        "correct": false,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "predicted": [
+          "Comment:Do not describe pending extraction, the ",
+          "PullRequest:11",
+          "Issue:FALKORDBTE-16",
+          "Component:Agent Review Workflow",
+          "Component:Source Ingestion & Evidence"
+        ],
+        "gold": []
+      },
+      {
+        "id": "q44",
+        "type": "cross_source",
+        "answerable": false,
+        "correct": false,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "predicted": [
+          "Commit:f5e9179",
+          "Commit:d897621",
+          "issue:FALKORDBTE-10",
+          "Comment:The screenshot shows a failed state requ",
+          "PullRequest:3"
+        ],
+        "gold": []
+      },
+      {
+        "id": "q45",
+        "type": "decisions",
+        "answerable": false,
+        "correct": false,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "predicted": [
+          "Commit:4601425",
+          "pr:8",
+          "pr:5",
+          "PullRequest:11",
+          "Comment:The real connector readback includes all"
+        ],
+        "gold": []
+      }
+    ]
+  }
+}

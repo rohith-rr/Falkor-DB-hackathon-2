@@ -20,7 +20,7 @@ The video is recorded side by side: an MCP agent (Codex or Claude Code) on one h
 
 | Time | Show | Narration and evidence |
 |---|---|---|
-| 0:00–0:30 | Problem, then the graph view | "Context lives in Plane, Slack and GitHub. Wayfinder connects it in one FalkorDB graph, with evidence for every claim." |
+| 0:00–0:30 | Problem, the benchmark number, then the graph view | "Context lives in Plane, Slack and GitHub. Wayfinder connects it in one FalkorDB graph, with evidence for every claim. On 45 pre-registered questions, graph tools answer 36 of 37 exactly and refuse all 8 unanswerable ones; vector search scores F1 0.106." |
 | 0:30–1:15 | Agent: "What happened with linking branches and commits to Plane? Show the task, the Slack discussion, the PR and its commits." | The graph view lights up Slack → FALKORDBTE-15 → PR #4 → branch and commits. "Real records, linked only by URLs and Plane keys found in the text." |
 | 1:15–1:30 | Agent: "Which work items and PRs connect the most other work? What is the shortest connection from the Slack announcement to the `git-history` branch?" | `graph_algorithm` runs native betweenness and shortest path on the current graph. The path view highlights Slack message → PR #4 → branch. "Graph algorithms are agent tools, not offline reports." |
 | 1:30–2:15 | Agent: "Why must a person approve agent-created tasks? Quote the source." Then: "What don't you know?" | The extracted Decision, with its exact ADR-002 quote and source revision. The agent states low extraction recall and partial commit coverage. |
