@@ -89,7 +89,7 @@ function caps(){
     [esc(f.action.task),'Acts, with a person’s approval',`The agent drafted “${esc(f.action.title)}”. A person approved its exact payload hash (${esc(f.action.hash.slice(0,12))}…) in a terminal, and only then was the Plane task created. A second execute returned the same task.`],
     ['4','Native graph algorithms as agent tools','PageRank, betweenness, connected components and shortest path, run by FalkorDB over a temporary projection of current records only. Try them in the explorer below.'],
     [`${Object.values(f.claims).reduce((a,b)=>a+b,0)}`,'Interpretations tied to quotes',`${Object.entries(f.claims).map(([k,v])=>`${v} ${k.toLowerCase()}${v>1?'s':''}`).join(', ')}. Each records its exact quote and source revision, for example “${esc(f.action.decision.evidence_quote)}”.`],
-    ['MCP','Every step is visible','The agent uses 29 read tools and 3 action tools over MCP. A live graph view highlights each tool call’s entities and route next to the agent while it works.']];
+    ['MCP','Every step is visible','The agent uses 30 read tools and 4 action tools over MCP. A live graph view highlights each tool call’s entities and route next to the agent while it works.']];
   $('caps').innerHTML=cards.map(([big,t,p])=>`<div class="cap"><div class="big">${big}</div><h3>${t}</h3><p>${p}</p></div>`).join('');
 }
 

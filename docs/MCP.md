@@ -4,7 +4,7 @@ Directory expertise now uses v2 scoring. See [expertise calculation, repair,
 review backfill and hourly refresh](EXPERTISE.md). Restart the MCP client/server
 after upgrading to load the new tools' scoring semantics.
 
-The local stdio server exposes **29 tools** that only read the knowledge graph, two resources and three prompts.
+The local stdio server exposes **30 tools** that only read the knowledge graph, two resources and three prompts.
 It uses the graph named by `FALKORDB_GRAPH`. Set it in the client configuration to
 `wayfinder_company_live_demo` or `wayfinder_company_demo`, because the repository `.env` may name
 another graph. It performs no ingestion, repair, or generation calls. The explicit
@@ -113,6 +113,20 @@ the chain it supersedes, and marks each decision row with `holds` and `supersede
 superseded decision as SUPERSEDED evidence and the statement as OUT_OF_DATE, with `replaced_by` pointing at the holder.
 
 These are review signals computed from recorded evidence. A stale flag is not proof a page is wrong, and a bus factor measures recorded work, not what people know.
+
+## Fix queue
+
+`fix_queue(limit)` gathers the findings worth turning into work, each with its evidence IDs and a suggested task title and description:
+
+| Kind | Source | Suggested title |
+|---|---|---|
+| `DISPUTED_DECISION` | Two current decisions about the same target, extracted from different source units (what `verify_answer` calls DISPUTED) | Resolve conflicting decisions about *target*: "*a*" vs "*b*" |
+| `STALE_DOCUMENT` | A page `stale_documents` marks POSSIBLY_STALE | Update *page*: *PRs* changed its code since |
+| `SINGLE_HOLDER` | A component whose `knowledge_risk` bus factor is 1 | Add a second owner or reviewer for *component* |
+
+Disputed decisions come first, then stale pages, then single holders. Each finding has a stable ID (for example `fix:stale:<page id>`), the component it belongs to, and `actions`: proposals already prepared from it, with their status.
+
+With `--enable-actions`, `prepare_fix(finding_id)` turns one finding into a proposal. It recomputes the queue and refuses a finding that no longer holds, then builds a brief that cites each evidence record with a source URL as COMPUTED, and calls the same `prepare` as `prepare_plane_work_item`. The proposal is bound to its payload hash. A person approves it outside MCP, and `execute_plane_work_item` refuses if the approval does not match the hash or if any cited evidence was retired or edited since. The CLI has the same path: `python -m wayfinder.company fix-queue` and `prepare-fix FINDING_ID`.
 
 ## Watch the agent's path in the graph
 

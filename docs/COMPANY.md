@@ -100,7 +100,7 @@ minutes, without overlapping instances. Check Task Scheduler for errors.
 ## Agent investigation through MCP
 
 Set `FALKORDB_GRAPH=wayfinder_company_demo` in the MCP client's environment and restart
-its server. The default server has 29 tools that only read the knowledge graph, including native graph algorithms, answer verification and saved-answer re-checks, and three prompts. Use
+its server. The default server has 30 tools that only read the knowledge graph, including native graph algorithms, answer verification, saved-answer re-checks and the fix queue, and three prompts. Use
 `review_component("Node Runtime")` or ask:
 
 > Investigate Resource Allocation. Navigate from owners to Plane work items, ADRs,
