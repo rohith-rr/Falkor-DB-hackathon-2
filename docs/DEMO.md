@@ -78,6 +78,8 @@ For an uncertain outcome, reconcile the existing action instead of preparing a d
 
 ## Final submission checks
 
+- Showcase site published on GitHub Pages (make the repo public, then Settings → Pages → Source: GitHub Actions). Re-export after the final refresh: `python scripts/build_site_data.py`.
+
 - Setup instructions, graph model and [operational Cypher](QUERIES.md).
 - [AI use disclosure](AI-USE-DISCLOSURE.md), with synthetic versus live origins and limitations.
 - Evidence:
